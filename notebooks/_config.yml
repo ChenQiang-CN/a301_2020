@@ -1,0 +1,27 @@
+#######################################################################################
+# Book settings
+title: "ATSC 301"
+logo: images/logo.png
+author: Philip Austin
+email: paustin@eoas.ubc.ca
+description: >- # this means to ignore newlines until "baseurl:"
+  Website for EOAS ATSC 301
+
+execute:
+  execute_notebooks: cache
+
+exclude_patterns: ["*ipynb"]
+
+repository:
+  url: https://github.com/phaustin/Problem-Solving-with-Python-37-Edition.git
+  branch: jb
+  path_to_book: notebooks
+
+launch_buttons:
+  notebook_interface: "classic" # The interface interactive links will activate ["classic", "jupyterlab"]
+  jupyterhub_url: http://node07.eos.ubc.ca:8000
+  
+html:
+  home_page_in_navbar: true
+  baseurl: http://node07.eos.ubc.ca:8080
+

@@ -1,0 +1,369 @@
+.. _How to think like a computer scientist: http://interactivepython.org/courselib/static/thinkcspy/index.html
+
+.. _Python crash course: http://nbviewer.ipython.org/github/barbagroup/CFDPython/blob/master/lessons/00_Quick_Python_Intro.ipynb
+
+.. _Introduction to Python programming: http://nbviewer.ipython.org/github/jrjohansson/scientific-python-lectures/blob/master/Lecture-1-Introduction-to-Python-Programming.ipynb
+
+.. _Notes on geometry and planck function: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/a301_geometry_notes.pdf
+
+.. _Notes on radiative equilibrium: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/radiative_equilibrium.pdf
+
+.. _my youtube channel: https://www.youtube.com/channel/UCR_ICP0diTXSU5aJ7R5v0rw
+
+.. _satellite notebook: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/satelliteI.ipynb
+
+.. _wiens analytic notebook: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/analytic_wiens.ipynb
+
+.. _wiens analytic notebook solution: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/analytic_wiens_soln.ipynb
+
+.. _inverse planck problem: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/inverse_planck.ipynb
+
+.. _satellite2 notebook: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/satelliteII.ipynb
+
+.. _satellite3 notebook: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/satellite3.ipynb
+
+.. _satellite4 notebook: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/satellite4.ipynb
+
+.. _satellite flux solution: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/satellite_flux_solution.ipynb
+
+.. _wh day13 solutions: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/wh_day13_solutions.ipynb
+
+.. _Notes on Beers law: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/beers_law_notes.pdf
+
+.. _Schwartzchild notes: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/schwartzchild.pdf
+
+.. _hydrostat.py: https://github.com/a301-teaching/classcode/blob/master/lib/hydrostat.py
+
+.. _two_layer_analytic.py: https://github.com/a301-teaching/classcode/blob/master/lib/two_layer_analytic.py
+
+.. _transmit_top.py: https://github.com/a301-teaching/classcode/blob/master/lib/transmit_top.py
+
+.. _stratospheric cooling article: http://www.yaleclimateconnections.org/2013/09/vertical-human-fingerprint-found-in-stratospheric-cooling-tropospheric-warming
+
+.. _satellite flux problem: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/satellite_flux_problem.ipynb
+
+.. _Tucson zenith angle notebook: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/tucson_elevation.ipynb
+
+.. _SchwartzchildII notes: http://clouds.eos.ubc.ca/~phil/courses/atsc301/textfiles/schwartzII.pdf
+
+.. _mean free path reading: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/bohren_mean_free_path.pdf
+
+.. _E340 Day 7: https://www.dropbox.com/s/hs4harhnmashoc9/Day07PostClassSlides.pdf?dl=0
+
+.. _E340 Assignment 2: https://www.dropbox.com/s/p5zvrs0vsk7aw7g/Assignment02.pdf?dl=0
+
+.. _E340 Assignment 2 solution: https://www.dropbox.com/s/uie7xn7lbwgrm9j/Assignment02Solutions.pdf?dl=0
+
+.. _E340 Day 6 reading: https://www.dropbox.com/s/7imb6uo1rfq9u5j/Day06Reading.pdf?dl=0
+
+.. _Midterm equation sheet: http://clouds.eos.ubc.ca/~phil/courses/atsc301/textfiles/mid_eqn.pdf
+
+.. _2010 Midterm: http://clouds.eos.ubc.ca/~phil/courses/atsc301/textfiles/mid_2010.pdf
+
+.. _Midterm prob 1 soln: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/mid_2010_q1.pdf
+
+.. _Midterm prob 2 soln: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/mid_2010_q2.pdf
+
+.. _practice midterm questions: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/extra_mid_ques.pdf
+
+.. _My youtube channel: https://www.youtube.com/channel/UCR_ICP0diTXSU5aJ7R5v0rw
+
+.. _Getting MODIS data: https://www.youtube.com/watch?v=nzpVHK9BhcM
+
+.. _Introduction to github: https://www.youtube.com/watch?v=1hM3A5HRCAM&list=UUR_ICP0diTXSU5aJ7R5v0rw
+
+.. _Introduction to bash: https://www.youtube.com/watch?v=cUqLmMT0LlU
+
+.. _Software Carpentry introduction to the shell: http://software-carpentry.org/v5/novice/shell/index.html
+
+.. _Software Carpentry introduction to github: http://software-carpentry.org/v5/novice/git/index.html
+
+.. _practice midterm solutions q1-3: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/extra_probs_1_2.pdf
+
+.. _practice midterm solutions q4-7: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/mid_a301_2012_solutions.pdf
+
+.. _2008 midterm solutions: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/mid_2008_answers.pdf
+
+.. _mid-term study topics: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/mid_learningobj.pdf
+
+.. _change of variables example: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/stefan_boltzman.pdf
+
+.. _WH probs 4.20 and 4.21: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/whprobs4_20_4_21.pdf
+
+.. _2014 mid-term solutions: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/mid_term_2014_solutions.pdf
+
+.. _Flux and heating rate notebook: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/radiance_flux_heating.ipynb
+
+.. _radiances.py: https://github.com/a301-teaching/classcode/blob/master/lib/radiances.py
+
+.. _fluxes.py: https://github.com/a301-teaching/classcode/blob/master/lib/fluxes.py
+
+.. _simple_atmos.py: https://github.com/a301-teaching/classcode/blob/master/lib/simple_atmos.py
+
+.. _equil_run.py: https://github.com/a301-teaching/classcode/blob/master/lib/equil_run.py
+
+.. _plot4_equil.py: https://github.com/a301-teaching/classcode/blob/master/lib/plot4_equil.py
+
+.. _WH Figure 4.33: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/wh_fig_4_33.pdf
+
+.. _Stull Ch8 Sounder pages: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/stull_ch8_234_240.pdf
+
+.. _planck.py: https://github.com/a301-teaching/classcode/blob/master/lib/planck.py
+
+.. _test_planck.py: https://github.com/a301-teaching/classcode/blob/master/tests/test_planck.py
+
+.. _bright_lapse_toa.py: https://github.com/a301-teaching/classcode/blob/master/lib/bright_lapse_toa.py
+
+.. _COMET radar course: http://www.meted.ucar.edu/radar/basic_wxradar
+
+.. _marshall_palmer.py: https://github.com/phaustin/a301_code/blob/master/a301/scripts/marshall_palmer.py
+
+.. _a10_a15.py: https://github.com/a301-teaching/classcode/blob/master/lib/a10_a15.py
+
+.. _phaseshift.py: https://github.com/phaustin/a301_code/blob/master/a301/scripts/phaseshift.py
+
+.. _stull_radar.py: https://github.com/a301-teaching/classcode/blob/master/lib/stull_radar.py
+
+.. _pulse_pair.py: https://github.com/a301-teaching/a301_code/blob/master/a301examples/pulse_pair.py
+
+.. _ETH Radar lecture 1: downloads/MAS_radar1.pdf
+
+.. _ETH Radar lecture 2: downloads/MAS_radar2.pdf
+
+.. _Understanding Map Projections: downloads/understanding_map_projections.pdf
+
+.. _Doppler notes:  http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/doppler_notes_new.pdf
+
+.. _stull_radar_II.py: https://github.com/a301-teaching/classcode/blob/master/lib/stull_radar_II.py
+
+.. _Stull Chapter 8:  http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/stull_ch8.pdf
+
+.. _doppler divergence notes: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/divergence_doppler.pdf
+
+.. _NOAA doppler notes: downloads/noaa_doppler.pdf
+
+.. _satelliteI_h5.ipynb: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/satelliteI_h5.ipynb
+
+.. _satellite_basemap_h5.ipynb: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/satellite_basemap_h5.ipynb
+
+.. _Bulletin of the AMS Cloudsat:  http://cloudsat.atmos.colostate.edu/BAMS_CloudSat_CR.pdf
+
+.. _Modis users guide: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/modis_users_guide.pdf
+
+.. _h5_write.ipynb: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/h5_write.ipynb
+
+.. _a21_24.py: https://github.com/a301-teaching/classcode/blob/master/lib/a21_24.py
+
+.. _subset.py: https://github.com/a301-teaching/classcode/blob/master/lib/subset.py
+
+.. _cloud_fraction.ipynb: http://nbviewer.ipython.org/url/clouds.eos.ubc.ca/~phil/Downloads/a301/notebooks/cloud_fraction.ipynb
+
+.. _test_output.h5: http://clouds.eos.ubc.ca/~phil/Downloads/a301/test_output.h5
+
+.. _doppler problem: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/doppler_problem.pdf
+
+.. _cloud_brightness.ipynb: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/cloud_brightness.ipynb
+
+.. _A2005188.h5: http://clouds.eos.ubc.ca/~phil/Downloads/a301/A2005188.h5
+
+.. _doppler problem solution: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/final_doppler.ipynb
+
+.. _radar I notebook: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/a301_radarI.ipynb
+
+.. _coding problem: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/coding.pdf
+
+.. _calc_scale_height.py: https://github.com/a301-teaching/classcode/blob/master/lib/calc_scale_height.py
+
+.. _scale_height.ipynb: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/scale_height.ipynb
+
+.. _h5dump.py: https://github.com/a301-teaching/classcode/blob/master/lib/h5dump.py
+
+.. _orbit_tool.py: https://github.com/a301-teaching/classcode/blob/master/lib/cloudsat/orbit_tool.py
+
+.. _cloudsat_tool.py: https://github.com/a301-teaching/classcode/blob/master/lib/cloudsat/cloudsat_tool.py
+
+.. _radiation questions: http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/radiation_questions.pdf
+
+.. _2006 final exam: downloads/final_2006_correct.pdf
+
+.. _2008 final exam: downloads/final_2008.pdf
+
+.. _2008 final prob 1 solution: text/final_2008_prob1_layer_sol.pdf
+
+.. _2018 equation sheet: text/a301_2018_eqn_sheet.pdf
+
+.. _2008 final probs 2 3 solutions: text/final_2008_q2_3_radar_phasor_sol.pdf
+
+.. _2010 final exam: downloads/final_2010.pdf
+
+.. _2014 final exam: downloads/a301_final_2014_dec9.pdf
+
+.. _Final equation sheet (Dec. 5 version): http://clouds.eos.ubc.ca/~phil/courses/atsc301/text/final_2014_equations_dec5.pdf
+
+.. _explore_radar.ipynb: http://nbviewer.ipython.org/url/clouds.eos.ubc.ca/~phil/Downloads/a301/notebooks/explore_radar.ipynb
+
+.. _radiation_practice.ipynb: http://nbviewer.ipython.org/github/a301-teaching/classcode/blob/master/notebooks/radiation_practice.ipynb
+
+.. _plot_hanna.ipynb: http://nbviewer.ipython.org/url/clouds.eos.ubc.ca/~phil/Downloads/a301/notebooks/plot_hanna.ipynb
+
+.. _Euroscipy tutorials: http://nbviewer.ipython.org/github/pelson/lessons_for_a_scientific_programmer/tree/master/2014-euroscipy/
+
+.. _Software carpentry git tutorial: http://www.software-carpentry.org/v5/novice/git/
+
+.. _Ocean color web site: http://www.oceanopticsbook.info/view/absorption/physics_of_absorption
+
+.. _shell variable tutorial: https://swcarpentry.github.io/shell-extras/08-environment-variables.html
+
+.. _Introduction: ./whirlwind/00-Introduction.html
+
+.. _Practical Meteorology: https://www.eoas.ubc.ca/books/Practical_Meteorology
+
+.. _A Whirlwind Tour of Python: https://github.com/jakevdp/WhirlwindTourOfPython/blob/master/Index.ipynb
+
+.. _Python Data Science Handbook: https://jakevdp.github.io/PythonDataScienceHandbook/
+
+.. _Introduction to Python for Science: http://clouds.eos.ubc.ca/~phil/djpine_python
+
+.. _Whirlwind: http://clouds.eos.ubc.ca/~phil/courses/atsc301/whirlwind/Index.html
+
+.. _whirlwind.zip: http://clouds.eos.ubc.ca/~phil/courses/atsc301/downloads/WhirlwindTourOfPython-notebooks.zip
+
+.. _sw carpentry bash 2: http://swcarpentry.github.io/shell-novice/02-filedir
+
+.. _sw carpentry bash 3: http://swcarpentry.github.io/shell-novice/03-create
+
+.. _Stull Chapter 2: https://www.eoas.ubc.ca/books/Practical_Meteorology/prmet102/Ch02-radiation-v102b.pdf
+
+.. _assignment1_solution.ipynb: http://nbviewer.jupyter.org/github/a301-teaching/a301_code/blob/master/notebooks/assignment1_solution.ipynb
+
+.. _day3_datetime.ipynb:  http://nbviewer.jupyter.org/github/a301-teaching/a301_code/blob/master/notebooks/day3_datetime.ipynb
+
+.. _derivs_and_ints.ipynb: http://nbviewer.jupyter.org/github/a301-teaching/a301_code/blob/master/notebooks/derivs_and_ints.ipynb
+
+.. _git: https://swcarpentry.github.io/git-novice
+
+.. _a301 repository: https://github.com/a301-teaching/a301_code
+
+.. _The Pine Book plotting chapter:  http://clouds.eos.ubc.ca/~phil/djpine_python/chap5/chap5_plot.html
+
+.. _satellite_I.ipynb: http://nbviewer.jupyter.org/github/a301-teaching/a301_code/blob/master/notebooks/satellite_I.ipynb
+
+.. _assignment3 solution: http://nbviewer.jupyter.org/github/a301-teaching/a301_code/blob/master/notebooks/assignment3_solution.ipynb
+
+.. _satellite_II.ipynb: http://nbviewer.jupyter.org/github/a301-teaching/a301_code/blob/master/notebooks/satellite_II.ipynb
+
+.. _satellite_III.ipynb: http://nbviewer.jupyter.org/github/a301-teaching/a301_code/blob/master/notebooks/satellite_III.ipynb
+
+
+.. _sensors.ipynb: http://nbviewer.jupyter.org/github/a301-teaching/a301_code/blob/master/notebooks/sensors.ipynb
+
+.. _radiance_conservation.ipynb: http://nbviewer.jupyter.org/github/a301-teaching/a301_code/blob/master/notebooks/radiance_conservation.ipynb
+
+
+.. _beers-discuss: ./html/beers_law.html#beers-discuss
+
+.. _coding tips: ./html/coding_tips.html
+
+.. _coding tips: ./html/coding_tips.html
+
+.. _flux to radiance: html/flux_to_radiance.html
+
+.. _Satellite IV: html/satellite_IV.html
+
+.. _fast_hist: https://github.com/a301-teaching/a301_code/blob/c779af057e49f909df6e55ade93fc108b8080cd1/a301lib/geolocate.py#L83
+
+.. _fast_avg: https://github.com/a301-teaching/a301_code/blob/c779af057e49f909df6e55ade93fc108b8080cd1/a301lib/geolocate.py#L201
+
+.. _basemap: http://matplotlib.org/basemap
+
+.. _masked arrays: http://docs.scipy.org/doc/numpy/reference/maskedarray.html
+
+.. _NASA color tutorial: http://earthobservatory.nasa.gov/blogs/elegantfigures/2013/08/05/subtleties-of-color-part-1-of-6/index.html
+
+.. _radiance conservation solution: html/radiance_conservation_solution.html
+
+.. _satellite temperatures: html/satellite_temps.html
+
+.. _satellite radiance questions: html/satellite_radiance_question.html
+
+.. _pallette notebook: html/a301_pallettes.html
+
+.. _satellite radiance solution: html/satellite_radiance_solution.html
+
+.. _MODIS channel 1: html/satellite_visible.html
+
+.. _NDVI: https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index
+
+.. _satellite_ndvi.ipynb: http://clouds.eos.ubc.ca/~phil/courses/atsc301/html/satellite_ndvi.html
+
+.. _vancouver_visible.ipynb: http://clouds.eos.ubc.ca/~phil/courses/atsc301/html/vancouver_visible.html
+
+.. _vancouver_zoom.ipynb: http://clouds.eos.ubc.ca/~phil/courses/atsc301/html/vancouver_zoom.html
+
+.. _hydrostatic.ipynb: http://clouds.eos.ubc.ca/~phil/courses/atsc301/html/hydrostatic.html
+
+.. _printable notes: http://clouds.eos.ubc.ca/~phil/courses/atsc301/downloads/rad_notes.pdf
+
+.. _October 7 assignment: http://clouds.eos.ubc.ca/~phil/courses/atsc301/html/hydrostatic.html#ooct7assign
+
+.. _printable notes: http://clouds.eos.ubc.ca/~phil/courses/atsc301/downloads/rad_notes.pdf
+
+.. _mid-term equation sheet: http://clouds.eos.ubc.ca/~phil/courses/atsc301/downloads/mid_2016_learning_obj.pdf
+
+.. _mid-term practice questions I: http://clouds.eos.ubc.ca/~phil/courses/atsc301/downloads/mid_2016_problems.pdf
+
+.. _mid-term practice questions II: http://clouds.eos.ubc.ca/~phil/courses/atsc301/downloads/mid_2016_problemsII.pdf
+
+.. _rad_calc.ipynb: html/rad_calc.html
+
+.. _level2_vapor.ipynb: html/level2_vapor.html
+
+.. _mid_solutions_2016_I.pdf: downloads/mid_sol_2016_problems.pdf
+
+.. _rad_calc_solution.ipynb: html/rad_calc_solution.html
+
+.. _level2_vapor_solution.ipynb: html/level2_vapor_solution.html
+
+.. _radiation.py: https://github.com/a301-teaching/a301_code/blob/fe86d72f672b505f3e8afe17d378dbf2137cb0c4/a301lib/radiation.py#L66-L115
+
+.. _diff_lapse_toa.py: https://github.com/a301-teaching/a301_code/blob/master/a301examples/diff_lapse_toa.py
+
+.. _2012 final equation sheet: downloads/a301_final_2012_equations.pdf
+
+.. _comet radar slides pdf: downloads/comet_wxradar.pdf
+
+.. _Midterm solutions: downloads/mid_2016_sols.pdf
+
+.. _modis_to_h5.py: https://github.com/a301-teaching/a301_code/blob/master/a301utils/modis_to_h5.py
+
+.. _h5_to_tiff.py: https://github.com/a301-teaching/a301_code/blob/master/a301utils/h5_to_tiff.py
+
+.. _ground_track.ipynb: html/ground_track.html
+
+.. _vector_data.ipynb: html/vector_data.html
+
+.. _layertops_demo.ipynb: html/layertops_demo.html
+
+.. _cloudsat_reflectivity.ipynb: html/cloudsat_reflectivity.html
+
+.. _cloudsat_reflectivity_solution.ipynb: html/cloudsat_reflectivity_solution.html
+
+.. _shapefiles.ipynb: html/shapefiles.html
+
+.. _calipso_mcmurray.ipynb: html/calipso_mcmurray.html
+
+.. _stretch_bands.ipynb: html/stretch_bands.html
+
+.. _heating_rate.ipynb: html/heating_rate.html
+
+.. _docker_demo.ipynb: html/docker_demo.html
+
+.. _heating_rate_lidar.ipynb: html/heating_rate_lidar.html
+
+.. _2006 final solutions: downloads/a301_2006_final_solutions.pdf
+
+.. _2008 final solutions: downloads/final_2008_solutions.pdf
+
+
+
+
