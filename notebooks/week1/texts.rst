@@ -13,6 +13,15 @@ Remote sensing
 Python
 ======
 
+Main text
+---------
+
+
+* `Problem Solving with Python <http://node07.eos.ubc.ca:8080>`_
+
+Additional Resources
+--------------------
+
 * University of Helsinki `Department of Geosciences and Geography <https://www.helsinki.fi/en/faculty-of-science/faculty/geosciences-and-geography>`_
 
   * `Geopython short course <https://geo-python.github.io/2017/>`_

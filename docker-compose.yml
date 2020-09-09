@@ -15,7 +15,7 @@ services:
     build:
       context: .
       dockerfile: content.dockerfile
-    image: phaustin/a301_content:sep09
+    image: phaustin/a301_content:sep09b
     volumes:
       - type: volume
         source: a301-notebooks
@@ -43,14 +43,14 @@ services:
 
 
     networks:
-      - jupyterhub
+      - a301_net
 
                  
 # explicitly name the network rather than letting docker_compose assign
 networks:
-    jupyterhub:
+    a301_net:
       driver: bridge
-      name: jupyterhub
+      name: a301_net
 
 volumes:
   a301-notebooks:
