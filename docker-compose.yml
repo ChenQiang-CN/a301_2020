@@ -15,7 +15,7 @@ services:
     build:
       context: .
       dockerfile: content.dockerfile
-    image: phaustin/a301_content:sep09b
+    image: phaustin/a301_content:sep14
     volumes:
       - type: volume
         source: a301-notebooks
@@ -28,7 +28,7 @@ services:
     build:
       context: apache_webserver
       dockerfile: Dockerfile
-    image: phaustin/a301_server:sep09
+    image: phaustin/a301_server:sep14
     depends_on: [content]
     container_name: a301_webserver
     ports:
