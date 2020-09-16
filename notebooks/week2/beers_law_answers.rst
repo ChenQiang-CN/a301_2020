@@ -1,11 +1,11 @@
-.. _beers_law:
+.. _beers_law_answers:
 
 Beers and inverse squared laws
 ++++++++++++++++++++++++++++++
 
 Comments/derivations for the material in  Stull p. 38-39
 
-.. _differences:
+.. _differences_answers:
 
 Differences, differentials and derivatives
 ==========================================
@@ -118,7 +118,7 @@ Then we ge:
 
 
 .. math:: \frac{dE^\prime}{E^\prime} = d \ln E^\prime = -d \tau^\prime
-  :label: diffbeers
+  :label: diffbeers_answer
           
 and integrating from :math:`\tau^\prime=0,\ E^\prime=E_i` to
 :math:`\tau^\prime = \tau,E^\prime = E` gives:
@@ -141,7 +141,7 @@ don't have to assume that :math:`n` or :math:`b` are constant, we can
 make them depend on position and just do the (more complicated) integral
 to get :math:`\tau`
 
-.. _week2_probs:
+.. _inverse_answers:
 
 Inverse Square Law: In-class problem in energy conservation
 ===========================================================
@@ -151,27 +151,96 @@ On page 39, Stull asserts the inverse square law:
 .. math:: E_2 = E_1^* \left ( \frac{R_1^2}{R_2^2} \right ) 
 
 1) Prove this using conservation of energy (i.e. conservation of Joules)
-   Post your (English words) explanation on canvas chat
+n
+**Answer: The power emitted from surface with radius** :math:`R_1` is:
+
+.. math:: P_1 = 4 \pi R_1^2 E_1^*\ Watts
+
+That power is conserved and spreads out over a sphere of radius
+:math:`R_2`, so that:
+
+.. math:: E_2 = \frac{P_1}{4 \pi R_2^2} = \frac{4 \pi R_1^2 E_1^*}{4 \pi R_2^2} =  E_1^* \left ( \frac{R_1^2}{R_2^2} \right ) 
 
 2) Suppose a 10 cm x 10 cm piece of white paper with a visible
    reflectivity of 80% is pinned to a wall and illuminated by visible
    light with a flux of 100 :math:`W\,m^{-2}`. If the paper reflects
    evenly in all directions (isotropic, not glossy), what is the flux
    from the paper 3 meters from the wall? What about 6 meters from the
-   wall?  Post a set of python instructions that solve the problem on
-   canvas chat, with the numerical answer.
+   wall?
+
+**Answer: if the photons spread out over a hemisphere, then 3 meters
+from the wall the Watts will be spread over a hemisphere of area:**
+
+:math:`2\pi 3^2\ m^2`.
+
+The total watts: :math:`100 \times 0.1 \times 0.1 \times0.8=0.8\ W`
+
+Flux at 3 meters:
+
+.. math:: F =\frac{0.8}{2 \pi 9}=0.014\ W\,m^{-2}
+
+.. code:: python
+
+    0.8/(2.*np.pi*9)
+
+
+
+
+.. parsed-literal::
+
+    0.01414710605261292
+
+
+
+**Answer**: At 6 meters the flux will be lower by a factor of 4 because
+of inverse square.
+
+(Try this experiment in the classroom. Is the paper visibly dimmer at
+   6 meters than 3 meters? Why or why not?)
+
+**Answer: The brightness looks the same, because the "pixel" seen by
+your eye gets bigger as the distance between the wall and your eye
+increase. This extra area provides exactly enough extra photons to
+compensate for the larger hemisphere.**
+
 
 3) Stull defines the direct beam transmissivity as:
 
-   .. math:: t = \frac{E}{E_{i}} = \exp(-\tau)
+.. math:: t = \frac{E}{E_{i}} = \exp(-\tau)
 
-   Suppose I have two pieces of translucent glass that absorb but don't
-   reflect light, and their indvidual transmissivities are :math:`t_1` and
-   :math:`t_2`. Use conservation of energy to prove that if we stack the
-   two pieces, the combined transmissivity will be :math:`t_1 \times t_2`,
-   which means that the combined optical depth will be
-   :math:`\tau_1 + \tau_2` (i.e. optical depths add). Note that I had to
-   assume no reflection so that photons wouldn't bounce back and forth
-   between the two plates.  Post your explanation on canvas chat.
-   
+Suppose I have two pieces of translucent glass that absorb but don't
+reflect light, and their indvidual transmissivities are :math:`t_1` and
+:math:`t_2`. Use conservation of energy to prove that if we stack the
+two pieces, the combined transmissivity will be :math:`t_1 \times t_2`,
+which means that the combined optical depth will be
+:math:`\tau_1 + \tau_2` (i.e. optical depths add). Note that I had to
+assume no reflection so that photons wouldn't bounce back and forth
+between the two plates.
 
+**Answer**: let :math:`E_a` be be the flux exiting from plate 1, and
+:math:`E_b` be the flux exiting from plate 2. Since the energy decrease
+only because of absorption by the plates, we know that what exits plate
+1 must enter plate 2:
+
+.. math:: E_a = E_{in}\exp ( -\tau_1)
+
+.. math::
+
+   E_b = E_a \exp (-\tau_2) = E_{in} \exp( -\tau_1) \exp(-\tau_2) = E_{in} t_1 t_2 =
+     E_{in} \exp(- (\tau_1 + \tau_2 ))
+
+2) Find an expression for :math:`\Delta E_2^*` in terms of
+   :math:`\Delta R_2`.
+
+   **Answer:**
+
+   .. math::
+
+     \Delta E^*_2 =  \frac{d}{dR_2} \left ( E_1^* \left ( \frac{R_1^2}{R_2^2} \right ) \right ) \Delta R_2=  \frac{d}{dR_2} \left ( E_1^* R_1^2\,{R_2^{-2}} \right ) \Delta R_2= -2 E_1^* R_1^2\,R_2^{-3} \Delta R_2
+
+   Divide both sides by :math:`E_2`
+
+   .. math:: \frac{\Delta E_2}{E_2} = -2 \frac{\Delta R_2}{R_2}
+
+
+             

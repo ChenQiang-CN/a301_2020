@@ -9,6 +9,8 @@
 - file: week2/week2_topics.md
   sections:
     - file: week2/beers_law.rst
+    - file: week2/sensors.rst
+    - file: week2/flux_from_radiance.rst
 #     - file: 00-Preface/00_04-Formatting-Conventions.md
 #     - file: 00-Preface/00_05-Errata.md
 # - file: 01-Orientation/01_00-Welcome.md
