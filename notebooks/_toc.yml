@@ -2,15 +2,18 @@
   numbered: true
 
 - file: week1/getting_started.md
-  sections:
+  chapters:
     - file: week1/syllabus.rst
     - file: week1/integrity.md
     - file: week1/texts.rst
 - file: week2/week2_topics.md
-  sections:
+  chapters:
     - file: week2/beers_law.rst
     - file: week2/sensors.rst
     - file: week2/flux_from_radiance.rst
+    - file: week2/debugging_intro.md
+    - file: week2/derivs_and_ints.md
+    - file: week2/planck_function.md
 #     - file: 00-Preface/00_04-Formatting-Conventions.md
 #     - file: 00-Preface/00_05-Errata.md
 # - file: 01-Orientation/01_00-Welcome.md
