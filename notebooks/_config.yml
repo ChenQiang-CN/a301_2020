@@ -8,20 +8,20 @@ description: >- # this means to ignore newlines until "baseurl:"
   Website for EOAS ATSC 301
 
 execute:
-  execute_notebooks: cache
+  execute_notebooks: "cache"
 
 exclude_patterns: ["*ipynb"]
 
 repository:
-  url: https://github.com/phaustin/Problem-Solving-with-Python-37-Edition.git
-  branch: jb
+  url: https://github.com/phaustin/a301_2020
+  branch: master
   path_to_book: notebooks
 
 launch_buttons:
   notebook_interface: "classic" # The interface interactive links will activate ["classic", "jupyterlab"]
-  jupyterhub_url: http://node07.eos.ubc.ca:8000
+  jupyterhub_url: http://127.0.0.1:9505
   
 html:
   home_page_in_navbar: true
-  baseurl: http://node07.eos.ubc.ca:8080
+  baseurl: localhost:8500
 
