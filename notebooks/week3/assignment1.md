@@ -13,8 +13,8 @@ kernelspec:
 
 +++
 
-(assign3)=
-# Assignment 3 -- brightness temperatures
+(assign1)=
+# Assignment 1 -- brightness temperatures
 
 Upload this notebook to canvas by 10am Monday Sept. 28
 

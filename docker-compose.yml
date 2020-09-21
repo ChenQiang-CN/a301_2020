@@ -5,54 +5,17 @@ version: '3.8'
 
 services:
 
-#
-# copy notebooks and html files in ./notebooks on host
-# to /srv/problem_solving_content and create
-# a named volume holding that target
-#
-  content:
-    container_name: a301_content2
-    build:
-      context: .
-      dockerfile: content.dockerfile
-    image: phaustin/a301_content:sep14
-    volumes:
-      - type: volume
-        source: a301-notebooks
-        target: /srv/a301_notebooks
-#
-# start a web server at port .env:TEXT_PORT
-# with the html files from book_content
-#
-  webserver:
-    build:
-      context: apache_webserver
-      dockerfile: Dockerfile
-    image: phaustin/a301_server:sep14
-    depends_on: [content]
-    container_name: a301_webserver2
-    ports:
-      - "${TEXT_PORT}:80"
-    volumes:
-      - a301-notebooks:/srv/notebooks
-      - "/var/run/docker.sock:/var/run/docker.sock"
-    command: bash -c
-            "cp -a /srv/notebooks/_build/html/* /usr/local/apache2/htdocs/.
-             && httpd-foreground
-            "
+    webserver:
+      image: httpd:2.4
+      container_name: a301_web
+      ports:
+        - "${TEXT_PORT}:80"
+      volumes:
+        - ./notebooks:/srv/notebooks
+        - "/var/run/docker.sock:/var/run/docker.sock"
+      command: bash -c
+              "cp -a /srv/notebooks/_build/html/* /usr/local/apache2/htdocs/.
+               && httpd-foreground
+              "
 
-
-    networks:
-      - a301_net
-
-                 
-# explicitly name the network rather than letting docker_compose assign
-networks:
-    a301_net:
-      driver: bridge
-      name: a301_net2
-
-volumes:
-  a301-notebooks:
-    name: a301-notebooks2
 

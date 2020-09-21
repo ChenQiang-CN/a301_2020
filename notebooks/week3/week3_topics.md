@@ -4,7 +4,7 @@
 
   * Do Problem 3 in {ref}`week2_probs`
 
-  * Introduce {ref}`assign3`
+  * Introduce {ref}`assign1`
 
   * Go over the notes on {ref}`satellite` 
 

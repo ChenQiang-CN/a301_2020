@@ -18,8 +18,6 @@ Finding your granule
 
 * url: https://ladsweb.nascom.nasa.gov/
 
-* My screencast howto:  http://www.youtube.com/watch?v=gXMrKTKLlfI
-
 * Selecting a Modis granule to work with:
 
   - download one daytime granule with level1b radiances from Aqua satellite
@@ -29,10 +27,10 @@ Finding your granule
   - Pick a year between 2007-2014, and avoid `Cloudsat data gaps <http://cswww.cira.colostate.edu/dpcstatusGaps.php>`_
 
   - Pick a location over land at least 1000 km from downtown Vancouver
-    
+
 
 .. _satdata:
-   
+
 Other Satellite Datasets
 ========================
 
