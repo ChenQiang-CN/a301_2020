@@ -18,6 +18,7 @@
   chapters:
     - file: week3/assignment1.md
     - file: week3/satellite.rst
+    - file: week3/modis_level1b_read.md
 #     - file: 00-Preface/00_04-Formatting-Conventions.md
 #     - file: 00-Preface/00_05-Errata.md
 # - file: 01-Orientation/01_00-Welcome.md

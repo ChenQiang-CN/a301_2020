@@ -21,11 +21,9 @@ https://mcst.gsfc.nasa.gov/l1b/software-system-overview
 
 https://modis.gsfc.nasa.gov/about/specifications.php
 
+https://www.earthdatascience.org/courses/use-data-open-source-python/hierarchical-data-formats-hdf/intro-to-hdf4/
+
 modis swath:  https://svs.gsfc.nasa.gov/3348
-
-
-+++
-
 
 ```{code-cell} ipython3
 pwd
@@ -44,10 +42,17 @@ from pyhdf.SD import SDC
 
 ## get all files from the data_dir that end in hdf
 
+the `PosixPath` object is the way that python is able to treat all folder paths the same, whether they look like `C:\Users\phil` or `/Users/home/phil`
+
+There is only 1 hdf file in `sat_data`, so the cell below returns a list of length 1
+
 ```{code-cell} ipython3
 all_files = list(context.data_dir.glob("*hdf"))
 print(all_files)
 ```
+
+Now read that file (converting PosixPath into a string since the pyhdf library is
+expecting a string).  Use the `.info` method to get the number of datasets and attributes
 
 ```{code-cell} ipython3
 file_name = str(all_files[0])
@@ -64,10 +69,11 @@ print(
     )
 )
 help(SD.info)
-
 ```
 
 ## Find the dataset and print their indices
+
+We know we've got 31 datasets in the file -- what are their names?
 
 ```{code-cell} ipython3
 datasets_dict = the_file.datasets()
@@ -77,16 +83,20 @@ for idx, sds in enumerate(datasets_dict.keys()):
 ```
 
  ## open one of the datasets (number 4, EV_1KM_Emissive) and get its shape and data type
+ 
+ The "Earth View Emissive" dataset contains all the longwave channels, and all the 2030 rows and 1354 columns for each
+ pixel in each channel
 
 ```{code-cell} ipython3
 longwave_data = the_file.select("EV_1KM_Emissive")  # select sds
 print(longwave_data.info())
-help(longwave_data.info)
 ```
 
 ## Get the first row of the first channel and find its numpy dtype
 
-(unit16 is "unsigned 16 bit integer", which is how the modis raw counts are stored)
+uint16 is "unsigned 16 bit integer", which is how the modis raw counts are stored.  By using
+2 8-bit words (2 bytes) for each measurement they can represent (2**16)-1 = 65535 radiance values.  This means, however that every measurement has to be converted from uin16 to float32 before it
+can be used
 
 ```{code-cell} ipython3
 data_row = longwave_data[0, 0, :]  # get sds data
@@ -101,6 +111,12 @@ longwave_data[0, :, :]
 
 ## Find the attributes for EV_1KM_Emissive
 
+In order to make the conversion from int to float, we need to
+multiply by a scale factor and subtract an offset.  These are
+stored as attributes in the hdf file, and they are different
+for each of the 16 channels.  Use `pprint` to pretty-print the big
+dictionary.
+
 ```{code-cell} ipython3
 pprint.pprint(longwave_data.attributes())
 ```
@@ -108,8 +124,7 @@ pprint.pprint(longwave_data.attributes())
 ## Print the first 1000 characters of the Metadata.0 string
 
 Date, orbit number, etc. are stored in a long string attribute called 'StructMetadata.0'.
-The \t character is a tab stop.
-```
+The \t character is a tab stop so the file is easier to read with an editor.
 
 ```{code-cell} ipython3
 pprint.pprint(the_file.attributes()["StructMetadata.0"][:1000])
@@ -117,39 +132,44 @@ pprint.pprint(the_file.attributes()["StructMetadata.0"][:1000])
 
 ## Now plot the data using imshow
 
+Start over again and make a plot.  We need to be
+able to identify particular bands  -- the channel numbers
+are stored in the "Band_1KM_Emissive" dataset
 
 ```{code-cell} ipython3
 longwave_bands = the_file.select("Band_1KM_Emissive")
 ```
 
 ```{code-cell} ipython3
-longwave_bands.attributes()
-```
-+++
-
-# Note that only channels 20 to 36 are in the Emissive dataset (see [the Modis channel listing](https://modis.gsfc.nasa.gov/about/specifications.php))
-
-# ## find the index for channel 30
-#
-# Count the following and convince yourself that channel 30 is index 9, starting from 0
+longwave_bands.info()
 ```
 
 ```{code-cell} ipython3
 band_nums = longwave_bands.get()
 print(f"here are the modis channels in the emissive dataset \n{band_nums}")
-
-
-# ## Let python figure this out
-#
-# We don't want to have to count, so use numpy.searchsorted to find the the index with value closest to 30
-#
-# We need to turn that index (type int64) into a plain python int so it can be used to specify the channel
-# (float doesn't work)
 ```
+
+Note that only channels 20 to 36 are in the Emissive dataset (see [the Modis channel listing](https://modis.gsfc.nasa.gov/about/specifications.php))
+
++++
+
+Note that only channels 20 to 36 are in the Emissive dataset (see [the Modis channel listing](https://modis.gsfc.nasa.gov/about/specifications.php))
+
++++
+
+
+## find the index for channel 30
+
+Count the items in the vector above and convince yourself that channel 30 is index 9, starting from 0
+
+But there's a better way: use numpy.searchsorted to find the index with the closest value
+to 30:
+
+We also need to turn that index (type int64) into a plain python int so it can be used to specify the channel
 
 ```{code-cell} ipython3
 ch30_index = np.searchsorted(band_nums, 30.0)
-print(ch30_index.dtype)
+print(f"make sure our index datatime in int64: {ch30_index.dtype}")
 ch30_index = int(ch30_index)
 print(f"channel 30 is located at index {ch30_index}")
 
@@ -157,16 +177,18 @@ print(f"channel 30 is located at index {ch30_index}")
 # ## Read channel 30 at index 9 into a numpy array of type uint16
 ```
 
+## Now get the data for channel 30
+
 ```{code-cell} ipython3
 ch30_data = longwave_data[ch30_index, :, :]
 print(ch30_data.shape)
 print(ch30_data.dtype)
-
-
-# ## Plot the channel 30 image
-#
-# Use [imshow with a colorbar](https://matplotlib.org/gallery/color/colorbar_basics.html#sphx-glr-gallery-color-colorbar-basics-py)
 ```
+
+
+Plot the channel 30 image
+
+Use [imshow with a colorbar](https://matplotlib.org/gallery/color/colorbar_basics.html#sphx-glr-gallery-color-colorbar-basics-py)
 
 ```{code-cell} ipython3
 fig, ax = plt.subplots(1, 1, figsize=(10, 14))
@@ -175,27 +197,27 @@ cax = fig.colorbar(CS)
 ax.set_title("uncalibrated counts")
 #
 # add a label to the colorbar and flip it around 270 degrees
+# (just my personal preference for labels)
 #
 out = cax.ax.set_ylabel("Chan 30 raw counts")
 out.set_verticalalignment("bottom")
 out.set_rotation(270)
 print(ch30_data.shape)
-
-
-# # For Wednesday (don't need to hand in)
-#
-# To turn the raw counts into pixel radiances, you need to apply equation 5.8 on p. 36 of the
-# [modis users guide](https://www.dropbox.com/s/ckd3dv4n7nxc9p0/modis_users_guide.pdf?dl=0):
-#
-# $Radiances = (RawData - offset) \times scale$
-#
-# We have just read the RawData,  the offset and the scale are stored in two vectors that are attributes of the Emissive dataset.  Make a version of the figure above, but plot Channel 30 radiance (in W/m^2/micron/sr), rather than raw counts.
-#
-# Hint:  Here is how you get the scale and offset for Channel 30.
-#
-#
-#
 ```
+
+## Now convert the raw counts to radiances
+
+We need to find the right scale and offset for channel 30
+
++++
+
+
+To turn the raw counts into pixel radiances, you need to apply equation 5.8 on p. 36 of the
+[modis users guide](https://www.dropbox.com/s/ckd3dv4n7nxc9p0/modis_users_guide.pdf?dl=0):
+
+$Radiances = (RawData - offset) \times scale$
+
+We have just read the RawData,  the offset and the scale are stored in two vectors that are attributes of the Emissive dataset.  We'll make a version of the figure above, but plot Channel 30 radiance (in W/m^2/micron/sr), rather than raw counts.
 
 ```{code-cell} ipython3
 scales = longwave_data.attributes()["radiance_scales"]
@@ -209,6 +231,10 @@ print(f"scale: {ch30_scale}, offset: {ch30_offset}")
 ch30_calibrated = (ch30_data - ch30_offset) * ch30_scale
 ```
 
+## Plot the Channel 30 radiances
+
+Do these look right?  How would you tell?
+
 ```{code-cell} ipython3
 fig, ax = plt.subplots(1, 1, figsize=(10, 14))
 CS = ax.imshow(ch30_calibrated)
@@ -221,12 +247,11 @@ out = cax.ax.set_ylabel("Chan radiance $(W\,m^{-2}\,\mu m^{-1}\,sr^{-1})$")
 out.set_verticalalignment("bottom")
 out.set_rotation(270)
 ch30_calibrated.shape
-
-
-# # Write the calibrated channel out for safekeeping
-#
-# Follow the example here: https://hdfeos.org/software/pyhdf.php
 ```
+
+## Write the radiances out for safekeeping
+
+Follow the example here: https://hdfeos.org/software/pyhdf.php
 
 ```{code-cell} ipython3
 # Create an HDF file
@@ -258,15 +283,9 @@ sds.endaccess()
 sd.end()
 ```
 
-```{code-cell} ipython3
-get_ipython().system("ls")
-
-
-# # Move the file to data_dir
-```
+Did this work?  See if the file exists:
 
 ```{code-cell} ipython3
-local_file = Path.cwd() / Path(outname)
-to_file = data_dir / Path(outname)
-local_file.rename(to_file)
+hdf_files = list(Path().glob("*hdf"))
+print(hdf_files)
 ```
