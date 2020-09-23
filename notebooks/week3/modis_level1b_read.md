@@ -33,7 +33,7 @@ pwd
 import pprint
 from pathlib import Path
 
-import context
+import a301_lib
 import numpy as np
 from matplotlib import pyplot as plt
 from pyhdf.SD import SD
@@ -47,7 +47,12 @@ the `PosixPath` object is the way that python is able to treat all folder paths 
 There is only 1 hdf file in `sat_data`, so the cell below returns a list of length 1
 
 ```{code-cell} ipython3
-all_files = list(context.data_dir.glob("*hdf"))
+print(a301_lib.sat_data)
+```
+
+
+```{code-cell} ipython3
+all_files = list(a301_lib.sat_data.glob("*hdf"))
 print(all_files)
 ```
 
