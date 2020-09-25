@@ -13,6 +13,7 @@ kernelspec:
   name: python3
 ---
 
+(modis_level1b)=
 # Reading modis level1b data
 
 ## Background
@@ -162,7 +163,6 @@ Note that only channels 20 to 36 are in the Emissive dataset (see [the Modis cha
 
 +++
 
-
 ## find the index for channel 30
 
 Count the items in the vector above and convince yourself that channel 30 is index 9, starting from 0
@@ -190,7 +190,6 @@ print(ch30_data.shape)
 print(ch30_data.dtype)
 ```
 
-
 Plot the channel 30 image
 
 Use [imshow with a colorbar](https://matplotlib.org/gallery/color/colorbar_basics.html#sphx-glr-gallery-color-colorbar-basics-py)
@@ -215,7 +214,6 @@ print(ch30_data.shape)
 We need to find the right scale and offset for channel 30
 
 +++
-
 
 To turn the raw counts into pixel radiances, you need to apply equation 5.8 on p. 36 of the
 [modis users guide](https://www.dropbox.com/s/ckd3dv4n7nxc9p0/modis_users_guide.pdf?dl=0):
@@ -252,6 +250,10 @@ out = cax.ax.set_ylabel("Chan radiance $(W\,m^{-2}\,\mu m^{-1}\,sr^{-1})$")
 out.set_verticalalignment("bottom")
 out.set_rotation(270)
 ch30_calibrated.shape
+#
+# close the file
+#
+the_file.end()
 ```
 
 ## Write the radiances out for safekeeping
@@ -293,4 +295,53 @@ Did this work?  See if the file exists:
 ```{code-cell} ipython3
 hdf_files = list(Path().glob("*hdf"))
 print(hdf_files)
+```
+
+## move all of this into a function
+
+```{code-cell} ipython3
+file_name = str(all_files[0])
+print(f"reading {file_name}")
+the_file = SD(file_name, SDC.READ)
+the_band=30
+
+def readband(the_file,the_band):
+    """
+    read and calibrate a MODIS band from an open hdf4 SD dataset
+    
+    Parameters
+    ----------
+    
+       the_file:pyhdf.SD object
+           the dataset open for reading
+       the_band: int
+           band number for MODIS (1-36)
+           
+    Returns
+    -------
+       the_chan_calibrated: ndarray
+           the pixel radiances in W/m^2/sr/micron
+    """
+    longwave_data = the_file.select("EV_1KM_Emissive")  # select sds
+    longwave_bands = the_file.select("Band_1KM_Emissive")
+    band_nums = longwave_bands.get()
+    thechan_index = int(np.searchsorted(band_nums, the_band))
+    print(thechan_index)
+    thechan_data = longwave_data[thechan_index, :, :]
+    scales = longwave_data.attributes()["radiance_scales"]
+    offsets = longwave_data.attributes()["radiance_offsets"]
+    thechan_scale = scales[thechan_index]
+    thechan_offset = offsets[thechan_index]
+    thechan_calibrated = (thechan_data - thechan_offset) * thechan_scale
+    return thechan_calibrated
+
+ch_radiance = readband(the_file,the_band)
+the_file.end()
+from matplotlib import pyplot as plt
+plt.hist(ch_radiance.flat)
+plt.show()
+```
+
+```{code-cell} ipython3
+
 ```
