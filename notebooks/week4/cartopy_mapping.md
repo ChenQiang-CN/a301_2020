@@ -50,16 +50,16 @@ Chapter 2 describes map projections.  We will generally be using the LAEA projec
 
 ### Step 1: Use [cartopy](http://scitools.org.uk/cartopy/docs/latest/index.html) to make a LAEA map of BC including Vancouver.
 
-
 ```{code-cell} ipython3
 import a301_lib
 from pathlib import Path
 from pyhdf.SD import SD, SDC
 from matplotlib import pyplot as plt
+import sat_lib.modismeta_read as mread
 ```
 
 ```{code-cell} ipython3
-myd03_file_name = list(a301_lib.sat_data.glob("MYD03*hdf"))[0]
+myd03_file_name = list(a301_lib.sat_data.glob("MYD03*2105*hdf"))[0]
 print(myd03_file_name)
 ```
 
@@ -71,6 +71,15 @@ print(m3_file.info())
 datasets_dict = m3_file.datasets()
 for idx, sds in enumerate(datasets_dict.keys()):
     print(idx, sds)
+```
+
+## Read the MYD03 metadata into a dictionary
+
+This uses some fancy code I wrote, treat as a black box for now. Later on we will want to define  a region that just includes the whole swath.  This is given by the [min_lon, max_lon, min_lat, max_lat] points.  The actual corners of the swath are given by lat_list and lon_list.  The center of the swath is given by lon_0,lat_0
+
+```{code-cell} ipython3
+meta_dict= mread.parseMeta(myd03_file_name)
+pprint.pprint(meta_dict)
 ```
 
 ## Read the lats and lons into array
