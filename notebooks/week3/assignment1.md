@@ -1,5 +1,7 @@
 ---
 jupytext:
+  cell_metadata_filter: all
+  notebook_metadata_filter: all,-language_info,-toc,-latex_envs
   text_representation:
     extension: .md
     format_name: myst
@@ -10,8 +12,6 @@ kernelspec:
   language: python
   name: python3
 ---
-
-+++
 
 (assign1)=
 # Assignment 1 -- brightness temperatures
@@ -41,4 +41,3 @@ def radiance_invert(wavelengths, Lstar):
 In the next cell import your `radiance_invert function` and use it to turn the calibrated
 radiances you've written out in your `modis_data_analysis` notebook into brightness temperatures
 in Kelvins.  Plot the temperatures as an image, using a colorbar as in Modis level1b notebook
-
