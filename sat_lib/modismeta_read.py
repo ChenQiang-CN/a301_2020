@@ -145,6 +145,10 @@ def parseMeta(filename):
         largest corner longitude
     min_lon: float
         smallest corner longitude
+    lon_0: float
+        center longitude
+    lat_0: float
+        center latitude
     daynight: str
         'Day' or 'Night'
     starttime: str
@@ -180,6 +184,7 @@ def parseMeta(filename):
     outDict["type"] = parseIt.value5
     outDict["sensor"] = parseIt.value6
     outDict.update(parseIt.value1)
+    the_file.end()
     return outDict
 
 

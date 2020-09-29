@@ -21,7 +21,7 @@
     - file: week3/modis_level1b_read.md
 - file: week4/week4_topics.md
   chapters:
-    - file: week4/assignment1_solution.md
+    - file: week4/assign1_solution.md
     - file: week4/cartopy_mapping.md
 #     - file: 00-Preface/00_04-Formatting-Conventions.md
 #     - file: 00-Preface/00_05-Errata.md

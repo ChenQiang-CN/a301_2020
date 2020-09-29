@@ -6,7 +6,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.12
-    jupytext_version: 1.6.0-dev
+    jupytext_version: 1.6.0
 kernelspec:
   display_name: Python 3
   language: python
@@ -26,11 +26,7 @@ https://www.earthdatascience.org/courses/use-data-open-source-python/hierarchica
 
 modis swath:  https://svs.gsfc.nasa.gov/3348
 
-```{code-cell} ipython3
-pwd
-```
-
-```{code-cell} ipython3
+```{code-cell}
 import pprint
 from pathlib import Path
 
@@ -47,20 +43,19 @@ the `PosixPath` object is the way that python is able to treat all folder paths 
 
 There is only 1 hdf file in `sat_data`, so the cell below returns a list of length 1
 
-```{code-cell} ipython3
+```{code-cell}
 print(a301_lib.sat_data)
 ```
 
-
-```{code-cell} ipython3
-all_files = list(a301_lib.sat_data.glob("*hdf"))
+```{code-cell}
+all_files = list(a301_lib.sat_data.glob("*MYD02*2105*hdf"))
 print(all_files)
 ```
 
 Now read that file (converting PosixPath into a string since the pyhdf library is
 expecting a string).  Use the `.info` method to get the number of datasets and attributes
 
-```{code-cell} ipython3
+```{code-cell}
 file_name = str(all_files[0])
 print(f"reading {file_name}")
 the_file = SD(file_name, SDC.READ)
@@ -81,11 +76,13 @@ help(SD.info)
 
 We know we've got 31 datasets in the file -- what are their names?
 
-```{code-cell} ipython3
+```{code-cell}
 datasets_dict = the_file.datasets()
 
 for idx, sds in enumerate(datasets_dict.keys()):
     print(idx, sds)
+
+#breakpoint()
 ```
 
  ## open one of the datasets (number 4, EV_1KM_Emissive) and get its shape and data type
@@ -93,7 +90,7 @@ for idx, sds in enumerate(datasets_dict.keys()):
  The "Earth View Emissive" dataset contains all the longwave channels, and all the 2030 rows and 1354 columns for each
  pixel in each channel
 
-```{code-cell} ipython3
+```{code-cell}
 longwave_data = the_file.select("EV_1KM_Emissive")  # select sds
 print(longwave_data.info())
 ```
@@ -104,14 +101,14 @@ uint16 is "unsigned 16 bit integer", which is how the modis raw counts are store
 2 8-bit words (2 bytes) for each measurement they can represent (2**16)-1 = 65535 radiance values.  This means, however that every measurement has to be converted from uin16 to float32 before it
 can be used
 
-```{code-cell} ipython3
+```{code-cell}
 data_row = longwave_data[0, 0, :]  # get sds data
 print(data_row.shape, data_row.dtype)
 ```
 
 ## get all the rows and columns for the first channel
 
-```{code-cell} ipython3
+```{code-cell}
 longwave_data[0, :, :]
 ```
 
@@ -123,7 +120,7 @@ stored as attributes in the hdf file, and they are different
 for each of the 16 channels.  Use `pprint` to pretty-print the big
 dictionary.
 
-```{code-cell} ipython3
+```{code-cell}
 pprint.pprint(longwave_data.attributes())
 ```
 
@@ -132,7 +129,7 @@ pprint.pprint(longwave_data.attributes())
 Date, orbit number, etc. are stored in a long string attribute called 'StructMetadata.0'.
 The \t character is a tab stop so the file is easier to read with an editor.
 
-```{code-cell} ipython3
+```{code-cell}
 pprint.pprint(the_file.attributes()["StructMetadata.0"][:1000])
 ```
 
@@ -142,15 +139,15 @@ Start over again and make a plot.  We need to be
 able to identify particular bands  -- the channel numbers
 are stored in the "Band_1KM_Emissive" dataset
 
-```{code-cell} ipython3
+```{code-cell}
 longwave_bands = the_file.select("Band_1KM_Emissive")
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 longwave_bands.info()
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 band_nums = longwave_bands.get()
 print(f"here are the modis channels in the emissive dataset \n{band_nums}")
 ```
@@ -172,7 +169,7 @@ to 30:
 
 We also need to turn that index (type int64) into a plain python int so it can be used to specify the channel
 
-```{code-cell} ipython3
+```{code-cell}
 ch30_index = np.searchsorted(band_nums, 30.0)
 print(f"make sure our index datatime in int64: {ch30_index.dtype}")
 ch30_index = int(ch30_index)
@@ -184,17 +181,18 @@ print(f"channel 30 is located at index {ch30_index}")
 
 ## Now get the data for channel 30
 
-```{code-cell} ipython3
+```{code-cell}
 ch30_data = longwave_data[ch30_index, :, :]
 print(ch30_data.shape)
 print(ch30_data.dtype)
+#breakpoint()
 ```
 
 Plot the channel 30 image
 
 Use [imshow with a colorbar](https://matplotlib.org/gallery/color/colorbar_basics.html#sphx-glr-gallery-color-colorbar-basics-py)
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots(1, 1, figsize=(10, 14))
 CS = ax.imshow(ch30_data)
 cax = fig.colorbar(CS)
@@ -222,7 +220,7 @@ $Radiances = (RawData - offset) \times scale$
 
 We have just read the RawData,  the offset and the scale are stored in two vectors that are attributes of the Emissive dataset.  We'll make a version of the figure above, but plot Channel 30 radiance (in W/m^2/micron/sr), rather than raw counts.
 
-```{code-cell} ipython3
+```{code-cell}
 scales = longwave_data.attributes()["radiance_scales"]
 offsets = longwave_data.attributes()["radiance_offsets"]
 ch30_scale = scales[ch30_index]
@@ -230,7 +228,7 @@ ch30_offset = offsets[ch30_index]
 print(f"scale: {ch30_scale}, offset: {ch30_offset}")
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 ch30_calibrated = (ch30_data - ch30_offset) * ch30_scale
 ```
 
@@ -238,7 +236,7 @@ ch30_calibrated = (ch30_data - ch30_offset) * ch30_scale
 
 Do these look right?  How would you tell?
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots(1, 1, figsize=(10, 14))
 CS = ax.imshow(ch30_calibrated)
 cax = fig.colorbar(CS)
@@ -260,10 +258,10 @@ the_file.end()
 
 Follow the example here: https://hdfeos.org/software/pyhdf.php
 
-```{code-cell} ipython3
+```{code-cell}
 # Create an HDF file
 outname = "ch30_out.hdf"
-sd = SD(outname, SDC.WRITE | SDC.CREATE)
+sd = SD(outname, SDC.CREATE | SDC.WRITE | SDC.TRUNC)
 
 # Create a dataset
 sds = sd.create("ch30", SDC.FLOAT64, ch30_calibrated.shape)
@@ -292,14 +290,14 @@ sd.end()
 
 Did this work?  See if the file exists:
 
-```{code-cell} ipython3
+```{code-cell}
 hdf_files = list(Path().glob("*hdf"))
 print(hdf_files)
 ```
 
 ## move all of this into a function
 
-```{code-cell} ipython3
+```{code-cell}
 file_name = str(all_files[0])
 print(f"reading {file_name}")
 the_file = SD(file_name, SDC.READ)
@@ -342,6 +340,6 @@ plt.hist(ch_radiance.flat)
 plt.show()
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 
 ```

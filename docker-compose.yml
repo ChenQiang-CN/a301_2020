@@ -7,7 +7,7 @@ services:
 
     webserver:
       image: httpd:2.4
-      container_name: a301_2020_8445
+      container_name: a301_2020_sep28_web
       ports:
         - "${TEXT_PORT}:80"
       volumes:
