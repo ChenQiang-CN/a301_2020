@@ -7,4 +7,4 @@
 
 * [Kazarinoff: Problem Solving with Python](https://atsc_web.eoas.ubc.ca)
 
-* [Jupyter notebook server](https://node07.eoas.ubc.ca:8443)
+* [Jupyter notebook server: https://a301_hub.eoas.ubc.ca](https://a301_hub.eoas.ubc.ca)

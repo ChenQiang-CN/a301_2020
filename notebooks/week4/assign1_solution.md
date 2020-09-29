@@ -6,7 +6,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.12
-    jupytext_version: 1.6.0-dev
+    jupytext_version: 1.6.0
 kernelspec:
   display_name: Python 3
   language: python
@@ -34,7 +34,7 @@ def radiance_invert(wavelengths, Lstar):
    etc.
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 %%file planck_invert.py
 import numpy as np
 
@@ -97,7 +97,7 @@ In the next cell import your `radiance_invert function` and use it to turn the c
 radiances you've written out in your `modis_data_analysis` notebook into brightness temperatures
 in Kelvins.  Plot the temperatures as an image, using a colorbar as in Modis level1b notebook
 
-```{code-cell} ipython3
+```{code-cell}
 from planck_invert import calc_radiance, radiance_invert
 from pyhdf.SD import SD, SDC
 import a301_lib
@@ -112,7 +112,7 @@ ch30_radiances = ch30_data * 1.0e6
 ch30_Tbright = radiance_invert(wavel, ch30_radiances)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 %matplotlib inline
 from matplotlib import pyplot as plt
 
