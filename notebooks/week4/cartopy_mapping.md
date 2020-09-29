@@ -197,4 +197,4 @@ png_file = a301_lib.data_share / 'pha_map.png'
 fig.savefig(png_file)
 ```
 
-To check to see if your file has arrived, open the jupyterhub tab (https://a301_hub.eoas.ubc.ca) and check the contents of the `data_share` folder
+To check to see if your file has arrived, open the jupyterhub tab [https://a301_hub.eoas.ubc.ca](https://a301_hub.eoas.ubc.ca) and check the contents of the `data_share` folder.  Click on the "last modified" column twice to bring receint files to the top of the list.
