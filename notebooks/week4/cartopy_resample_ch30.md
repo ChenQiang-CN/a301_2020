@@ -49,7 +49,7 @@ swath_info = mread.parseMeta(m3_file)
 print(swath_info)
 ```
 
-# Read the projection details and data
+* Read the projection details and data
 
 ```{code-cell} ipython3
 myd03_file_name = list(a301_lib.sat_data.glob("MYD03*2105*hdf"))[0]
@@ -87,7 +87,7 @@ the_file.end()
 ch30 = (ch30_data - ch30_offset) * ch30_scale
 ```
 
-# get the map projection using swath_info
+* get the map projection using swath_info
 
 pyresample needs proj4 map parameters to put together its grid.  These are
 returned by the get_proj_params file below.
@@ -130,7 +130,7 @@ proj_params =get_proj_params(swath_info)
 print(proj_params)
 ```
 
-# Use pyresample to define a new grid in this projection
+* Use pyresample to define a new grid in this projection
 
 ```{code-cell} ipython3
 from pyresample import load_area, save_quicklook, SwathDefinition
@@ -144,7 +144,7 @@ area_def = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
 print(area_def)
 ```
 
-# resample ch30 on this grid
+* resample ch30 on this grid
 
 ```{code-cell} ipython3
 fill_value = -9999.0
@@ -166,16 +166,16 @@ print(
 )
 ```
 
-# replace missing values with floating point nan
+* replace missing values with floating point nan
 
 ```{code-cell} ipython3
 nan_value = np.array([np.nan], dtype=np.float32)[0]
 image_30[image_30 < -9000] = nan_value
 ```
 
-# Plot the image using cartopy
+## Plot the image using cartopy
 
-## Create a palette
+* Create a palette
 
 We want to spread the colors over a limited range of values between 0.1 and 7 W/m^2/microns/sr so we
 will set over and under colors and normalize the data to this range
@@ -204,9 +204,9 @@ from matplotlib.colors import Normalize
 the_norm = Normalize(vmin=vmin, vmax=vmax, clip=False)
 ```
 
-```{code-cell} ipython3
-## use the palette on the image_30 array
-```
+
+* use the palette on the image_30 array
+
 
 ```{code-cell} ipython3
 crs = area_def.to_cartopy_crs()
@@ -226,7 +226,7 @@ cs = ax.imshow(
 fig.colorbar(cs, extend="both")
 ```
 
-# write out all the projection information as a json file
+* write out all the projection information as a json file
 
 Make a new folder to hold this, along with the resampled image written as
 a [numpy npz file](https://docs.scipy.org/doc/numpy/reference/generated/numpy.savez.html)
@@ -256,10 +256,3 @@ with open(json_name, "w") as f:
     json.dump(out_dict, f, indent=4)
 ```
 
-```{code-cell} ipython3
-
-```
-
-```{code-cell} ipython3
-
-```

@@ -41,14 +41,14 @@ The [Equal Area Scalable Earth Grid](https://nsidc.org/data/ease)
 
 1. Both EASE and EASE-2 use the [Lambert Azimuthal Equal Area](https://en.wikipedia.org/wiki/Lambert_azimuthal_equal-area_projection) or LAEA
 
-# Map projections
+$# Map projections
 
 Chapter 2 describes map projections.  We will generally be using the LAEA projection for individual Modis granules.
 
-## plotting Vancouver on a map
+### plotting Vancouver on a map
 
 
-### Step 1: Use [cartopy](http://scitools.org.uk/cartopy/docs/latest/index.html) to make a LAEA map of BC including Vancouver.
+* Step 1: Use [cartopy](http://scitools.org.uk/cartopy/docs/latest/index.html) to make a LAEA map of BC including Vancouver.
 
 ```{code-cell} ipython3
 import a301_lib
@@ -64,7 +64,7 @@ myd03_file_name = list(a301_lib.sat_data.glob("MYD03*2105*hdf"))[0]
 print(myd03_file_name)
 ```
 
-## What's in the file?
+*  What's in the file?
 
 ```{code-cell} ipython3
 m3_file = SD(str(myd03_file_name), SDC.READ)
@@ -74,7 +74,7 @@ for idx, sds in enumerate(datasets_dict.keys()):
     print(idx, sds)
 ```
 
-## Read the MYD03 metadata into a dictionary
+* Read the MYD03 metadata into a dictionary
 
 This uses some fancy code I wrote, treat as a black box for now. Later on we will want to define  a region that just includes the whole swath.  This is given by the [min_lon, max_lon, min_lat, max_lat] points.  The actual corners of the swath are given by lat_list and lon_list.  The center of the swath is given by lon_0,lat_0
 
@@ -83,7 +83,7 @@ meta_dict= mread.parseMeta(myd03_file_name)
 pprint.pprint(meta_dict)
 ```
 
-## Read the lats and lons into array
+* Read the lats and lons into array
 
 ```{code-cell} ipython3
 lats = m3_file.select('Latitude').get()
@@ -91,9 +91,8 @@ lons = m3_file.select('Longitude').get()
 print(lats.shape, lons.shape)
 ```
 
-```{code-cell} ipython3
-## Note the overlap in the 10 scanlines
-```
+*  Note the overlap in the 10 scanlines
+
 
 ```{code-cell} ipython3
 fig, ax = plt.subplots(1,1,figsize=(10,10))
@@ -101,7 +100,7 @@ ax.plot(lons[:50,:50],lats[:50,:50],"b+")
 ax.set(xlabel="longitude (deg east)",ylabel="latitude (deg north)");
 ```
 
-## Now choose the Lambert project for our map
+*  Now choose the Lambert project for our map
 
 +++
 
@@ -145,7 +144,7 @@ ax.gridlines(linewidth=2)
 ax.add_feature(cartopy.feature.GSHHSFeature(scale="coarse", levels=[1, 2, 3]))
 ```
 
-##  zoom in on vancouver
+*  zoom in on vancouver
 
 The next step is to pick an bounding box in map coordinates (the "extent") to limit the map area
 
@@ -165,7 +164,7 @@ xleft, xright = -4_000_000, -800_000
 ybot, ytop = -4_700_000, -3_100_000
 ```
 
-## Use the transform_point method to get x,y on this projection
+* Use the transform_point method to get x,y on this projection
 
 This is how we put Vancouver (in lon,lat coords) on the map (in LAEA x,y coords)
 
@@ -187,7 +186,7 @@ ax.add_feature(cartopy.feature.GSHHSFeature(scale="coarse", levels=[1, 2, 3]))
 print(van_x, van_y);
 ```
 
-## saving the figure
+* saving the figure
 
 Since we have created a figure object, we can use that to save the png file
 using the same syntax as [Kazarinoff 7.4](https://atsc_web.eoas.ubc.ca/Plotting-with-Matplotlib/Saving-Plots.html)
