@@ -30,3 +30,4 @@
     - Hand in a Jupter notebook that uses python to solve:
       - Stull Chapter 2 -- A23, A24, A25, A26
       - Stull Chapter 8 -- A2, A4
+
