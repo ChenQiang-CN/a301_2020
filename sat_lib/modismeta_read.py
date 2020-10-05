@@ -18,6 +18,19 @@ import numpy as np
 from pyhdf.SD import SD
 from pyhdf.SD import SDC
 
+def get_core(filename):
+    """
+    given the path to a Modis hdf4 file with a "CoreMetadata.0" attribute
+    return that value as a string
+    """
+    filename = str(filename)
+    the_file = SD(filename, SDC.READ)
+    metaDat = the_file.attributes()["CoreMetadata.0"]
+    core_meta = str(metaDat).rstrip(" \t\r\n\0")
+    the_file.end()
+    return core_meta
+
+
 # from https://github.com/pytroll/satpy/blob/master/satpy/readers/modis_l1b.py
 def read_mda(attribute):
     lines = attribute.split("\n")
@@ -61,7 +74,6 @@ def read_mda(attribute):
 class metaParse:
     def __init__(self, metaDat):
         import re
-
         self.metaDat = str(metaDat).rstrip(" \t\r\n\0")
         self.meta_dict = read_mda(self.metaDat)
         the_dict = self.meta_dict["INVENTORYMETADATA"]
@@ -117,15 +129,14 @@ class metaParse:
         ]["ASSOCIATEDPLATFORMINSTRUMENTSENSORCONTAINER"]
 
 
-def parseMeta(filename):
+def parseMeta(meta_source):
     """
     Read useful information from a CoreMetata.0 attribute
 
     Parameters
     ----------
 
-    filename: str or Path object
-       name of an hdf4 modis level1b file
+    meta_source: str or Path object to file or string with metadata
 
     Returns
     -------
@@ -166,9 +177,23 @@ def parseMeta(filename):
     nasaProductionDate: str
         date file was produced, in UCT
     """
-    filename = str(filename)
-    the_file = SD(filename, SDC.READ)
-    metaDat = the_file.attributes()["CoreMetadata.0"]
+    #
+    # meta_source can be either the path to an
+    # hdf4 file or the "CoreMetadata.0" string itself
+    #
+    try:
+        filename = Path(meta_source).resolve()
+        if filename.is_file():
+            the_file = SD(str(filename), SDC.READ)
+            metaDat = the_file.attributes()["CoreMetadata.0"]
+            the_file.end()
+        else:
+            raise ValueError(f"could not open {filename}")
+    except OSError:
+        #
+        # filename too long, assume it's the metadata string
+        #
+        metaDat = meta_source
     parseIt = metaParse(metaDat)
     outDict = {}
     outDict["orbit"] = parseIt.value2["ORBITNUMBER"]["VALUE"]
@@ -184,7 +209,6 @@ def parseMeta(filename):
     outDict["type"] = parseIt.value5
     outDict["sensor"] = parseIt.value6
     outDict.update(parseIt.value1)
-    the_file.end()
     return outDict
 
 
