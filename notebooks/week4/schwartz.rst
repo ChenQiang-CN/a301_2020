@@ -206,6 +206,7 @@ Before we integrate the entire atmosphere (with temperature changing with height
 
    .. math::  L_\lambda = L_{\lambda 0}  \hat{t}_{\lambda} + e_\lambda B_\lambda 
 
+.. _temp_height:
 
 Temperature changing with height
 ================================
