@@ -99,13 +99,18 @@ in Kelvins.  Plot the temperatures as an image, using a colorbar as in Modis lev
 
 ```{code-cell}
 from planck_invert import calc_radiance, radiance_invert
-from pyhdf.SD import SD, SDC
+import h5py
 import a301_lib
 
 
-file_name = str(a301_lib.sat_data / "ch30_out.hdf")
-the_file = SD(file_name, SDC.READ)
-ch30_data = the_file.select("ch30").get()  # select sds
+filenames = list((a301_lib.sat_data / "h5_dir").glob("ch30*2105*h5"))
+print(filenames)
+ch30file = filenames[0]
+with h5py.File(ch30file,'r') as f:
+    channel_group = f['channels']
+    print(f"group keys: {list(channel_group.keys())}")
+    ch30_data = channel_group['chan30'][...]
+
 wavel = 9.73e-6  # wavelength in meters from Modis channel table
 ch30_radiances = ch30_data * 1.0e6
 # convert radiance to MKS
