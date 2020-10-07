@@ -10,14 +10,15 @@
 
     * {ref}`week5:resampleh5`
 
-  * How to write tests
+    * For Wednesday
 
-    * {ref}`testing`
+      * finish assignment 2
 
-* For Wednesday
+      * move your satellite images over to {ref}`week5:resampleh5`
 
-  * finish assignment 2
+      * read the rest of {ref}`schwartz`
 
-  * move your satellite images over to {ref}`week5:resampleh5`
 
-  * read the rest of {ref}`schwartz`
+* Week 5 topics for Wednesday
+
+  * Go over this [command line tutorial](https://realpython.com/python-command-line-arguments/)
