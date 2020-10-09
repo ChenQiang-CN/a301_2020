@@ -1,4 +1,4 @@
-(wassignment3)=
+(]assignment3)=
 # Assignment 3
 
 * Due Wednesday Oct. 14 10am
@@ -33,6 +33,8 @@
 ## Part 2  -- Split window estimates of total precipitable water
 
    * Read this [explanation of split window retrievals](https://cimss.ssec.wisc.edu/satellite-blog/archives/23702)
+
+   * Here's an actual map of [precipitable water](https://www.jpl.nasa.gov/spaceimages/details.php?id=PIA12096)
 
    * Hand in a python notebook with a map of the brightness temperature difference for your Modis granule between the
      channel 31 "clean" channel - channel 32 "dirty" channel in degrees C, with a colorbar that

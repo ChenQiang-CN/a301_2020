@@ -87,16 +87,16 @@ Week 2  9/14 - 9/18    | Python continued
 
 
 Week 3  9/21 - 9/25    | Blackbody radiation, equilibrium temperature, 
-                       | Kirchoff's law, scattering and extinction 
-                       | Assignment: MODIS temperatures
+                       | Kirchoff's law
+                       | Assignment1: Brightness temperatures
 
 Week 4  9/28 - 10/2    | Beers law, absorption/emission, 
-                       | Assignment: two-stream model with scattering
+                       | Assignment2: Stull problems
                        
-Week 5  10/5 - 10/9    | Scattering continued
-                       | Assignment: Normalized Difference Vegetation Index (NDVI)
+Week 5  10/5 - 10/9    | Schwartzchild eqn with absorption and emission
+                       | Assignment3: Split window
 
-Week 6  10/12 - 10/16  | Absorption and emission
+Week 6  10/12 - 10/16  | Absorption and emission continued
                        | Monday: Thanksgiving                                     
                        | Assignment: Two-stream model with emission
 

@@ -39,6 +39,7 @@ def readband(the_file,the_band):
     longwave_bands = the_file.select("Band_1KM_Emissive")
     band_nums = longwave_bands.get()
     thechan_index = int(np.searchsorted(band_nums, the_band))
+    print(f"reading ban {the_band}")
     print(thechan_index)
     thechan_data = longwave_data[thechan_index, :, :]
     scales = longwave_data.attributes()["radiance_scales"]
@@ -48,7 +49,7 @@ def readband(the_file,the_band):
     thechan_calibrated = (thechan_data - thechan_offset) * thechan_scale
     return thechan_calibrated
 
-def write_band(outname,radiance_array,core_metadata):
+def write_bands(outname,chan_rads,core_metadata):
     """
     write a MODIS band 30 to an h5 file
 
@@ -57,8 +58,10 @@ def write_band(outname,radiance_array,core_metadata):
 
        outname: str
            name of output hdf
-       radiance_array: ndarray
+       chan_rads: dict
            the pixel radiances in W/m^2/sr/micron
+           key: channel number (int)
+           value: radiance (ndarray)
 
     Returns
     -------
@@ -66,31 +69,38 @@ def write_band(outname,radiance_array,core_metadata):
     """
     with h5py.File(outname, "w") as f:
         group = f.create_group("channels")
-        dset = group.create_dataset("chan30", radiance_array.shape,
+        for key, value in chan_rads.items():
+            chan_name = f"chan{key}"
+            radiance_array = value
+            radiance_array = radiance_array.astype(np.float32)
+            dset = group.create_dataset(chan_name, radiance_array.shape,
                                     dtype=radiance_array.dtype)
-        dset[...] = radiance_array[...]
-        dset.attrs['units'] = "W/m^2/micron/sr"
+            dset[...] = radiance_array[...]
+            dset.attrs['units'] = "W/m^2/micron/ sr"
         f.attrs["history"] = 'written by process.py'
         f.attrs["CoreMetadata.0"] = core_metadata
         print(f"wrote {outname}")
 
 
 if  __name__ == "__main__":
-    with cd("/Users/phil/work/sat_data"):
-        all_files = list(Path().glob("MYD021KM*2105*hdf"))
-        all_files = [str(item) for item in all_files if (item.parent.name != "h5_dir"
-                                                         and item.name.find('MYD02') == 0)]
+    import a301_lib
+    sat_data = a301_lib.sat_data / "hdf4_files"
+    with cd(sat_data):
+        all_files = list(sat_data.glob("*MYD021KM*hdf"))
+        all_files = [item for item in all_files if (item.parent.name != "h5_dir"
+                                                         and item.name.find('MYD02') >= 0)]
         print(f"found {all_files}")
-        out_dir = Path()/"h5_dir"
+        out_dir = sat_data /"h5_dir"
         out_dir.mkdir(parents=True, exist_ok=True)
-        for a_file in all_files:
+        for a_file in all_files[:]:
             core_metadata = get_core(a_file)
-            str_file = str(a_file)
-            out_file = out_dir  / f"ch30_{str_file}"
+            out_file = out_dir  / f"oct9_{a_file.name}"
             out_file = out_file.with_suffix('.h5')
             print(f"reading {a_file}, writing {out_file}")
-            the_sd = SD(str_file, SDC.READ)
-            the_band=30
-            ch30_rads =  readband(the_sd,the_band)
+            the_sd = SD(str(a_file), SDC.READ)
+            band_list = [30,31,32]
+            rad_dict = {}
+            for the_band in band_list:
+                rad_dict[the_band] =  readband(the_sd,the_band)
             the_sd.end()
-            write_band(out_file,ch30_rads,core_metadata)
+            write_bands(out_file,rad_dict,core_metadata)
