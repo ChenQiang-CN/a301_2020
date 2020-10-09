@@ -11,13 +11,9 @@ kernelspec:
   name: python3
 ---
 
-+++ {"toc": true}
-
-<h1>Table of Contents<span class="tocSkip"></span></h1>
-<div class="toc"><ul class="toc-item"><li><span><a href="#Scale-heights-for-typical-atmospheric-soundings" data-toc-modified-id="Scale-heights-for-typical-atmospheric-soundings-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Scale heights for typical atmospheric soundings</a></span><ul class="toc-item"><li><span><a href="#Plot-McClatchey's-US-Standard-Atmospheres" data-toc-modified-id="Plot-McClatchey's-US-Standard-Atmospheres-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Plot McClatchey's US Standard Atmospheres</a></span><ul class="toc-item"><li><span><a href="#Reading-the-soundings-files-into-pandas" data-toc-modified-id="Reading-the-soundings-files-into-pandas-1.1.1"><span class="toc-item-num">1.1.1&nbsp;&nbsp;</span>Reading the soundings files into pandas</a></span></li></ul></li></ul></li><li><span><a href="#Use-pd.DataFrame.head-to-see-first-5-lines" data-toc-modified-id="Use-pd.DataFrame.head-to-see-first-5-lines-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Use pd.DataFrame.head to see first 5 lines</a></span><ul class="toc-item"><li><ul class="toc-item"><li><span><a href="#Plot--temp-and-vapor-mixing-ratio-rmix-($\rho_{H2O}/\rho_{air}$)" data-toc-modified-id="Plot--temp-and-vapor-mixing-ratio-rmix-($\rho_{H2O}/\rho_{air}$)-2.0.1"><span class="toc-item-num">2.0.1&nbsp;&nbsp;</span>Plot  temp and vapor mixing ratio rmix ($\rho_{H2O}/\rho_{air}$)</a></span></li></ul></li><li><span><a href="#Calculating-scale-heights-for-temperature-and-air-density" data-toc-modified-id="Calculating-scale-heights-for-temperature-and-air-density-2.1"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Calculating scale heights for temperature and air density</a></span><ul class="toc-item"><li><span><a href="#How-do-$\overline{H_p}$-and-$\overline{H_\rho}$-compare-for-the-tropical-sounding?" data-toc-modified-id="How-do-$\overline{H_p}$-and-$\overline{H_\rho}$-compare-for-the-tropical-sounding?-2.1.1"><span class="toc-item-num">2.1.1&nbsp;&nbsp;</span>How do $\overline{H_p}$ and $\overline{H_\rho}$ compare for the tropical sounding?</a></span></li><li><span><a href="#How-well-do-these-average-values-represent-the-pressure-and-density-profiles?" data-toc-modified-id="How-well-do-these-average-values-represent-the-pressure-and-density-profiles?-2.1.2"><span class="toc-item-num">2.1.2&nbsp;&nbsp;</span>How well do these average values represent the pressure and density profiles?</a></span></li><li><span><a href="#Assignment-for-Tuesday" data-toc-modified-id="Assignment-for-Tuesday-2.1.3"><span class="toc-item-num">2.1.3&nbsp;&nbsp;</span>Assignment for Tuesday</a></span></li></ul></li></ul></li></ul></div>
 
 +++
-
+(scale_heights)=
 # Scale heights for typical atmospheric soundings
 
 +++

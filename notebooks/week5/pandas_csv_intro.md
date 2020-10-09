@@ -25,7 +25,7 @@ language_info:
 nbsphinx:
   execute: never
 ---
-
+(pandas_intro)=
 # Reading & Summarizing CSV Data
 
 Credit: the notebooks in this folder are lightly modified versions of work by Jennifer Walker presented

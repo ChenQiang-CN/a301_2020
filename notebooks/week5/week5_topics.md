@@ -45,3 +45,12 @@
   * Introduce {ref}`assignment3`
 
   * For Friday: Read [Stull Chapter 1 pages 8-11](https://www.eoas.ubc.ca/books/Practical_Meteorology/prmet102/Ch01-atmos-v102b.pdf) and my   {ref}`hydro` notes
+
+* Topics for Friday
+
+  * new data files in data_share/h5_files, written by
+    [process_bands.py](https://github.com/phaustin/a301_2020/blob/master/sat_lib/process_bands.py)
+
+  * Introduction to pandas: {ref}`pandas_intro`
+
+  * Scale heights: {ref}`scale_heights`
