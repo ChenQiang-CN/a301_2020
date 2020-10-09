@@ -278,7 +278,7 @@ theAx.legend(loc='best');
 
 <a name="oct7assign"></a>
 
-### Assignment for Tuesday
+### Assignment4 -- (preview)
 
 Add cells to this notebook to:
 
