@@ -1,11 +1,40 @@
 - file: index.md
   numbered: true
 
+- file: assignments.md
 - file: week1/getting_started.md
   chapters:
     - file: week1/syllabus.rst
     - file: week1/integrity.md
     - file: week1/texts.rst
+    - file: week2/week2_topics.md
+  chapters:
+    - file: week2/beers_law.rst
+    - file: week2/sensors.rst
+    - file: week2/flux_from_radiance.rst
+    - file: week2/debugging_intro.md
+    - file: week2/derivs_and_ints.md
+    - file: week2/planck_function.md   
+- file: week3/week3_topics.md
+  chapters:
+    - file: week3/assignment1.md
+    - file: week3/satellite.rst
+    - file: week3/modis_level1b_read.md
+- file: week4/week4_topics.md
+  chapters:
+    - file: week4/assign1_solution.md
+    - file: week4/cartopy_mapping.md
+    - file: week4/cartopy_resample_ch30.md
+    - file: week4/schwartz.rst
+    - file: week4/assignment2.md
+- file: week5/week5_topics.md
+  chapters:
+    - file: week5/cartopy_resample_ch30_h5.md
+    - file: week5/testing.rst
+    - file: week5/assignment3.md
+    - file: week5/hydrostat.rst
+    - file: week5/pandas_csv_intro.md
+    - file: week5/hydrostatic_balance.md
 # - file: intro
 # - file: content
 #   sections:
