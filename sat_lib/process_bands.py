@@ -82,11 +82,13 @@ def write_bands(outname,chan_rads,core_metadata):
         print(f"wrote {outname}")
 
 
+
+
 if  __name__ == "__main__":
     import a301_lib
     sat_data = a301_lib.sat_data / "hdf4_files"
     with cd(sat_data):
-        all_files = list(sat_data.glob("*MYD021KM*hdf"))
+        all_files = list(sat_data.glob("MYD021KM*2105*hdf"))
         all_files = [item for item in all_files if (item.parent.name != "h5_dir"
                                                          and item.name.find('MYD02') >= 0)]
         print(f"found {all_files}")

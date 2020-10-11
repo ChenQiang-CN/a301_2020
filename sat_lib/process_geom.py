@@ -76,10 +76,10 @@ if  __name__ == "__main__":
         all_files = [str(item) for item in all_files if (item.parent.name != "h5_dir"
                                                          and item.name.find('MYD03') == 0)]
         print(f"found these files: {all_files}")
-        out_dir = Path()/"h5_dir"
+        out_dir = the_dir / "h5_dir"
         out_dir.mkdir(parents=True, exist_ok=True)
         for a_file in all_files:
-            str_file = str(a_file)
+            str_file = Path(a_file).name
             core_metadata = get_core(a_file)
             out_file = out_dir  / f"geom_{str_file}"
             out_file = out_file.with_suffix('.h5')
