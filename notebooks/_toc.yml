@@ -2,6 +2,10 @@
   numbered: true
 
 - file: week1/getting_started.md
+  chapters:
+    - file: week1/syllabus.rst
+    - file: week1/integrity.md
+    - file: week1/texts.rst
 # - file: intro
 # - file: content
 #   sections:
