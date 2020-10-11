@@ -42,7 +42,7 @@
 
   * Go over {ref}`testing`
 
-  * Introduce {ref}`assignment3`
+  * Introduce {ref}`assign3`
 
   * For Friday: Read [Stull Chapter 1 pages 8-11](https://www.eoas.ubc.ca/books/Practical_Meteorology/prmet102/Ch01-atmos-v102b.pdf) and my   {ref}`hydro` notes
 

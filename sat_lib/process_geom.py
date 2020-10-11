@@ -69,11 +69,13 @@ def write_geom(outname,latitude_array, longitude_array,core_metadata):
 
 
 if  __name__ == "__main__":
-    with cd("/Users/phil/work/sat_data"):
-        all_files = list(Path().glob("MYD03*2105*hdf"))
+    import a301_lib
+    the_dir = a301_lib.sat_data / "hdf4_files"
+    with cd(the_dir):
+        all_files = list(the_dir.glob("MYD03*2105*hdf"))
         all_files = [str(item) for item in all_files if (item.parent.name != "h5_dir"
                                                          and item.name.find('MYD03') == 0)]
-        print(f"found {all_files}")
+        print(f"found these files: {all_files}")
         out_dir = Path()/"h5_dir"
         out_dir.mkdir(parents=True, exist_ok=True)
         for a_file in all_files:

@@ -23,13 +23,12 @@
 - file: week4/week4_topics.md
   chapters:
     - file: week4/assign1_solution.md
-    - file: week4/cartopy_mapping.md
-    - file: week4/cartopy_resample_ch30.md
+    - file: week4/cartopy_mapping_h5.md
+    - file: week4/cartopy_resample_ch30_h5.md
     - file: week4/schwartz.rst
     - file: week4/assignment2.md
 - file: week5/week5_topics.md
   chapters:
-    - file: week5/cartopy_resample_ch30_h5.md
     - file: week5/testing.rst
     - file: week5/assignment3.md
     - file: week5/hydrostat.rst

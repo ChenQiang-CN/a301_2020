@@ -10,4 +10,3 @@ sat_data = work_dir / 'sat_data'
 sys.path.insert(0, str(work_dir))
 sep='*'*30
 print(f'{sep}\ncontext imported. Front of path:\n{sys.path[0]}\n')
-

@@ -48,7 +48,8 @@ print(a301_lib.sat_data)
 ```
 
 ```{code-cell}
-all_files = list(a301_lib.sat_data.glob("*MYD02*2105*hdf"))
+hdf4_dir = a301_lib.sat_data / 'hdf4_files'
+all_files = list(hdf4_dir.glob("*MYD02*2105*hdf"))
 print(all_files)
 ```
 
@@ -69,7 +70,7 @@ print(
         f"\nHere is the help file for the info funtion:\n"
     )
 )
-help(SD.info)
+#help(SD.info)
 ```
 
 ## Find the dataset and print their indices

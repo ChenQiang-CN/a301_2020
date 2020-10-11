@@ -6,7 +6,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.12
-    jupytext_version: 1.6.0-dev
+    jupytext_version: 1.6.0
 kernelspec:
   display_name: Python 3
   language: python
@@ -50,51 +50,55 @@ Chapter 2 describes map projections.  We will generally be using the LAEA projec
 
 * Step 1: Use [cartopy](http://scitools.org.uk/cartopy/docs/latest/index.html) to make a LAEA map of BC including Vancouver.
 
-```{code-cell} ipython3
+```{code-cell}
 import a301_lib
 from pathlib import Path
 from pyhdf.SD import SD, SDC
 from matplotlib import pyplot as plt
 import sat_lib.modismeta_read as mread
 import pprint
+import h5py
+from sat_lib.modismeta_read import get_core, parseMeta
 ```
 
-```{code-cell} ipython3
-myd03_file_name = list(a301_lib.sat_data.glob("MYD03*2105*hdf"))[0]
-print(myd03_file_name)
+```{code-cell}
+myd03_dir = a301_lib.sat_data / "h5_dir"
+geom_file_name = list(myd03_dir.glob("geom*MYD03*2105*h5"))[0]
+#breakpoint()
+print(geom_file_name)
 ```
 
 *  What's in the file?
 
-```{code-cell} ipython3
-m3_file = SD(str(myd03_file_name), SDC.READ)
-print(m3_file.info())
-datasets_dict = m3_file.datasets()
-for idx, sds in enumerate(datasets_dict.keys()):
-    print(idx, sds)
+```{code-cell}
+with h5py.File(geom_file_name,'r') as f:
+    print(list(f.keys()))
+    geom_group = f['geometry']
+    print(list(geom_group.keys()))
+    lats = geom_group['latitude'][...]
+    print(lats.shape)
+    lons = geom_group['longitude'][...]
+    print(lons.shape)
+    print(f.attrs.keys())
+    core_metadata = f.attrs["CoreMetadata.0"]
+    swath_info = parseMeta(core_metadata)
 ```
 
 * Read the MYD03 metadata into a dictionary
 
 This uses some fancy code I wrote, treat as a black box for now. Later on we will want to define  a region that just includes the whole swath.  This is given by the [min_lon, max_lon, min_lat, max_lat] points.  The actual corners of the swath are given by lat_list and lon_list.  The center of the swath is given by lon_0,lat_0
 
-```{code-cell} ipython3
-meta_dict= mread.parseMeta(myd03_file_name)
-pprint.pprint(meta_dict)
-```
++++
 
 * Read the lats and lons into array
 
-```{code-cell} ipython3
-lats = m3_file.select('Latitude').get()
-lons = m3_file.select('Longitude').get()
-print(lats.shape, lons.shape)
+```{code-cell}
+
 ```
 
 *  Note the overlap in the 10 scanlines
 
-
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots(1,1,figsize=(10,10))
 ax.plot(lons[:50,:50],lats[:50,:50],"b+")
 ax.set(xlabel="longitude (deg east)",ylabel="latitude (deg north)");
@@ -106,7 +110,7 @@ ax.set(xlabel="longitude (deg east)",ylabel="latitude (deg north)");
 
 **This cell sets up the datum and the LAEA projection, with the tangent point at the North Pole and the central meridian at -90 degrees west of Greenwich**
 
-```{code-cell} ipython3
+```{code-cell}
 import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import cartopy
@@ -138,7 +142,7 @@ print(f"pro4 program params: {projection.proj4_params}")
 
 **Use matplotlib to draw the map and add a coastline**
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots(1, 1, figsize=(10, 10), subplot_kw={"projection": projection})
 ax.gridlines(linewidth=2)
 ax.add_feature(cartopy.feature.GSHHSFeature(scale="coarse", levels=[1, 2, 3]))
@@ -153,7 +157,7 @@ of the original full globe.  The strategy is to find a point in your swath and
 get it's x,y coords, then use that to set the corners of the map so that
 you have your region of interest
 
-```{code-cell} ipython3
+```{code-cell}
 #
 # pick a bounding box in map coordinates
 # (we know from the next cell that vancouver is located
@@ -168,7 +172,7 @@ ybot, ytop = -4_700_000, -3_100_000
 
 This is how we put Vancouver (in lon,lat coords) on the map (in LAEA x,y coords)
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots(1, 1, figsize=(10, 10), subplot_kw={"projection": projection})
 #
 # clip with 0,0 in the center:  [xleft, xright, ybot, ytop]
@@ -191,7 +195,7 @@ print(van_x, van_y);
 Since we have created a figure object, we can use that to save the png file
 using the same syntax as [Kazarinoff 7.4](https://atsc_web.eoas.ubc.ca/Plotting-with-Matplotlib/Saving-Plots.html)
 
-```{code-cell} ipython3
+```{code-cell}
 png_file = a301_lib.data_share / 'pha_map.png'
 fig.savefig(png_file)
 ```
