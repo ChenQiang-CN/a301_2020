@@ -1,5 +1,5 @@
 
-# A301 Week 3
+# Week 3
 
 * Week 3 topics for Monday
 

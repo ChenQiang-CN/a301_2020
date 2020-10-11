@@ -1,5 +1,5 @@
 
-# ATSC 301: Fall 2020 -- pha
+# ATSC 301: Fall 2020 
 
 ## Useful links
 

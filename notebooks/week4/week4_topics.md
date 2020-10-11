@@ -1,4 +1,4 @@
-# A301 Week 4
+# Week 4
 
 * Week 4 topics for Monday
 

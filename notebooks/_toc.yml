@@ -1,13 +1,13 @@
 - file: index.md
   numbered: true
-
+  
 - file: assignments.md
-- file: week1/getting_started.md
+- file: week1/week1_topics.md
   chapters:
     - file: week1/syllabus.rst
     - file: week1/integrity.md
     - file: week1/texts.rst
-    - file: week2/week2_topics.md
+- file: week2/week2_topics.md
   chapters:
     - file: week2/beers_law.rst
     - file: week2/sensors.rst

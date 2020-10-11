@@ -1,3 +1,4 @@
+(assign2)=
 # Assignment 2 -- Stull problems from chaps 2 and 8
 
 

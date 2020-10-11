@@ -1,4 +1,4 @@
-# A301 Week 2
+# Week 2
 
 * Review from Week 1
 
