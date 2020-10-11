@@ -12,6 +12,9 @@
 		},
 		{
 			"path": "../temp/notebooks"
+		},
+		{
+			"path": "../jupyterhub_basics"
 		}
 	],
 	"settings": {
