@@ -34,4 +34,7 @@
     - file: week5/pandas_csv_intro.md
     - file: week5/hydrostatic_balance.md
 - file: assignments.md
+- file: review.md
+- file: notebooks.md
+
 

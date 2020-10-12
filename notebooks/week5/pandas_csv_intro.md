@@ -1,8 +1,5 @@
 ---
 jupytext:
-  cell_metadata_filter: all
-  cell_metadata_json: true
-  notebook_metadata_filter: all
   text_representation:
     extension: .md
     format_name: myst
@@ -12,29 +9,12 @@ kernelspec:
   display_name: Python 3
   language: python
   name: python3
-language_info:
-  codemirror_mode:
-    name: ipython
-    version: 3
-  file_extension: .py
-  mimetype: text/x-python
-  name: python
-  nbconvert_exporter: python
-  pygments_lexer: ipython3
-  version: 3.8.5
-nbsphinx:
-  execute: never
 ---
 (pandas_intro)=
 # Reading & Summarizing CSV Data
 
 Credit: the notebooks in this folder are lightly modified versions of work by Jennifer Walker presented
 at the EOAS python workshop in October, 2018: https://github.com/jenfly/eoas-python
-
-
-```{code-cell} ipython3
-#!conda install -y pandas
-```
 
 ```{code-cell} ipython3
 from pathlib import Path

@@ -8,13 +8,13 @@
 
   * Move our files to hdf5 
 
-    * {ref}`week5:resampleh5`
+    * {ref}`week4:resampleh5`
 
     * For Wednesday
 
       * finish assignment 2
 
-      * move your satellite images over to {ref}`week5:resampleh5`
+      * move your satellite images over to {ref}`week4:resampleh5`
 
       * read the rest of {ref}`schwartz`
 

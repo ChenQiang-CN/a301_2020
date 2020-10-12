@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-(week5:resampleh5)=
+(week4:resampleh5)=
 # Use pyresample to plot channel 30 radiances
 
 This notebook uses to hdf5 files: a geom file containing lats and lons copied
