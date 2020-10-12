@@ -1,4 +1,4 @@
-.. include:: refs.txt
+.. include:: ../refs.txt
 
 .. _testing:
 
