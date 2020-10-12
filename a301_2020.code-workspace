@@ -5,16 +5,7 @@
 			"path": "."
 		},
 		{
-			"path": "../jupyterhub_basics/examples/simple"
-		},
-		{
-			"path": "../machine_config"
-		},
-		{
 			"path": "../temp/notebooks"
-		},
-		{
-			"path": "../jupyterhub_basics"
 		},
 		{
 			"path": "../jupyter-book/docs"
@@ -24,6 +15,7 @@
 		"workbench.colorCustomizations": {
 			"terminalCursor.foreground": "#00ffaa"
 		 },
-		 "terminal.integrated.cursorBlinking": true,
+		"terminal.integrated.cursorBlinking": true,
+		"terminals.autorun": true,
 	}
 }
