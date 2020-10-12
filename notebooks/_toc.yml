@@ -1,7 +1,6 @@
 - file: index.md
   numbered: true
   
-- file: assignments.md
 - file: week1/week1_topics.md
   chapters:
     - file: week1/syllabus.rst
@@ -34,8 +33,5 @@
     - file: week5/hydrostat.rst
     - file: week5/pandas_csv_intro.md
     - file: week5/hydrostatic_balance.md
-# - file: intro
-# - file: content
-#   sections:
-#     - file: markdown
-#     - file: notebooks
+- file: assignments.md
+
