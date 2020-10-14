@@ -7,20 +7,20 @@
 
   to run from the command line::
 
-    python -m a301.utils.data_read photon_data.csv
+    python -m sat_lib.utils.data_read photon_data.csv
 
     or
 
-    python -m a301.utils.data_read A20162092016216.L3m_8D_PAR_par_9km.nc --root https://oceandata.sci.gsfc.nasa.gov/cgi/getfile
+    python -m sat_lib.utils.data_read A20162092016216.L3m_8D_PAR_par_9km.nc --root https://oceandata.sci.gsfc.nasa.gov/cgi/getfile
 
   to run from a python script::
 
-    from a301.utils.data_read import download
+    from sat_lib.utils.data_read import download
     download('photon_data.csv')
 
   or
 
-    from a301.utils.data_read import download
+    from sat_lib.utils.data_read import download
     root="https://oceandata.sci.gsfc.nasa.gov/cgi/getfile"
     filename="A20162092016216.L3m_8D_PAR_par_9km.nc"
     download(filename,root=root)
@@ -30,15 +30,15 @@ import argparse
 import requests
 from pathlib import Path
 import shutil
-import a301
 import pandas as pd
+import a301_lib
 import pdb
 
 class NoDataException(Exception):
     pass
 
 def read_soundings():
-    soundings_folder= a301.test_dir / Path('soundings')
+    soundings_folder= a301_lib.sat_data / Path('soundings')
     sounding_files = list(soundings_folder.glob("*csv"))
     sound_dict={}
     for item in sounding_files:
