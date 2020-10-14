@@ -51,9 +51,11 @@ Key ideas:
 
 ### Transmisstance -- Stull Figure 8.4c
 
-```{code-cell}
-Image("images/stull_8_4c.png", width=800)
-```
++++
+
+<img src="images/stull_8_4c.png" width=700>
+
++++
 
 It's a little hard to see in the figure, but there are 8 channels crunched between 13-15 microns, along the "shoulder" of the the main CO2 absorption band.
 
@@ -74,15 +76,19 @@ That is, Channel 1 is at the center of the band -- it has the lowest transmissiv
 
 As the channel number increases from 2-6 the transmissivity also increases, and the photons originate from increasingly lower levels of the atmosphere with increasing kinetic temperatures.  Note the different heights for the peaks in each of the weighting functions.
 
-```{code-cell}
-Image("images/wallace4_33.png", width=500)
-```
++++
+
+<img src="images/wallace4_33.png" width=500>
+
++++
 
 ### Weighting functions from Stull
 
-```{code-cell}
-Image("images/stull_8_9.png", width=800)
-```
++++
+
+<img src="images/stull_8_9.png" width=800>
+
++++
 
 ## Calculating the weighting functions in the $CO_2$ 15 $\mu m$ absorption band
 
@@ -120,7 +126,7 @@ This notebook uses the five standard atmospheres from  [hydrostatic_balance.ipyn
 We're going to need the air density as a function of height, so we'll require the **calcDensHeight**
 function from the hydrostatic balance notebook, which I've moved to the a301.thermo library:
 
-```{code-cell}
+```{code-cell} ipython3
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticks
@@ -128,14 +134,15 @@ import matplotlib.ticker as ticks
 #
 # from the hydrostatic_balance notebook
 #
-from a301.thermo import calcDensHeight
+import a301_lib
+from sat_lib.thermo import calcDensHeight
 ```
 
 I've also moved the csv file reader to the a301.utils.data_read module so we can
 reuse tha code:
 
-```{code-cell}
-from a301.utils.data_read import read_soundings
+```{code-cell} ipython3
+from sat_lib.utils.data_read import read_soundings
 
 sound_dict = read_soundings()
 print(list(sound_dict.keys()))
@@ -200,7 +207,7 @@ will be the same.
 To keep things simple I'm going to make up a set of 7 absorption coefficients and a mixing ratio that will give weighting functions that look something like the VPTR.  The next cell shows how to calculate the optical depth
 given a mixing ratio, absorption coefficient and a standard sounding:
 
-```{code-cell}
+```{code-cell} ipython3
 Rd = 287.0
 
 
@@ -257,7 +264,7 @@ def find_tau(r_gas, k_lambda, df):
 This cell calls find_tau and plots $\tau_\lambda$ for one wavelength as a function
 of height and pressure in a tropical atmosphere.
 
-```{code-cell}
+```{code-cell} ipython3
 %matplotlib inline
 plt.style.use("ggplot")
 r_gas = 0.01  # kg/kg
@@ -288,7 +295,7 @@ This cell finds 7 wavenumbers ($1/\lambda$) in the CO2 absorption band between 6
 It makes a list of both the wavenumbers and the $k_\lambda$ for each wavenumber, as well
 as legend labels to use in plotting.
 
-```{code-cell}
+```{code-cell} ipython3
 r_gas = 0.01  # kg/kg
 #
 # assign the 7 k_lambdas to 7 CO2 absorption band wavelengths
@@ -317,7 +324,7 @@ weighting function $\Delta \hat{t}$ using np.diff (line 30)**
 Note that on line 28 we are defining the transmittance from the satellite to the surface, that is,
 the transmittance = 1 at the top of the atmosphere where tau=tau_tot
 
-```{code-cell}
+```{code-cell} ipython3
 #
 # make a list of tuples of k_lambda and its label
 # using zip
@@ -371,11 +378,11 @@ The weighting function is calculated at line 14, and the integral is done at lin
 
 For plotting the radiances are turned into brightness temperatures at line 17
 
-```{code-cell}
+```{code-cell} ipython3
 
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 from collections import defaultdict
 from a301.radiation import calc_radiance, planck_invert
 
@@ -408,6 +415,6 @@ ax.set(ylabel="Tbright (K)", xlabel="wavelength (microns)")
 print(the_wave_um)
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 
 ```
