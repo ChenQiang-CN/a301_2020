@@ -238,7 +238,7 @@ def find_tau(r_gas, k_lambda, df):
     # density scale height
     #
     T, z = df["temp"].values, df["z"].values
-    Hdens = calcDensHeight(T, z)
+    Hdens = calcDensHeight(df)
     #
     # surface density
     #
@@ -379,12 +379,8 @@ The weighting function is calculated at line 14, and the integral is done at lin
 For plotting the radiances are turned into brightness temperatures at line 17
 
 ```{code-cell} ipython3
-
-```
-
-```{code-cell} ipython3
 from collections import defaultdict
-from a301.radiation import calc_radiance, planck_invert
+from sat_lib.radiation import calc_radiance, planck_invert
 
 Tbright = defaultdict(list)
 for the_sound, the_df in sound_dict.items():
