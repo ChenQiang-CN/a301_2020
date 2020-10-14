@@ -5,3 +5,5 @@
   * Mid-term topics: {ref}`mid_review1`
 
   * {ref}`assign4`
+
+  * {ref}`weighting_funs`
