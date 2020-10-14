@@ -21,7 +21,7 @@ Stull page 2.43 and the :ref:`beers_law` reading:
 
 
 #. Repeat the problem above, but for a layer with an optical depth of `\tau_\lambda=1`.
-   How does that change :eq:`thin` ?
+   How does that change the equation above?
 
 
 #. Suppose you put ozone molecules in a 1 km long tunnel and measure an optical thickness of
@@ -32,83 +32,7 @@ Stull page 2.43 and the :ref:`beers_law` reading:
 #. Find the narrow beam transmission, absorption and emission for a series of
    stacked layers of equal transmissivities and temperatures in a direction perpendicular to the layers:
 
-   **Answer:**
-
-   Consider 3 layers each with direct beam transmissivity
-   `\hat{t} = \frac{E}{E_0} = \frac{L \Delta \omega}{L_0 \Delta \omega} = \frac{L}{L_0}`.
-   The outgoing radiance from one layer is the
-   incoming radiance from the next layer, so that
-
-   .. math::
-
-       L_3 = \hat{t} L_2 \\
-       L_2 = \hat{t} L_1 \\
-       L_1 = \hat{t} L_0
-
-
-   and substituting in turn:
-
- 
-   .. math::
-       
-      L_3 = \hat{t}^3 L_0
-
-   The amount absorbed is
-     
-   `(L_3 - L_0 = (1 - \hat{t^3}) L_0` so the absorptivity is
-   `(1 - \hat{t}^3)` which by Kirchoff’s law is the emissivity. The
-   emission is therefore:
-
-   .. math::
-      
-    L = \left ( 1 - \hat{t}^3 \right ) \frac{\sigma}{\pi} T^4
-
-   and the transmitted radiance is `\hat{t}^3 L_0`
-
-   Note that this only works if all layers are the same temperature.  (Why?)
-
-   **Answer:**
-
-   We are solving the emission part of the Schwartzchild equation:
-
-   .. math::
-      
-      L_{emitted} = \int B(T) d\hat{t}
-
-   If `B(T)` is constant it can come out of the integral and we have:
-
-   .. math::
-
-      \begin{aligned}
-      L_{emitted} &= B(T) \left . \hat{t} \right |_{t_{tot}}^1 \\
-                  &= B(T)(1 - t_{tot})=B(T)(1 - \hat{t}^3)
-      \end{aligned}
-
-   which is the answer we got.  If B(T) changed with the layer, then we'd
-   need that information in the integration to get the emitted radiance.
-
-
-   Note also that this only works if the beam is going straight through the layers
-   (i.e. not a slant path)  (Why? How would this change for a slant path?)
-
-   **Answer:**
-
-   For the slant path we would need to replace the vertical optical thickness:
-
-   .. math::
-
-      d \tau =  \kappa_\lambda \rho_g dz
-
-   with the slant path optical thickness `\tau_s`:
-
    
-   .. math::
-
-      d \tau_s =  \kappa_\lambda \rho_g ds = \kappa_\lambda \rho_g dz/\cos \theta
-      = \kappa_\lambda \rho_g dz/\mu
-
-   Once we made that change, everything would work as before, just with a
-   smaller transmittance due to the longer slant path for `\mu < 1`.
    
 Solid angle and radiance
 ------------------------
