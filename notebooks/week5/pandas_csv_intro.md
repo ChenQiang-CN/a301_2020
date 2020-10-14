@@ -76,7 +76,7 @@ raw_dir = a301_lib.data_share / "pandas/data/raw"
 
 - `pandas` = [Python Data Analysis Library](https://pandas.pydata.org/)
 - Best book: [Python for data analysis](https://github.com/wesm/pydata-book) by Wes McKinney
-- Jennifer Walker's [Pandas cheatsheet](pandas-cheatsheet.ipynb)
+- Jennifer Walker's {ref}`pandas_cheatsheet`
 - Library for working with **labelled** tabular data (1-D and 2-D)
   - Data formats include: comma separated values (CSV) and other text files, Excel spreadsheets, HDF5, [and others](https://pandas.pydata.org/pandas-docs/stable/io.html)
 - With `pandas` you can do pretty much everything you would in a spreadsheet, plus a whole lot more!

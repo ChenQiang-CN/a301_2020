@@ -32,7 +32,10 @@
     - file: week5/assignment3.md
     - file: week5/hydrostat.rst
     - file: week5/pandas_csv_intro.md
+    - file: week5/pandas-cheatsheet.md
     - file: week5/hydrostatic_balance.md
+- file: week6/week6_topics.md
+
 - file: assignments.md
 - file: review.md
 - file: notebooks.md
