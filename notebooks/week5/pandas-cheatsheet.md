@@ -11,42 +11,18 @@ kernelspec:
   display_name: Python 3
   language: python
   name: python3
-language_info:
-  codemirror_mode:
-    name: ipython
-    version: 3
-  file_extension: .py
-  mimetype: text/x-python
-  name: python
-  nbconvert_exporter: python
-  pygments_lexer: ipython3
-  version: 3.6.7
-toc:
-  base_numbering: 1
-  nav_menu: {}
-  number_sections: true
-  sideBar: true
-  skip_h1_title: true
-  title_cell: Table of Contents
-  title_sidebar: Contents
-  toc_cell: true
-  toc_position: {}
-  toc_section_display: true
-  toc_window_display: true
 ---
-
-+++ {"slideshow": {"slide_type": "slide"}}
 
 (pandas_cheatsheet)=
 # Pandas Cheatsheet
 
-### Importing `pandas` Library
+## Importing `pandas` Library
 ```python
 import pandas
 ```
 > In general, it's good practice to collect all your `import` commands together and put them at the start of the notebook.
 
-### DataFrames and Series
+## DataFrames and Series
 
 Data in `pandas` is organized into DataFrames and Series.
 
@@ -56,7 +32,7 @@ Data in `pandas` is organized into DataFrames and Series.
 - **Series:** 1-dimensional array, like a single column or row in a spreadsheet
   - Each individual column or row of a DataFrame is represented as a Series
 
-### Reading a CSV File
+## Reading a CSV File
 
 To read a CSV file and store it as a DataFrame variable:
 ```python
@@ -65,7 +41,7 @@ df = pandas.read_csv('some_cool_data.csv')
 
 Missing data in a DataFrame or Series is represented as `NaN` ("not a number").
 
-### Saving to a CSV File
+## Saving to a CSV File
 
 To save a DataFrame to a CSV file: 
 ```python
@@ -75,7 +51,7 @@ df.to_csv('cool_output.csv', index=False)
 
 +++ {"slideshow": {"slide_type": "slide"}}
 
-### Quick and Easy Summaries of a DataFrame
+## Quick and Easy Summaries of a DataFrame
 
 |**feature** |dataframe attribute/method|
 |---|---|
@@ -90,7 +66,7 @@ df.to_csv('cool_output.csv', index=False)
 
 +++ {"slideshow": {"slide_type": "slide"}}
 
-#### Summary Statistics
+## Summary Statistics
 
 Full set of summary statistics (min, max, mean, standard deviation, etc.) for each numerical column of a DataFrame:
 ```python
@@ -106,9 +82,9 @@ And similarly for other summary statistics: `df.min()`, `df.max()`, `df.median()
 
 +++ {"slideshow": {"slide_type": "slide"}}
 
-### Working with DataFrame Columns
+## Working with DataFrame Columns
 
-#### Single Columns
+### Single Columns
 
 Each column of a DataFrame is a Series.
 ```python
@@ -126,7 +102,7 @@ Basic calculations with a Series and adding a new column to a DataFrame:
 df['Double X'] = 2 * df['X']
 ```
 
-#### Multiple Columns
+### Multiple Columns
 
 Use a list of column names to select several columns of a DataFrame, in a specified order:
 ```python

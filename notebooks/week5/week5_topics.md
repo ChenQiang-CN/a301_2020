@@ -14,7 +14,7 @@
 
       * finish assignment 2
 
-      * move your satellite images over to {ref}`week4:resampleh5`
+      * move your satellite images over to {ref}`week4:resample`
 
       * read the rest of {ref}`schwartz`
 
