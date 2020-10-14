@@ -4,4 +4,4 @@
 
   * Mid-term topics: {ref}`mid_review1`
 
-  * Assignment 4 
+  * {ref}`assign4`

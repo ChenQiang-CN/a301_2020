@@ -35,6 +35,9 @@
     - file: week5/pandas-cheatsheet.md
     - file: week5/hydrostatic_balance.md
 - file: week6/week6_topics.md
+  chapters:
+    - file: week6/assignment4.md
+    - file: mid_term_review1.rst
 
 - file: assignments.md
 - file: review.md

@@ -43,15 +43,6 @@ From :ref:`radiance` reading:
 #. Calculate the solid angle subtended by a cone with an angular width of
    `\Delta \theta` =20 degrees.
 
-   **Answer**
-   
-   .. math::
-      :label: solid
-         
-       \omega &= \int_0^{2\pi} \int_0^{10} \sin \theta d\theta d\phi = -2\pi (\cos(10) - \cos(0)) \\
-        &= 2\pi (1 - \cos(10)) = 2\pi(1 - 0.985) = 0.0954\ sr
-
-
 #. A laser pointer subtends the same solid angle as the sun: `7 \times 10^{-5}` sr.  You shine it at a wall that is 10 meters away.  What is the radius of the circular dot?
 
 
