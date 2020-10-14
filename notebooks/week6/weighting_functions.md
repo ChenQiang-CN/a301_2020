@@ -15,15 +15,6 @@ kernelspec:
 # Weighting functions for temperature retrieval
 
 
-import pdb
-import sys
-
-import numpy as np
-from IPython.display import Image
-
-import a301_lib
-
-
 Recall [Stull Chapter 8](https://www.eoas.ubc.ca/books/Practical_Meteorology/prmet102/Ch08-satellite_radar-v102b.pdf) Figure 8.4c (shown below).  As Stull explains a bunch of satellites use the 15 $\mu m$ CO2 absorption band
 to look at the temperature at different heights in the atmosphere.  The key idea is that the changing density of
 the atmosphere means that at any particular wavelength there is some level where most of the emittied atmospheric
