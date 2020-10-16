@@ -1,2 +1,4 @@
 #!/bin/bash -v
-scp -r a301_web/* n7:/ScratchSSD/docker/a301_setup/a301_2020/notebooks/.
+jb build notebooks
+cp -a notebooks/week6/images notebooks/_build/html/week6/.
+cp -a notebooks/week6/figures notebooks/_build/html/week6/.

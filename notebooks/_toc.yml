@@ -37,9 +37,12 @@
 - file: week6/week6_topics.md
   chapters:
     - file: week6/assignment4.md
-    - file: mid_term_review1.rst
-    - file: weighting_functions.md
+    - file: week6/mid_term_reviewI.rst
+    - file: week6/mid_term_reviewII.rst
+    - file: week6/weighting_functions.md
+    - file: week6/flux_from_radiance_rev.rst
 
+      
 - file: assignments.md
 - file: review.md
 - file: notebooks.md
