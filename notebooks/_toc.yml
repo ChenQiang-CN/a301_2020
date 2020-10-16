@@ -41,6 +41,8 @@
     - file: week6/mid_term_reviewII.rst
     - file: week6/weighting_functions.md
     - file: week6/flux_from_radiance_rev.rst
+    - file: week6/flux_schwartzchild.rst
+    - file: week6/flux_shcwartzchild_mathy.rst
 
       
 - file: assignments.md

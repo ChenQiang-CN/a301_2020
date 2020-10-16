@@ -5,9 +5,9 @@
 Flux and radiance review
 ++++++++++++++++++++++++
 
-* Question:  "I'm confused about the difference between emission/radiance/flux. The incoming flux = irradiance = E. Radiance = L = independent of distance = luminosity. What's the outgoing flux then? Is the emission the outgoing flux? In Q4 of Beer's Law in MT Questions Part 1, it asks us to calculate emission (among other things). Are we calculating the outgoing flux (aka irradiance)? Or the outgoing radiance? The solutions say it's L = radiance but I'm not sure why it's multiplied by the absorptivity and irradiance."
+* Question:  "I'm confused about the difference between emission/radiance/flux. The incoming flux = irradiance = E. Radiance = L = independent of distance = luminosity. What's the outgoing flux then? Is the emission the outgoing flux? In Q4 of Beer's Law in MT Questions Part 1, it asks us to calculate emission (among other things). Are we calculating the outgoing flux (aka irradiance)? Or the outgoing radiance? 
 
-**Answer**  I've rewritten :ref:`mid_review1` Q4 so that it now reads:
+* The pertinent review question is :ref:`mid_review1` Q4:
 
 * "Find the narrow beam transmission, absorption and emission for a series of
   stacked layers of equal transmissivities and temperatures in a direction perpendicular
@@ -158,12 +158,13 @@ out :eq:`flux_revB` but `\theta` has to stay in:
 which is true for a thermal emitter with a infinite horizontal extent (so that we can integrate
 all the way down to the horizon).
 
-Not on the mid-term, L varying over a range of angles
------------------------------------------------------
+L varying over a range of angles
+--------------------------------
 
-The problem we can't handle yet is how to solve :eq:`flux_revB` when neither
-`L` or `cos \theta` can come out of the integral.  There is a simple approximation
-for that situation as well, but we'll wait until after the midterm to discuss it.
+The atmosphere introduces an absorbing emitting layers that changes the value of L
+with changing zenith angle.  How do we solve  to solve :eq:`flux_revB` when 
+`L` an't come out of the integral?  There is a simple approximation
+for that situation as well, discussed in :ref:`flux_schwartzchild`
 
 .. 
   # radius of sun 695508 km = 700000e.3 = 7.e8
