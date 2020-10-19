@@ -8,7 +8,7 @@
 
   * Move our files to hdf5 
 
-    * {ref}`week4:resampleh5`
+    * {ref}`week4:resample`
 
     * For Wednesday
 
