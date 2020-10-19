@@ -1,5 +1,4 @@
 .. default-role:: math
-.. include:: coursebuild/index_notebooks.txt             
 
 .. _flux_schwartzchild:
              

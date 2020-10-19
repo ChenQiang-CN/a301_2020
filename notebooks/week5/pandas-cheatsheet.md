@@ -225,7 +225,7 @@ world_new = world.set_index('country')
 
 ### Anatomy of a DataFrame
 
-![dataframe3](img/dataframe3.png)
+![dataframe3](figures/dataframe3.png)
 
 - Each cell in a DataFrame is associated with:
   - A row position and column position (integers, starting from 0), and
