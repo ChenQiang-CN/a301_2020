@@ -43,6 +43,9 @@
     - file: week6/flux_from_radiance_rev.rst
     - file: week6/flux_schwartzchild.rst
     - file: week6/flux_shcwartzchild_mathy.rst
+- file: week7/week7_topics.md
+  chapters:
+    - file: week4/assign3_solution.md
 
       
 - file: assignments.md
