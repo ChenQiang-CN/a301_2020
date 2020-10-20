@@ -114,7 +114,7 @@ ax[1].hist(ch32.flat[:1000]);
 ## Convert to brightness temperatures
 
 ```{code-cell} ipython3
-help(planck_invert)
+#help(planck_invert)
 ```
 
 ```{code-cell} ipython3

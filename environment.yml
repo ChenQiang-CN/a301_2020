@@ -19,8 +19,8 @@ dependencies:
   - jupytext
   - cartopy
   - pyresample
-  - pytest
   - rasterio
   - fiona
   - pandas
+  - pytest
 # conda-lock -f environment.yml -p linux-64
