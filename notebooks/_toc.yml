@@ -46,6 +46,9 @@
 - file: week7/week7_topics.md
   chapters:
     - file: week4/assign3_solution.md
+    - file: week6/answers/sols_mid_revI.rst
+    - file: week6/answers/sols_mid_revII.rst
+
 
       
 - file: assignments.md
