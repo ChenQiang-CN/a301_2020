@@ -1,8 +1,8 @@
 .. default-role:: math
 
-.. _mid_review1:
+.. _mid_review1_sol:
 
-Solutons: sample questions I
+Solutions: sample questions I
 ============================
 
 Beers law
