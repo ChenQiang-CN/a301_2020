@@ -19,7 +19,7 @@ repository:
 
 launch_buttons:
   notebook_interface: "classic" # The interface interactive links will activate ["classic", "jupyterlab"]
-  jupyterhub_url: localhost:8082
+  jupyterhub_url: https://a301_hub.eoas.ubc.ca
   
 html:
   home_page_in_navbar: true
