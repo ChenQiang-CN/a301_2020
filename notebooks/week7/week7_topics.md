@@ -10,6 +10,8 @@
 
   * {ref}`mid_review2`
 
+  * {ref}`mid_review2_sols`
+
   * Exam will have an equation sheet (will post) and this figure:
 
 ![planck figure](figures/a301_planck.png)
