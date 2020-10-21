@@ -120,3 +120,20 @@ From Stull p. 224 and the :ref:`schwartz` reading:
    **Answer:**
 
    See the section "Adding emission to Beers law" in the :ref:`schwartz` notes.
+
+
+From assignment 4
+-----------------
+
+
+4\. A satellite orbits 800 km above the earth and has a telescope with a field of view
+   that covers 1 `km^2` directly below (i.e. at nadir).  If that 1 `km^2` is ocean with
+   an emissivity $e=1$ at a temperature
+   of 280 K, calculate the flux in $W\,m^2$ reaching the satellite from all wavelengths
+   from that pixel.
+
+
+
+5\. Suppose that a satellite's orbit changes from a height of 800 km to a height of 600 km
+   above the surface.  If the telescope field of view stays the same, prove that
+   the radiance stays constant.
