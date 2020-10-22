@@ -251,8 +251,10 @@ From :ref:`flux_from_radiance`:
    Suppose that at a height of 800 km the satellite sees a circular area of 1 `km^2` in a single
    pixel.  If the surface is emitting a flux of `E_{fsc}\ W/m^2` then the those photons will
    be emitted into a hemisphere of radius `h=800\ km`, and the flux at the satellite
-   falwill be power/area = `E_{sfc} \times 1\ km^2\ Watts/(2 \pi h^2\ meters^2)`.  Note that the flux
-   will increase the altitude ha decreases, because of the `1/h^2`.
+   will be power/area = `E_{sfc} \times 1\ km^2\ Watts/(2 \pi h^2\ meters^2)`.  
+   
+   Note that the flux
+   will increase the altitude `h` decreases, because of the `1/h^2` factor.
 
    Now suppose the satellite descends to h=600 km. Again, if the power emitted by the surface stayed the same, 
     then the flux reaching the satellite would
