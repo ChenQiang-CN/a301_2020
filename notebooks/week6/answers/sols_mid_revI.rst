@@ -251,10 +251,14 @@ From :ref:`flux_from_radiance`:
    Suppose that at a height of 800 km the satellite sees a circular area of 1 `km^2` in a single
    pixel.  If the surface is emitting a flux of `E_{fsc}\ W/m^2` then the those photons will
    be emitted into a hemisphere of radius `h=800\ km`, and the flux at the satellite
-   will be power/area = `E_{sfc} \times 1\ km^2\ Watts/(2 \pi h^2\ meters^2)` Now suppose the satellite descends to h=600 km.  If the power stayed the same, then the flux at the satellite would
+   will be power/area = `E_{sfc} \times 1\ km^2\ Watts/(2 \pi h^2\ meters^2)`
+
+   Now suppose the satellite descends to h=600 km.  If the power stayed the same, then the flux at the satellite would
    increase by a factor `(800/600)^2` because the same Watts are being distributed over a smaller
    hemisphere.  The power is reduced however, because the pixel is smaller.  The pixel radius before was `R=800 \tan(\theta)\ km`, where `\theta` is the half-angle of the cone
-   field of view of the telescope.  At 600 km altitude, `R=600\,\tan(\theta)`, and since the pixel
+   field of view of the telescope.
+
+   At 600 km altitude, `R=600\,\tan(\theta)`, and since the pixel
    area is `\pi R^2` and `E_{sfc}` hasn't changed, the power is lower by `(600/800)^2`, exactly
    counteracting the affect of bringing the satellite closer to the surface.  Since the flux at the
    satellite is the same, and the field of view is the same, the radiance hasn't changed.

@@ -124,83 +124,84 @@ From :ref:`beers_law` and :ref:`flux_from_radiance`
 
 
 Hydrostatic equation
---------------------
+..
+   --------------------
 
-From :ref:`hydro` and the `weighting_functions_html`_ notebook.
+   From :ref:`hydro` and the `weighting_functions_html`_ notebook.
 
-#. A 10 km thick layer of an an atmosphere has constant temperature
-   `T_{atm}`\ =280 K, a pressure/density scale height of
-   `H=8\ km` and is filled with a gas with a mass absorption
-   coefficient of `k_\lambda` = 0.2 at a wavelength of 10 .
-   Underneath this layer is a black surface with a temperature of 290 K.
-   The atmosphere is in hydrostatic equilibrium, the gas has a constant
-   mixing ratio and a density at the surface of `\rho_0 = 10^{-3}`
-   . Find:
+   #. A 10 km thick layer of an an atmosphere has constant temperature
+      `T_{atm}`\ =280 K, a pressure/density scale height of
+      `H=8\ km` and is filled with a gas with a mass absorption
+      coefficient of `k_\lambda` = 0.2 at a wavelength of 10 .
+      Underneath this layer is a black surface with a temperature of 290 K.
+      The atmosphere is in hydrostatic equilibrium, the gas has a constant
+      mixing ratio and a density at the surface of `\rho_0 = 10^{-3}`
+      . Find:
 
-   #. The vertical optical depth of the layer
+      #. The vertical optical depth of the layer
 
-      * **Answer**:
+         * **Answer**:
 
-        pressure and density have the same scale height since the
-        atmosphere is isothermal so the gas density is
+           pressure and density have the same scale height since the
+           atmosphere is isothermal so the gas density is
 
-        .. math::
-           :label: eq_gasdens
+           .. math::
+              :label: eq_gasdens
 
-            \rho(z) = \rho_0 \exp( -z/H)
-        
-        Integrate the optical depth from 0 to 10 km:
+               \rho(z) = \rho_0 \exp( -z/H)
 
-        .. math::
-          :label: eq_optint
+           Integrate the optical depth from 0 to 10 km:
 
-          \begin{aligned}
-          \tau &= \int_0^{10} \rho_0 \exp(-z/H) k_\lambda dz = - H \rho_0 k_\lambda (\exp(-10/8)-1)\\
-          \tau &= 8000 \times 10^{-3} *0.2 * (1 - 0.29) = 1.14
-          \end{aligned}
+           .. math::
+             :label: eq_optint
 
-
-   #. The layer transmission for radiance going straight up.
-
-      * **Answer:**
-
-        `\exp(-\tau) = \exp(-1.14) = 0.3195`
-
-   #. The radiance, in at the top of the layer due to the surface and
-      atmosphere.
-
-      * **Answer:**
-
-        From the attached graph we know that at `\lambda=10` microns we have the
-        following:
-        
-        temp=290 K,
-        
-        `B_{10} \approx 8.4\ W\,m^{-2}\,\mu m^{-1}\,sr^{-1}`
-        
-        `temp=280 K, B_{10} \approx 7\ W\,m^{-2}\,\mu m^{-1}\,sr^{-1}`
-        
-        Using the equation for an isothermal layer from :eq:`rad_constant`
-
-        .. math::
-
-          \begin{aligned}
-            L_\uparrow(\tau_T) &= L_0 \exp( - \tau_T ) + (1 - \exp( - \tau_T)) B_\lambda(T) \\
-            L_\uparrow(\tau_T) &= 8.4 \times \exp( - 1.141) + 7 \times (1 - \exp(-1.141)) = 7.447\ W\,m^{-2}\,\mu m^{-1}\,sr^{-1}
-           \end{aligned}
+             \begin{aligned}
+             \tau &= \int_0^{10} \rho_0 \exp(-z/H) k_\lambda dz = - H \rho_0 k_\lambda (\exp(-10/8)-1)\\
+             \tau &= 8000 \times 10^{-3} *0.2 * (1 - 0.29) = 1.14
+             \end{aligned}
 
 
-   #. The brightness temperature `T_b` (K) that a satellite would
-      measure at `\lambda`\ =10 if there were no
-      absorption/emission above 10 km. (see Planck function curves on
-      next page).
+      #. The layer transmission for radiance going straight up.
 
-      * **Answer**:
+         * **Answer:**
 
-        Reading from the Planck curves figure:
-        
-        `L_{10} = 7.4\ W\,m^{-2}\,\mu m^{-1}\,sr^{-1}`
+           `\exp(-\tau) = \exp(-1.14) = 0.3195`
 
-        which gives `T_{B} \approx 284\ K`
-        
+      #. The radiance, in at the top of the layer due to the surface and
+         atmosphere.
+
+         * **Answer:**
+
+           From the attached graph we know that at `\lambda=10` microns we have the
+           following:
+
+           temp=290 K,
+
+           `B_{10} \approx 8.4\ W\,m^{-2}\,\mu m^{-1}\,sr^{-1}`
+
+           `temp=280 K, B_{10} \approx 7\ W\,m^{-2}\,\mu m^{-1}\,sr^{-1}`
+
+           Using the equation for an isothermal layer from :eq:`rad_constant`
+
+           .. math::
+
+             \begin{aligned}
+               L_\uparrow(\tau_T) &= L_0 \exp( - \tau_T ) + (1 - \exp( - \tau_T)) B_\lambda(T) \\
+               L_\uparrow(\tau_T) &= 8.4 \times \exp( - 1.141) + 7 \times (1 - \exp(-1.141)) = 7.447\ W\,m^{-2}\,\mu m^{-1}\,sr^{-1}
+              \end{aligned}
+
+
+      #. The brightness temperature `T_b` (K) that a satellite would
+         measure at `\lambda`\ =10 if there were no
+         absorption/emission above 10 km. (see Planck function curves on
+         next page).
+
+         * **Answer**:
+
+           Reading from the Planck curves figure:
+
+           `L_{10} = 7.4\ W\,m^{-2}\,\mu m^{-1}\,sr^{-1}`
+
+           which gives `T_{B} \approx 284\ K`
+
 

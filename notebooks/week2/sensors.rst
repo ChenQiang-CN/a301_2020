@@ -124,7 +124,7 @@ the distance from the vertical axis to the surface of the sphere of
 radius :math:`r`. That means that the area seen by the telescope at
 radius r is:
 
-.. math:: dA = width \times height = r \sin \theta \times r d\phi = r^2  \sin \theta d\theta d \phi
+.. math:: dA = width \times height = r \sin \theta d\phi \times r d\theta = r^2  \sin \theta d\theta d \phi
 
 
 .. figure:: ../figures/solid_angle.png
