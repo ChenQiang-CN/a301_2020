@@ -20,6 +20,10 @@ From :ref:`schwartz`
               
       L^\uparrow (\tau_T) = L^\uparrow (0) \, t_{tot} + \int_0^{z_T} t(\tau_T, \tau^\prime) B(\tau^\prime)\, d\tau^\prime
 
+   In :eq:`vary` I'm writing the Planck function as a function of `tau^\prime`, not the later temperature `T^\prime` as a shortcut.
+   Really, `B(\tau^\prime)` means "the blackbody radiance emitted by the layer at optical depth level `\tau^\prime`, where the
+   temperature is `T^\prime`.
+
    #. Draw a sketch of the layer, and label `L^\uparrow (0)`,
       `z_T`, `t_{tot}`, `t(\tau_T,\tau^\prime)`,
       `d\tau^\prime`, `B(\tau^\prime)`, where
