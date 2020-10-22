@@ -18,11 +18,9 @@ From :ref:`schwartz`
    .. math::
       :label: vary
               
-      L^\uparrow (\tau_T) = L^\uparrow (0) \, t_{tot} + \int_0^{z_T} t(\tau_T, \tau^\prime) B(\tau^\prime)\, d\tau^\prime
+      L^\uparrow (\tau_T) = L^\uparrow (0) \, t_{tot} + \int_0^{z_T} t(\tau_T, \tau^\prime) B(T^\prime)\, d\tau^\prime
 
-   In :eq:`vary` I'm writing the Planck function as a function of `tau^\prime`, not the later temperature `T^\prime` as a shortcut.
-   Really, `B(\tau^\prime)` means "the blackbody radiance emitted by the layer at optical depth level `\tau^\prime`, where the
-   temperature is `T^\prime`.
+   where `T^\prime` is the layer temperature at optical depth `\tau^\prime`.
 
    #. Draw a sketch of the layer, and label `L^\uparrow (0)`,
       `z_T`, `t_{tot}`, `t(\tau_T,\tau^\prime)`,
@@ -41,6 +39,10 @@ From :ref:`schwartz`
          :label: eq_orig
 
          \int_0^{z_T} t(\tau_T,\tau^\prime) B(\tau^\prime)\, d\tau^\prime = \int_0^{z_T} B(t^\prime)\, dt^\prime
+
+      (note the notation change here -- instead of `B(T^\prime)` I'm writing `B(\tau^\prime)` or `B(t^\prime)` to emphasize
+      that we can't take the Planck emission outside of the height integral.  It's still the same function of temperature,
+      it's just another way to note that temperature depends on the vertical coordinate).
 
       * **Answer**
 
