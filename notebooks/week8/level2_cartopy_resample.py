@@ -63,8 +63,8 @@
 # %% [markdown]
 # ### What this notebook does
 #
-# 1. Reads an MYD05 file named `myd05_l2_10_7.hdf` located
-#    in `a301_lib.sat_data` and grabs latitudes, longitudes and two arrays: `Water_Vapor_Near_Infrared` and
+# 1. Reads an MYD05 file named `MYD05*.hdf` located
+#    in `a301_lib.sat_data/hdf4_files` and grabs latitudes, longitudes and two arrays: `Water_Vapor_Near_Infrared` and
 #    `Water_Vapor_Infrared`
 #
 # 1. Scales the water vapar arrays by scale_factor and offset to produce the retrieved column water vapor
@@ -75,7 +75,7 @@
 # 1. Maps the `near_ir` array onto a 1 km grid to show the full resolution.
 #
 # 1. Writes the three images with their area_def map information and metadata out to new folders in
-#    `a301_lib.data_share/demo/map_data/wv_maps` as npz files (for the images) and json files (for the metadata)
+#    `./map_data/wv_maps` as npz files (for the images) and json files (for the metadata)
 
 # %% [markdown]
 # ## Setup
@@ -189,7 +189,7 @@ ax.set_title("5 km wv data (cm)")
 # Use a dictionary comprehension again to move the attributes in attrib_list into a dict at line 4
 
 # %%
-the_file = SD(str(m5_file), SDC.READ)
+the_file = SD(m5_file_str, SDC.READ)
 wv_nearir = the_file.select("Water_Vapor_Near_Infrared")
 attrib_list = ["unit", "scale_factor", "add_offset", "valid_range", "_FillValue"]
 attr_dict = wv_nearir.attributes()
@@ -212,7 +212,6 @@ plt.hist(wv_nearir_scaled[~np.isnan(wv_nearir_scaled)])
 ax = plt.gca()
 ax.set_title("1 km water vapor (cm)")
 
-
 # %% [markdown]
 # # Map the data
 
@@ -220,40 +219,37 @@ ax.set_title("1 km water vapor (cm)")
 # ### Resample the 5km IR retrieval onto a laea xy grid
 #
 # Let swath_def.compute_optimal_bb_area choose the extent and dimensions for
-# the low resolution (lr) image
+# the low resolution (lr) image.  The cell below let's pyresample create the
+# area_def object, which we will reuse for the 1 km watervapor retrieval to
+# get both onto the same grid.
 
 # %%
-# # %load temp.md
-def runit():
-    from pyresample import SwathDefinition, kd_tree, geometry
+from pyresample import SwathDefinition, kd_tree, geometry
 
-    proj_params = get_proj_params(m5_file)
-    swath_def = SwathDefinition(lons_5km, lats_5km)
-    area_def_lr = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
-    area_def_lr.name = "ir wv retrieval modis 5 km resolution (lr=low resolution)"
-    area_def_lr.area_id = "modis_ir_wv"
-    area_def_lr.job_id = area_def_lr.area_id
-    fill_value = -9999.0
-    image_wv_ir = kd_tree.resample_nearest(
-        swath_def,
-        wv_ir_scaled.ravel(),
-        area_def_lr,
-        radius_of_influence=5000,
-        nprocs=2,
-        fill_value=fill_value,
+proj_params = get_proj_params(m5_file_str)
+swath_def = SwathDefinition(lons_5km, lats_5km)
+area_def_lr = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
+#area_def_lr.name = "ir wv retrieval modis 5 km resolution (lr=low resolution)"
+#area_def_lr.area_id = "modis_ir_wv"
+#area_def_lr.job_id = area_def_lr.area_id
+fill_value = -9999.0
+image_wv_ir = kd_tree.resample_nearest(
+    swath_def,
+    wv_ir_scaled.ravel(),
+    area_def_lr,
+    radius_of_influence=5000,
+    nprocs=2,
+    fill_value=fill_value,
+)
+image_wv_ir[image_wv_ir < -9000] = np.nan
+print(f"\ndump area definition:\n{area_def_lr}\n")
+print(
+    (
+        f"\nx and y pixel dimensions in meters:"
+        f"\n{area_def_lr.pixel_size_x}\n{area_def_lr.pixel_size_y}\n"
     )
-    image_wv_ir[image_wv_ir < -9000] = np.nan
-    print(f"\ndump area definition:\n{area_def_lr}\n")
-    print(
-        (
-            f"\nx and y pixel dimensions in meters:"
-            f"\n{area_def_lr.pixel_size_x}\n{area_def_lr.pixel_size_y}\n"
-        )
-    )
-    pdb.set_trace()
+)
 
-
-runit()
 
 # %% [markdown]
 # ### Resample the 1km near-ir water vapor on the same grid
@@ -276,7 +272,7 @@ image_wv_nearir_lr[image_wv_nearir_lr < -9000] = np.nan
 # %%
 plt.hist(image_wv_nearir_lr[~np.isnan(image_wv_nearir_lr)])
 ax = plt.gca()
-ax.set_title("1 km water vapor (cm), low resolution nearir scaled to 5km (lr)")
+ax.set_title("1 km water vapor (cm), low resolution nearir scaled to 5km (lr)");
 
 # %% [markdown]
 # ## now use the 1 km MYD03 lons and lats to get a full resolution xy grid
@@ -287,12 +283,12 @@ ax.set_title("1 km water vapor (cm), low resolution nearir scaled to 5km (lr)")
 # %%
 ### Resample the 1 km near-ir water vapor onto a 1 km grid
 
-proj_params = get_proj_params(m3_file)
+proj_params = get_proj_params(m3_file_str)
 swath_def = SwathDefinition(lons_1km, lats_1km)
 area_def_hr = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
-area_def_hr.name = "near ir wv retrieval modis 1 km resolution (hr=high resolution)"
-area_def_hr.area_id = "wv_nearir_hr"
-area_def_hr.job_id = area_def_hr.area_id
+# area_def_hr.name = "near ir wv retrieval modis 1 km resolution (hr=high resolution)"
+# area_def_hr.area_id = "wv_nearir_hr"
+# area_def_hr.job_id = area_def_hr.area_id
 fill_value = -9999.0
 image_wv_nearir_hr = kd_tree.resample_nearest(
     swath_def,
@@ -358,8 +354,9 @@ def area_def_to_dict(area_def):
 # ## Create a directory to hold the images and area_def dictionaries
 
 # %%
-map_dir = a301.map_dir / Path("map_data/wv_maps")
+map_dir = Path() / "map_data/wv_maps"
 map_dir.mkdir(parents=True, exist_ok=True)
+
 
 # %% [markdown]
 # ## Here's a function that writes the image plus metadata to npz and json files
@@ -367,9 +364,6 @@ map_dir.mkdir(parents=True, exist_ok=True)
 # We'll need to use area_def_to_dict when we create the metadata_dict
 
 # %%
-import pdb
-
-
 def dump_image(image_array, metadata_dict, foldername, image_array_name="image"):
     """
     write an image plus mmetadata to a folder
@@ -401,22 +395,26 @@ def dump_image(image_array, metadata_dict, foldername, image_array_name="image")
 
 # %% [markdown]
 # ## Write out images, putting useful metadeta in metadata_dict
+#
+# We have three images:  
+#
+# * `wv_ir` -- 5km ir retrieval
+# * `wv_nearir_hr`  -- 1 km nearir retrieval
+# * `wv_nearir_lr`  -- 1 km nearir retrieval resampled to 5 km grid
 
 # %%
-image_name = "wv_nearir_lr"
-metadata_dict = dict(modismeta=parseMeta(m5_file))
+metadata_dict = dict(modismeta=parseMeta(m5_file_str))
+map_dir.mkdir(parents=True, exist_ok=True)
+map_dir = Path() / "map_data/wv_maps"
+
+image_name = "wv_ir"
 metadata_dict["area_def"] = area_def_to_dict(area_def_lr)
 metadata_dict["image_name"] = image_name
-metadata_dict[
-    "description"
-] = "modis near ir water vapor (cm) sampled at 5 km resolution"
+metadata_dict["description"] = "modis ir water vapor (cm) sampled at 5 km resolution"
 metadata_dict["history"] = "written by level2_cartopy_resample.ipynb"
-map_dir = a301.data_dir.parent / Path("map_data/wv_maps")
-map_dir.mkdir(parents=True, exist_ok=True)
-dump_image(image_wv_nearir_lr, metadata_dict, map_dir, image_name)
+dump_image(image_wv_ir, metadata_dict, map_dir, image_name)
 
 image_name = "wv_nearir_hr"
-metadata_dict = dict(modismeta=parseMeta(m5_file))
 metadata_dict["area_def"] = area_def_to_dict(area_def_hr)
 metadata_dict["image_name"] = image_name
 metadata_dict[
@@ -425,13 +423,18 @@ metadata_dict[
 metadata_dict["history"] = "written by level2_cartopy_resample.ipynb"
 dump_image(image_wv_nearir_hr, metadata_dict, map_dir, image_name)
 
-image_name = "wv_ir"
-metadata_dict = dict(modismeta=parseMeta(m5_file))
+
+image_name = "wv_nearir_lr"
 metadata_dict["area_def"] = area_def_to_dict(area_def_lr)
 metadata_dict["image_name"] = image_name
-metadata_dict["description"] = "modis ir water vapor (cm) sampled at 5 km resolution"
+metadata_dict[
+    "description"
+] = "modis near ir water vapor (cm) sampled at 5 km resolution"
 metadata_dict["history"] = "written by level2_cartopy_resample.ipynb"
-dump_image(image_wv_ir, metadata_dict, map_dir, image_name)
+
+
+dump_image(image_wv_nearir_lr, metadata_dict, map_dir, image_name)
+
 
 # %%
 area_def_lr
@@ -443,3 +446,4 @@ area_def_hr
 area_def_lr
 
 # %%
+fig, ax = plt.subplots()
