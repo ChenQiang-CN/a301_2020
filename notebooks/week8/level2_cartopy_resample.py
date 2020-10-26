@@ -181,7 +181,7 @@ wv_ir_scaled = wv_ir_data * attr_dict["scale_factor"] + attr_dict["add_offset"]
 # %%
 plt.hist(wv_ir_scaled[~np.isnan(wv_ir_scaled)])
 ax = plt.gca()
-ax.set_title("5 km wv data (cm)")
+ax.set_title("5 km wv data (cm)");
 
 # %% [markdown]
 # ## Repeat for the 1 km near-ir data
@@ -222,6 +222,11 @@ ax.set_title("1 km water vapor (cm)")
 # the low resolution (lr) image.  The cell below let's pyresample create the
 # area_def object, which we will reuse for the 1 km watervapor retrieval to
 # get both onto the same grid.
+#
+# The cell below produces:
+#
+# * `image_wv_ir`  -- resampled 5 km infrared water vapor
+# * `area_def_lr`  -- area_def used for the resample
 
 # %%
 from pyresample import SwathDefinition, kd_tree, geometry
@@ -255,6 +260,10 @@ print(
 # ### Resample the 1km near-ir water vapor on the same grid
 #
 # Reuse area_def_lr for the high resolution nearir image so we can compare directly with low resolution ir
+#
+# The cell below produces:
+#
+# * `image_wv_nearir_lr`  -- resampled using `area_def_lr`
 
 # %%
 swath_def = SwathDefinition(lons_1km, lats_1km)
@@ -279,6 +288,11 @@ ax.set_title("1 km water vapor (cm), low resolution nearir scaled to 5km (lr)");
 #
 # resample the neair wv onto that grid to show full resolution image.  Call this
 # area_def area_def_hr
+#
+# The cell below produces:
+#
+# * `image_wv_nearir_hr`  -- 1 km near-ir watervapor
+# * `area_def_hr`  -- the `area_def` file used to do the 1 k resample
 
 # %%
 ### Resample the 1 km near-ir water vapor onto a 1 km grid
@@ -440,10 +454,23 @@ dump_image(image_wv_nearir_lr, metadata_dict, map_dir, image_name)
 area_def_lr
 
 # %%
+fig, ax = plt.subplots(1,1)
+ax.imshow(image_wv_ir)
+
+# %%
+fig, ax = plt.subplots(1,1)
+ax.imshow(image_wv_ir
+
+# %%
 area_def_hr
 
 # %%
-area_def_lr
+fig, ax = plt.subplots(1,1)
+ax.imshow(image_wv_nearir_lr)
+
+# %%
+fig, ax = plt.subplots(1,1)
+ax.imshow(image_wv_nearir_hr)
 
 # %%
 fig, ax = plt.subplots()
