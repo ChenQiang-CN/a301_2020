@@ -8,6 +8,10 @@
 
   * {ref}`mid_review1_sol`
 
+
+* Week 7 topics for Wednesday
+
+
   * {ref}`mid_review2`
 
   * {ref}`mid_review2_sols`
