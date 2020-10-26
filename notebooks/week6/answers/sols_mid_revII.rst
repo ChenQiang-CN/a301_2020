@@ -133,7 +133,7 @@ Hydrostatic equation
 ..
    --------------------
 
-   From :ref:`hydro` and the `weighting_functions_html`_ notebook.
+   From :ref:`hydro` and the :ref:`weighting_funs` notebook.
 
    #. A 10 km thick layer of an an atmosphere has constant temperature
       `T_{atm}`\ =280 K, a pressure/density scale height of
