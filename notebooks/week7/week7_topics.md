@@ -12,6 +12,11 @@
 
   * {ref}`mid_review2_sols`
 
-  * Exam will have an equation sheet (will post) and this figure:
+  * Exam will have an equation sheet and this figure:
 
-![planck figure](figures/a301_planck.png)
+[equation sheet](https://drive.google.com/file/d/1vzFhERy1thQ80gpiInWQJFs2ipFKYvoZ/view?)  Note! You won't need all these equations.  In particular, use the planck figure if you need blackbody radiation values.
+
+![figure](figures/a301_planck.png)
+
+
+

@@ -257,7 +257,7 @@ From :ref:`flux_from_radiance`:
    will increase the altitude `h` decreases, because of the `1/h^2` factor.
 
    Now suppose the satellite descends to h=600 km. Again, if the power emitted by the surface stayed the same, 
-    then the flux reaching the satellite would
+   then the flux reaching the satellite would
    increase by a factor `(800/600)^2` because the same Watts are being distributed over a smaller
    hemisphere.  The power emitted by the surface is reduced however, because the pixel is smaller.  
    The pixel radius before was `R=800 \tan(\theta)\ km`, where `\theta` is the half-angle of the cone
