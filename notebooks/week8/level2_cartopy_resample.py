@@ -116,14 +116,14 @@ from sat_lib.modismeta_read import parseMeta
 # ### Start with the lats/lons for 1km and 5km
 
 # %%
-m5_file=list((a301_lib.sat_data / 'myd05').glob("**/*hdf"))
-m3_file = (a301_lib.sat_data / 'myd03').glob("MYD03*2105*.hdf")
+m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*hdf")
+m3_file = (a301_lib.sat_data / 'hdf4_files').glob("MYD03*2105*.hdf")
 m5_file_str = str(list(m5_file)[0])
 m3_file_str = str(list(m3_file)[0])
 print(m5_file_str)
 print(m3_file_str)
 
-the_file = SD(str(m3_file_str), SDC.READ)
+the_file = SD(m3_file_str, SDC.READ)
 lats_1km = the_file.select("Latitude").get()
 lons_1km = the_file.select("Longitude").get()
 the_file.end()
@@ -133,6 +133,7 @@ the_file = SD(m5_file_str, SDC.READ)
 lats_5km = the_file.select("Latitude").get()
 lons_5km = the_file.select("Longitude").get()
 the_file.end()
+print(lats_5km.shape)
 
 # %% [markdown]
 # ## Get the IR vapor plus 5 of its attributes
@@ -142,14 +143,14 @@ the_file.end()
 # at line 4
 
 # %%
-the_file = SD(str(m5_file), SDC.READ)
+the_file = SD(m5_file_str, SDC.READ)
 wv_ir = the_file.select("Water_Vapor_Infrared")
 attributes = ["units", "scale_factor", "add_offset", "valid_range", "_FillValue"]
 attr_dict = wv_ir.attributes()
 wv_ir_attrs = {k: attr_dict[k] for k in attributes}
 print(f"wv_ir attributes: {pprint.pformat(wv_ir_attrs)}")
 wv_ir_data = wv_ir.get()
-
+the_file.end()
 # %% [markdown]
 # ## Replace -9999 with np.nan
 #
