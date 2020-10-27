@@ -2,11 +2,12 @@
 # jupyter:
 #   jupytext:
 #     formats: ipynb,md:myst,py:percent
+#     notebook_metadata_filter: all,-language_info,-toc,-latex_envs
 #     text_representation:
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.6.0-dev
+#       jupytext_version: 1.6.0
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -116,7 +117,7 @@ from sat_lib.modismeta_read import parseMeta
 # ### Start with the lats/lons for 1km and 5km
 
 # %%
-m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*hdf")
+m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*2105*hdf")
 m3_file = (a301_lib.sat_data / 'hdf4_files').glob("MYD03*2105*.hdf")
 m5_file_str = str(list(m5_file)[0])
 m3_file_str = str(list(m3_file)[0])
@@ -231,9 +232,10 @@ ax.set_title("1 km water vapor (cm)")
 # %%
 from pyresample import SwathDefinition, kd_tree, geometry
 
-proj_params = get_proj_params(m5_file_str)
+proj_params_5km = get_proj_params(m5_file_str)
+proj_params_1km = get_proj_params(m3_file_str)
 swath_def = SwathDefinition(lons_5km, lats_5km)
-area_def_lr = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
+area_def_lr = swath_def.compute_optimal_bb_area(proj_dict=proj_params_5km)
 #area_def_lr.name = "ir wv retrieval modis 5 km resolution (lr=low resolution)"
 #area_def_lr.area_id = "modis_ir_wv"
 #area_def_lr.job_id = area_def_lr.area_id
@@ -299,7 +301,7 @@ ax.set_title("1 km water vapor (cm), low resolution nearir scaled to 5km (lr)");
 
 proj_params = get_proj_params(m3_file_str)
 swath_def = SwathDefinition(lons_1km, lats_1km)
-area_def_hr = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
+area_def_hr = swath_def.compute_optimal_bb_area(proj_dict=proj_params_1km)
 # area_def_hr.name = "near ir wv retrieval modis 1 km resolution (hr=high resolution)"
 # area_def_hr.area_id = "wv_nearir_hr"
 # area_def_hr.job_id = area_def_hr.area_id
@@ -452,10 +454,6 @@ dump_image(image_wv_nearir_lr, metadata_dict, map_dir, image_name)
 
 # %%
 area_def_lr
-
-# %%
-fig, ax = plt.subplots(1,1)
-ax.imshow(image_wv_ir)
 
 # %%
 fig, ax = plt.subplots(1,1)

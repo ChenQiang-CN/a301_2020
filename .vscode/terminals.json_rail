@@ -1,0 +1,57 @@
+{
+    "autorun": false, // Execute `Terminals: Run` automatically at startup or when the project is added to the workspace
+    "autokill": false, // Kill all the terminals created from this configuration when the project is removed from the workspace
+    "terminals": [ // Array of terminals to open
+      { // An object describing a terminal, most entries are optional
+        "name": "watch", // The name of the terminal, it will be displayed in the dropdown
+        "description": "jb build watcher", // The description of the terminal
+        "icon": "code", // An icon to show next to the name
+        "cwd": "/home/phil/repos/a301_2020", // A path for the current working directory to be used for the terminal
+        "persistent": "a301_watch", // Keep the process running even when closing the terminal and reuse it, preservig the output. The unique session name will be passed to the terminal multiplexer
+        "substitution": false, // Disable variable substitution for this terminal
+        "recycle": false, // Always create a new terminal
+        "open": true, // Open the terminal after executing its commands
+        "focus": false, // Open the terminal after executing its commands and focus to it
+        "execute": false, // Write the last command without executing it
+        "onlySingle": false, // Don't run this with the `Terminals: Run` command
+        "onlyMultiple": false, // Hide it from the `Terminals: Run Single` command
+        "onlyAPI": false, // Don't run this with the `Terminals: Run` command and hide it from the `Terminals: Run Single` command
+        "shellPath": "/bin/bash", // Path to a custom shell executable
+        "envInherit": true // Don't inherit global environment variables
+        },
+        { // An object describing a terminal, most entries are optional
+          "name": "hub", // The name of the terminal, it will be displayed in the dropdown
+          "description": "jupyter hub", // The description of the terminal
+          "icon": "code", // An icon to show next to the name
+          "cwd": "/home/phil/repos/jupyterhub_basics", // A path for the current working directory to be used for the terminal
+          "persistent": "hub_run", // Keep the process running even when closing the terminal and reuse it, preservig the output. The unique session name will be passed to the terminal multiplexer
+          "substitution": false, // Disable variable substitution for this terminal
+          "recycle": false, // Always create a new terminal
+          "open": true, // Open the terminal after executing its commands
+          "focus": false, // Open the terminal after executing its commands and focus to it
+          "execute": false, // Write the last command without executing it
+          "onlySingle": false, // Don't run this with the `Terminals: Run` command
+          "onlyMultiple": false, // Hide it from the `Terminals: Run Single` command
+          "onlyAPI": false, // Don't run this with the `Terminals: Run` command and hide it from the `Terminals: Run Single` command
+          "shellPath": "/bin/bash", // Path to a custom shell executable
+          "envInherit": true // Don't inherit global environment variables
+        },
+        { // An object describing a terminal, most entries are optional
+          "name": "web", // The name of the terminal, it will be displayed in the dropdown
+          "description": "webserver", // The description of the terminal
+          "icon": "code", // An icon to show next to the name
+          "cwd": "/home/phil/repos/a301_2020", // A path for the current working directory to be used for the terminal
+          "persistent": "web_run", // Keep the process running even when closing the terminal and reuse it, preservig the output. The unique session name will be passed to the terminal multiplexer
+          "substitution": false, // Disable variable substitution for this terminal
+          "recycle": false, // Always create a new terminal
+          "open": true, // Open the terminal after executing its commands
+          "focus": false, // Open the terminal after executing its commands and focus to it
+          "execute": false, // Write the last command without executing it
+          "onlySingle": false, // Don't run this with the `Terminals: Run` command
+          "onlyMultiple": false, // Hide it from the `Terminals: Run Single` command
+          "onlyAPI": false, // Don't run this with the `Terminals: Run` command and hide it from the `Terminals: Run Single` command
+          "shellPath": "/bin/bash", // Path to a custom shell executable
+          "envInherit": true // Don't inherit global environment variables
+          }
+    ]
+  }

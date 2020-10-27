@@ -1,17 +1,18 @@
 ---
 jupytext:
   formats: ipynb,md:myst,py:percent
+  notebook_metadata_filter: all,-language_info,-toc,-latex_envs
   text_representation:
     extension: .md
     format_name: myst
     format_version: 0.12
-    jupytext_version: 1.6.0-dev
+    jupytext_version: 1.6.0
 kernelspec:
   display_name: Python 3
   language: python
   name: python3
 ---
-(level2_wv)=
+
 # Water vapor retrieval using MYD05 data
 
 +++
@@ -119,7 +120,7 @@ from sat_lib.modismeta_read import parseMeta
 ### Start with the lats/lons for 1km and 5km
 
 ```{code-cell} ipython3
-m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*hdf")
+m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*2105*hdf")
 m3_file = (a301_lib.sat_data / 'hdf4_files').glob("MYD03*2105*.hdf")
 m5_file_str = str(list(m5_file)[0])
 m3_file_str = str(list(m3_file)[0])
@@ -237,9 +238,10 @@ The cell below produces:
 ```{code-cell} ipython3
 from pyresample import SwathDefinition, kd_tree, geometry
 
-proj_params = get_proj_params(m5_file_str)
+proj_params_5km = get_proj_params(m5_file_str)
+proj_params_1km = get_proj_params(m3_file_str)
 swath_def = SwathDefinition(lons_5km, lats_5km)
-area_def_lr = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
+area_def_lr = swath_def.compute_optimal_bb_area(proj_dict=proj_params_5km)
 #area_def_lr.name = "ir wv retrieval modis 5 km resolution (lr=low resolution)"
 #area_def_lr.area_id = "modis_ir_wv"
 #area_def_lr.job_id = area_def_lr.area_id
@@ -305,7 +307,7 @@ The cell below produces:
 
 proj_params = get_proj_params(m3_file_str)
 swath_def = SwathDefinition(lons_1km, lats_1km)
-area_def_hr = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
+area_def_hr = swath_def.compute_optimal_bb_area(proj_dict=proj_params_1km)
 # area_def_hr.name = "near ir wv retrieval modis 1 km resolution (hr=high resolution)"
 # area_def_hr.area_id = "wv_nearir_hr"
 # area_def_hr.job_id = area_def_hr.area_id
@@ -373,7 +375,7 @@ def area_def_to_dict(area_def):
 ## Create a directory to hold the images and area_def dictionaries
 
 ```{code-cell} ipython3
-map_dir = Path().home() / "map_data/wv_maps"
+map_dir = Path() / "map_data/wv_maps"
 map_dir.mkdir(parents=True, exist_ok=True)
 ```
 
@@ -421,7 +423,8 @@ We have three images:
 
 ```{code-cell} ipython3
 metadata_dict = dict(modismeta=parseMeta(m5_file_str))
-
+map_dir.mkdir(parents=True, exist_ok=True)
+map_dir = Path() / "map_data/wv_maps"
 
 image_name = "wv_ir"
 metadata_dict["area_def"] = area_def_to_dict(area_def_lr)
@@ -453,36 +456,28 @@ dump_image(image_wv_nearir_lr, metadata_dict, map_dir, image_name)
 ```
 
 ```{code-cell} ipython3
-# print the low resolutions area_def
 area_def_lr
 ```
 
 ```{code-cell} ipython3
-# raw image for ir 5 km
 fig, ax = plt.subplots(1,1)
 ax.imshow(image_wv_ir)
 ```
 
-
-
 ```{code-cell} ipython3
-#print the high resolution area def
 area_def_hr
 ```
 
 ```{code-cell} ipython3
-# here is the 1 km wv image resampled to 5 km
-# BUG!! -- area_def is off
-#
 fig, ax = plt.subplots(1,1)
 ax.imshow(image_wv_nearir_lr)
 ```
 
 ```{code-cell} ipython3
-#
-# here is the correct 1km image
-#
 fig, ax = plt.subplots(1,1)
 ax.imshow(image_wv_nearir_hr)
 ```
 
+```{code-cell} ipython3
+fig, ax = plt.subplots()
+```
