@@ -50,11 +50,9 @@
     - file: week6/answers/sols_mid_revII.rst
 - file: week8/week8_topics.md
   chapters:
-    - file: week4/assign3_solution.md
-  
+    - file: week8/answers/mid_2020.md
+    - file: week8/level2_cartopy_resample.md
 
-
-      
 - file: assignments.md
 - file: review.md
 - file: notebooks.md

@@ -11,7 +11,7 @@ kernelspec:
   language: python
   name: python3
 ---
-
+(level2_wv)=
 # Water vapor retrieval using MYD05 data
 
 +++
@@ -373,7 +373,7 @@ def area_def_to_dict(area_def):
 ## Create a directory to hold the images and area_def dictionaries
 
 ```{code-cell} ipython3
-map_dir = Path() / "map_data/wv_maps"
+map_dir = Path().home() / "map_data/wv_maps"
 map_dir.mkdir(parents=True, exist_ok=True)
 ```
 
@@ -421,8 +421,7 @@ We have three images:
 
 ```{code-cell} ipython3
 metadata_dict = dict(modismeta=parseMeta(m5_file_str))
-map_dir.mkdir(parents=True, exist_ok=True)
-map_dir = Path() / "map_data/wv_maps"
+
 
 image_name = "wv_ir"
 metadata_dict["area_def"] = area_def_to_dict(area_def_lr)
@@ -454,33 +453,36 @@ dump_image(image_wv_nearir_lr, metadata_dict, map_dir, image_name)
 ```
 
 ```{code-cell} ipython3
+# print the low resolutions area_def
 area_def_lr
 ```
 
 ```{code-cell} ipython3
+# raw image for ir 5 km
 fig, ax = plt.subplots(1,1)
 ax.imshow(image_wv_ir)
 ```
 
-```{code-cell} ipython3
-fig, ax = plt.subplots(1,1)
-ax.imshow(image_wv_ir
-```
+
 
 ```{code-cell} ipython3
+#print the high resolution area def
 area_def_hr
 ```
 
 ```{code-cell} ipython3
+# here is the 1 km wv image resampled to 5 km
+# BUG!! -- area_def is off
+#
 fig, ax = plt.subplots(1,1)
 ax.imshow(image_wv_nearir_lr)
 ```
 
 ```{code-cell} ipython3
+#
+# here is the correct 1km image
+#
 fig, ax = plt.subplots(1,1)
 ax.imshow(image_wv_nearir_hr)
 ```
 
-```{code-cell} ipython3
-fig, ax = plt.subplots()
-```

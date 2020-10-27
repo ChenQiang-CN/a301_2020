@@ -4,10 +4,10 @@
 version: '3.8'
 
 services:
-    webserver_dev:
+    webserver:
       build: apache_image
-      image: phaustin/apache:dev
-      container_name: apache_dev
+      image: phaustin/apache:oct10
+      container_name: apache_oct10
       ports:
         - "${TEXT_PORT}:80"
       volumes:

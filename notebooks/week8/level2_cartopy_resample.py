@@ -459,7 +459,7 @@ ax.imshow(image_wv_ir)
 
 # %%
 fig, ax = plt.subplots(1,1)
-ax.imshow(image_wv_ir
+ax.imshow(image_wv_ir)
 
 # %%
 area_def_hr
