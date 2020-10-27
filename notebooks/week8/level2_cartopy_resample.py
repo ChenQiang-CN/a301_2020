@@ -469,6 +469,3 @@ ax.imshow(image_wv_nearir_lr)
 # %%
 fig, ax = plt.subplots(1,1)
 ax.imshow(image_wv_nearir_hr)
-
-# %%
-fig, ax = plt.subplots()
