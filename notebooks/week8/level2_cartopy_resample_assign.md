@@ -12,6 +12,7 @@ kernelspec:
   name: python3
 ---
 
+(assign5a)=
 # Water vapor retrieval using MYD05 data
 
 +++
@@ -119,7 +120,7 @@ from sat_lib.modismeta_read import parseMeta
 ### Start with the lats/lons for 1km and 5km
 
 ```{code-cell}
-m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*hdf")
+m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*2105*hdf")
 m3_file = (a301_lib.sat_data / 'hdf4_files').glob("MYD03*2105*.hdf")
 m5_file_str = str(list(m5_file)[0])
 m3_file_str = str(list(m3_file)[0])
@@ -481,9 +482,15 @@ fig, ax = plt.subplots(1,1)
 ax.imshow(image_wv_nearir_hr)
 ```
 
-```{code-cell}
-fig, ax = plt.subplots()
-```
-
 
 # Assignment
+
+Add cells that do the following:
+
+1) Read your MYD05 and MYD03 files and show your 1km, and 5km IR and 5 km nearir regr MYD05 water vapor images
+
+2) Regrid your Channel 32/31 brightness temperature map on the MYD05 `area_def_hr` grid.
+
+3) Draw a scatterplot showing the correlation between your 1km and 5km water vapor retrievals
+
+4) Draw a scatterplot showing the correlation between your 1km MYD05 and brightness temperature difference cells
