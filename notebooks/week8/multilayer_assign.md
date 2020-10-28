@@ -6,7 +6,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.12
-    jupytext_version: 1.6.0-dev
+    jupytext_version: 1.6.1-dev
 kernelspec:
   display_name: Python 3
   language: python
@@ -41,7 +41,8 @@ import pdb
 
 import numpy as np
 
-from a301.radiation import calc_radiance
+import a301_lib
+from sat_lib.radiation import calc_radiance
 
 
 def multi_layer_radiance(Tsfc, Temps, tau, the_wavel):

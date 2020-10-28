@@ -4,4 +4,6 @@ _build/
 source_2018/
 conda-bld/
 .vscode/terminals*
+docker-compose.yml
+
 
