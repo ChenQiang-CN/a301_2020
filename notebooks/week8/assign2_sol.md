@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-## Assignment 2 - solutions
+# Assignment 2 - solutions
 
 Chapter 2: A23, A24, A25, A26
 Chapter 8: A2, A4
@@ -22,7 +22,7 @@ import numpy as np
 import string
 ```
 
-# 2-A23
+## 2-A23
 
 What product of number density times absorption cross section is needed in order for 50% of the incident radiation to be absorbed by airborne volcanic ash over the following path length (km)?
 

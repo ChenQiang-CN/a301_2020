@@ -61,7 +61,7 @@ for the_letter, the_delta, the_val in the_answer:
           f" --- nxb={the_val:5.3f} km^-1")
 
 # %% [markdown]
-# ## A24 
+# ## 2-A24 
 #
 # Given optical depth $\tau$ in the equation 2.31c
 #
@@ -381,8 +381,6 @@ print(f"\n{results}\n")
 # What is the approx net longwave flux at the surface, according to Stull 2.39?
 #
 # $$I^{*}=b \cdot\left(1-0.1 \sigma_{H}-0.3 \sigma_{M}-0.6 \sigma_{L}\right)$$
-#
-#
 
 # %%
 b = 98.5  #W/m^2
@@ -415,8 +413,10 @@ for the_city, results_dict in results.items():
 print(f"\n{results}\n")
     
 
+
+
 # %% [markdown]
-# 8-A2 
+# ### 8-A2 
 #
 # Find the blackbody radiance for the following sets of wavelength, temperature
 
@@ -455,47 +455,64 @@ def calc_radiance(wavel, Temp):
     Llambda_val = c1 / (wavel**5. * (np.exp(c2 / (wavel * Temp)) - 1))
     return Llambda_val
 
+def planck_invert(wavel, Lstar):
+    """
+    Calculate the brightness temperature
+    
+    Parameters
+    ----------
+
+      wavel: float
+           wavelength (meters)
+
+      Lstar: float or array
+           Blackbody radiance (W/m^2/m/sr)
+    Returns
+    -------
+
+    Tbright:  float or arr
+           brightness temperature (K)
+    """
+    Tbright = c2 / (wavel * np.log(c1 / (wavel**5. * Lstar) + 1.))
+    return Tbright
+
+
 
 # %%
 probset={
-    "a":(14.7,-60),
-    "b":(14.4,-60),
-    "c":(14.0,-30),
-    "d":(13.7,0),
-    "e":(13.4,5),
-    "f":(12.7,15),
-    "g":(12.0,25),
-    "h":(11.0,-5),
-    "i":(9.7,-15)
+    "a":{'wavelen':14.7,'Tc':-60},
+    "b":{'wavelen':14.4,'Tc':-60},
+    "c":{'wavelen':14.0,'Tc':-30},
+    "d":{'wavelen':13.7,'Tc':0},
+    "e":{'wavelen':13.4,'Tc':5},
+    "f":{'wavelen':12.7,'Tc':15},
+    "g":{'wavelen':12.0,'Tc':25},
+    "h":{'wavelen':11.0,'Tc':-5},
+    "i":{'wavelen':9.7,'Tc':-15}
 }
 
-for letter, rad_tuple in probset.items():
+for letter, prob_vals in probset.items():
+    Tk = prob_vals['Tc'] + 273.15
+    wavelen = prob_vals['wavelen']*1.e-6
+    Lbb = calc_radiance(wavelen,Tk)
+    print(f"{letter}) Tk={Tk:5.2f} K, Lbb={Lbb*1.e-6:5.2f} W/m^2/sr/micron")
+     
     
 
-
-c1=1.19104282*10**8
-c2=1.4387752*10**4
-
-for key,value in data.items():
-    wave=value[0]
-    temp_c=value[1]
-    temp=temp_c+273.15
-    
-    bb_rad= (c1*wave**(-5))/(np.exp(c2/(wave*temp))-1)
-    
-    print(key+": Black body radiance is "+ "%.3f" %bb_rad+" Wm^-2 um^-1 sr^-1.")
 
 # %% [markdown]
-# 8-A4 - Find the brightness temperature for the following wavelengths given a radiance of 10^-15.
+# ### 8-A4 
+#
+# Find the brightness temperature for the following wavelengths given a radiance of $10^{-15}$ W/m^2/sr/micron.
 
 # %%
-waves = (0.6,3.8,4.0,4.1,4.4,4.5,4.6,6.5,7.0,7.5)
+wavelen = (0.6,3.8,4.0,4.1,4.4,4.5,4.6,6.5,7.0,7.5)
+letters = string.ascii_lowercase[:len(wavelen)]
 
-rad=10**(-15)
+Lstar=(10**(-15))*1.e6  #W/m^2/sr/micron
 
-z =0
-for w in waves:
-    Tb = (c2/w)/np.log(1+(c1*w**(-5))/rad)
-    Tb_c= Tb-273.15
-    print(lets[z]+": For a wavelength of "+ str(w)+", brightness temperature = "+"%.3f" %Tb+"K, or "+"%.3f" %Tb_c+ " C.")
-    z+=1
+for letter,wavel in zip(letters,wavelen):
+    wavel_meters=wavel*1.e-6
+    Tbright = planck_invert(wavel_meters,Lstar)
+    print(f"{letter}) Wavelength = {wavel:5.2f} microns, Tbright = {Tbright:5.2f} K")
+    
