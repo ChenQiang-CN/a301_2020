@@ -10,7 +10,7 @@
 
   * {ref}`assign5a`
   * {ref}`assign5b`
-
+  
 * Week 8 topics for Friday
 
   * {ref}`assign2_sol`
