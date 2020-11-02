@@ -13,7 +13,7 @@ kernelspec:
 ---
 
 (assign5a)=
-# Water vapor retrieval using MYD05 data
+# Assign 5a: Water vapor retrieval using MYD05 data
 
 +++
 
@@ -62,7 +62,7 @@ The high level overview is given in the [modis water vapor products](https://atm
 
 +++
 
-### What this notebook does
+* What this notebook does
 
 1. Reads an MYD05 file named `MYD05*.hdf` located
    in `a301_lib.sat_data/hdf4_files` and grabs latitudes, longitudes and two arrays: `Water_Vapor_Near_Infrared` and
@@ -80,7 +80,7 @@ The high level overview is given in the [modis water vapor products](https://atm
 
 +++
 
-## Setup
+* Setup
 
 1. Download the MYD05 granule that corresponds to your 5 minute date/time.  It should look something like:
 
@@ -113,11 +113,11 @@ from sat_lib.modismeta_read import parseMeta
 %matplotlib inline
 ```
 
-## Read in the 1km and 5km water vapor files
+* Read in the 1km and 5km water vapor files
 
 +++
 
-### Start with the lats/lons for 1km and 5km
+* Start with the lats/lons for 1km and 5km
 
 ```{code-cell}
 m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*2105*hdf")
@@ -140,7 +140,7 @@ the_file.end()
 print(lats_5km.shape)
 ```
 
-## Get the IR vapor plus 5 of its attributes
+* Get the IR vapor plus 5 of its attributes
 
 Store the data in a numpy array, and the attributes in a dictionary,
 using a [dictionary comprehension](https://jakevdp.github.io/WhirlwindTourOfPython/11-list-comprehensions.html)
@@ -157,7 +157,7 @@ wv_ir_data = wv_ir.get()
 the_file.end()
 ```
 
-## Replace -9999 with np.nan
+* Replace -9999 with np.nan
 
 Note that this has to a happen before we scale the data by the scale_factor so the -9999 can be recognized
 
@@ -170,7 +170,7 @@ wv_ir_data = wv_ir_data.astype(np.float32)
 wv_ir_data[bad_data] = np.nan
 ```
 
-## now scale the data and histogram it
+* now scale the data and histogram it
 
 ```{code-cell}
 wv_ir_scaled = wv_ir_data * attr_dict["scale_factor"] + attr_dict["add_offset"]
@@ -189,7 +189,7 @@ ax = plt.gca()
 ax.set_title("5 km wv data (cm)");
 ```
 
-## Repeat for the 1 km near-ir data
+* Repeat for the 1 km near-ir data
 
 Use a dictionary comprehension again to move the attributes in attrib_list into a dict at line 4
 
@@ -211,7 +211,7 @@ wv_nearir_data[bad_data] = np.nan
 wv_nearir_scaled = wv_nearir_data * attr_dict["scale_factor"] + attr_dict["add_offset"]
 ```
 
-## Note that the  scaled wv values are similar between near_ir and ir retrievals
+* Note that the  scaled wv values are similar between near_ir and ir retrievals
 
 ```{code-cell}
 plt.hist(wv_nearir_scaled[~np.isnan(wv_nearir_scaled)])
@@ -219,11 +219,11 @@ ax = plt.gca()
 ax.set_title("1 km water vapor (cm)")
 ```
 
-# Map the data
+### Map the data
 
 +++
 
-### Resample the 5km IR retrieval onto a laea xy grid
+* Resample the 5km IR retrieval onto a laea xy grid
 
 Let swath_def.compute_optimal_bb_area choose the extent and dimensions for
 the low resolution (lr) image.  The cell below let's pyresample create the
@@ -263,7 +263,7 @@ print(
 )
 ```
 
-### Resample the 1km near-ir water vapor on the same grid
+* Resample the 1km near-ir water vapor on the same grid
 
 Reuse area_def_lr for the high resolution nearir image so we can compare directly with low resolution ir
 
@@ -282,6 +282,9 @@ image_wv_nearir_lr = kd_tree.resample_nearest(
     nprocs=2,
     fill_value=fill_value,
 )
+#
+# pyresampled pixels outside of image are set to -9999
+#
 image_wv_nearir_lr[image_wv_nearir_lr < -9000] = np.nan
 ```
 
@@ -291,7 +294,7 @@ ax = plt.gca()
 ax.set_title("1 km water vapor (cm), low resolution nearir scaled to 5km (lr)");
 ```
 
-## now use the 1 km MYD03 lons and lats to get a full resolution xy grid
+* now use the 1 km MYD03 lons and lats to get a full resolution xy grid
 
 resample the neair wv onto that grid to show full resolution image.  Call this
 area_def area_def_hr
@@ -301,8 +304,9 @@ The cell below produces:
 * `image_wv_nearir_hr`  -- 1 km near-ir watervapor
 * `area_def_hr`  -- the `area_def` file used to do the 1 k resample
 
-```{code-cell}
 ### Resample the 1 km near-ir water vapor onto a 1 km grid
+```{code-cell}
+
 
 proj_params = get_proj_params(m3_file_str)
 swath_def = SwathDefinition(lons_1km, lats_1km)
@@ -322,8 +326,8 @@ image_wv_nearir_hr = kd_tree.resample_nearest(
 image_wv_nearir_hr[image_wv_nearir_hr < -9000] = np.nan
 ```
 
-# Save the mapped images
-## Now save these three images plus their area_def's for future plotting
+### Save the mapped images
+* Now save these three images plus their area_def's for future plotting
 
 The function area_def_to_dict saves the pyresample area_def as a dict
 
@@ -371,14 +375,14 @@ def area_def_to_dict(area_def):
     return area_dict
 ```
 
-## Create a directory to hold the images and area_def dictionaries
+* Create a directory to hold the images and area_def dictionaries
 
 ```{code-cell}
 map_dir = Path() / "map_data/wv_maps"
 map_dir.mkdir(parents=True, exist_ok=True)
 ```
 
-## Here's a function that writes the image plus metadata to npz and json files
+* Here's a function that writes the image plus metadata to npz and json files
 
 We'll need to use area_def_to_dict when we create the metadata_dict
 
@@ -412,7 +416,7 @@ def dump_image(image_array, metadata_dict, foldername, image_array_name="image")
     print(f"\ndumping {image_file}\n and {json_name}\n")
 ```
 
-## Write out images, putting useful metadeta in metadata_dict
+### Write out images, putting useful metadeta in metadata_dict
 
 We have three images:  
 
@@ -483,7 +487,7 @@ ax.imshow(image_wv_nearir_hr)
 ```
 
 
-# Assignment
+## Assignment 5a
 
 Add cells that do the following:
 

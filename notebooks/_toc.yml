@@ -51,7 +51,6 @@
 - file: week8/week8_topics.md
   chapters:
     - file: week8/answers/mid_2020.md
-    - file: week8/level2_cartopy_resample.md
     - file: week8/level2_cartopy_resample_assign.md
     - file: week8/multilayer_assign.md
     - file: week8/assign2_sol.md

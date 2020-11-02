@@ -11,7 +11,7 @@ kernelspec:
   language: python
   name: python3
 ---
-
+(assign2_sol)=
 # Assignment 2 - solutions
 
 Chapter 2: A23, A24, A25, A26
