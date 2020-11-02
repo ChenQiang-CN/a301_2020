@@ -55,6 +55,9 @@
     - file: week8/level2_cartopy_resample_assign.md
     - file: week8/multilayer_assign.md
     - file: week8/assign2_sol.md
+- file: week9/week9_topics.md
+  chapters:
+    - file: week9/vancouver_visible.md
 
 - file: assignments.md
 - file: review.md
