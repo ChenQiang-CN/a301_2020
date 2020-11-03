@@ -26,4 +26,11 @@
 
     - [autogis](https://automating-gis-processes.github.io/site/index.html)
 
-   * For Wednesday: Read the 
+   * For Wednesday: Read the [Landsat overview](https://www.earthdatascience.org/courses/use-data-open-source-python/multispectral-remote-sensing/landsat-in-Python/) and 
+   the 
+[geotif explainer](https://www.earthdatascience.org/courses/use-data-open-source-python/intro-raster-data-python/fundamentals-raster-data/intro-to-the-geotiff-file-format/)
+
+    - Review the Universal Transverse Mercator projection in 
+      <a href="./figures/understanding_map_projections.pdf">Understanding map projections </a>> (p. 21 and p. 98)
+
+    - Make sure the {ref}`vancouver_visible` notebook works for you.
