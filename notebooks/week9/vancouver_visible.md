@@ -41,7 +41,7 @@ import numpy as np
 import h5py
 import sys
 import a301_lib
-import matpplotlib
+import matplotlib
 matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import sat_lib.hdftools.h5dump as h5dump
