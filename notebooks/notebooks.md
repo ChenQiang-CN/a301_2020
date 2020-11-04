@@ -8,5 +8,6 @@
 * {ref}`scale_heights`
 * {ref}`pandas_intro`
 * {ref}`vancouver_visible`
+* {ref}`landsat_wrs`
 
 

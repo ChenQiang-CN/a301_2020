@@ -36,20 +36,24 @@ kernelspec:
 
 * see what the  [ndvi](https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index) histogram looks like at 250 meter resoluiton
 
-```{code-cell}
+```{code-cell} ipython3
 import numpy as np
 import h5py
 import sys
 import a301_lib
 from matplotlib import pyplot as plt
 import sat_lib.hdftools.h5dump as h5dump
+from sat_lib.modismeta_read import parseMeta
+from sat_lib.geometry import get_proj_params
+import cartopy
+
 #
 # use hdfview to see the structure of this file
 #
 filename = a301_lib.sat_data / 'vancouver_hires.h5'
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 h5dump.main(filename)
 ```
 
@@ -63,14 +67,92 @@ Here is the corresponding red,green,blue color composite for the granule.
 
 Now histogram the NDVI for the Vancouver box -- note the range of NDVI -- lots of vegetation (0.8) and some water (less than 0)
 
-
-```{code-cell}
+```{code-cell} ipython3
 with h5py.File(filename,'r') as h5_file:
     chan1_refl=h5_file['data_fields']['chan1'][...]
     chan2_refl=h5_file['data_fields']['chan2'][...]
+    lats=h5_file['latlon']['lat'][...]
+    lons=h5_file['latlon']['lon'][...]
+    lat_0 = h5_file.attrs['lat_0']
+    lon_0 = h5_file.attrs['lon_0']
+    core_metadata = h5_file.attrs['CoreMetadata.0']
 ndvi = (chan2_refl - chan1_refl)/(chan2_refl + chan1_refl)
 
 fig, axis = plt.subplots(1,1,figsize=(10,10))
-axis.hist(ndvi)
+axis.hist(ndvi.flat)
 axis.set(title='ndvi Vancouver');
+```
+
+## Resample
+
+
++++
+
+* Now resample following https://a301_web.eoas.ubc.ca/week4/cartopy_resample_ch30_h5.html?highlight=resample#now-resample
+
+One complication is that my central `lat_0` and `lon_0` are not the same as given by swath info,
+because I am using only a slice from the large QKM file.  So I need to replace those
+with the values I read from `vancouver_hires.h5` at the top of the notebook.
+
+```{code-cell} ipython3
+swath_info = parseMeta(core_metadata)
+proj_params = get_proj_params(swath_info)
+proj_params['lon_0'] = lon_0
+proj_params['lat_0'] = lat_0
+```
+
+```{code-cell} ipython3
+from pyresample import SwathDefinition, kd_tree, geometry
+
+swath_def = SwathDefinition(lons, lats)
+area_def= swath_def.compute_optimal_bb_area(proj_dict=proj_params)
+fill_value = -9999.0
+ndvi_reproj = kd_tree.resample_nearest(
+    swath_def,
+    ndvi.ravel(),
+    area_def,
+    radius_of_influence=5000,
+    nprocs=2,
+    fill_value=fill_value,
+)
+ndvi_reproj[ndvi_reproj < -9000] = np.nan
+print(f"\ndump area definition:\n{area_def}\n")
+print(
+    (
+        f"\nx and y pixel dimensions in meters:"
+        f"\n{area_def.pixel_size_x}\n{area_def.pixel_size_y}\n"
+    )
+)
+```
+
+```{code-cell} ipython3
+import copy
+pal = plt.get_cmap("Greens")
+pal = copy.copy(pal)
+pal.set_bad("0.75")  # 75% grey for out-of-map cells
+pal.set_over("r")  # color cells > vmax red
+pal.set_under("k")  # color cells < vmin black
+vmin = 0
+vmax = 0.8
+from matplotlib.colors import Normalize
+
+the_norm = Normalize(vmin=vmin, vmax=vmax, clip=False)
+```
+
+```{code-cell} ipython3
+crs = area_def.to_cartopy_crs()
+fig, ax = plt.subplots(1, 1, figsize=(15,25), subplot_kw={"projection": crs})
+ax.gridlines(linewidth=2)
+ax.add_feature(cartopy.feature.GSHHSFeature(scale="high", levels=[1, 2, 3]))
+ax.set_extent(crs.bounds, crs)
+cs = ax.imshow(
+    ndvi_reproj,
+    transform=crs,
+    extent=crs.bounds,
+    origin="upper",
+    alpha=0.8,
+    cmap=pal,
+    norm=the_norm,
+)
+fig.colorbar(cs, extend="both");
 ```

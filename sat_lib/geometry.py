@@ -9,7 +9,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import cartopy
 
-def get_proj_params(modis_file):
+def get_proj_params(input_swath):
     """
     given a path to a Modis hdf file with a standard
     'CoreMetadata.0' atrribute, return proj4 parameters
@@ -19,7 +19,8 @@ def get_proj_params(modis_file):
     Parameters
     ----------
     
-    modis_file:  Path or str with path to hdf file
+    input_swath:  Either a path or str with path to hdf file
+                  or dictionary with lat_0 and lon_0 keys
     
     Returns
     -------
@@ -28,7 +29,13 @@ def get_proj_params(modis_file):
         dict with parameters for proj4
         
     """
-    modis_dict=parseMeta(modis_file)
+    try:
+        modis_dict=parseMeta(modis_file)
+        lat_0 = modis_dict['lat_0']
+        lon_0 = modis_dict['lon_0']
+    except:
+        lat_0 = input_swath['lat_0']
+        lon_0 = input_swath['lon_0']
     import cartopy.crs as ccrs
     globe_w = ccrs.Globe(datum="WGS84",ellipse="WGS84")
     projection_w=ccrs.LambertAzimuthalEqualArea(central_latitude=modis_dict['lat_0'],
