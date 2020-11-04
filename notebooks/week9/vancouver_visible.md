@@ -6,7 +6,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.12
-    jupytext_version: 1.6.0
+    jupytext_version: 1.6.1-dev
 kernelspec:
   display_name: Python 3
   language: python
@@ -79,14 +79,13 @@ with h5py.File(filename,'r') as h5_file:
     lon_0 = h5_file.attrs['lon_0']
     core_metadata = h5_file.attrs['CoreMetadata.0']
 ndvi = (chan2_refl - chan1_refl)/(chan2_refl + chan1_refl)
-
+#breakpoint()
 fig, axis = plt.subplots(1,1,figsize=(10,10))
 axis.hist(ndvi.flat)
 axis.set(title='ndvi Vancouver');
 ```
 
 ## Resample
-
 
 +++
 
@@ -101,6 +100,7 @@ swath_info = parseMeta(core_metadata)
 proj_params = get_proj_params(swath_info)
 proj_params['lon_0'] = lon_0
 proj_params['lat_0'] = lat_0
+#breakpoint()
 ```
 
 ```{code-cell}

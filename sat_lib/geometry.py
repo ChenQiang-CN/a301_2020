@@ -38,8 +38,8 @@ def get_proj_params(input_swath):
         lon_0 = input_swath['lon_0']
     import cartopy.crs as ccrs
     globe_w = ccrs.Globe(datum="WGS84",ellipse="WGS84")
-    projection_w=ccrs.LambertAzimuthalEqualArea(central_latitude=modis_dict['lat_0'],
-                    central_longitude= modis_dict['lon_0'],globe=globe_w)
+    projection_w=ccrs.LambertAzimuthalEqualArea(central_latitude=lat_0,
+                    central_longitude= lon_0,globe=globe_w)
     proj_params=projection_w.proj4_params
     return proj_params
 
