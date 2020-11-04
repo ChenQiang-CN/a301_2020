@@ -157,4 +157,7 @@ cs = ax.imshow(
     norm=the_norm,
 )
 fig.colorbar(cs, extend="both");
+fig.savefig('figures/vancouver.png')
 ```
+<img src='figures/vancouver.png'>
+
