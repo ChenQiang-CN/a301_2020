@@ -31,7 +31,7 @@ import zipfile
 # go to amazon and get vector shape files for
 # all the WRS path-row sectors
 #
-download_file=False
+download_file=True
 if download_file:
     url = "https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/WRS2_descending_0.zip"
     r = urllib.request.urlopen(url)
@@ -59,6 +59,9 @@ def checkPoint(feature, point, mode):
     else:
         return False
 ```
+
+* loop over all features until you find the one that
+  contains the point, then print the path/row
 
 ```{code-cell}
 i=0

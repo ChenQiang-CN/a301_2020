@@ -36,7 +36,7 @@ kernelspec:
 
 * see what the  [ndvi](https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index) histogram looks like at 250 meter resoluiton
 
-```{code-cell} ipython3
+```{code-cell}
 import numpy as np
 import h5py
 import sys
@@ -53,7 +53,7 @@ import cartopy
 filename = a301_lib.sat_data / 'vancouver_hires.h5'
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 h5dump.main(filename)
 ```
 
@@ -67,7 +67,7 @@ Here is the corresponding red,green,blue color composite for the granule.
 
 Now histogram the NDVI for the Vancouver box -- note the range of NDVI -- lots of vegetation (0.8) and some water (less than 0)
 
-```{code-cell} ipython3
+```{code-cell}
 with h5py.File(filename,'r') as h5_file:
     chan1_refl=h5_file['data_fields']['chan1'][...]
     chan2_refl=h5_file['data_fields']['chan2'][...]
@@ -94,14 +94,14 @@ One complication is that my central `lat_0` and `lon_0` are not the same as give
 because I am using only a slice from the large QKM file.  So I need to replace those
 with the values I read from `vancouver_hires.h5` at the top of the notebook.
 
-```{code-cell} ipython3
+```{code-cell}
 swath_info = parseMeta(core_metadata)
 proj_params = get_proj_params(swath_info)
 proj_params['lon_0'] = lon_0
 proj_params['lat_0'] = lat_0
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 from pyresample import SwathDefinition, kd_tree, geometry
 
 swath_def = SwathDefinition(lons, lats)
@@ -125,7 +125,7 @@ print(
 )
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 import copy
 pal = plt.get_cmap("Greens")
 pal = copy.copy(pal)
@@ -139,7 +139,7 @@ from matplotlib.colors import Normalize
 the_norm = Normalize(vmin=vmin, vmax=vmax, clip=False)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 crs = area_def.to_cartopy_crs()
 fig, ax = plt.subplots(1, 1, figsize=(15,25), subplot_kw={"projection": crs})
 ax.gridlines(linewidth=2)
