@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5.1. Notes on testing &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week5/testing.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.2. Assignment 3: Split window H2O retrieval" href="assignment3.html" />
+    <link rel="prev" title="5. Week 5" href="week5_topics.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week5/testing.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Notes on testing" />
+<meta property="og:description" content="Notes on testing  Using numpy.testing to test functions  The numpy testing module provides some functions to compare function calculations to expected answers: " />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week2/week2_topics.html">
+   2. Week 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="week5_topics.html">
+   5. Week 5
+  </a>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.1. Notes on testing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="assignment3.html">
+     5.2. Assignment 3: Split window H2O retrieval
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hydrostat.html">
+     5.3. Hydrostatic balance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pandas_csv_intro.html">
+     5.4. Reading &amp; Summarizing CSV Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pandas-cheatsheet.html">
+     5.5. Pandas Cheatsheet
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hydrostatic_balance.html">
+     5.6. Scale heights for typical atmospheric soundings
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="hydrostatic_balance.html#use-pd-dataframe-head-to-see-first-5-lines">
+     5.7. Use pd.DataFrame.head to see first 5 lines
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week6/week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week7/week7_topics.html">
+   7. Week 7
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week8/week8_topics.html">
+   8. Week 8
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week9/week9_topics.html">
+   9. Week 9
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   10. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../review.html">
+   11. Review/logistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks.html">
+   12. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/week5/testing.rst"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-numpy-testing-to-test-functions">
+   5.1.1. Using numpy.testing to test functions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#run-tests-with-pytest">
+   5.1.2. Run tests with pytest
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-failure">
+   5.1.3. Test failure
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="notes-on-testing">
+<span id="testing"></span><h1><span class="section-number">5.1. </span>Notes on testing<a class="headerlink" href="#notes-on-testing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="using-numpy-testing-to-test-functions">
+<h2><span class="section-number">5.1.1. </span>Using numpy.testing to test functions<a class="headerlink" href="#using-numpy-testing-to-test-functions" title="Permalink to this headline">¶</a></h2>
+<p>The numpy testing module provides some functions to compare function calculations to
+expected answers: <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/routines.testing.html">http://docs.scipy.org/doc/numpy/reference/routines.testing.html</a></p>
+<p>I have written some test examples in sat_lib.radiation.py. The code  includes the following test functions which use numpy.testing.assert_array_almost_equal to compare sample cases with known results:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="k">def</span> <span class="nf">test_planck_wavelen</span><span class="p">():</span>
+     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        test planck function for several wavelengths</span>
+<span class="sd">        and Temps</span>
+<span class="sd">     &quot;&quot;&quot;</span>
+     <span class="c1">#</span>
+     <span class="c1"># need Temp in K and wavelen in m</span>
+     <span class="c1">#</span>
+     <span class="n">the_temps</span><span class="o">=</span><span class="p">[</span><span class="mf">200.</span><span class="p">,</span> <span class="mf">250.</span><span class="p">,</span> <span class="mf">350.</span><span class="p">]</span>
+     <span class="n">the_wavelens</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">8.</span><span class="p">,</span><span class="mf">10.</span><span class="p">,</span><span class="mf">12.</span><span class="p">])</span><span class="o">*</span><span class="mf">1.e-6</span>
+     <span class="n">out</span><span class="o">=</span><span class="p">[]</span>
+     <span class="k">for</span> <span class="n">a_temp</span> <span class="ow">in</span> <span class="n">the_temps</span><span class="p">:</span>
+         <span class="k">for</span> <span class="n">a_wavelen</span> <span class="ow">in</span> <span class="n">the_wavelens</span><span class="p">:</span>
+             <span class="c1">#</span>
+             <span class="c1"># convert to W/m^2/micron/sr</span>
+             <span class="c1">#</span>
+             <span class="n">the_bbr</span><span class="o">=</span><span class="n">Blambda</span><span class="p">(</span><span class="n">a_wavelen</span><span class="p">,</span><span class="n">a_temp</span><span class="p">)</span><span class="o">*</span><span class="mf">1.e-6</span>
+             <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">the_bbr</span><span class="p">)</span>
+     <span class="n">answer</span><span class="o">=</span><span class="p">[</span>  <span class="mf">0.4521</span><span class="p">,</span>   <span class="mf">0.8954</span><span class="p">,</span>   <span class="mf">1.1955</span><span class="p">,</span>   <span class="mf">2.7324</span><span class="p">,</span>   <span class="mf">3.7835</span><span class="p">,</span>   <span class="mf">3.9883</span><span class="p">,</span>
+               <span class="mf">21.4495</span><span class="p">,</span>  <span class="mf">19.8525</span><span class="p">,</span>  <span class="mf">16.0931</span><span class="p">]</span>
+<span class="hll">     <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_almost_equal</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="n">answer</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span>     <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</td></tr></table></div>
+<p>When the test is run by a program called <a class="reference external" href="http://doc.pytest.org/en/latest/">pytest</a> like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span> <span class="n">radiation</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>the file will be scanned for any functions with the word “test” (any capitalization)  and each test
+will be run.  The test will succeed if the two arrays (out and answer) are the same at each index to within 4 decimal places.  If they aren’t then an error message will be printed.</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span> <span class="k">def</span> <span class="nf">test_planck_inverse</span><span class="p">():</span>
+     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        test planck inverse for several round trips</span>
+<span class="sd">        and Temps</span>
+<span class="sd">     &quot;&quot;&quot;</span>
+     <span class="c1">#</span>
+     <span class="c1"># need Temp in K and wavelen in m</span>
+     <span class="c1">#</span>
+     <span class="n">the_temps</span><span class="o">=</span><span class="p">[</span><span class="mf">200.</span><span class="p">,</span> <span class="mf">250.</span><span class="p">,</span> <span class="mf">350.</span><span class="p">]</span>
+     <span class="n">the_wavelens</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">8.</span><span class="p">,</span><span class="mf">10.</span><span class="p">,</span><span class="mf">12.</span><span class="p">])</span><span class="o">*</span><span class="mf">1.e-6</span>
+     <span class="n">out</span><span class="o">=</span><span class="p">[]</span>
+     <span class="k">for</span> <span class="n">a_temp</span> <span class="ow">in</span> <span class="n">the_temps</span><span class="p">:</span>
+         <span class="k">for</span> <span class="n">a_wavelen</span> <span class="ow">in</span> <span class="n">the_wavelens</span><span class="p">:</span>
+             <span class="c1">#</span>
+             <span class="c1"># convert to W/m^2/micron/sr</span>
+             <span class="c1">#</span>
+             <span class="n">the_bbr</span><span class="o">=</span><span class="n">Blambda</span><span class="p">(</span><span class="n">a_wavelen</span><span class="p">,</span><span class="n">a_temp</span><span class="p">)</span>
+             <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">a_wavelen</span><span class="p">,</span><span class="n">the_bbr</span><span class="p">))</span>
+
+     <span class="n">brights</span><span class="o">=</span><span class="p">[]</span>
+     <span class="k">for</span> <span class="n">wavelen</span><span class="p">,</span><span class="n">bbr</span> <span class="ow">in</span> <span class="n">out</span><span class="p">:</span>
+         <span class="n">brights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">planckInvert</span><span class="p">(</span><span class="n">wavelen</span><span class="p">,</span><span class="n">bbr</span><span class="p">))</span>
+     <span class="c1">#</span>
+<span class="hll">     <span class="c1"># does planckInvert give us back the original temperatures?</span>
+</span>     <span class="c1">#</span>
+     <span class="n">answer</span><span class="o">=</span><span class="p">[</span><span class="mf">200.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">,</span> <span class="mf">350.0</span><span class="p">,</span> <span class="mf">350.0</span><span class="p">,</span> <span class="mf">350.0</span><span class="p">]</span>
+     <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_almost_equal</span><span class="p">(</span><span class="n">brights</span><span class="p">,</span><span class="n">answer</span><span class="p">,</span><span class="n">decimal</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+     <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</td></tr></table></div>
+<p>Similarly, this test will fail if any temperature is disagrees in the 10th decimal place or lower.</p>
+</div>
+<div class="section" id="run-tests-with-pytest">
+<h2><span class="section-number">5.1.2. </span>Run tests with pytest<a class="headerlink" href="#run-tests-with-pytest" title="Permalink to this headline">¶</a></h2>
+<p>Once you’ve installed pytest (with conda install pytest), the tests can be run in two ways:</p>
+<ol class="arabic">
+<li><p>Use pytest directly (the -v flag makes the output verbose):</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span></span>$ pytest sat_lib/radiation.py -v
+
+============================================= test session starts
+platform darwin -- Python 3.5.2, pytest-3.0.3, py-1.4.31, pluggy-0.4.0 -- /Users/phil/mini35/bin/python
+cachedir: .cache
+rootdir: /Users/phil, inifile:
+plugins: hypothesis-3.4.2
+collected 2 items
+
+repos/a301_2016/a301lib/radiation.py::test_planck_wavelen PASSED
+repos/a301_2016/a301lib/radiation.py::test_planck_inverse PASSED
+
+============================================= 2 passed in 0.22 seconds
+</pre></div>
+</td></tr></table></div>
+</li>
+<li><p>Execute the radiation.py module, which will run all the code that is below
+__name == “__main__” line:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="hll">  <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span>  <span class="c1">#</span>
+  <span class="c1"># the variable __file__ contains the name of this file</span>
+  <span class="c1"># so the result of the following line will be the same as if</span>
+  <span class="c1"># you typed:</span>
+  <span class="c1">#</span>
+  <span class="c1"># pytest ~/pythonlibs/a301lib/radiation.py -q</span>
+  <span class="c1">#</span>
+  <span class="c1"># in a terminal  (the -q means &#39;suppress most of output&#39;)</span>
+  <span class="c1">#</span>
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;testing </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+  <span class="n">pytest</span><span class="o">.</span><span class="n">main</span><span class="p">([</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;-q&#39;</span><span class="p">])</span>
+</pre></div>
+</td></tr></table></div>
+</li>
+</ol>
+<p>Why have two different ways to run the tests?  With approach 2) I don’t need to
+know where the module is, python finds it and runs it:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span></span>$ python -m sat_lib.radiation
+testing sat_lib/radiation.py
+..
+2 passed in 0.01 seconds
+~  phil@rail%
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="test-failure">
+<h2><span class="section-number">5.1.3. </span>Test failure<a class="headerlink" href="#test-failure" title="Permalink to this headline">¶</a></h2>
+<p>To see what happens when a test fails, try changing one of the expected answers
+to an incorrect value</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">answer</span><span class="o">=</span><span class="p">[</span><span class="mf">999.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">,</span> <span class="mf">200.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">,</span> <span class="mf">350.0</span><span class="p">,</span> <span class="mf">350.0</span><span class="p">,</span> <span class="mf">350.0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Now run the test and look at the failure report:</p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre></div></td><td class="code"><div class="highlight"><pre><span></span>$ python -m sat_lib.radiation
+  testing sat_lib/radiation.py
+  .F
+  ======================================= FAILURES =======================================
+  _________________________________ test_planck_inverse __________________________________
+
+      def test_planck_inverse():
+          &quot;&quot;&quot;
+             test planck inverse for several round trips
+             and Temps
+          &quot;&quot;&quot;
+          #
+          # need Temp in K and wavelen in m
+          #
+          the_temps=[200., 250., 350.]
+          the_wavelens=np.array([8.,10.,12.])*1.e-6
+          out=[]
+          for a_temp in the_temps:
+              for a_wavelen in the_wavelens:
+                  #
+                  # convert to W/m^2/micron/sr
+                  #
+                  the_bbr=Blambda(a_wavelen,a_temp)
+                  out.append((a_wavelen,the_bbr))
+
+          brights=[]
+          for wavelen,bbr in out:
+              brights.append(planckInvert(wavelen,bbr))
+          answer=[999.0, 200.0, 200.0, 250.0, 250.0, 250.0, 350.0, 350.0, 350.0]
+  &gt;       np.testing.assert_array_almost_equal(brights,answer,decimal=10)
+  E       AssertionError:
+  E       Arrays are not almost equal to 10 decimals
+  E
+  E       (mismatch 11.111111111111114%)
+  E        x: array([ 200.,  200.,  200.,  250.,  250.,  250.,  350.,  350.,  350.])
+  E        y: array([ 999.,  200.,  200.,  250.,  250.,  250.,  350.,  350.,  350.])
+
+  ../sat_lib/radiation.py:114: AssertionError
+  1 failed, 1 passed in 0.06 seconds
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="week5_topics.html" title="previous page"><span class="section-number">5. </span>Week 5</a>
+    <a class='right-next' id="next-link" href="assignment3.html" title="next page"><span class="section-number">5.2. </span>Assignment 3: Split window H2O retrieval</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

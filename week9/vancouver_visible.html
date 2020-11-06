@@ -1,0 +1,553 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9.1. NDVI for Vancouver &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week9/vancouver_visible.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9.2. Landsat image processing 1" href="landsat_image.html" />
+    <link rel="prev" title="9. Week 9" href="week9_topics.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week9/vancouver_visible.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="NDVI for Vancouver" />
+<meta property="og:description" content="NDVI for Vancouver  One of the most important MODIS level 2 products for land remote sensing is the Normalized difference vegetation index  Visible red (channel" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week2/week2_topics.html">
+   2. Week 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week5/week5_topics.html">
+   5. Week 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week6/week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week7/week7_topics.html">
+   7. Week 7
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week8/week8_topics.html">
+   8. Week 8
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="week9_topics.html">
+   9. Week 9
+  </a>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     9.1. NDVI for Vancouver
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="landsat_image.html">
+     9.2. Landsat image processing 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html">
+     9.3. Landast part 2: rasterio
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#get-the-vancouver-image">
+     9.4. Get the vancouver image
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#read-in-the-bands-4-red-and-5-near-infrared">
+     9.5. Read in the bands  4 (red) and 5 (near infrared)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#find-the-toa-reflectance-for-each-channel">
+     9.6. Find the toa reflectance for each channel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#silence-annoying-warnings-from-numpy">
+     9.7. Silence annoying warnings from numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#nir-is-much-more-reflective-than-red">
+     9.8. NIR is much more reflective than red
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#calculate-the-ndvi">
+     9.9. Calculate the ndvi
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#does-the-reflectance-step-matter">
+     9.10. Does the reflectance step matter?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   10. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../review.html">
+   11. Review/logistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks.html">
+   12. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/week9/vancouver_visible.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/week9/vancouver_visible.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week9/vancouver_visible.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week9/vancouver_visible.ipynb&branch=master"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="../_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#histogram">
+   9.1.1. Histogram
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#resample">
+   9.1.2. Resample
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="ndvi-for-vancouver">
+<span id="vancouver-visible"></span><h1><span class="section-number">9.1. </span>NDVI for Vancouver<a class="headerlink" href="#ndvi-for-vancouver" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>One of the most important MODIS level 2 products for land remote sensing is the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index">Normalized difference vegetation index</a></p></li>
+<li><p>Visible red (channel 1) and nearir (Channel 2) reflectivities at 250 meter resolution</p></li>
+<li><p>Since 250 meter resolution channels are so big, this notebook reads a subset
+of a Vancouver scene.  Channel 1 and Channel 2 are stored as 1 dimensional vectors,
+since all we are doing here is histogramming.  No need for pyresample or lats/lons.</p></li>
+<li><p><a class="reference external" href="https://modis.gsfc.nasa.gov/about/specifications.php">Modis channel listing</a></p></li>
+<li><p>Band 1 centered at 0.645 microns (red), Band 2 at 0.85 microns (nearir)</p></li>
+<li><p>data acquired at 250 m resolution, August 11, 2016</p></li>
+<li><p>I’ve written the measurements between -125 -&gt; -120 deg lon and 45-50 degrees lat to
+an hdf:  vancouver_hires.h5, download in the cell below</p></li>
+<li><p>see what the  <a class="reference external" href="https://en.wikipedia.org/wiki/Normalized_Difference_Vegetation_Index">ndvi</a> histogram looks like at 250 meter resoluiton</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">a301_lib</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">sat_lib.hdftools.h5dump</span> <span class="k">as</span> <span class="nn">h5dump</span>
+<span class="kn">from</span> <span class="nn">sat_lib.modismeta_read</span> <span class="kn">import</span> <span class="n">parseMeta</span>
+<span class="kn">from</span> <span class="nn">sat_lib.geometry</span> <span class="kn">import</span> <span class="n">get_proj_params</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+
+<span class="c1">#</span>
+<span class="c1"># use hdfview to see the structure of this file</span>
+<span class="c1">#</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">a301_lib</span><span class="o">.</span><span class="n">sat_data</span> <span class="o">/</span> <span class="s1">&#39;vancouver_hires.h5&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h5dump</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here is the corresponding red,green,blue color composite for the granule.</p>
+<img src='figures/MYBRGB.A2016224.2100.006.2016237025650.jpg' width='600px' >
+<div class="section" id="histogram">
+<h2><span class="section-number">9.1.1. </span>Histogram<a class="headerlink" href="#histogram" title="Permalink to this headline">¶</a></h2>
+<p>Now histogram the NDVI for the Vancouver box – note the range of NDVI – lots of vegetation (0.8) and some water (less than 0)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">h5_file</span><span class="p">:</span>
+    <span class="n">chan1_refl</span><span class="o">=</span><span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;data_fields&#39;</span><span class="p">][</span><span class="s1">&#39;chan1&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">chan2_refl</span><span class="o">=</span><span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;data_fields&#39;</span><span class="p">][</span><span class="s1">&#39;chan2&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">lats</span><span class="o">=</span><span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;latlon&#39;</span><span class="p">][</span><span class="s1">&#39;lat&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">lons</span><span class="o">=</span><span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;latlon&#39;</span><span class="p">][</span><span class="s1">&#39;lon&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">lat_0</span> <span class="o">=</span> <span class="n">h5_file</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;lat_0&#39;</span><span class="p">]</span>
+    <span class="n">lon_0</span> <span class="o">=</span> <span class="n">h5_file</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;lon_0&#39;</span><span class="p">]</span>
+    <span class="n">core_metadata</span> <span class="o">=</span> <span class="n">h5_file</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;CoreMetadata.0&#39;</span><span class="p">]</span>
+<span class="n">ndvi</span> <span class="o">=</span> <span class="p">(</span><span class="n">chan2_refl</span> <span class="o">-</span> <span class="n">chan1_refl</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">chan2_refl</span> <span class="o">+</span> <span class="n">chan1_refl</span><span class="p">)</span>
+<span class="c1">#breakpoint()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ndvi</span><span class="o">.</span><span class="n">flat</span><span class="p">)</span>
+<span class="n">axis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;ndvi Vancouver&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="resample">
+<h2><span class="section-number">9.1.2. </span>Resample<a class="headerlink" href="#resample" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Now resample following https://a301_web.eoas.ubc.ca/week4/cartopy_resample_ch30_h5.html?highlight=resample#now-resample</p></li>
+</ul>
+<p>One complication is that my central <code class="docutils literal notranslate"><span class="pre">lat_0</span></code> and <code class="docutils literal notranslate"><span class="pre">lon_0</span></code> are not the same as given by swath info,
+because I am using only a slice from the large QKM file.  So I need to replace those
+with the values I read from <code class="docutils literal notranslate"><span class="pre">vancouver_hires.h5</span></code> at the top of the notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">swath_info</span> <span class="o">=</span> <span class="n">parseMeta</span><span class="p">(</span><span class="n">core_metadata</span><span class="p">)</span>
+<span class="n">proj_params</span> <span class="o">=</span> <span class="n">get_proj_params</span><span class="p">(</span><span class="n">swath_info</span><span class="p">)</span>
+<span class="n">proj_params</span><span class="p">[</span><span class="s1">&#39;lon_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon_0</span>
+<span class="n">proj_params</span><span class="p">[</span><span class="s1">&#39;lat_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat_0</span>
+<span class="c1">#breakpoint()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyresample</span> <span class="kn">import</span> <span class="n">SwathDefinition</span><span class="p">,</span> <span class="n">kd_tree</span><span class="p">,</span> <span class="n">geometry</span>
+
+<span class="n">swath_def</span> <span class="o">=</span> <span class="n">SwathDefinition</span><span class="p">(</span><span class="n">lons</span><span class="p">,</span> <span class="n">lats</span><span class="p">)</span>
+<span class="n">area_def</span><span class="o">=</span> <span class="n">swath_def</span><span class="o">.</span><span class="n">compute_optimal_bb_area</span><span class="p">(</span><span class="n">proj_dict</span><span class="o">=</span><span class="n">proj_params</span><span class="p">)</span>
+<span class="n">fill_value</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9999.0</span>
+<span class="n">ndvi_reproj</span> <span class="o">=</span> <span class="n">kd_tree</span><span class="o">.</span><span class="n">resample_nearest</span><span class="p">(</span>
+    <span class="n">swath_def</span><span class="p">,</span>
+    <span class="n">ndvi</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+    <span class="n">area_def</span><span class="p">,</span>
+    <span class="n">radius_of_influence</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+    <span class="n">nprocs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ndvi_reproj</span><span class="p">[</span><span class="n">ndvi_reproj</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">9000</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">dump area definition:</span><span class="se">\n</span><span class="si">{</span><span class="n">area_def</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">x and y pixel dimensions in meters:&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">area_def</span><span class="o">.</span><span class="n">pixel_size_x</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">area_def</span><span class="o">.</span><span class="n">pixel_size_y</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="n">pal</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s2">&quot;Greens&quot;</span><span class="p">)</span>
+<span class="n">pal</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pal</span><span class="p">)</span>
+<span class="n">pal</span><span class="o">.</span><span class="n">set_bad</span><span class="p">(</span><span class="s2">&quot;0.75&quot;</span><span class="p">)</span>  <span class="c1"># 75% grey for out-of-map cells</span>
+<span class="n">pal</span><span class="o">.</span><span class="n">set_over</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>  <span class="c1"># color cells &gt; vmax red</span>
+<span class="n">pal</span><span class="o">.</span><span class="n">set_under</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>  <span class="c1"># color cells &lt; vmin black</span>
+<span class="n">vmin</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">vmax</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
+
+<span class="n">the_norm</span> <span class="o">=</span> <span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">crs</span> <span class="o">=</span> <span class="n">area_def</span><span class="o">.</span><span class="n">to_cartopy_crs</span><span class="p">()</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">25</span><span class="p">),</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">crs</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cartopy</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">GSHHSFeature</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="s2">&quot;high&quot;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">crs</span><span class="o">.</span><span class="n">bounds</span><span class="p">,</span> <span class="n">crs</span><span class="p">)</span>
+<span class="n">cs</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+    <span class="n">ndvi_reproj</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">crs</span><span class="p">,</span>
+    <span class="n">extent</span><span class="o">=</span><span class="n">crs</span><span class="o">.</span><span class="n">bounds</span><span class="p">,</span>
+    <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;upper&quot;</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">pal</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">the_norm</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">cs</span><span class="p">,</span> <span class="n">extend</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">);</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figures/vancouver.png&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<img src='figures/vancouver.png'></div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week9"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="week9_topics.html" title="previous page"><span class="section-number">9. </span>Week 9</a>
+    <a class='right-next' id="next-link" href="landsat_image.html" title="next page"><span class="section-number">9.2. </span>Landsat image processing 1</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

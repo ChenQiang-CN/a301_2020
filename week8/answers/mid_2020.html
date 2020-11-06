@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8.1. A301 midterm – solutions &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week8/answers/mid_2020.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8.2. Assign 5a: Water vapor retrieval using MYD05 data" href="../level2_cartopy_resample_assign.html" />
+    <link rel="prev" title="8. Week 8" href="../week8_topics.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week8/answers/mid_2020.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="A301 midterm – solutions" />
+<meta property="og:description" content="A301 midterm – solutions  (12) A satellite orbiting at an altitude of 36000 km observes the surface in the CO_2 absorption band with a wavelength range of 14 μm" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week2/week2_topics.html">
+   2. Week 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week5/week5_topics.html">
+   5. Week 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week6/week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week7/week7_topics.html">
+   7. Week 7
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="../week8_topics.html">
+   8. Week 8
+  </a>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     8.1. A301 midterm – solutions
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../level2_cartopy_resample_assign.html">
+     8.2. Assign 5a: Water vapor retrieval using MYD05 data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../multilayer_assign.html">
+     8.3. Assign 5b: using Stull eqn. 8.4 to find the outgoing radiance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../multilayer_assign.html#testing-your-code">
+     8.4. Testing your code
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../assign2_sol.html">
+     8.5. Assignment 2 - solutions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week9/week9_topics.html">
+   9. Week 9
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../assignments.html">
+   10. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../review.html">
+   11. Review/logistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   12. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../../_sources/week8/answers/mid_2020.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/week8/answers/mid_2020.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week8/answers/mid_2020.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week8/answers/mid_2020.md&branch=master"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="../../_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#draw-a-nice-planck-function">
+   8.1.1. Draw a nice planck function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-1">
+   8.1.2. Problem 1
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1a">
+     8.1.2.1. Problem 1a
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1b">
+     8.1.2.2. Problem 1b
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1c">
+     8.1.2.3. Problem 1c
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-2">
+   8.1.3. Problem 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-3">
+   8.1.4. Problem 3
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="a301-midterm-solutions">
+<span id="mid-2020"></span><h1><span class="section-number">8.1. </span>A301 midterm – solutions<a class="headerlink" href="#a301-midterm-solutions" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p>(12) A satellite orbiting at an altitude of 36000 km observes the
+surface in the <span class="math notranslate nohighlight">\(CO_2\)</span> absorption band with a wavelength
+range of 14 μm  <span class="math notranslate nohighlight">\(&lt; λ &lt; 16\)</span> μm.</p>
+<ul>
+<li><p>The atmosphere is 20 km thick, and has a density scale height of
+<em>H</em><sub><em>ρ</em></sub> = 11 km and a surface air density of
+<em>ρ</em><sub><em>a<strong>i</strong>r</em></sub> = 1.2 . The CO<sub>2</sub> mass
+absorption coefficient is
+k<sub>λ</sub> = 0.15 m<sup>2</sup>/kg at
+λ = 15 μm and its mixing ratio is 4 × 10<sup> − 4</sup>
+kg/kg. Find the</p>
+<ul class="simple">
+<li><p>the atmosphere’s vertical optical thickness
+τ<sub>λ</sub> in the CO<sub>2</sub> band</p></li>
+<li><p>the atmosphere’s transmittance <em>t</em> in the CO<sub>2</sub>
+band</p></li>
+</ul>
+<p>directly beneath the satellite.</p>
+</li>
+<li><p>If the surface is a blackbody with a temperature of 290 K, and
+the atmosphere has an constant temperature of 270 K, find the</p>
+<ul class="simple">
+<li><p>monochromatic radiance observed by the satellite in at 15
+μm</p></li>
+<li><p>the brightness temperature of the pixel in Kelvin for that
+radiance</p></li>
+</ul>
+</li>
+<li><p>Given a pixel size 4 km<sup>2</sup>, find:</p>
+<ul class="simple">
+<li><p>the field of view in steradians, of the pixel</p></li>
+<li><p>the flux, in W/m<sup> − 2</sup> at the satellite between
+<span class="math notranslate nohighlight">\(14-16 \mu m\)</span></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>(5) Integrate the Schwartzchild equation
+for constant temperature</p></li>
+<li><p>(3) A cone has a spreading angle of 23 degrees between its center
+and its side. What is its subtended solid angle?</p></li>
+</ul>
+<div class="section" id="draw-a-nice-planck-function">
+<h2><span class="section-number">8.1.1. </span>Draw a nice planck function<a class="headerlink" href="#draw-a-nice-planck-function" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">a301_lib</span>
+<span class="c1">#from sat_lib import radiation</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">sat_lib.radiation</span> <span class="kn">import</span> <span class="n">calc_radiance</span><span class="p">,</span> <span class="n">planck_invert</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span> <span class="k">as</span> <span class="nn">m</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>******************************
+context imported. Front of path:
+/home/phil/work
+
+in sat_lib init
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sat_lib.radiation</span> <span class="kn">import</span> <span class="n">sigma</span>
+
+<span class="n">microns</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mi">700</span><span class="p">,</span><span class="mi">500000</span><span class="p">)</span>
+<span class="n">meters</span><span class="o">=</span><span class="n">microns</span><span class="o">*</span><span class="mf">1.e-6</span>
+
+<span class="n">temp</span><span class="o">=</span><span class="mf">280.</span>
+<span class="n">planck_len</span><span class="o">=</span><span class="n">calc_radiance</span><span class="p">(</span><span class="n">meters</span><span class="p">,</span><span class="n">temp</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">symbol</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;--&#39;</span><span class="p">,</span><span class="s1">&#39;-.&#39;</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">]</span>
+<span class="n">templist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">290</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">260</span><span class="p">]</span>
+<span class="n">linelist</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">temp</span><span class="p">,</span> <span class="n">symb</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">templist</span><span class="p">,</span><span class="n">symbol</span><span class="p">):</span>
+    <span class="n">planck_curve</span> <span class="o">=</span> <span class="n">calc_radiance</span><span class="p">(</span><span class="n">meters</span><span class="p">,</span><span class="n">temp</span><span class="p">)</span> 
+    <span class="n">l0</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">microns</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">planck_curve</span><span class="o">*</span><span class="mf">1.e-6</span><span class="p">,</span><span class="n">symb</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="n">temp</span><span class="p">)</span>
+    <span class="n">linelist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l0</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;wavelength ($\mu m$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Monochromatic blackbody flux $E_{bb\lambda}$&#39;</span>
+              <span class="sa">r</span><span class="s1">&#39;($W\,m^{-2}\,\mu m^{-1}$)&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Blackbody flux vs. wavelength&quot;</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># make a grid</span>
+<span class="c1">#</span>
+<span class="n">major_ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">minor_ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">major_ticks</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">minor_ticks</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">major_ticks</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">minor_ticks</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># make the grid lines partially transparent with alpha</span>
+<span class="c1">#</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="c1"># make the legend</span>
+<span class="c1">#</span>
+<span class="n">handles</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+<span class="n">legax</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="p">,</span><span class="n">labels</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># save the figure</span>
+<span class="c1">#</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;a301_planck.pdf&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;a301_planck.png&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># check the integrated flux</span>
+<span class="c1">#</span>
+<span class="n">temp</span><span class="o">=</span><span class="mi">290</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;check to see if the integrated flux is correct&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;stefan boltzman flux: </span><span class="si">{</span><span class="n">sigma</span><span class="o">*</span><span class="n">temp</span><span class="o">**</span><span class="mi">4</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">planck_curve</span> <span class="o">=</span> <span class="n">calc_radiance</span><span class="p">(</span><span class="n">meters</span><span class="p">,</span><span class="n">temp</span><span class="p">)</span> 
+<span class="n">integ</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">meters</span><span class="p">)</span><span class="o">*</span><span class="n">planck_curve</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;integrated flux: </span><span class="si">{</span><span class="n">integ</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">meters</span><span class="o">=</span><span class="n">microns</span><span class="o">*</span><span class="mf">1.e-6</span>
+<span class="n">planck_len</span><span class="o">=</span><span class="n">calc_radiance</span><span class="p">(</span><span class="n">meters</span><span class="p">,</span><span class="n">temp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>check to see if the integrated flux is correct
+stefan boltzman flux: 401.05
+integrated flux: 401.05
+</pre></div>
+</div>
+<img alt="../../_images/mid_2020_3_1.png" src="../../_images/mid_2020_3_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="problem-1">
+<h2><span class="section-number">8.1.2. </span>Problem 1<a class="headerlink" href="#problem-1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="problem-1a">
+<h3><span class="section-number">8.1.2.1. </span>Problem 1a<a class="headerlink" href="#problem-1a" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>The atmosphere is 20 km thick, and has a density scale height of
+<em>H</em><sub><em>ρ</em></sub> = 11 km and a surface air density of
+<em>ρ</em><sub><em>a<strong>i</strong>r</em></sub> = 1.2 kg/m3. The CO<sub>2</sub> mass
+absorption coefficient is
+k<sub>λ</sub> = 0.15 m<sup>2</sup>/kg at
+λ = 15 μm and its mixing ratio is 4 × 10<sup> − 4</sup>
+kg/kg. Find the</p>
+<ul class="simple">
+<li><p>the atmosphere’s vertical optical thickness
+τ<sub>λ</sub> in the CO<sub>2</sub> band</p></li>
+<li><p>the atmosphere’s transmittance <em>t</em> in the CO<sub>2</sub>
+band</p></li>
+</ul>
+<p>directly beneath the satellite.</p>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Hrho</span><span class="o">=</span><span class="mf">11000.</span>
+<span class="n">ztop</span> <span class="o">=</span> <span class="mf">20.e3</span>
+<span class="n">k</span><span class="o">=</span><span class="mf">0.15</span>
+<span class="n">rho_air</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">rmix</span><span class="o">=</span><span class="mf">4.e-4</span>
+<span class="n">tau</span><span class="o">=</span><span class="n">k</span><span class="o">*</span><span class="n">rmix</span><span class="o">*</span><span class="n">rho_air</span><span class="o">*</span><span class="n">Hrho</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">ztop</span><span class="o">/</span><span class="n">Hrho</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;tau: </span><span class="si">{</span><span class="n">tau</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">Tr</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">tau</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tr: </span><span class="si">{</span><span class="n">Tr</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tau:  0.66
+Tr:  0.52
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="problem-1b">
+<h3><span class="section-number">8.1.2.2. </span>Problem 1b<a class="headerlink" href="#problem-1b" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>If the surface is a blackbody with a temperature of 290 K, and
+the atmosphere has an constant temperature of 270 K, find the</p>
+<ul>
+<li><p>monochromatic radiance observed by the satellite in at 15
+μm</p></li>
+<li><p>the brightness temperature of the pixel in Kelvin for that
+radiance</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Bsfc</span><span class="o">=</span><span class="n">calc_radiance</span><span class="p">(</span><span class="mf">15.e-6</span><span class="p">,</span><span class="mf">290.</span><span class="p">)</span><span class="o">*</span><span class="mf">1.e-6</span>  <span class="c1">#convert to W/m^2/micron</span>
+<span class="n">Batm</span><span class="o">=</span><span class="n">calc_radiance</span><span class="p">(</span><span class="mf">15.e-6</span><span class="p">,</span><span class="mf">270.</span><span class="p">)</span><span class="o">*</span><span class="mf">1.e-6</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Bsfc=</span><span class="si">{</span><span class="n">Bsfc</span><span class="si">:</span><span class="s1">5.2f</span><span class="si">}</span><span class="s1"> W/m^2/micron/sr, Batm=</span><span class="si">{</span><span class="n">Batm</span><span class="si">:</span><span class="s1">5.2f</span><span class="si">}</span><span class="s1"> W/m^2/micron/sr&#39;</span><span class="p">)</span>
+<span class="n">TOA</span><span class="o">=</span><span class="n">Bsfc</span><span class="o">*</span><span class="n">Tr</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">Tr</span><span class="p">)</span><span class="o">*</span><span class="n">Batm</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TOA monochromatic radiance = </span><span class="si">{</span><span class="n">TOA</span><span class="si">:</span><span class="s1">5.2f</span><span class="si">}</span><span class="s1"> W/M^2/micron/sr&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;corresponding monochromatic flux for blackbody = </span><span class="si">{</span><span class="n">TOA</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="si">:</span><span class="s1">5.2f</span><span class="si">}</span><span class="s1"> W/M^2/micron&#39;</span><span class="p">)</span>
+<span class="n">Tb</span><span class="o">=</span><span class="n">planck_invert</span><span class="p">(</span><span class="mf">15.e-6</span><span class="p">,</span><span class="n">TOA</span><span class="o">*</span><span class="mf">1.e6</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Brightness temperature </span><span class="si">{</span><span class="n">Tb</span><span class="si">:</span><span class="s2">5.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bsfc= 5.96 W/m^2/micron/sr, Batm= 4.63 W/m^2/micron/sr
+TOA monochromatic radiance =  5.31 W/M^2/micron/sr
+corresponding monochromatic flux for blackbody = 16.69 W/M^2/micron
+Brightness temperature 280.60
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="problem-1c">
+<h3><span class="section-number">8.1.2.3. </span>Problem 1c<a class="headerlink" href="#problem-1c" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Given a pixel size 4 km<sup>2</sup>, find:</p></li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>-   the field of view in steradians, of the pixel
+
+-   the flux, in *W*/*m*&lt;sup&gt; − 2&lt;/sup&gt; at the satellite between
+    $14-16 \mu m$
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delta_omega</span> <span class="o">=</span> <span class="n">delta_omega</span><span class="o">=</span><span class="mi">4</span><span class="o">/</span><span class="mf">36000.</span><span class="o">**</span><span class="mf">2.</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;delta_omega: </span><span class="si">{</span><span class="n">delta_omega</span><span class="si">:</span><span class="s1">8.3g</span><span class="si">}</span><span class="s1"> sr&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>delta_omega: 3.09e-09 sr
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">channel_width</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">TOA_flux</span> <span class="o">=</span> <span class="n">TOA</span><span class="o">*</span><span class="n">delta_omega</span><span class="o">*</span><span class="n">channel_width</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TOA flux from 14-16 microns: </span><span class="si">{</span><span class="n">TOA_flux</span><span class="si">:</span><span class="s1">8.3g</span><span class="si">}</span><span class="s1"> W/m^2/micron&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TOA flux from 14-16 microns: 3.28e-08 W/m^2/micron
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="problem-2">
+<h2><span class="section-number">8.1.3. </span>Problem 2<a class="headerlink" href="#problem-2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>(5) Integrate the Schwartzchild equation
+for constant temperature</p></li>
+</ul>
+<p>see <a class="reference external" href="https://a301_web.eoas.ubc.ca/week4/schwartz.html?highlight=schwart#adding-emission-to-beer-s-law">Section 4.4.3</a></p>
+</div>
+<div class="section" id="problem-3">
+<h2><span class="section-number">8.1.4. </span>Problem 3<a class="headerlink" href="#problem-3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>(3) A cone has a spreading angle of 23 degrees between its center
+and its side. What is its subtended solid angle?</p></li>
+</ul>
+<p>Use <a class="reference external" href="https://a301_web.eoas.ubc.ca/week6/answers/sols_mid_revI.html#solid-angle-and-radiance">Problem 7.2.2</a></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\omega &amp;= \int_0^{2\pi} \int_0^{23} \sin \theta d\theta d\phi \\
+       &amp;= -2\pi (\cos(23) - \cos(0)) \\
+       &amp;= 2\pi (1 - \cos(23)) = 2\pi(1 - 0.92) = 0.5\ sr \\
+\end{align}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cos23</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">23</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cos23: </span><span class="si">{</span><span class="n">cos23</span><span class="si">:</span><span class="s1">5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;omega: </span><span class="si">{</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">cos23</span><span class="p">)</span><span class="si">:</span><span class="s1">5.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cos23:  0.92
+omega:  0.50
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week8/answers"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../week8_topics.html" title="previous page"><span class="section-number">8. </span>Week 8</a>
+    <a class='right-next' id="next-link" href="../level2_cartopy_resample_assign.html" title="next page"><span class="section-number">8.2. </span>Assign 5a: Water vapor retrieval using MYD05 data</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

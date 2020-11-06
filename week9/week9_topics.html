@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9. Week 9 &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week9/week9_topics.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9.1. NDVI for Vancouver" href="vancouver_visible.html" />
+    <link rel="prev" title="8.5. Assignment 2 - solutions" href="../week8/assign2_sol.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week9/week9_topics.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Week 9" />
+<meta property="og:description" content="Week 9  Week 9 Shortwave remote sensing  What’s complicated about longwave remote sensing:  emissivity and temperature of the atmosphere (and land surface) both" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week2/week2_topics.html">
+   2. Week 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week5/week5_topics.html">
+   5. Week 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week6/week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week7/week7_topics.html">
+   7. Week 7
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week8/week8_topics.html">
+   8. Week 8
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   9. Week 9
+  </a>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="vancouver_visible.html">
+     9.1. NDVI for Vancouver
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="landsat_image.html">
+     9.2. Landsat image processing 1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html">
+     9.3. Landast part 2: rasterio
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#get-the-vancouver-image">
+     9.4. Get the vancouver image
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#read-in-the-bands-4-red-and-5-near-infrared">
+     9.5. Read in the bands  4 (red) and 5 (near infrared)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#find-the-toa-reflectance-for-each-channel">
+     9.6. Find the toa reflectance for each channel
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#silence-annoying-warnings-from-numpy">
+     9.7. Silence annoying warnings from numpy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#nir-is-much-more-reflective-than-red">
+     9.8. NIR is much more reflective than red
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#calculate-the-ndvi">
+     9.9. Calculate the ndvi
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="calc_ndvi.html#does-the-reflectance-step-matter">
+     9.10. Does the reflectance step matter?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   10. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../review.html">
+   11. Review/logistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks.html">
+   12. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/week9/week9_topics.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="week-9">
+<h1><span class="section-number">9. </span>Week 9<a class="headerlink" href="#week-9" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p>Week 9 Shortwave remote sensing</p>
+<ul class="simple">
+<li><p>What’s complicated about longwave remote sensing:</p>
+<ul>
+<li><p>emissivity and temperature of the atmosphere (and land surface) both unknown</p></li>
+</ul>
+</li>
+<li><p>What’s complicated about shortwave remote sensing</p>
+<ul>
+<li><p>scattering of solar photons depends on surface, cloud thickness, ice crystals etc.</p></li>
+</ul>
+</li>
+<li><p>New satellites:</p>
+<ul>
+<li><p>MODIS shortwave channels:  <a class="reference external" href="https://modis.gsfc.nasa.gov/about/specifications.php">the Modis channel listing</a></p></li>
+<li><p><a class="reference external" href="https://www-calipso.larc.nasa.gov/">Calipso (Caliop lidar)</a>  (part of the <a class="reference external" href="https://cloudsat.atmos.colostate.edu/mission/formation_flying">A-train</a> )</p></li>
+<li><p><a class="reference external" href="https://www.nasa.gov/mission_pages/landsat/overview/index.html">NASA Landsat page</a></p></li>
+<li><p><a class="reference external" href="https://www.earthdatascience.org/courses/use-data-open-source-python/multispectral-remote-sensing/landsat-in-Python/">Landsat overview</a></p></li>
+</ul>
+</li>
+<li><p>New software with a new data format (<a class="reference external" href="https://www.earthdatascience.org/courses/use-data-open-source-python/intro-raster-data-python/fundamentals-raster-data/intro-to-the-geotiff-file-format/">geotif</a> )</p></li>
+</ul>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/earthlab/earthpy">Earthpy</a> – U. Colorado GIS notebooks</p></li>
+<li><p><a class="reference external" href="https://automating-gis-processes.github.io/site/index.html">autogis</a> – U. Helsinki GIS notebooks</p></li>
+</ul>
+<ul class="simple">
+<li><p>For Wednesday: Read the <a class="reference external" href="https://www.earthdatascience.org/courses/use-data-open-source-python/multispectral-remote-sensing/landsat-in-Python/">Landsat overview</a> and
+the
+<a class="reference external" href="https://www.earthdatascience.org/courses/use-data-open-source-python/intro-raster-data-python/fundamentals-raster-data/intro-to-the-geotiff-file-format/">geotif explainer</a></p></li>
+</ul>
+<ul class="simple">
+<li><p>Review the Universal Transverse Mercator projection in
+<a href="./figures/understanding_map_projections.pdf">Understanding map projections </a>&gt; (p. 21 and p. 98)</p></li>
+<li><p>Make sure the <a class="reference internal" href="vancouver_visible.html#vancouver-visible"><span class="std std-ref">NDVI for Vancouver</span></a> notebook works for you.</p></li>
+</ul>
+</li>
+<li><p>Wednesday</p>
+<ul class="simple">
+<li><p>New cells in the <a class="reference internal" href="vancouver_visible.html#vancouver-visible"><span class="std std-ref">NDVI for Vancouver</span></a> notebook for the MYD02QM image</p></li>
+<li><p>Introduce <a class="reference external" href="https://gdal.org/faq.html#:~:text=were%20integrated%20together.-,What%20does%20OGR%20stand%20for%3F,to%20OGR%20Simple%20Features%20Library.">OGR/GDAL</a>  led by <a class="reference external" href="https://creativecommons.org/2013/08/07/frank-warmerdam-leading-open-geospatial-community-by-action/">Frank Warmerdam</a> and <a class="reference external" href="https://sgillies.github.io/foss4g-2014-fiona-rasterio/#/">Fiona/Rasterio</a> led by  <a class="reference external" href="https://www.linkedin.com/in/sean-gillies-6064b4144">Sean Gilles</a></p></li>
+<li><p>links:</p>
+<ul>
+<li><p><a class="reference external" href="https://www.usgs.gov/core-science-systems/nli/landsat/landsat-data-access?qt-science_support_page_related_con=0#qt-science_support_page_related_con">Understanding landsat processing levels</a></p></li>
+<li><p><a class="reference external" href="https://gisgeography.com/landsat-8-bands-combinations/">Landsat band combinations</a></p></li>
+<li><p><a class="reference external" href="https://earthobservatory.nasa.gov/features/ColorImage/page2.php">qualitative image interpretation</a></p></li>
+<li><p><a class="reference external" href="https://landsat.gsfc.nasa.gov/article/virginia-t-norwood-mother-landsat">Landsat history</a></p></li>
+</ul>
+</li>
+<li><p>finding Landsat images</p>
+<ul>
+<li><p><a class="reference external" href="https://gisgeography.com/landsat-file-naming-convention/">The WRS coordinate system</a></p></li>
+<li><p><a class="reference internal" href="landsat_wrs.html#landsat-wrs"><span class="std std-ref">Landsat: finding wrs path/row</span></a> notebook</p></li>
+<li><p>Getting images from <a class="reference external" href="https://towardsdatascience.com/access-satellite-imagery-with-aws-and-google-colab-4660178444f5">AWS using the USGS explorer</a></p></li>
+<li><p>For Friday:</p>
+<ul>
+<li><p>Use the links above to find a Landsat 8 image somewhere on the earth that is:</p>
+<ul>
+<li><p>on land</p></li>
+<li><p>less than 20% cloud cover</p></li>
+<li><p>Undergoes some kind of change over a 5 year period – either seasonal cycles, logging, forest fires etc.</p></li>
+<li><p>Upload the full image filename on piazza</p></li>
+<li><p>Register for a <a class="reference external" href="https://earthexplorer.usgs.gov/">USGS earth explorer account</a></p></li>
+<li><p>If you’re interested sign up for an <a class="reference external" href="https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&amp;all-free-tier.sort-order=asc">AWS free tier account</a> (requires credit or debit card)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Friday</p>
+<ul class="simple">
+<li><p>go over the <a class="reference internal" href="landsat_image.html#landsat1"><span class="std std-ref">Landsat image processing 1</span></a> notebook</p></li>
+<li><p>go over the <a class="reference internal" href="calc_ndvi.html#landsat2"><span class="std std-ref">Landast part 2: rasterio</span></a> notebook</p></li>
+<li><p>for Monday – make both notebooks work for your Landsat image</p></li>
+</ul>
+</li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week9"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../week8/assign2_sol.html" title="previous page"><span class="section-number">8.5. </span>Assignment 2 - solutions</a>
+    <a class='right-next' id="next-link" href="vancouver_visible.html" title="next page"><span class="section-number">9.1. </span>NDVI for Vancouver</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

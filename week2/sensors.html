@@ -1,0 +1,497 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2.2. Solid angle and radiance &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week2/sensors.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.3. Finding the flux given the radiance" href="flux_from_radiance.html" />
+    <link rel="prev" title="2.1. Beers and inverse squared laws" href="beers_law.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week2/sensors.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Solid angle and radiance" />
+<meta property="og:description" content="Solid angle and radiance  Some definitions  The irradiance or radiant flux E is defined as the energy (Joules) crossing a unit surface (1 m^2) in unit time (1 s" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="week2_topics.html">
+   2. Week 2
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="beers_law.html">
+     2.1. Beers and inverse squared laws
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     2.2. Solid angle and radiance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="flux_from_radiance.html">
+     2.3. Finding the flux given the radiance
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="debugging_intro.html">
+     2.4. how to debug
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="derivs_and_ints.html">
+     2.5. working with numpy arrays
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="planck_function.html">
+     2.6. Integrating the Planck function with python
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week5/week5_topics.html">
+   5. Week 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week6/week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week7/week7_topics.html">
+   7. Week 7
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week8/week8_topics.html">
+   8. Week 8
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week9/week9_topics.html">
+   9. Week 9
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   10. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../review.html">
+   11. Review/logistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks.html">
+   12. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/week2/sensors.rst"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#some-definitions">
+   2.2.1. Some definitions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#monochromatic-radiance-vs-total-flux">
+   2.2.2. Monochromatic Radiance vs. total flux
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#monochromatic-flux">
+   2.2.3. Monochromatic flux
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#field-of-view">
+   2.2.4. Field of view
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#monochromatic-radiance">
+   2.2.5. Monochromatic radiance
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="solid-angle-and-radiance">
+<span id="radiance"></span><h1><span class="section-number">2.2. </span>Solid angle and radiance<a class="headerlink" href="#solid-angle-and-radiance" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="some-definitions">
+<h2><span class="section-number">2.2.1. </span>Some definitions<a class="headerlink" href="#some-definitions" title="Permalink to this headline">¶</a></h2>
+<p>The <em>irradiance</em> or <em>radiant flux</em> <strong>E</strong> is defined as the energy
+(Joules) crossing a unit surface (1 <span class="math notranslate nohighlight">\(m^2\)</span>) in unit time (1 second)
+so it has units of <span class="math notranslate nohighlight">\(W\,m^2\)</span>.</p>
+<p>To measure it, you could use a photo diode to count the number of
+photons per second hitting a sensor, recording the wavelength of each
+photon. To get the photon energy use:</p>
+<div class="math notranslate nohighlight">
+\[f = c/\lambda\]</div>
+<p>where f is the frequency and c is the speed of light, and then use
+Planck’s constant (h) to convert frequency in Hz (<span class="math notranslate nohighlight">\(s^{-1}\)</span>) to
+energy in Joules</p>
+<div class="math notranslate nohighlight">
+\[energy = h f\]</div>
+<p>where <span class="math notranslate nohighlight">\(h=6.62607 \times 10^{-34}\)</span> <span class="math notranslate nohighlight">\(J\,s^{-1}\)</span>. Summing all
+the photon energies and dividing by the sensor area would give you the
+flux E.</p>
+</div>
+<div class="section" id="monochromatic-radiance-vs-total-flux">
+<h2><span class="section-number">2.2.2. </span>Monochromatic Radiance vs. total flux<a class="headerlink" href="#monochromatic-radiance-vs-total-flux" title="Permalink to this headline">¶</a></h2>
+<p>In the real world, instruments only measure photons that arrive within a limited
+field of view (i.e. the field of view of the telescope). The sensor also samples a limited
+range of wavelengths, both because the photo diode doesn’t respond
+equally to all wavelengths and because we are interested in particular
+wavelength ranges.  The figure below shows the field of view for a typical
+airborne scanning radiometer:</p>
+<div class="figure align-default" id="whisk">
+<img alt="../_images/c5_1.png" src="../_images/c5_1.png" />
+<p class="caption"><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Whiskbroom scanner</span><a class="headerlink" href="#whisk" title="Permalink to this image">¶</a></p>
+</div>
+<p>The photons reaching the sensor through the telescope are separated into
+particular wavelength regions using a filter wheel or a beam splitter:</p>
+<div class="figure align-default" id="filters">
+<img alt="../_images/c5_5.png" src="../_images/c5_5.png" />
+<p class="caption"><span class="caption-number">Fig. 2.2 </span><span class="caption-text">Waveband filters</span><a class="headerlink" href="#filters" title="Permalink to this image">¶</a></p>
+</div>
+</div>
+<div class="section" id="monochromatic-flux">
+<h2><span class="section-number">2.2.3. </span>Monochromatic flux<a class="headerlink" href="#monochromatic-flux" title="Permalink to this headline">¶</a></h2>
+<p>Handling the fact that we are only receiving photons in a specific
+wavelength range <span class="math notranslate nohighlight">\(\Delta \lambda\)</span> is straight forward: we just
+divide the measured flux by the wavelength range to get
+<span class="math notranslate nohighlight">\(E_\lambda\)</span>, the monochromatic flux:</p>
+<div class="math notranslate nohighlight">
+\[E_\lambda\ (W\,m^{-2}\,\mu m^{-1}) = \frac{ \Delta E}{\Delta \lambda}\]</div>
+<p>and if I take <span class="math notranslate nohighlight">\(\lim{\Delta \lambda \to 0}\)</span></p>
+<div class="math notranslate nohighlight">
+\[dE = E_\lambda d \lambda\]</div>
+<p>so we can define <span class="math notranslate nohighlight">\(\Delta E\)</span> as the portion of the flux that
+is being transmitted by photons with wavelengths between
+<span class="math notranslate nohighlight">\(\lambda \to \lambda + \Delta \lambda\)</span></p>
+</div>
+<div class="section" id="field-of-view">
+<h2><span class="section-number">2.2.4. </span>Field of view<a class="headerlink" href="#field-of-view" title="Permalink to this headline">¶</a></h2>
+<p><strong>Planar angle</strong></p>
+<p>Dealing with the fact that the telescope only sees photons coming from a
+specific set of angles means that we need a way to define those angles.
+In one dimension, we define an angle using radians:</p>
+<div class="math notranslate nohighlight">
+\[\phi = \frac{l}{r}\]</div>
+<p>where <span class="math notranslate nohighlight">\(l\)</span> is the arclength along a circle of radius <span class="math notranslate nohighlight">\(r\)</span> that
+defines the angle.</p>
+<p>In the case that <span class="math notranslate nohighlight">\(l\)</span>=<span class="math notranslate nohighlight">\(r\)</span> the angle is 1 radian:</p>
+<div class="figure align-default" id="radian">
+<img alt="../_images/Radian.png" src="../_images/Radian.png" />
+<p class="caption"><span class="caption-number">Fig. 2.3 </span><span class="caption-text">Definition of planar angle</span><a class="headerlink" href="#radian" title="Permalink to this image">¶</a></p>
+</div>
+<p>The differential version of this is:</p>
+<div class="math notranslate nohighlight">
+\[d\phi = \frac{dl}{r}\]</div>
+<p><strong>solid angle</strong></p>
+<p>A pixel has two dimensions, which makes things more complicated.
+Consider the following spherical coordinate system:</p>
+<div class="figure align-default" id="spherical">
+<img alt="../_images/spherical.png" src="../_images/spherical.png" />
+<p class="caption"><span class="caption-number">Fig. 2.4 </span><span class="caption-text">Spherical coordinates</span><a class="headerlink" href="#spherical" title="Permalink to this image">¶</a></p>
+</div>
+<p><span class="math notranslate nohighlight">\(\theta\)</span> is called the “zenith angle”, and <span class="math notranslate nohighlight">\(\phi\)</span> is called
+the “azimuth angle”. Image our sensor is looking up in the direction
+given by <span class="math notranslate nohighlight">\(\Omega\)</span></p>
+<p>Suppose the telescope has a field of view that’s defined by a small
+angle <span class="math notranslate nohighlight">\(d\phi\)</span> in the azimuthal direction and <span class="math notranslate nohighlight">\(d\theta\)</span> in
+the zenith direction (these two angles would be equal if the field of
+view was a circular cone). A distance <span class="math notranslate nohighlight">\(r\)</span> away from the telescope,
+the arclength in the zenith direction is <span class="math notranslate nohighlight">\(r d\theta\)</span> by the
+definition of the planar angle. For the azimuth direction though, the
+planar angle is defined by the radius <span class="math notranslate nohighlight">\(r \sin \theta\)</span>, which gives
+the distance from the vertical axis to the surface of the sphere of
+radius <span class="math notranslate nohighlight">\(r\)</span>. That means that the area seen by the telescope at
+radius r is:</p>
+<div class="math notranslate nohighlight">
+\[dA = width \times height = r \sin \theta d\phi \times r d\theta = r^2  \sin \theta d\theta d \phi\]</div>
+<div class="figure align-default" id="solid-angle">
+<img alt="../_images/solid_angle.png" src="../_images/solid_angle.png" />
+<p class="caption"><span class="caption-number">Fig. 2.5 </span><span class="caption-text">Definition of solid angle</span><a class="headerlink" href="#solid-angle" title="Permalink to this image">¶</a></p>
+</div>
+<p>Now that we know <span class="math notranslate nohighlight">\(dA\)</span> we can define the solid angle
+<span class="math notranslate nohighlight">\(d\omega\)</span> (steradians) by analogy with the planar angle:</p>
+<p>Planar angle:</p>
+<div class="math notranslate nohighlight">
+\[d\phi = \frac{dl}{r}\]</div>
+<p>measured in radians</p>
+<p>Solid angle:</p>
+<div class="math notranslate nohighlight" id="equation-domegaa">
+<span class="eqno">(2.2)<a class="headerlink" href="#equation-domegaa" title="Permalink to this equation">¶</a></span>\[d\omega = \frac{dA}{r^2} = \frac{r^2 \sin \theta d\theta  d\phi}{r^2} = \sin \theta d\theta  d\phi\]</div>
+<p>measured in steradians</p>
+</div>
+<div class="section" id="monochromatic-radiance">
+<h2><span class="section-number">2.2.5. </span>Monochromatic radiance<a class="headerlink" href="#monochromatic-radiance" title="Permalink to this headline">¶</a></h2>
+<p>So if we know the monochromatic flux, and we know the
+field of view <span class="math notranslate nohighlight">\(\Delta \omega\)</span> of the telescope, then we can get
+the monochromatic radiance <span class="math notranslate nohighlight">\(L_\lambda\)</span> by:</p>
+<div class="math notranslate nohighlight" id="equation-llambda">
+<span class="eqno">(2.3)<a class="headerlink" href="#equation-llambda" title="Permalink to this equation">¶</a></span>\[L_\lambda = \frac{\Delta E_\lambda}{\Delta \lambda \Delta \omega}\]</div>
+<p>units: <span class="math notranslate nohighlight">\(W\,m^{-2}\,\mu m^{-1}\,sr^{-1}\)</span>.</p>
+<p>The monochromatic radiance <span class="math notranslate nohighlight">\(L_\lambda\)</span> is the variable that the
+Modis thermal sensors deliver.</p>
+<p>Switching to differentials again, we’ve got:</p>
+<div class="math notranslate nohighlight" id="equation-de">
+<span class="eqno">(2.4)<a class="headerlink" href="#equation-de" title="Permalink to this equation">¶</a></span>\[dE = L_\lambda d\lambda d\omega\]</div>
+<p>Note that both <span class="math notranslate nohighlight">\(dE\)</span> and <span class="math notranslate nohighlight">\(L_\lambda\)</span> have a direction
+associated with them – their direction of propagation, which is
+perpendicular to the surface the photons are passing through.</p>
+<p>Note that <a class="reference internal" href="#equation-de">(2.4)</a> assumes that all the energy is contained in the small solid
+angle <span class="math notranslate nohighlight">\(d \omega\)</span>, which is true for satellites because they are using
+a telescope to focus on a small pixel.  If we want to instead measure all the energy
+crossing a surface from all directions, we need to integrate over all zenith and azimuth angles.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week2"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="beers_law.html" title="previous page"><span class="section-number">2.1. </span>Beers and inverse squared laws</a>
+    <a class='right-next' id="next-link" href="flux_from_radiance.html" title="next page"><span class="section-number">2.3. </span>Finding the flux given the radiance</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

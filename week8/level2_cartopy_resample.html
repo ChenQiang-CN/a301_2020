@@ -1,0 +1,974 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Water vapor retrieval using MYD05 data &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week8/level2_cartopy_resample.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week8/level2_cartopy_resample.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Water vapor retrieval using MYD05 data" />
+<meta property="og:description" content="Water vapor retrieval using MYD05 data  Near IR vs. IR datasets  Modis provides two separate measurements on the column integrated water vapor. The high level o" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week2/week2_topics.html">
+   2. Week 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week5/week5_topics.html">
+   5. Week 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week6/week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week7/week7_topics.html">
+   7. Week 7
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="week8_topics.html">
+   8. Week 8
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week9/week9_topics.html">
+   9. Week 9
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   10. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../review.html">
+   11. Review/logistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks.html">
+   12. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/week8/level2_cartopy_resample.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/week8/level2_cartopy_resample.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week8/level2_cartopy_resample.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week8/level2_cartopy_resample.ipynb&branch=master"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="../_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Water vapor retrieval using MYD05 data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#near-ir-vs-ir-datasets">
+     Near IR vs. IR datasets
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-this-notebook-does">
+       What this notebook does
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setup">
+     Setup
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-in-the-1km-and-5km-water-vapor-files">
+     Read in the 1km and 5km water vapor files
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#start-with-the-lats-lons-for-1km-and-5km">
+       Start with the lats/lons for 1km and 5km
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-the-ir-vapor-plus-5-of-its-attributes">
+     Get the IR vapor plus 5 of its attributes
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#replace-9999-with-np-nan">
+     Replace -9999 with np.nan
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#now-scale-the-data-and-histogram-it">
+     now scale the data and histogram it
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#repeat-for-the-1-km-near-ir-data">
+     Repeat for the 1 km near-ir data
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#note-that-the-scaled-wv-values-are-similar-between-near-ir-and-ir-retrievals">
+     Note that the  scaled wv values are similar between near_ir and ir retrievals
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#map-the-data">
+   Map the data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#resample-the-5km-ir-retrieval-onto-a-laea-xy-grid">
+     Resample the 5km IR retrieval onto a laea xy grid
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#resample-the-1km-near-ir-water-vapor-on-the-same-grid">
+     Resample the 1km near-ir water vapor on the same grid
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#now-use-the-1-km-myd03-lons-and-lats-to-get-a-full-resolution-xy-grid">
+     now use the 1 km MYD03 lons and lats to get a full resolution xy grid
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#save-the-mapped-images">
+   Save the mapped images
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#now-save-these-three-images-plus-their-area-def-s-for-future-plotting">
+     Now save these three images plus their area_def’s for future plotting
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-a-directory-to-hold-the-images-and-area-def-dictionaries">
+     Create a directory to hold the images and area_def dictionaries
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#here-s-a-function-that-writes-the-image-plus-metadata-to-npz-and-json-files">
+     Here’s a function that writes the image plus metadata to npz and json files
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#write-out-images-putting-useful-metadeta-in-metadata-dict">
+     Write out images, putting useful metadeta in metadata_dict
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="water-vapor-retrieval-using-myd05-data">
+<span id="level2-wv"></span><h1>Water vapor retrieval using MYD05 data<a class="headerlink" href="#water-vapor-retrieval-using-myd05-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="near-ir-vs-ir-datasets">
+<h2>Near IR vs. IR datasets<a class="headerlink" href="#near-ir-vs-ir-datasets" title="Permalink to this headline">¶</a></h2>
+<p>Modis provides two separate measurements on the column integrated water vapor.
+The high level overview is given in the <a class="reference external" href="https://atmosphere-imager.gsfc.nasa.gov/products/water-vapor">modis water vapor products</a>.  Basically the reason for two separate retrievals is that they have different strengths and weaknesses.</p>
+<ul class="simple">
+<li><p>Near Infrared Retrieval</p>
+<ul>
+<li><p>Uses reflected photons in two separate water vapor absorption bands</p></li>
+<li><p>Strengths</p>
+<ul>
+<li><p>1 km spatial resolution at nadir</p></li>
+<li><p>retrieval doesn’t depend on temperature difference between vapor and surface</p></li>
+<li><p>more accurate than longwave</p></li>
+</ul>
+</li>
+<li><p>Weaknesses</p>
+<ul>
+<li><p>Doesn’t work at night</p></li>
+<li><p>Doesn’t work over dark surfaces (can work over ocean
+as long as the pixel is reflecting direct sunlight (“sunglint”)</p></li>
+<li><p>Needs separate MYD03 file for lats/lons</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Infrared Retrieval</p>
+<ul>
+<li><p>Uses the water absorption bands near 11 microns</p></li>
+<li><p>Strengths</p>
+<ul>
+<li><p>Works day/night, over dark surfaces</p></li>
+<li><p>5 km lat/lons included in file</p></li>
+</ul>
+</li>
+<li><p>Weaknesses</p>
+<ul>
+<li><p>5 km pixels at nadir</p></li>
+<li><p>Doesn’t work when most of the vapor is in the boundary layer and has about the same temperature
+as the surface</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="what-this-notebook-does">
+<h3>What this notebook does<a class="headerlink" href="#what-this-notebook-does" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Reads an MYD05 file named <code class="docutils literal notranslate"><span class="pre">MYD05*.hdf</span></code> located
+in <code class="docutils literal notranslate"><span class="pre">a301_lib.sat_data/hdf4_files</span></code> and grabs latitudes, longitudes and two arrays: <code class="docutils literal notranslate"><span class="pre">Water_Vapor_Near_Infrared</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Water_Vapor_Infrared</span></code></p></li>
+<li><p>Scales the water vapar arrays by scale_factor and offset to produce the retrieved column water vapor
+in cm</p></li>
+<li><p>Maps the two arrays onto the same 5km array for direct comparison</p></li>
+<li><p>Maps the <code class="docutils literal notranslate"><span class="pre">near_ir</span></code> array onto a 1 km grid to show the full resolution.</p></li>
+<li><p>Writes the three images with their area_def map information and metadata out to new folders in
+<code class="docutils literal notranslate"><span class="pre">./map_data/wv_maps</span></code> as npz files (for the images) and json files (for the metadata)</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>Download the MYD05 granule that corresponds to your 5 minute date/time.  It should look something like:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  MYD05_L2.A2013222.2105.061.2018048043105.hdf
+</pre></div>
+</div>
+</li>
+<li><p>Copy it into the google_drive <code class="docutils literal notranslate"><span class="pre">a301_data</span></code> folder</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pdb</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
+<span class="kn">from</span> <span class="nn">pyhdf.SD</span> <span class="kn">import</span> <span class="n">SD</span>
+<span class="kn">from</span> <span class="nn">pyhdf.SD</span> <span class="kn">import</span> <span class="n">SDC</span>
+
+<span class="kn">import</span> <span class="nn">a301_lib</span>
+<span class="kn">from</span> <span class="nn">sat_lib.geometry</span> <span class="kn">import</span> <span class="n">get_proj_params</span>
+<span class="kn">from</span> <span class="nn">sat_lib.modismeta_read</span> <span class="kn">import</span> <span class="n">parseMeta</span>
+<span class="c1">## Image(&#39;figures/MYBRGB.A2016224.2100.006.2016237025650.jpg&#39;,width=600)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="read-in-the-1km-and-5km-water-vapor-files">
+<h2>Read in the 1km and 5km water vapor files<a class="headerlink" href="#read-in-the-1km-and-5km-water-vapor-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="start-with-the-lats-lons-for-1km-and-5km">
+<h3>Start with the lats/lons for 1km and 5km<a class="headerlink" href="#start-with-the-lats-lons-for-1km-and-5km" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m5_file</span><span class="o">=</span> <span class="p">(</span><span class="n">a301_lib</span><span class="o">.</span><span class="n">sat_data</span> <span class="o">/</span> <span class="s1">&#39;hdf4_files&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/MYD05*2105*hdf&quot;</span><span class="p">)</span>
+<span class="n">m3_file</span> <span class="o">=</span> <span class="p">(</span><span class="n">a301_lib</span><span class="o">.</span><span class="n">sat_data</span> <span class="o">/</span> <span class="s1">&#39;hdf4_files&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;MYD03*2105*.hdf&quot;</span><span class="p">)</span>
+<span class="n">m5_file_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">m5_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">m3_file_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">m3_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m5_file_str</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m3_file_str</span><span class="p">)</span>
+
+<span class="n">the_file</span> <span class="o">=</span> <span class="n">SD</span><span class="p">(</span><span class="n">m3_file_str</span><span class="p">,</span> <span class="n">SDC</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+<span class="n">lats_1km</span> <span class="o">=</span> <span class="n">the_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;Latitude&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">lons_1km</span> <span class="o">=</span> <span class="n">the_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;Longitude&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">the_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lats_1km</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">the_file</span> <span class="o">=</span> <span class="n">SD</span><span class="p">(</span><span class="n">m5_file_str</span><span class="p">,</span> <span class="n">SDC</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+<span class="n">lats_5km</span> <span class="o">=</span> <span class="n">the_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;Latitude&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">lons_5km</span> <span class="o">=</span> <span class="n">the_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;Longitude&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">the_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lats_5km</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="get-the-ir-vapor-plus-5-of-its-attributes">
+<h2>Get the IR vapor plus 5 of its attributes<a class="headerlink" href="#get-the-ir-vapor-plus-5-of-its-attributes" title="Permalink to this headline">¶</a></h2>
+<p>Store the data in a numpy array, and the attributes in a dictionary,
+using a <a class="reference external" href="https://jakevdp.github.io/WhirlwindTourOfPython/11-list-comprehensions.html">dictionary comprehension</a>
+at line 4</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">the_file</span> <span class="o">=</span> <span class="n">SD</span><span class="p">(</span><span class="n">m5_file_str</span><span class="p">,</span> <span class="n">SDC</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+<span class="n">wv_ir</span> <span class="o">=</span> <span class="n">the_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;Water_Vapor_Infrared&quot;</span><span class="p">)</span>
+<span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">,</span> <span class="s2">&quot;scale_factor&quot;</span><span class="p">,</span> <span class="s2">&quot;add_offset&quot;</span><span class="p">,</span> <span class="s2">&quot;valid_range&quot;</span><span class="p">,</span> <span class="s2">&quot;_FillValue&quot;</span><span class="p">]</span>
+<span class="n">attr_dict</span> <span class="o">=</span> <span class="n">wv_ir</span><span class="o">.</span><span class="n">attributes</span><span class="p">()</span>
+<span class="n">wv_ir_attrs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">attr_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">attributes</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;wv_ir attributes: </span><span class="si">{</span><span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">wv_ir_attrs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">wv_ir_data</span> <span class="o">=</span> <span class="n">wv_ir</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">the_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="replace-9999-with-np-nan">
+<h2>Replace -9999 with np.nan<a class="headerlink" href="#replace-9999-with-np-nan" title="Permalink to this headline">¶</a></h2>
+<p>Note that this has to a happen before we scale the data by the scale_factor so the -9999 can be recognized</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bad_data</span> <span class="o">=</span> <span class="n">wv_ir_data</span> <span class="o">==</span> <span class="n">wv_ir_attrs</span><span class="p">[</span><span class="s2">&quot;_FillValue&quot;</span><span class="p">]</span>
+<span class="c1">#</span>
+<span class="c1"># next line converts to floating point so we can use np.nan</span>
+<span class="c1">#</span>
+<span class="n">wv_ir_data</span> <span class="o">=</span> <span class="n">wv_ir_data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">wv_ir_data</span><span class="p">[</span><span class="n">bad_data</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="now-scale-the-data-and-histogram-it">
+<h2>now scale the data and histogram it<a class="headerlink" href="#now-scale-the-data-and-histogram-it" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wv_ir_scaled</span> <span class="o">=</span> <span class="n">wv_ir_data</span> <span class="o">*</span> <span class="n">attr_dict</span><span class="p">[</span><span class="s2">&quot;scale_factor&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">attr_dict</span><span class="p">[</span><span class="s2">&quot;add_offset&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that we need to get rid of all nan values by taking ~ (not) np.isnan</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">wv_ir_scaled</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>won’t work</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">wv_ir_scaled</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">wv_ir_scaled</span><span class="p">)])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;5 km wv data (cm)&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="repeat-for-the-1-km-near-ir-data">
+<h2>Repeat for the 1 km near-ir data<a class="headerlink" href="#repeat-for-the-1-km-near-ir-data" title="Permalink to this headline">¶</a></h2>
+<p>Use a dictionary comprehension again to move the attributes in attrib_list into a dict at line 4</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">the_file</span> <span class="o">=</span> <span class="n">SD</span><span class="p">(</span><span class="n">m5_file_str</span><span class="p">,</span> <span class="n">SDC</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+<span class="n">wv_nearir</span> <span class="o">=</span> <span class="n">the_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;Water_Vapor_Near_Infrared&quot;</span><span class="p">)</span>
+<span class="n">attrib_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;unit&quot;</span><span class="p">,</span> <span class="s2">&quot;scale_factor&quot;</span><span class="p">,</span> <span class="s2">&quot;add_offset&quot;</span><span class="p">,</span> <span class="s2">&quot;valid_range&quot;</span><span class="p">,</span> <span class="s2">&quot;_FillValue&quot;</span><span class="p">]</span>
+<span class="n">attr_dict</span> <span class="o">=</span> <span class="n">wv_nearir</span><span class="o">.</span><span class="n">attributes</span><span class="p">()</span>
+<span class="n">wv_nearir_attrs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">attr_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">attrib_list</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;wv_nearir attributes: </span><span class="si">{</span><span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">wv_nearir_attrs</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">wv_nearir_data</span> <span class="o">=</span> <span class="n">wv_nearir</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="n">the_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bad_data</span> <span class="o">=</span> <span class="n">wv_nearir_data</span> <span class="o">==</span> <span class="n">wv_nearir_attrs</span><span class="p">[</span><span class="s2">&quot;_FillValue&quot;</span><span class="p">]</span>
+<span class="n">wv_nearir_data</span> <span class="o">=</span> <span class="n">wv_nearir_data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">wv_nearir_data</span><span class="p">[</span><span class="n">bad_data</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">wv_nearir_scaled</span> <span class="o">=</span> <span class="n">wv_nearir_data</span> <span class="o">*</span> <span class="n">attr_dict</span><span class="p">[</span><span class="s2">&quot;scale_factor&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">attr_dict</span><span class="p">[</span><span class="s2">&quot;add_offset&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="note-that-the-scaled-wv-values-are-similar-between-near-ir-and-ir-retrievals">
+<h2>Note that the  scaled wv values are similar between near_ir and ir retrievals<a class="headerlink" href="#note-that-the-scaled-wv-values-are-similar-between-near-ir-and-ir-retrievals" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">wv_nearir_scaled</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">wv_nearir_scaled</span><span class="p">)])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;1 km water vapor (cm)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="map-the-data">
+<h1>Map the data<a class="headerlink" href="#map-the-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="resample-the-5km-ir-retrieval-onto-a-laea-xy-grid">
+<h2>Resample the 5km IR retrieval onto a laea xy grid<a class="headerlink" href="#resample-the-5km-ir-retrieval-onto-a-laea-xy-grid" title="Permalink to this headline">¶</a></h2>
+<p>Let swath_def.compute_optimal_bb_area choose the extent and dimensions for
+the low resolution (lr) image.  The cell below let’s pyresample create the
+area_def object, which we will reuse for the 1 km watervapor retrieval to
+get both onto the same grid.</p>
+<p>The cell below produces:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image_wv_ir</span></code>  – resampled 5 km infrared water vapor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">area_def_lr</span></code>  – area_def used for the resample</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyresample</span> <span class="kn">import</span> <span class="n">SwathDefinition</span><span class="p">,</span> <span class="n">kd_tree</span><span class="p">,</span> <span class="n">geometry</span>
+
+<span class="n">proj_params_5km</span> <span class="o">=</span> <span class="n">get_proj_params</span><span class="p">(</span><span class="n">m5_file_str</span><span class="p">)</span>
+<span class="n">proj_params_1km</span> <span class="o">=</span> <span class="n">get_proj_params</span><span class="p">(</span><span class="n">m3_file_str</span><span class="p">)</span>
+<span class="n">swath_def</span> <span class="o">=</span> <span class="n">SwathDefinition</span><span class="p">(</span><span class="n">lons_5km</span><span class="p">,</span> <span class="n">lats_5km</span><span class="p">)</span>
+<span class="n">area_def_lr</span> <span class="o">=</span> <span class="n">swath_def</span><span class="o">.</span><span class="n">compute_optimal_bb_area</span><span class="p">(</span><span class="n">proj_dict</span><span class="o">=</span><span class="n">proj_params_5km</span><span class="p">)</span>
+<span class="c1">#area_def_lr.name = &quot;ir wv retrieval modis 5 km resolution (lr=low resolution)&quot;</span>
+<span class="c1">#area_def_lr.area_id = &quot;modis_ir_wv&quot;</span>
+<span class="c1">#area_def_lr.job_id = area_def_lr.area_id</span>
+<span class="n">fill_value</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9999.0</span>
+<span class="n">image_wv_ir</span> <span class="o">=</span> <span class="n">kd_tree</span><span class="o">.</span><span class="n">resample_nearest</span><span class="p">(</span>
+    <span class="n">swath_def</span><span class="p">,</span>
+    <span class="n">wv_ir_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+    <span class="n">area_def_lr</span><span class="p">,</span>
+    <span class="n">radius_of_influence</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+    <span class="n">nprocs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">image_wv_ir</span><span class="p">[</span><span class="n">image_wv_ir</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">9000</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">dump area definition:</span><span class="se">\n</span><span class="si">{</span><span class="n">area_def_lr</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">x and y pixel dimensions in meters:&quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">area_def_lr</span><span class="o">.</span><span class="n">pixel_size_x</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">area_def_lr</span><span class="o">.</span><span class="n">pixel_size_y</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="resample-the-1km-near-ir-water-vapor-on-the-same-grid">
+<h2>Resample the 1km near-ir water vapor on the same grid<a class="headerlink" href="#resample-the-1km-near-ir-water-vapor-on-the-same-grid" title="Permalink to this headline">¶</a></h2>
+<p>Reuse area_def_lr for the high resolution nearir image so we can compare directly with low resolution ir</p>
+<p>The cell below produces:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image_wv_nearir_lr</span></code>  – resampled using <code class="docutils literal notranslate"><span class="pre">area_def_lr</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">swath_def</span> <span class="o">=</span> <span class="n">SwathDefinition</span><span class="p">(</span><span class="n">lons_1km</span><span class="p">,</span> <span class="n">lats_1km</span><span class="p">)</span>
+<span class="n">fill_value</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9999.0</span>
+<span class="n">image_wv_nearir_lr</span> <span class="o">=</span> <span class="n">kd_tree</span><span class="o">.</span><span class="n">resample_nearest</span><span class="p">(</span>
+    <span class="n">swath_def</span><span class="p">,</span>
+    <span class="n">wv_nearir_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+    <span class="n">area_def_lr</span><span class="p">,</span>
+    <span class="n">radius_of_influence</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+    <span class="n">nprocs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">image_wv_nearir_lr</span><span class="p">[</span><span class="n">image_wv_nearir_lr</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">9000</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">image_wv_nearir_lr</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">image_wv_nearir_lr</span><span class="p">)])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;1 km water vapor (cm), low resolution nearir scaled to 5km (lr)&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="now-use-the-1-km-myd03-lons-and-lats-to-get-a-full-resolution-xy-grid">
+<h2>now use the 1 km MYD03 lons and lats to get a full resolution xy grid<a class="headerlink" href="#now-use-the-1-km-myd03-lons-and-lats-to-get-a-full-resolution-xy-grid" title="Permalink to this headline">¶</a></h2>
+<p>resample the neair wv onto that grid to show full resolution image.  Call this
+area_def area_def_hr</p>
+<p>The cell below produces:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image_wv_nearir_hr</span></code>  – 1 km near-ir watervapor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">area_def_hr</span></code>  – the <code class="docutils literal notranslate"><span class="pre">area_def</span></code> file used to do the 1 k resample</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">### Resample the 1 km near-ir water vapor onto a 1 km grid</span>
+
+<span class="n">proj_params</span> <span class="o">=</span> <span class="n">get_proj_params</span><span class="p">(</span><span class="n">m3_file_str</span><span class="p">)</span>
+<span class="n">swath_def</span> <span class="o">=</span> <span class="n">SwathDefinition</span><span class="p">(</span><span class="n">lons_1km</span><span class="p">,</span> <span class="n">lats_1km</span><span class="p">)</span>
+<span class="n">area_def_hr</span> <span class="o">=</span> <span class="n">swath_def</span><span class="o">.</span><span class="n">compute_optimal_bb_area</span><span class="p">(</span><span class="n">proj_dict</span><span class="o">=</span><span class="n">proj_params_1km</span><span class="p">)</span>
+<span class="c1"># area_def_hr.name = &quot;near ir wv retrieval modis 1 km resolution (hr=high resolution)&quot;</span>
+<span class="c1"># area_def_hr.area_id = &quot;wv_nearir_hr&quot;</span>
+<span class="c1"># area_def_hr.job_id = area_def_hr.area_id</span>
+<span class="n">fill_value</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9999.0</span>
+<span class="n">image_wv_nearir_hr</span> <span class="o">=</span> <span class="n">kd_tree</span><span class="o">.</span><span class="n">resample_nearest</span><span class="p">(</span>
+    <span class="n">swath_def</span><span class="p">,</span>
+    <span class="n">wv_nearir_scaled</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span>
+    <span class="n">area_def_hr</span><span class="p">,</span>
+    <span class="n">radius_of_influence</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
+    <span class="n">nprocs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">image_wv_nearir_hr</span><span class="p">[</span><span class="n">image_wv_nearir_hr</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">9000</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="save-the-mapped-images">
+<h1>Save the mapped images<a class="headerlink" href="#save-the-mapped-images" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="now-save-these-three-images-plus-their-area-def-s-for-future-plotting">
+<h2>Now save these three images plus their area_def’s for future plotting<a class="headerlink" href="#now-save-these-three-images-plus-their-area-def-s-for-future-plotting" title="Permalink to this headline">¶</a></h2>
+<p>The function area_def_to_dict saves the pyresample area_def as a dict</p>
+<p>At line 20 note that</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">a</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">area_def</span><span class="p">,</span><span class="n">key</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where key=’my_attribute’  is the same as</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="n">a</span><span class="o">=</span><span class="n">area_def</span><span class="o">.</span><span class="n">my_attribute</span>
+</pre></div>
+</div>
+<p>but you don’t have to hard-code in ‘my_attribute’</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+
+
+<span class="k">def</span> <span class="nf">area_def_to_dict</span><span class="p">(</span><span class="n">area_def</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    given an area_def, save it as a dictionary`</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    </span>
+<span class="sd">    area_def: pyresample area_def object</span>
+<span class="sd">         </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    </span>
+<span class="sd">    out_dict: dict containing</span>
+<span class="sd">       area_def dictionary</span>
+<span class="sd">         </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;area_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;proj_id&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;proj_dict&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x_size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;y_size&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;area_extent&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">area_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">area_def</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">}</span>
+    <span class="n">area_dict</span><span class="p">[</span><span class="s2">&quot;proj_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">area_dict</span><span class="p">[</span><span class="s2">&quot;area_id&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">area_dict</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="create-a-directory-to-hold-the-images-and-area-def-dictionaries">
+<h2>Create a directory to hold the images and area_def dictionaries<a class="headerlink" href="#create-a-directory-to-hold-the-images-and-area-def-dictionaries" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">map_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;map_data/wv_maps&quot;</span>
+<span class="n">map_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="here-s-a-function-that-writes-the-image-plus-metadata-to-npz-and-json-files">
+<h2>Here’s a function that writes the image plus metadata to npz and json files<a class="headerlink" href="#here-s-a-function-that-writes-the-image-plus-metadata-to-npz-and-json-files" title="Permalink to this headline">¶</a></h2>
+<p>We’ll need to use area_def_to_dict when we create the metadata_dict</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dump_image</span><span class="p">(</span><span class="n">image_array</span><span class="p">,</span> <span class="n">metadata_dict</span><span class="p">,</span> <span class="n">foldername</span><span class="p">,</span> <span class="n">image_array_name</span><span class="o">=</span><span class="s2">&quot;image&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    write an image plus mmetadata to a folder</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    </span>
+<span class="sd">    image_array: ndarray</span>
+<span class="sd">        the 2-d image to be saved</span>
+<span class="sd">    </span>
+<span class="sd">    foldername:  Path object or string</span>
+<span class="sd">        the path to the folder that holds the image files</span>
+<span class="sd">        </span>
+<span class="sd">    image_array_name:  str</span>
+<span class="sd">        the root name for the npz and json files</span>
+<span class="sd">        i.e. image.npz and image.json</span>
+<span class="sd">        </span>
+<span class="sd">    Returns: None</span>
+<span class="sd">       side effect -- an npz and a json file are written</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">image_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">foldername</span><span class="p">)</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">image_array_name</span><span class="p">)</span>
+    <span class="n">out_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">image_array_name</span><span class="p">:</span> <span class="n">image_array</span><span class="p">}</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">savez</span><span class="p">(</span><span class="n">image_file</span><span class="p">,</span> <span class="o">**</span><span class="n">out_dict</span><span class="p">)</span>
+    <span class="n">json_name</span> <span class="o">=</span> <span class="n">foldername</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">image_array_name</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">metadata_dict</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">dumping </span><span class="si">{</span><span class="n">image_file</span><span class="si">}</span><span class="se">\n</span><span class="s2"> and </span><span class="si">{</span><span class="n">json_name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="write-out-images-putting-useful-metadeta-in-metadata-dict">
+<h2>Write out images, putting useful metadeta in metadata_dict<a class="headerlink" href="#write-out-images-putting-useful-metadeta-in-metadata-dict" title="Permalink to this headline">¶</a></h2>
+<p>We have three images:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">wv_ir</span></code> – 5km ir retrieval</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wv_nearir_hr</span></code>  – 1 km nearir retrieval</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wv_nearir_lr</span></code>  – 1 km nearir retrieval resampled to 5 km grid</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">metadata_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">modismeta</span><span class="o">=</span><span class="n">parseMeta</span><span class="p">(</span><span class="n">m5_file_str</span><span class="p">))</span>
+<span class="n">map_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">map_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;map_data/wv_maps&quot;</span>
+
+<span class="n">image_name</span> <span class="o">=</span> <span class="s2">&quot;wv_ir&quot;</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;area_def&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">area_def_to_dict</span><span class="p">(</span><span class="n">area_def_lr</span><span class="p">)</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;image_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image_name</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;modis ir water vapor (cm) sampled at 5 km resolution&quot;</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;history&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;written by level2_cartopy_resample.ipynb&quot;</span>
+<span class="n">dump_image</span><span class="p">(</span><span class="n">image_wv_ir</span><span class="p">,</span> <span class="n">metadata_dict</span><span class="p">,</span> <span class="n">map_dir</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+
+<span class="n">image_name</span> <span class="o">=</span> <span class="s2">&quot;wv_nearir_hr&quot;</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;area_def&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">area_def_to_dict</span><span class="p">(</span><span class="n">area_def_hr</span><span class="p">)</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;image_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image_name</span>
+<span class="n">metadata_dict</span><span class="p">[</span>
+    <span class="s2">&quot;description&quot;</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;modis near ir water vapor (cm) sampled at 1 km resolution&quot;</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;history&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;written by level2_cartopy_resample.ipynb&quot;</span>
+<span class="n">dump_image</span><span class="p">(</span><span class="n">image_wv_nearir_hr</span><span class="p">,</span> <span class="n">metadata_dict</span><span class="p">,</span> <span class="n">map_dir</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+
+
+<span class="n">image_name</span> <span class="o">=</span> <span class="s2">&quot;wv_nearir_lr&quot;</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;area_def&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">area_def_to_dict</span><span class="p">(</span><span class="n">area_def_lr</span><span class="p">)</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;image_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image_name</span>
+<span class="n">metadata_dict</span><span class="p">[</span>
+    <span class="s2">&quot;description&quot;</span>
+<span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;modis near ir water vapor (cm) sampled at 5 km resolution&quot;</span>
+<span class="n">metadata_dict</span><span class="p">[</span><span class="s2">&quot;history&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;written by level2_cartopy_resample.ipynb&quot;</span>
+
+
+<span class="n">dump_image</span><span class="p">(</span><span class="n">image_wv_nearir_lr</span><span class="p">,</span> <span class="n">metadata_dict</span><span class="p">,</span> <span class="n">map_dir</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">area_def_lr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_wv_ir</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">area_def_hr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_wv_nearir_lr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image_wv_nearir_hr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week8"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

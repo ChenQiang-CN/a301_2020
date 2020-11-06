@@ -1,0 +1,557 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7.2. Solutions: sample questions I &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week6/answers/sols_mid_revI.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="7.3. Solutions: sample questions II" href="sols_mid_revII.html" />
+    <link rel="prev" title="7.1. Assignment 3: Brightness temperature difference map" href="../../week4/assign3_solution.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week6/answers/sols_mid_revI.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Solutions: sample questions I" />
+<meta property="og:description" content="Solutions: sample questions I  Beers law  Stull page 2.43 and the Beers and inverse squared laws reading:  Prove that for a thin  non-reflecting layer the chang" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week2/week2_topics.html">
+   2. Week 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week5/week5_topics.html">
+   5. Week 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="../../week7/week7_topics.html">
+   7. Week 7
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../week4/assign3_solution.html">
+     7.1. Assignment 3: Brightness temperature difference map
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.2. Solutions: sample questions I
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="sols_mid_revII.html">
+     7.3. Solutions: sample questions II
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week8/week8_topics.html">
+   8. Week 8
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../week9/week9_topics.html">
+   9. Week 9
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../assignments.html">
+   10. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../review.html">
+   11. Review/logistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks.html">
+   12. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/week6/answers/sols_mid_revI.rst"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beers-law">
+   7.2.1. Beers law
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solid-angle-and-radiance">
+   7.2.2. Solid angle and radiance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#flux-from-radiance">
+   7.2.3. Flux from radiance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#schwartzchild-equation">
+   7.2.4. Schwartzchild equation
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="solutions-sample-questions-i">
+<span id="mid-review1-sol"></span><h1><span class="section-number">7.2. </span>Solutions: sample questions I<a class="headerlink" href="#solutions-sample-questions-i" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="beers-law">
+<h2><span class="section-number">7.2.1. </span>Beers law<a class="headerlink" href="#beers-law" title="Permalink to this headline">¶</a></h2>
+<p>Stull page 2.43 and the <a class="reference internal" href="../../week2/beers_law.html#beers-law"><span class="std std-ref">Beers and inverse squared laws</span></a> reading:</p>
+<ol class="arabic">
+<li><p>Prove that for a thin  non-reflecting layer the change in emissivity
+=  change in optical thickness, i.e. prove that:</p>
+<div class="math notranslate nohighlight" id="equation-thin">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-thin" title="Permalink to this equation">¶</a></span>\[   \Delta e_\lambda \approx  \Delta \tau_\lambda\]</div>
+<p><strong>Answer:</strong></p>
+<p>Assuming no reflection, we know that the absorptivity is:</p>
+<p><span class="math notranslate nohighlight">\(a_\lambda = 1 - t_\lambda = 1 - \exp(-\tau)\)</span></p>
+<p>and from Kirchoff’s law:</p>
+<p><span class="math notranslate nohighlight">\(e_\lambda = a_\lambda\)</span></p>
+<p>so take the differential:</p>
+<p><span class="math notranslate nohighlight">\(d e_\lambda = da_\lambda = \exp(-\tau) d\tau\)</span></p>
+<p>but for a thin layer we are expanding about
+(tau=0,exp(-tau) = 1) so</p>
+<p><span class="math notranslate nohighlight">\(d e_\lambda \approx d\tau\)</span> or going to finite differences</p>
+<p><span class="math notranslate nohighlight">\(\Delta e_\lambda \approx \Delta \tau\)</span></p>
+</li>
+<li><p>Repeat the problem above, but for a layer with an optical depth of <span class="math notranslate nohighlight">\(\tau_\lambda=1\)</span>.
+How does that change <a class="reference internal" href="../mid_term_reviewI.html#equation-thin">(6.1)</a> ?</p>
+<p><strong>Answer:</strong></p>
+<p>Now the relationship has to be:</p>
+<p><span class="math notranslate nohighlight">\(\Delta e_\lambda \approx \exp(-\tau) \Delta \tau\)</span></p>
+<p>which makes sense because we are adding a thin layer <span class="math notranslate nohighlight">\(\Delta \tau\)</span> onto
+an existing layer of thickness <span class="math notranslate nohighlight">\(\tau\)</span>, so the amount of light reaching
+the thin layer is going to be reduced by the transmittance <span class="math notranslate nohighlight">\(\exp( -\tau )\)</span></p>
+</li>
+<li><p>Suppose you put ozone molecules in a 1 km long tunnel and measure an optical thickness of
+0.5 using an ultraviolet laser.  You know that the ozone mixing ratio is 1 g/kg and the air
+density is 1 kg/<span class="math notranslate nohighlight">\(m^3\)</span>.  What is the extinction coefficient <span class="math notranslate nohighlight">\(k\)</span> in <span class="math notranslate nohighlight">\(m^2/kg\)</span>?</p>
+<p><strong>Answer:</strong></p>
+<div class="math notranslate nohighlight">
+\[\kappa_\lambda = \frac{\tau}{\rho_{air} r_{mix} \Delta z}\]</div>
+<p>Plugging in the numbers gives <span class="math notranslate nohighlight">\(k_\lambda = 0.5\ m^2/kg\)</span></p>
+</li>
+<li><p>Find the narrow beam transmission, absorption and emission for a series of
+stacked layers of equal transmissivities and temperatures in a direction perpendicular to the layers:</p>
+<p><strong>Answer:</strong></p>
+<p>Consider 3 layers each with direct beam transmissivity
+<span class="math notranslate nohighlight">\(\hat{t} = \frac{E}{E_0} = \frac{L \Delta \omega}{L_0 \Delta \omega} = \frac{L}{L_0}\)</span>.
+The outgoing radiance from one layer is the
+incoming radiance from the next layer, so that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}L_3 = \hat{t} L_2 \\
+L_2 = \hat{t} L_1 \\
+L_1 = \hat{t} L_0\end{split}\]</div>
+<p>and substituting in turn:</p>
+<div class="math notranslate nohighlight">
+\[L_3 = \hat{t}^3 L_0\]</div>
+<p>The amount absorbed is</p>
+<p><span class="math notranslate nohighlight">\((L_3 - L_0 = (1 - \hat{t^3}) L_0\)</span> so the absorptivity is
+<span class="math notranslate nohighlight">\((1 - \hat{t}^3)\)</span> which by Kirchoff’s law is the emissivity. The
+emission is therefore:</p>
+<div class="math notranslate nohighlight">
+\[L = \left ( 1 - \hat{t}^3 \right ) \frac{\sigma}{\pi} T^4\]</div>
+<p>and the transmitted radiance is <span class="math notranslate nohighlight">\(\hat{t}^3 L_0\)</span></p>
+<p>Note that this only works if all layers are the same temperature.  (Why?)</p>
+<p><strong>Answer:</strong></p>
+<p>We are solving the emission part of the Schwartzchild equation:</p>
+<div class="math notranslate nohighlight">
+\[L_{emitted} = \int B(T) d\hat{t}\]</div>
+<p>If <span class="math notranslate nohighlight">\(B(T)\)</span> is constant it can come out of the integral and we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+L_{emitted} &amp;= B(T) \left . \hat{t} \right |_{t_{tot}}^1 \\
+            &amp;= B(T)(1 - t_{tot})=B(T)(1 - \hat{t}^3)
+\end{aligned}\end{split}\]</div>
+<p>which is the answer we got.  If B(T) changed with the layer, then we’d
+need that information in the integration to get the emitted radiance.</p>
+<p>Note also that this only works if the beam is going straight through the layers
+(i.e. not a slant path)  (Why? How would this change for a slant path?)</p>
+<p><strong>Answer:</strong></p>
+<p>For the slant path we would need to replace the vertical optical thickness:</p>
+<div class="math notranslate nohighlight">
+\[d \tau =  \kappa_\lambda \rho_g dz\]</div>
+<p>with the slant path optical thickness <span class="math notranslate nohighlight">\(\tau_s\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[d \tau_s =  \kappa_\lambda \rho_g ds = \kappa_\lambda \rho_g dz/\cos \theta
+= \kappa_\lambda \rho_g dz/\mu\]</div>
+<p>Once we made that change, everything would work as before, just with a
+smaller transmittance due to the longer slant path for <span class="math notranslate nohighlight">\(\mu &lt; 1\)</span>.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="solid-angle-and-radiance">
+<h2><span class="section-number">7.2.2. </span>Solid angle and radiance<a class="headerlink" href="#solid-angle-and-radiance" title="Permalink to this headline">¶</a></h2>
+<p>From <a class="reference internal" href="../../week2/sensors.html#radiance"><span class="std std-ref">Solid angle and radiance</span></a> reading:</p>
+<ol class="arabic">
+<li><p>Calculate the solid angle subtended by a cone with an angular width of
+<span class="math notranslate nohighlight">\(\Delta \theta\)</span> =20 degrees.</p>
+<p><strong>Answer</strong></p>
+<div class="math notranslate nohighlight" id="equation-solid">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-solid" title="Permalink to this equation">¶</a></span>\[\begin{split} \omega &amp;= \int_0^{2\pi} \int_0^{10} \sin \theta d\theta d\phi = -2\pi (\cos(10) - \cos(0)) \\
+  &amp;= 2\pi (1 - \cos(10)) = 2\pi(1 - 0.985) = 0.0954\ sr\end{split}\]</div>
+</li>
+<li><p>A laser pointer subtends the same solid angle as the sun: <span class="math notranslate nohighlight">\(7 \times 10^{-5}\)</span> sr.  You shine it at a wall that is 10 meters away.  What is the radius of the circular dot?</p>
+<p><strong>Answer:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+   r=10\ m \\
+   A/r^2= 7 \times 10{-5}\ sr \\
+   A=7 \times 10^{-3}\ m^2 = \pi R^2\\
+   R=(.007/(\pi))^{0.5} \approx 5\ cm
+\end{aligned}\end{split}\]</div>
+</li>
+<li><p>What is the angle of the cone if <span class="math notranslate nohighlight">\(\omega = 7. \times 10^{-5}\ sr\)</span>?</p>
+<p><strong>Answer:</strong></p>
+<p>R= 0.05 m at 10 m, <span class="math notranslate nohighlight">\(\theta = \tan^{-1}(0.05/10) \approx 0.005\)</span> radians or about 0.3 degrees</p>
+</li>
+<li><p>A satellite orbits 800 km above the earth and has a telescope with a field of view
+that covers 1 <span class="math notranslate nohighlight">\(km^2\)</span> directly below (i.e. at nadir).  If that 1 <span class="math notranslate nohighlight">\(km^2\)</span> is ocean with
+an emissivity <span class="math notranslate nohighlight">\(e=1\)</span> at a temperature
+of 280 K, calculate the flux in <span class="math notranslate nohighlight">\(W\,m^2\)</span> reaching the satellite from all wavelengths
+from that pixel.</p>
+<div class="math notranslate nohighlight">
+\[\Delta \omega \approx \frac{A}{R^2} = \frac{1}{800^2} = 1.562 \times 10^{-6}\ sr\]</div>
+<p>For small angles we can take <span class="math notranslate nohighlight">\(L\)</span> out of the flux integral and approximate <span class="math notranslate nohighlight">\(cos \theta \approx 1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}E = \int \cos \theta L(\theta, \phi) d\omega \approx L \Delta \omega\\L = \frac{\sigma}{\pi} T^4 = 111\ W/m^2/sr\\E = L \Delta \omega = 111 \times 1.562 \times 10^{-6} = 0.17\ milliWatts/m^2\end{aligned}\end{align} \]</div>
+</li>
+</ol>
+</div>
+<div class="section" id="flux-from-radiance">
+<h2><span class="section-number">7.2.3. </span>Flux from radiance<a class="headerlink" href="#flux-from-radiance" title="Permalink to this headline">¶</a></h2>
+<p>From <a class="reference internal" href="../../week2/flux_from_radiance.html#flux-from-radiance"><span class="std std-ref">Finding the flux given the radiance</span></a>:</p>
+<ol class="arabic">
+<li><p>Calculate the flux arriving at a sensor assuming a constant radiance and a field of view
+that is a cone with an angular width of <span class="math notranslate nohighlight">\(\Delta \theta\)</span> =20 degrees.</p>
+<p><strong>Answer:</strong></p>
+<p>This is the same geometry as <a class="reference internal" href="#equation-solid">(7.2)</a>, but now we need to include <span class="math notranslate nohighlight">\(\mu=\cos \theta\)</span> in the
+integral.  The half-angle is 10 degrees or 0.174 radians</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+E &amp;= L \int_0^{2\pi} \int \,cos \theta \, sin \theta \, d \theta \, d \phi \\
+&amp;= 2 \pi L \int_{\cos(0.174)}^1 \mu d \mu = 2 \pi  L \times \left . \frac{\mu^2}{2} \right |_{\cos(0.174)}^1 \\
+&amp;= 2 \pi L (0.5 - 0.485) = 0.09 L\ W/m^2
+\end{align}\end{split}\]</div>
+<p>i.e., for this big a solid angle, taking account of the variation in <span class="math notranslate nohighlight">\(cos \theta\)</span>
+does make the difference between 0.0954L (for <a class="reference internal" href="#equation-solid">(7.2)</a>) and 0.09L (for this
+calculation).</p>
+</li>
+<li><p>Prove that for an infinite flat surface the emitted radiance and flux are related by:</p>
+<div class="math notranslate nohighlight">
+\[E_\lambda = \pi L_\lambda\]</div>
+<p><strong>Answer</strong>:</p>
+<p>See the section at the end of the <a class="reference internal" href="../../week2/flux_from_radiance.html#flux-from-radiance"><span class="std std-ref">Finding the flux given the radiance</span></a> notes.</p>
+</li>
+<li><p>Suppose that a satellite’s orbit changes from a height of 800 km to a height of 600 km
+above the surface.  If the telescope field of view stays the same, prove that
+the radiance stays constant.</p>
+<p><strong>Answer</strong>:</p>
+<p>Suppose that at a height of 800 km the satellite sees a circular area of 1 <span class="math notranslate nohighlight">\(km^2\)</span> in a single
+pixel.  If the surface is emitting a flux of <span class="math notranslate nohighlight">\(E_{fsc}\ W/m^2\)</span> then the those photons will
+be emitted into a hemisphere of radius <span class="math notranslate nohighlight">\(h=800\ km\)</span>, and the flux at the satellite
+will be power/area = <span class="math notranslate nohighlight">\(E_{sfc} \times 1\ km^2\ Watts/(2 \pi h^2\ meters^2)\)</span>.</p>
+<p>Note that the flux
+will increase the altitude <span class="math notranslate nohighlight">\(h\)</span> decreases, because of the <span class="math notranslate nohighlight">\(1/h^2\)</span> factor.</p>
+<p>Now suppose the satellite descends to h=600 km. Again, if the power emitted by the surface stayed the same,
+then the flux reaching the satellite would
+increase by a factor <span class="math notranslate nohighlight">\((800/600)^2\)</span> because the same Watts are being distributed over a smaller
+hemisphere.  The power emitted by the surface is reduced however, because the pixel is smaller.
+The pixel radius before was <span class="math notranslate nohighlight">\(R=800 \tan(\theta)\ km\)</span>, where <span class="math notranslate nohighlight">\(\theta\)</span> is the half-angle of the cone
+field of view of the telescope.  At 600 km altitude, <span class="math notranslate nohighlight">\(R=600\,\tan(\theta)\)</span>, and since the pixel
+area is <span class="math notranslate nohighlight">\(\pi R^2= \pi h^2 (\tan\theta)^2\)</span> and <span class="math notranslate nohighlight">\(E_{sfc}\)</span> hasn’t changed, the emitted power is lower by <span class="math notranslate nohighlight">\((600/800)^2\)</span>, exactly
+counteracting the inverse squared increase in the flux due to bringing the satellite closer to the surface.  Since the flux at the
+satellite is the same, and the field of view is the same, the radiance hasn’t changed.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="schwartzchild-equation">
+<h2><span class="section-number">7.2.4. </span>Schwartzchild equation<a class="headerlink" href="#schwartzchild-equation" title="Permalink to this headline">¶</a></h2>
+<p>From Stull p. 224 and the <a class="reference internal" href="../../week4/schwartz.html#schwartz"><span class="std std-ref">The Schwartzchild Equation</span></a> reading:</p>
+<ol class="arabic">
+<li><p>Show that <span class="math notranslate nohighlight">\(e_\lambda\)</span> = <span class="math notranslate nohighlight">\(a_\lambda\)</span> for a gas that absorbs and transmits but doesn’t reflect.
+(hint:  put the gas between two black plates, assume that the gas and the plates are at the
+same temperature and show that the 2nd law is violated if <span class="math notranslate nohighlight">\(e_\lambda \neq a_\lambda\)</span></p>
+<p>Suppose the gas has absorptivity a and emissivity ε and they are new equal to each other.
+The it will be transmitting <span class="math notranslate nohighlight">\((1 - a)\sigma T^4\)</span> from the right wall to the left wall,
+and emitting <span class="math notranslate nohighlight">\(\epsilon \sigma T^4\)</span> to the left wall, while the (black) left wall will
+be emitting <span class="math notranslate nohighlight">\(\sigma T^4\)</span>.  The temperature of the wall will change because the balance
+will be:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\sigma T^4 &amp;= \epsilon \sigma T^4 + (1 - a) \sigma T^4 \\
+&amp; \text{so:}\\
+1 &amp;= 1 + (\epsilon - a)
+\end{aligned}\end{split}\]</div>
+<p>i.e. the flux at the wall will be unbalanced, and the temperature
+will change in violation of the 2nd law, unless ε=a for the gas.</p>
+</li>
+<li><p>Integrate the Schwartzchild equation</p>
+<div class="math notranslate nohighlight">
+\[\begin{gathered}
+    \label{eq:sch1}
+     dL_{\lambda,absorption} + dL_{\lambda,emission}  = -L_\lambda\, d\tau_\lambda + B_\lambda (T_{layer})\, d\tau_\lambda
+  \end{gathered}\]</div>
+<p>across a constant temperature layer of thickness <span class="math notranslate nohighlight">\(\Delta \tau_\lambda\)</span> over a surface
+emitting radiance <span class="math notranslate nohighlight">\(L_{\lambda 0}\)</span>
+and show that the radiance at the top of a constant temperature layer is given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{gathered}
+L_\lambda = L_{\lambda 0} \exp( -\Delta \tau_\lambda  ) + B_\lambda (1- \exp( -\Delta \tau_\lambda))\end{gathered}\]</div>
+<p><strong>Answer:</strong></p>
+<p>See the section “Adding emission to Beers law” in the <a class="reference internal" href="../../week4/schwartz.html#schwartz"><span class="std std-ref">The Schwartzchild Equation</span></a> notes.</p>
+</li>
+</ol>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week6/answers"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../../week4/assign3_solution.html" title="previous page"><span class="section-number">7.1. </span>Assignment 3: Brightness temperature difference map</a>
+    <a class='right-next' id="next-link" href="sols_mid_revII.html" title="next page"><span class="section-number">7.3. </span>Solutions: sample questions II</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
