@@ -63,6 +63,10 @@
         - Register for a [USGS earth explorer account](https://earthexplorer.usgs.gov/)
         - If you're interested sign up for an [AWS free tier account](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc) (requires credit or debit card)
       
-```{code-cell} ipython3
 
-```
+* Friday
+
+  - go over the {ref}`landsat1` notebook  
+  - go over the {ref}`landsat2` notebook
+
+  - for Monday -- make both notebooks work for your Landsat image

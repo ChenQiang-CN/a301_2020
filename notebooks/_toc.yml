@@ -57,7 +57,8 @@
 - file: week9/week9_topics.md
   chapters:
     - file: week9/vancouver_visible.md
-    - file: week9/lansat_wrs.md
+    - file: week9/landsat_image.md
+    - file: week9/calc_ndvi.md
 
 - file: assignments.md
 - file: review.md
