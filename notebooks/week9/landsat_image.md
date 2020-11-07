@@ -19,17 +19,17 @@ kernelspec:
 
 * My source for the AWS download workflow I outline here is
 
-http://geologyandpython.com/get-landsat-8.html
+[geology and python](http://geologyandpython.com/get-landsat-8.html)
 
 * Rasterio examples
 
-https://medium.com/@mommermiscience/dealing-with-geospatial-raster-data-in-python-with-rasterio-775e5ba0c9f5
+[geospatial raster data](https://medium.com/@mommermiscience/dealing-with-geospatial-raster-data-in-python-with-rasterio-775e5ba0c9f5)
 
 
 * A good explanation of the python affine package
 
 
-https://www.perrygeo.com/python-affine-transforms.html
+[affine transform](https://www.perrygeo.com/python-affine-transforms.html)
 
 +++
 
