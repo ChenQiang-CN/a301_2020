@@ -7,6 +7,7 @@
 * {ref}`week4:resample`
 * {ref}`scale_heights`
 * {ref}`pandas_intro`
+* {ref}`level2_wv`
 * {ref}`vancouver_visible`
 * {ref}`landsat_wrs`
 * {ref}`landsat1`

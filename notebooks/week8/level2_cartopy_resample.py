@@ -15,6 +15,7 @@
 # ---
 
 # %% [markdown]
+# (level2_wv)=
 # # Water vapor retrieval using MYD05 data
 
 # %% [markdown]
@@ -118,7 +119,7 @@ from sat_lib.modismeta_read import parseMeta
 
 # %%
 m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*2105*hdf")
-m3_file = (a301_lib.sat_data / 'hdf4_files').glob("MYD03*2105*.hdf")
+m3_file = (a301_lib.sat_data / 'hdf4_files/myd03').glob("MYD03*2105*.hdf")
 m5_file_str = str(list(m5_file)[0])
 m3_file_str = str(list(m3_file)[0])
 print(m5_file_str)
@@ -152,6 +153,7 @@ wv_ir_attrs = {k: attr_dict[k] for k in attributes}
 print(f"wv_ir attributes: {pprint.pformat(wv_ir_attrs)}")
 wv_ir_data = wv_ir.get()
 the_file.end()
+
 # %% [markdown]
 # ## Replace -9999 with np.nan
 #
@@ -256,7 +258,6 @@ print(
         f"\n{area_def_lr.pixel_size_x}\n{area_def_lr.pixel_size_y}\n"
     )
 )
-
 
 # %% [markdown]
 # ### Resample the 1km near-ir water vapor on the same grid
@@ -450,7 +451,6 @@ metadata_dict["history"] = "written by level2_cartopy_resample.ipynb"
 
 
 dump_image(image_wv_nearir_lr, metadata_dict, map_dir, image_name)
-
 
 # %%
 area_def_lr

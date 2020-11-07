@@ -30,7 +30,7 @@ def get_proj_params(input_swath):
         
     """
     try:
-        modis_dict=parseMeta(modis_file)
+        modis_dict=parseMeta(input_swath)
         lat_0 = modis_dict['lat_0']
         lon_0 = modis_dict['lon_0']
     except:
