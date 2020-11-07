@@ -9,5 +9,7 @@
 * {ref}`pandas_intro`
 * {ref}`vancouver_visible`
 * {ref}`landsat_wrs`
+* {ref}`landsat1`
+* {ref}`landsat2`
 
 

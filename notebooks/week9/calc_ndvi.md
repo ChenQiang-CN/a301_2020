@@ -23,6 +23,8 @@ $$ndvi = (nir - red)/(nir + red)$$
 where nir and red are the
 respective spectral directional reflectances.
 
+To get the landsat data, you'll need to first run {ref}`landsat1`
+
 ```{code-cell}
 import pprint
 from pathlib import Path
@@ -34,7 +36,7 @@ from pathlib import Path
 import a301_lib
 ```
 
-# Get the vancouver image
+## Get the vancouver image
 
 ```{code-cell}
 landsat_dir = Path() / "landsat_scenes"
@@ -44,7 +46,7 @@ mtl_file = list(landsat_dir.glob("**/*MTL.txt"))[0]
 print(b4_file,b5_file,mtl_file)
 ```
 
-# Read in the bands  4 (red) and 5 (near infrared)
+* Read in the bands  4 (red) and 5 (near infrared)
 
 Note that rasterio is a pretty complicated object with a lot of functionality.
 
@@ -59,7 +61,7 @@ print(b4_data.shape,b5_data.shape)
 print(b4_data[:1000,:1000])
 ```
 
-# Find the toa reflectance for each channel
+* Find the toa reflectance for each channel
 
 Use [toa_reflectance_8](https://github.com/phaustin/a301_2020/blob/c2070ca26090dc4a7e612c1e9c4ed2d9e865ae5e/a301/landsat/toa_reflectance.py#L19) to turn band counts into reflectance.
 
@@ -70,13 +72,13 @@ out = toa_reflectance_8([4, 5], mtl_file)
 print(meta)
 ```
 
-# Silence annoying warnings from numpy
+* Silence annoying warnings from numpy
 
 ```{code-cell}
 np.seterr(divide="ignore", invalid="ignore")
 ```
 
-# NIR is much more reflective than red
+*  NIR is much more reflective than red
 
 ```{code-cell}
 out[5]
@@ -97,7 +99,7 @@ plt.hist(flat_4[subset][hit])
 plt.title("band 4 reflectance");
 ```
 
-# Calculate the ndvi
+*  Calculate the ndvi
 
 ```{code-cell}
 ndvi = (out[5] - out[4]) / (out[5] + out[4])
@@ -110,7 +112,7 @@ plt.hist(ndvi_flat[subset][hit])
 plt.title("ndvi")
 ```
 
-# Does the reflectance step matter?
+* Does the reflectance step matter?
 
 Check to see if you histograms look different when you do the ndvi with raw counts
 instead of reflectance.

@@ -122,7 +122,7 @@ from sat_lib.modismeta_read import parseMeta
 
 ```{code-cell} ipython3
 m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*2105*hdf")
-m3_file = (a301_lib.sat_data / 'hdf4_files').glob("MYD03*2105*.hdf")
+m3_file = (a301_lib.sat_data / 'hdf4_files/myd03').glob("MYD03*2105*.hdf")
 m5_file_str = str(list(m5_file)[0])
 m3_file_str = str(list(m3_file)[0])
 print(m5_file_str)

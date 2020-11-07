@@ -17,11 +17,21 @@ kernelspec:
 
 +++
 
+* My source for the AWS download workflow I outline here is
+
+http://geologyandpython.com/get-landsat-8.html
+
+* Rasterio examples
+
 https://medium.com/@mommermiscience/dealing-with-geospatial-raster-data-in-python-with-rasterio-775e5ba0c9f5
+
+
+* A good explanation of the python affine package
+
 
 https://www.perrygeo.com/python-affine-transforms.html
 
-http://geologyandpython.com/get-landsat-8.html
+
 
 +++
 
@@ -67,10 +77,14 @@ scenes = s3_scenes[(s3_scenes.path == path) & (s3_scenes.row == row) &
 print(' Found {} images\n'.format(len(scenes)))
 scenes.head()
 ```
+* In order to change parts of this dataframe, we make another copy using
+  the dataframe constructor.
 
 ```{code-cell}
 scenes_van = pd.DataFrame(scenes)
 ```
+
+* Here are the columns in for the first row of the dataframe
 
 ```{code-cell}
 columns = scenes_van.iloc[0].index
@@ -82,10 +96,16 @@ timestamp = scenes_van.iloc[0].acquisitionDate
 timestamp
 ```
 
+* the aquistion date is a text string.  We need to turn it into a datetime
+  object in order to use it for filtering.
+
 ```{code-cell}
 the_date = dateutil.parser.parse(timestamp)
 the_date
 ```
+
+* this cell runs the convert_times function on every row of the dataframe
+  returning a new column
 
 ```{code-cell}
 def convert_times(row):
@@ -94,6 +114,9 @@ def convert_times(row):
 the_times = scenes_van.apply(convert_times,axis=1)
 the_times.head()
 ```
+* save the datetime column, and elete the acquistionDate column which is now
+  redundant
+
 
 ```{code-cell}
 scenes_van['datetime']=the_times
@@ -104,6 +127,11 @@ scenes_van.head()
 ```{code-cell}
 scenes_van.datetime.iloc[0].day,scenes_van.datetime.iloc[0].month, scenes_van.datetime.iloc[0].year
 ```
+
+* Now apply the new make_date function to chop off the hours, minutes and seconds.
+  We will use this to get exact matches on the year, month, day.  With landsat there
+  are never two passes over the same wrs row column in a single day, so date-only
+  is good enough for a unique identifier.
 
 ```{code-cell}
 def make_date(row):
@@ -124,6 +152,9 @@ my_scene
 ```{code-cell}
 scene_url = my_scene.iloc[0].download_url
 ```
+* Now use the requests module to download the index.html file for the image
+  and retrieve the individual bands, plus the metadata mtl file.
+
 
 ```{code-cell}
 import requests
