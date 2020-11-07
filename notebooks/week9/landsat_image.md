@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.12
-    jupytext_version: 1.6.0
+    jupytext_version: 1.6.1-dev
 kernelspec:
   display_name: Python 3
   language: python
@@ -23,14 +23,13 @@ https://www.perrygeo.com/python-affine-transforms.html
 
 http://geologyandpython.com/get-landsat-8.html
 
-
 +++
 
 ## Bulk image download from AWS
 
 Notes drawing on http://geologyandpython.com/get-landsat-8.html
 
-```{code-cell} ipython3
+```{code-cell}
 import pandas as pd
 import a301_lib
 import datetime as dt
@@ -39,12 +38,12 @@ import numpy as np
 from pathlib import Path
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 !pwd
 ```
 
-```{code-cell} ipython3
-download_catalog=False
+```{code-cell}
+download_catalog=True
 if download_catalog:
     s3_scenes = pd.read_csv('http://landsat-pds.s3.amazonaws.com/c1/L8/scene_list.gz', compression='gzip')
 else:
@@ -55,7 +54,7 @@ else:
 
 Filter out cloud cover > 20% and preprocessed images with ids ending in T2 or RT
 
-```{code-cell} ipython3
+```{code-cell}
 path, row = 47, 26
 
 print('Path:',path, 'Row:', row)
@@ -69,26 +68,26 @@ print(' Found {} images\n'.format(len(scenes)))
 scenes.head()
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 scenes_van = pd.DataFrame(scenes)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 columns = scenes_van.iloc[0].index
 columns
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 timestamp = scenes_van.iloc[0].acquisitionDate
 timestamp
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 the_date = dateutil.parser.parse(timestamp)
 the_date
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 def convert_times(row):
     return dateutil.parser.parse(row.acquisitionDate)
 
@@ -96,17 +95,17 @@ the_times = scenes_van.apply(convert_times,axis=1)
 the_times.head()
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 scenes_van['datetime']=the_times
 del scenes_van['acquisitionDate']
 scenes_van.head()
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 scenes_van.datetime.iloc[0].day,scenes_van.datetime.iloc[0].month, scenes_van.datetime.iloc[0].year
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 def make_date(row):
     year,month,day = row.datetime.year, row.datetime.month, row.datetime.day
     the_date = dt.date(year,month,day)
@@ -115,18 +114,18 @@ date_vals = scenes_van.apply(make_date, axis=1)
 scenes_van['the_date']=date_vals
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 hit = scenes_van.the_date == dt.date(2015,6,14)
 np.sum(hit)
 my_scene = scenes_van[hit]
 my_scene
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 scene_url = my_scene.iloc[0].download_url
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -162,7 +161,6 @@ if response.status_code == 200:
         if the_file.find('MTL.txt') > 0:
             good_list.append(the_file)
     print(f"here is goodlist: {good_list}")
-    print(f"here is mtl_file {mtl_file}")
         
 download=True
 if download:
@@ -178,9 +176,8 @@ if download:
         with open(landsat_path / the_file, 'wb') as output:
             shutil.copyfileobj(response.raw, output)
         del response
-    
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 
 ```
