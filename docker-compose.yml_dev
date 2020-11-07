@@ -11,7 +11,7 @@ services:
       ports:
         - "${TEXT_PORT}:80"
       networks:
-        - net_a301
+        - net_a301dev
     
       volumes:
         - ./notebooks/_build/html:/usr/local/share/a301
@@ -22,7 +22,7 @@ services:
                && httpd-foreground
               "
 networks:
-  net_a301:
+  net_a301dev:
     driver: bridge
-    name: net_a301_oct27
+    name: net_a301dev
 
