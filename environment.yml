@@ -5,7 +5,7 @@ channels:
 dependencies:
   - base-notebook=2020.09.05
   # NOTE: pip required for running tests in this repo
-  - python=3.7
+  - python=3.8
   - pip=20
   - numpy
   - scipy
@@ -19,8 +19,14 @@ dependencies:
   - jupytext
   - cartopy
   - pyresample
+  - earthpy
   - rasterio
   - fiona
   - pandas
   - pytest
+  - shapely
+  - requests
+  - bs4
+  - geopandas
+  - conda-lock
 # conda-lock -f environment.yml -p linux-64
