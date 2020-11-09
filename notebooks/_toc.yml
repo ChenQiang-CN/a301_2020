@@ -59,6 +59,12 @@
     - file: week9/vancouver_visible.md
     - file: week9/landsat_image.md
     - file: week9/calc_ndvi.md
+- file: week10/week10_topics.md
+  chapters:
+    - file: week10/assign5b_multilayer_sol.md
+    - file: week10/assign6a_diffuse_flux.md
+    - file: week10/demo_cartopy_extent.md
+    - file: week10/image_zoom.md
 
 - file: assignments.md
 - file: review.md
