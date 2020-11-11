@@ -65,9 +65,9 @@
     - file: week10/assign6a_diffuse_flux.md
     - file: week10/demo_cartopy_extent.md
     - file: week10/image_zoom.md
+    - file: week10/flux_schwartzchild.rst
 
 - file: assignments.md
 - file: review.md
 - file: notebooks.md
-
 

@@ -5,7 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.12
-    jupytext_version: 1.6.1-dev
+    jupytext_version: 1.6.0
 kernelspec:
   display_name: Python 3
   language: python
@@ -31,15 +31,13 @@ https://medium.com/@mommermiscience/dealing-with-geospatial-raster-data-in-pytho
 
 https://www.perrygeo.com/python-affine-transforms.html
 
-
-
 +++
 
 ## Bulk image download from AWS
 
 Notes drawing on http://geologyandpython.com/get-landsat-8.html
 
-```{code-cell}
+```{code-cell} ipython3
 import pandas as pd
 import a301_lib
 import datetime as dt
@@ -48,11 +46,11 @@ import numpy as np
 from pathlib import Path
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 !pwd
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 download_catalog=True
 if download_catalog:
     s3_scenes = pd.read_csv('http://landsat-pds.s3.amazonaws.com/c1/L8/scene_list.gz', compression='gzip')
@@ -64,7 +62,7 @@ else:
 
 Filter out cloud cover > 20% and preprocessed images with ids ending in T2 or RT
 
-```{code-cell}
+```{code-cell} ipython3
 path, row = 47, 26
 
 print('Path:',path, 'Row:', row)
@@ -77,21 +75,22 @@ scenes = s3_scenes[(s3_scenes.path == path) & (s3_scenes.row == row) &
 print(' Found {} images\n'.format(len(scenes)))
 scenes.head()
 ```
+
 * In order to change parts of this dataframe, we make another copy using
   the dataframe constructor.
 
-```{code-cell}
+```{code-cell} ipython3
 scenes_van = pd.DataFrame(scenes)
 ```
 
 * Here are the columns in for the first row of the dataframe
 
-```{code-cell}
+```{code-cell} ipython3
 columns = scenes_van.iloc[0].index
 columns
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 timestamp = scenes_van.iloc[0].acquisitionDate
 timestamp
 ```
@@ -99,7 +98,7 @@ timestamp
 * the aquistion date is a text string.  We need to turn it into a datetime
   object in order to use it for filtering.
 
-```{code-cell}
+```{code-cell} ipython3
 the_date = dateutil.parser.parse(timestamp)
 the_date
 ```
@@ -107,24 +106,24 @@ the_date
 * this cell runs the convert_times function on every row of the dataframe
   returning a new column
 
-```{code-cell}
+```{code-cell} ipython3
 def convert_times(row):
     return dateutil.parser.parse(row.acquisitionDate)
 
 the_times = scenes_van.apply(convert_times,axis=1)
 the_times.head()
 ```
+
 * save the datetime column, and elete the acquistionDate column which is now
   redundant
 
-
-```{code-cell}
+```{code-cell} ipython3
 scenes_van['datetime']=the_times
 del scenes_van['acquisitionDate']
 scenes_van.head()
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 scenes_van.datetime.iloc[0].day,scenes_van.datetime.iloc[0].month, scenes_van.datetime.iloc[0].year
 ```
 
@@ -133,7 +132,7 @@ scenes_van.datetime.iloc[0].day,scenes_van.datetime.iloc[0].month, scenes_van.da
   are never two passes over the same wrs row column in a single day, so date-only
   is good enough for a unique identifier.
 
-```{code-cell}
+```{code-cell} ipython3
 def make_date(row):
     year,month,day = row.datetime.year, row.datetime.month, row.datetime.day
     the_date = dt.date(year,month,day)
@@ -142,21 +141,21 @@ date_vals = scenes_van.apply(make_date, axis=1)
 scenes_van['the_date']=date_vals
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 hit = scenes_van.the_date == dt.date(2015,6,14)
 np.sum(hit)
 my_scene = scenes_van[hit]
 my_scene
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 scene_url = my_scene.iloc[0].download_url
 ```
+
 * Now use the requests module to download the index.html file for the image
   and retrieve the individual bands, plus the metadata mtl file.
 
-
-```{code-cell}
+```{code-cell} ipython3
 import requests
 from bs4 import BeautifulSoup
 import os
@@ -209,6 +208,6 @@ if download:
         del response
 ```
 
-```{code-cell}
+```{code-cell} ipython3
 
 ```
