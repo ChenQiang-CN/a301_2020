@@ -119,6 +119,12 @@ ubc_lr_xy = full_affine * (col_slice.stop, row_slice.stop)
 ubc_ul_xy, ubc_lr_xy
 ```
 
+```{code-cell} ipython3
+upper_left_col=ubc_col + l_col_offset
+upper_left_row=ubc_row + t_row_offset
+print(upper_left_row,upper_left_col)
+```
+
 # Plot the raw band 5 image, clipped to reflectivities below 0.6
 
 This is a simple check that we got the right section.

@@ -179,7 +179,7 @@ if response.status_code == 200:
     os.makedirs(entity_dir, exist_ok=True)
 
     # Second loop: for each band of this image that we find using the html <li> tag
-    good_bands = ['B4.TIF', 'B5.TIF']
+    good_bands = ['B3.TIF','B4.TIF','B5.TIF']
     good_list = []
     for li in html.find_all('li'):
 
