@@ -32,6 +32,7 @@ from pyproj import transform as proj_transform
 from rasterio.windows import Window
 from pathlib import Path
 import a301_lib
+import copy
 ```
 
 # Read the geotiff with rasterio
@@ -55,14 +56,20 @@ print(f"profile: \n{pprint.pformat(profile)}")
 
 # Locate UBC on the map
 
-We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj.transform
+We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj.Transformer.transform
+https://pyproj4.github.io/pyproj/stable/examples.html?highlight=transform
 
 ```{code-cell} ipython3
-p_utm = Proj(crs)
-p_latlon = Proj(proj="latlong", datum="WGS84")
+from pyproj import Transformer
+from pyproj import CRS
+p_utm = crs
+print(p_utm.to_wkt())
+p_latlon = CRS.from_proj4("+proj=latlon")
+print(f"\n{p_latlon.to_wkt()}\n")
+transform=Transformer.from_crs(p_latlon, p_utm)
 ubc_lon = -123.2460
 ubc_lat = 49.2606
-ubc_x, ubc_y = proj_transform(p_latlon, p_utm, ubc_lon, ubc_lat)
+ubc_x, ubc_y = transform.transform(ubc_lon, ubc_lat)
 height, width = refl.shape
 ubc_ul_xy = affine_transform * (0, 0)
 ubc_lr_xy = affine_transform * (width, height)
@@ -113,7 +120,7 @@ vmin = 0.0
 vmax = 0.5
 the_norm = Normalize(vmin=vmin, vmax=vmax, clip=False)
 palette = "viridis"
-pal = plt.get_cmap(palette)
+pal = copy.copy(plt.get_cmap(palette))
 pal.set_bad("0.75")  # 75% grey for out-of-map cells
 pal.set_over("w")  # color cells > vmax red
 pal.set_under("k")  # color cells < vmin black
@@ -139,15 +146,29 @@ Note that PlateCarree is another name for WGS84 datum, simple lat/lon which is t
 https://desktop.arcgis.com/en/arcmap/10.3/guide-books/map-projections/plate-carr-e.htm
 
 ```{code-cell} ipython3
+import geopandas as gpd
+coastline_dir = a301_lib.sat_data / 'openstreetmap/ubc_coastlines'
+df_coast = gpd.read_file(coastline_dir)
+print(len(df_coast))
+print(df_coast.head())
+print(df_coast.crs)
+df_coast.iloc[-1].geometry
+```
+
+```{code-cell} ipython3
 from cartopy.io import shapereader
 
-shape_project = cartopy.crs.PlateCarree()
-shp = shapereader.Reader(str(a301.test_dir / Path("ubc_coastlines/lines.shp")))
+shape_project = cartopy.crs.Geodetic()
+shp = shapereader.Reader(coastline_dir)
 for record, geometry in zip(shp.records(), shp.geometries()):
     ax.add_geometries(
         [geometry], shape_project, facecolor="none", edgecolor="red", lw=2
     )
 display(fig)
+```
+
+```{code-cell} ipython3
+
 ```
 
 ```{code-cell} ipython3
