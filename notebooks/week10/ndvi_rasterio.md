@@ -26,7 +26,6 @@ from matplotlib.colors import Normalize
 from sat_lib.landsat.landsat_metadata import landsat_metadata
 import cartopy
 from rasterio.windows import Window
-from pyproj import transform as proj_transform
 from pyproj import Proj
 from sat_lib.landsat.toa_reflectance import calc_reflc_8
 import pprint
@@ -34,6 +33,11 @@ from pathlib import Path
 from affine import Affine
 from IPython.display import Image
 import copy
+import datetime
+```
+
+```{code-cell} ipython3
+str(datetime.date.today())
 ```
 
 # Get bands 3, 4, 5 fullsize (green, red, near-ir)
@@ -221,13 +225,16 @@ with rasterio.open(
     nodata= -9999.,
 ) as dst:
     dst.write(channels)
-    tags = ["LC8_Band3", "LC8_Band4", "LC8_Band5"]
+    chan_tags = ["LC8_Band3_toa_refl", "LC8_Band4_toa_refl", "LC8_Band5_toa_refl"]
     dst.update_tags(band3_file=band3_bigfile.name,
                     band4_file=band4_bigfile.name,
-                    band5_file=band5_bigfile.name
+                    band5_file=band5_bigfile.name,
+                    history = "written by ndvi_rasterio.md",
+                    written_on = str(datetime.date.today())
                     )
-    for index, chan_name in enumerate(tags):
+    for index, chan_name in enumerate(chan_tags):
         dst.update_tags(index + 1, name=chan_name)
+        dst.update_tags(index + 1, valid_range="0,1")
 ```
 
 ```{code-cell} ipython3

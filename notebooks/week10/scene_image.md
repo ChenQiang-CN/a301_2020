@@ -22,6 +22,7 @@ from skimage import img_as_ubyte
 from skimage import exposure
 import numpy as np
 import PIL
+import datetime
 ```
 
 ```{code-cell} ipython3
@@ -48,12 +49,12 @@ plt.imshow(b3_refl);
 
 ```{code-cell} ipython3
 sns.jointplot(x=b3_refl.flat, y=b4_refl.flat,xlim=(0,0.2),ylim=(0.,0.2),
-              kind="hex", color="#4CB391")
+              kind="hex", color="#4CB391");
 ```
 
 ```{code-cell} ipython3
 sns.jointplot(x=b4_refl.flat, y=b5_refl.flat, kind="hex" ,xlim=(0,0.3),ylim=(0.,0.5),
-              color="#4CB391")
+              color="#4CB391");
 ```
 
 ```{code-cell} ipython3
@@ -67,8 +68,12 @@ for index, image in enumerate([b3_refl, b4_refl, b5_refl]):
 plt.imshow(channels[0,:,:]);
 ```
 
+https://seaborn.pydata.org/generated/seaborn.jointplot.html
+
 ```{code-cell} ipython3
-sns.jointplot(x=channels[0,...].flat, y=channels[1,...].flat,xlim=(0,255),ylim=(0.,255),
+the_data={'band3':channels[0,...].flat, 'band4':channels[1,...].flat}
+sns.jointplot(x='band3', y='band4',data=the_data,
+              xlim=(0,255),ylim=(0.,255),
               kind="hex", color="#4CB391");
 ```
 
@@ -89,15 +94,15 @@ with rasterio.open(
 ) as dst:
     chan_tags = ["LC8_Band3_refl_counts", "LC8_Band4_refl_counts", "LC8_Band5_refl_counts"]
     dst.update_tags(**tags)
-    dst.update_tags(written_on=str(datetime.date.today())
+    dst.update_tags(written_on=str(datetime.date.today()))
     dst.update_tags(history="written by scene_image.md")
-    for index, chan_name in enumerate(chan_tags):
-        dst.update_tags(index + 1, name=chan_name)
-        dst.update_tags(index + 1, valid_range="0,1")
     dst.write(channels)
     keys = ["3", "4", "5"]
     for index, chan_name in enumerate(keys):
+        chan_name = f"band_{chan_name}"
+        valid_range = "0,255"
         dst.update_tags(index + 1, name=chan_name)
+        dst.update_tags(index + 1, valid_range=valid_range)
 ```
 
 ```{code-cell} ipython3

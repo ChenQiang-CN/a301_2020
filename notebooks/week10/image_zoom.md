@@ -34,10 +34,11 @@ from affine import Affine
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 from mpl_toolkits.axes_grid1 import make_axes_locatable
-from pyproj import Proj
-from pyproj import transform as proj_transform
+from pyproj import Transformer
+from pyproj import CRS
 from rasterio.windows import Window
 import numpy.random
+import copy
 
 import a301_lib
 from sat_lib.landsat.toa_reflectance import toa_reflectance_8
@@ -81,14 +82,15 @@ print(f"profile: \n{pprint.pformat(full_profile)}")
 
 ## Locate UBC on the map
 
-We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj_transform and our crs (which in this case is UTM).  We can transform from lon,lat (p_lonlat) to x,y (p_utm) to anchor us to a known point in the map coordinates.
+We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj.Transformer and our crs (which in this case is UTM).  We can transform from lon,lat (p_lonlat) to x,y (p_utm) to anchor us to a known point in the map coordinates.
 
 ```{code-cell} ipython3
-p_utm = Proj(crs)
-p_lonlat = Proj(proj="latlong", datum="WGS84")
+p_utm = crs
+p_latlon = CRS.from_proj4("+proj=latlon")
+transform=Transformer.from_crs(p_latlon, p_utm)
 ubc_lon = -123.2460
 ubc_lat = 49.2606
-ubc_x, ubc_y = proj_transform(p_lonlat, p_utm, ubc_lon, ubc_lat)
+ubc_x, ubc_y = transform.transform(ubc_lon, ubc_lat)
 ```
 
 ## Locate UBC on the image
@@ -135,12 +137,12 @@ vmin = 0.0
 vmax = 0.6
 the_norm = Normalize(vmin=vmin, vmax=vmax, clip=False)
 palette = "viridis"
-pal = plt.get_cmap(palette)
+pal = copy.copy(plt.get_cmap(palette))
 pal.set_bad("0.75")  # 75% grey for out-of-map cells
 pal.set_over("w")  # color cells > vmax red
 pal.set_under("k")  # color cells < vmin black
 fig, ax = plt.subplots(1, 1, figsize=(15, 25))
-ax.imshow(section, cmap=pal, norm=the_norm, origin="upper")
+ax.imshow(section, cmap=pal, norm=the_norm, origin="upper");
 ```
 
 ## put this on a map

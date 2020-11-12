@@ -28,11 +28,12 @@ from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from pyproj import Proj
-from pyproj import transform as proj_transform
 from rasterio.windows import Window
 from pathlib import Path
 import a301_lib
 import copy
+from pyproj import Transformer
+from pyproj import CRS
 ```
 
 # Read the geotiff with rasterio
@@ -46,7 +47,7 @@ with rasterio.open(week10_scene) as raster:
     crs = raster.crs
     profile = raster.profile
     refl = raster.read(3)
-plt.hist(refl[~np.isnan(refl)].flat)
+plt.hist(refl.flat)
 plt.title("band 5 reflectance for Vancouver section")
 ```
 
@@ -63,9 +64,9 @@ https://pyproj4.github.io/pyproj/stable/examples.html?highlight=transform
 from pyproj import Transformer
 from pyproj import CRS
 p_utm = crs
-print(p_utm.to_wkt())
+print(f"\nutm projection:\n\n{p_utm.to_wkt()}")
 p_latlon = CRS.from_proj4("+proj=latlon")
-print(f"\n{p_latlon.to_wkt()}\n")
+print(f"\ngeodetic (latlon) projection: \n\n{p_latlon.to_wkt()}\n")
 transform=Transformer.from_crs(p_latlon, p_utm)
 ubc_lon = -123.2460
 ubc_lat = 49.2606
@@ -153,17 +154,14 @@ print(len(df_coast))
 print(df_coast.head())
 print(df_coast.crs)
 df_coast.iloc[-1].geometry
+df_coast['geometry']
 ```
 
 ```{code-cell} ipython3
-from cartopy.io import shapereader
-
 shape_project = cartopy.crs.Geodetic()
-shp = shapereader.Reader(coastline_dir)
-for record, geometry in zip(shp.records(), shp.geometries()):
-    ax.add_geometries(
-        [geometry], shape_project, facecolor="none", edgecolor="red", lw=2
-    )
+ax.add_geometries(
+        df_coast['geometry'], shape_project, facecolor="none", 
+       edgecolor="red", lw=2)
 display(fig)
 ```
 
