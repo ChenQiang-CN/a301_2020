@@ -1,0 +1,155 @@
+---
+jupytext:
+  notebook_metadata_filter: all,-language_info,-toc,-latex_envs
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.12
+    jupytext_version: 1.6.0
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
+# Introduction
+
+Below we read in the small Vancouver image we wrote out in the image_zoom notebook, and put it on a map with a UTM-10N crs.  We then add a high resolution coastline read from the openstreetmap coastline database.
+
+```{code-cell} ipython3
+import pprint
+from pathlib import Path
+
+import cartopy
+import numpy as np
+import rasterio
+from affine import Affine
+from matplotlib import pyplot as plt
+from matplotlib.colors import Normalize
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+from pyproj import Proj
+from pyproj import transform as proj_transform
+from rasterio.windows import Window
+from pathlib import Path
+import a301_lib
+```
+
+# Read the geotiff with rasterio
+
+```{code-cell} ipython3
+notebook_dir=Path().resolve().parent
+print(notebook_dir)
+week10_scene = notebook_dir / "week10/vancouver_345_refl.tiff"
+with rasterio.open(week10_scene) as raster:
+    affine_transform = raster.transform
+    crs = raster.crs
+    profile = raster.profile
+    refl = raster.read(3)
+plt.hist(refl[~np.isnan(refl)].flat)
+plt.title("band 5 reflectance for Vancouver section")
+```
+
+```{code-cell} ipython3
+print(f"profile: \n{pprint.pformat(profile)}")
+```
+
+# Locate UBC on the map
+
+We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj.transform
+
+```{code-cell} ipython3
+p_utm = Proj(crs)
+p_latlon = Proj(proj="latlong", datum="WGS84")
+ubc_lon = -123.2460
+ubc_lat = 49.2606
+ubc_x, ubc_y = proj_transform(p_latlon, p_utm, ubc_lon, ubc_lat)
+height, width = refl.shape
+ubc_ul_xy = affine_transform * (0, 0)
+ubc_lr_xy = affine_transform * (width, height)
+ubc_ul_xy, ubc_lr_xy
+```
+
+# Higher resolution coastline
+
++++
+
+Here is what Point Grey looks like with the [open street maps](https://automating-gis-processes.github.io/site/notebooks/L6/retrieve_osm_data.html) coastline database.
+
+Optional: If you want to do this for your own image your're going to need to reduce the size of the coastlines database.  There is a good article about different sources for map data on the blog [python4oceanographers](
+https://ocefpaf.github.io/python4oceanographers/blog/2015/06/22/osm/).  The basic steps that worked for me:
+
+1. Download the 700 Mbyte shape file of the WGS84 coastline database from [openstreetmap](https://osmdata.openstreetmap.de/data/coastlines.html)
+
+2. Unzipping the file (it will be about 700 Mbytes) will create a folder called
+   coastlines-split-4326  (4326 is the epsg number for WGS84 lon/lat)
+
+3. Figure out the lon/lat coordinates of a bounding box that contains your scene
+
+4. Get a fiona prompt, which provides the command line program ogr2ogr
+   (ogr stands for"OpenGIS Simple Features Reference Implementation"). Just as rasterio has `rio insp`
+   to look at metadata, etc., fiona as `fio insp`.  To use it, open a terminal and point fiona
+   at coastlines-split-4326 by typing
+    
+       fio insp coastlines-split-4326
+       
+   in the directory where you unzipped the folder.
+  
+   
+   For Vancouver, I used this command at the prompt (all one line, lons are negative, 
+   lats are positive).  Substitute your own lons and lats (note all - signs are single, not double hyphens)
+
+       ogr2ogr -skipfailures -f "ESRI Shapefile"  -clipsrc -123.5 49 -123.1 49.4   ubc_coastlines coastlines-split-4326
+
+   this extracts the segments and writes them to a new  folder called [ubc_coastlines](https://github.com/phaustin/a301_code/tree/master/test_data/ubc_coastlines) which is less than 140 K and which provides the coastlines below.
+
++++
+
+## Mapped image with no coastline
+
+Sanity check to make sure we've got the right image
+
+```{code-cell} ipython3
+vmin = 0.0
+vmax = 0.5
+the_norm = Normalize(vmin=vmin, vmax=vmax, clip=False)
+palette = "viridis"
+pal = plt.get_cmap(palette)
+pal.set_bad("0.75")  # 75% grey for out-of-map cells
+pal.set_over("w")  # color cells > vmax red
+pal.set_under("k")  # color cells < vmin black
+cartopy_crs = cartopy.crs.epsg(crs.to_epsg())
+fig, ax = plt.subplots(1, 1, figsize=[15, 25], subplot_kw={"projection": cartopy_crs})
+image_extent = [ubc_ul_xy[0], ubc_lr_xy[0], ubc_lr_xy[1], ubc_ul_xy[1]]
+ax.imshow(
+    refl,
+    origin="upper",
+    extent=image_extent,
+    transform=cartopy_crs,
+    cmap=pal,
+    norm=the_norm,
+)
+ax.plot(ubc_x, ubc_y, "ro", markersize=25)
+ax.set_extent(image_extent, crs=cartopy_crs)
+```
+
+## Read the shape file and add the coastline to the image
+
+Note that PlateCarree is another name for WGS84 datum, simple lat/lon which is the projection of the coastlines-split-4326 shapefile.
+
+https://desktop.arcgis.com/en/arcmap/10.3/guide-books/map-projections/plate-carr-e.htm
+
+```{code-cell} ipython3
+from cartopy.io import shapereader
+
+shape_project = cartopy.crs.PlateCarree()
+shp = shapereader.Reader(str(a301.test_dir / Path("ubc_coastlines/lines.shp")))
+for record, geometry in zip(shp.records(), shp.geometries()):
+    ax.add_geometries(
+        [geometry], shape_project, facecolor="none", edgecolor="red", lw=2
+    )
+display(fig)
+```
+
+```{code-cell} ipython3
+
+```
