@@ -5,13 +5,28 @@
 The Schwartzchild equation for flux
 +++++++++++++++++++++++++++++++++++
 
-From the :ref:`heating` notes we have the heating rate equation :eq:`temprate` used by cloudsat:
+Remember what the equation looks like for radiance reaching a satellite
+from an absorbing atmosphere:
 
 .. math::
 
-      \frac{dT}{dt} = \frac{1}{\rho c_p} \frac{dE_{net}}{dz}
+   L_\lambda = B_\lambda \exp(-\tau/\mu) = B_\lambda \;\hat{t}
+where `\mu=\cos \theta`.  How do we turn this into a flux?  That equation
+is:
 
-But how do we get `E_{net}` if the satellites only measure radiance `L`?  Graphically, this is the
+.. math::
+   E_\lambda = \int_0^{2\pi} \int_0^1 \mu B_\lambda \exp (-\tau/\mu) d\mu d\phi
+
+So we need to take satellite measurements of radiance `L`. and integrate
+over angles to get `E`. The sections below show how to approximate this
+integral with the simple replacement:
+
+.. math::
+   E_\lambda =  \pi B_\lambda \exp(-1.666 \tau) = \pi B_\lambda \; \hat{t}_f
+
+where `\hat{t}_f = \exp(-1.665 \tau)` is the "flux transmissivity".
+
+Graphically, this is the
 situation we know how to solve, from :ref:`schwartz` notes:
 
 .. figure::  figures/schwartzchild.png

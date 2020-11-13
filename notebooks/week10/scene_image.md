@@ -17,7 +17,12 @@ kernelspec:
 
 In the cells below I read in bands 3, 4 and 5 from the
 vancouver_345_refl.tiff that was produced by the 
-{ref}`rasterio_3bands` notebook.
+{ref}`rasterio_3bands` notebook. and write convert it to a png file so
+I can look at it with standard image viewers.   I use "histogram equalization"
+from the scikit-image library to boost the color contrast in each of the bands.  I
+check the histograms using the jointplot function from the seaborn plotting library
+that adds a lot of nice features to matplotlib.  The new normailzed bands are put
+together to make a "false color composite" that shows vegetation as purple.
 
 ```{code-cell} ipython3
 import a301_lib

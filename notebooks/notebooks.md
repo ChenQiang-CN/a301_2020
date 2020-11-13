@@ -13,6 +13,9 @@
 * {ref}`landsat1`
 * {ref}`landsat2`
 * {ref}`rasterio_3bands`
+* {ref}`rasterio_png`
+* {ref}`vancouver_hires`
+
 
 
 

@@ -15,7 +15,8 @@ kernelspec:
 (vancouver_hires)=
 # Adding a high resolution map
 
-Below we read band 5 from the small Vancouver image we wrote out in the {ref}`rasterio_3bands` notebook, and put it on a map with a UTM-10N crs.  We then add a high resolution coastline read from the openstreetmap coastline database.
+Below we read band 5 from the small Vancouver image we wrote out in the {ref}`rasterio_3bands` notebook, and put it on a map with a UTM-10N crs.  We then add a high resolution coastline read from the openstreetmap coastline database.  I use geopandas to inspect the shapefile that
+holds the streetmap coastline shapes.
 
 ```{code-cell} ipython3
 import pprint
@@ -27,7 +28,6 @@ import rasterio
 from affine import Affine
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
-from mpl_toolkits.axes_grid1 import make_axes_locatable
 from pyproj import Proj
 from rasterio.windows import Window
 from pathlib import Path

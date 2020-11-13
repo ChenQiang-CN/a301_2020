@@ -19,6 +19,10 @@ In this notebook I clip bands 3, 4 and 5 to a 600 row by
 400 column raster and write them out in a new tiff file
 called vancouver_345_refl.tiff
 
+What to look for:
+
+* 
+
 
 
 ```{code-cell} ipython3
@@ -42,11 +46,9 @@ import datetime
 
 ## Get bands 3, 4, 5 fullsize (green, red, near-ir)
 
-At the end of this cell you shiould have the following path objects for your spring scene:
+This cells finds the TIF files downloaded by {rer}`landsat1` and
+saves the paths as band3_bigfile, band4_bigfile, band5_bigfile
 
-meta_bigfile, band3_bigfile, band4_bigfile, band5_bigfile
-
-that point to your landsat TIF and mtl.txt files.
 
 ```{code-cell} ipython3
 notebook_dir=Path().resolve().parent
@@ -54,35 +56,29 @@ print(notebook_dir)
 ```
 
 ```{code-cell} ipython3
----
-deletable: false
-nbgrader:
-  checksum: bd530dfcc0915ef07f406d66a6e9ab19
-  grade: true
-  grade_id: cell-8d3705a4a6fbb7bc
-  locked: false
-  points: 5
-  schema_version: 1
-  solution: true
----
 landsat_dir = notebook_dir / "week9/landsat_scenes"
 print(landsat_dir)
 band3_bigfile = list(landsat_dir.glob("**/*B3.TIF"))[0]
 band4_bigfile = list(landsat_dir.glob("**/*B4.TIF"))[0]
 band5_bigfile = list(landsat_dir.glob("**/*B5.TIF"))[0]
-mtl_file = list(landsat_dir.glob("**/*MTL.txt"))[0]
 ```
 
-## This cell reads in your affine transform, metadata and profile
+## Now use rasterio to read in your affine transform, and profile
 
-Using band4_bigfile (arbitrary)
+Using band4_bigfile (arbitrary, could be any of the 3 tif files)
 
 ```{code-cell} ipython3
-metadata=landsat_metadata(mtl_file)
 with rasterio.open(band4_bigfile) as raster:
     big_transform=raster.transform
     big_profile=raster.profile
+```
 
+I need to get two coordinate references systems to move lat/lon values
+into the UTM zone 10 projection and vice versa.  I can get p_utm, the zone 10
+projection from rasterio.  I'll create p_latlon the simple lat/lon projection (called either
+"geodetic" or "Plate-carree") from proj4.
+
+```{code-cell} ipython3
 utm_code = big_profile['crs'].to_epsg()
 crs = cartopy.crs.epsg(utm_code)
 p_utm=Proj(crs.proj4_init)
@@ -94,7 +90,9 @@ print(big_profile)
 print(big_transform)
 ```
 
-*  Read the scene corners we want from the image_zoom tiff
+*  Read the affine transform we want from the small_file.tiff we created in the
+   in the {ref}`image_zoom` notebook.
+   
 
 ```{code-cell} ipython3
 week10_scene = notebook_dir / "week10/small_file.tiff"
@@ -111,7 +109,10 @@ print(small_profile)
 How do we find this small rectangle on the band4_bigfile raster?
 
 We know the UTM zone 10 coordinates of the upper left corner, so we just need the row
-and column for that on the big raster.
+and column for that on the big raster.  I use the two transforms, small_transform and
+big_transform to first find the ul_x and ul_y coords of the upper left corner  in
+UTM10 coords, and then transform that point into a row and column on the big image.
+That tellse me where I need to make my cut for the three big images.
 
 ```{code-cell} ipython3
 ul_x, ul_y = small_transform*(0,0)
@@ -126,6 +127,9 @@ small_height = small_profile['height']
 print(f"{small_width=},{small_height=}")
 ```
 
+Now I'm ready to form a rasterio "window" that just gives me
+the part of the big scenes I need to read in:
+
 ```{code-cell} ipython3
 small_window=Window(ul_col, ul_row, small_width, small_height)
 ```
@@ -137,18 +141,9 @@ print(f"{lr_x=},{lr_y=}")
 
 * Define a subscene window and a transform
 
-In the cell below, get the upper left col,row (ul_col,ul_row) and upper left and lower
-right x,y (ul_x,ul_y,lr_x,lr_y)
-coordinates the upper left corner of 
-your subscene as in the image_zoom notebook.  Use ul_col, ul_row, ul_x, ul_y plus your subscene
-width and height to make a rasterio window and new transform.
 
-    window=Window(ul_col, ul_row, small_width, small_height)
-    new_affine=Affine(30.,0.,ul_x,0.,-30.,ul_y)
-    extent = [ul_x,lr_x,lr_y,ul_y]
-
-
-*  Read only the window pixels from the band 3, 4, 5 files
+I can use rasterio to read only the small_window part of the files.  I do that
+for each of the bands below.
 
 ```{code-cell} ipython3
 refl_dict=dict()
@@ -160,7 +155,7 @@ for bandnum,filepath in zip([3,4,5],[band3_bigfile,band4_bigfile,band5_bigfile])
 print(f"{refl_dict[4].shape=}")
 ```
 
-*  In the next cell calculate your ndvi
+*  In the next cell calculate the ndvi
 
 ```{code-cell} ipython3
 ndvi = (refl_dict[5]-refl_dict[4])/(refl_dict[5]+refl_dict[4])
@@ -174,9 +169,10 @@ plt.title('spring ndvi')
 plt.savefig('spring_ndvi.png')
 ```
 
-* In the next cell plot a mapped ndvi image with a red dot in your ul corner and a white dot in your lr corner
+* In the next cell I plot a mapped ndvi image with a red dot in the
+  ul corner and a white dot in the lr corner to test my coordinate transformation.
+  I keep the crs from the big file, since that hasn't changed from UTM10N.
 
-Adjust this plot to fit your image.  Just delete the bottom line and work with the provided commands
 
 ```{code-cell} ipython3
 vmin=0.0
@@ -189,6 +185,9 @@ pal.set_over('w')  #color cells > vmax red
 pal.set_under('k')  #color cells < vmin black
 fig, ax = plt.subplots(1, 1,figsize=[10,15],
                        subplot_kw={'projection': crs})
+#
+# limit cartopy to only show the small_window extent
+#
 extent = [ul_x,lr_x,lr_y,ul_y]
 col=ax.imshow(ndvi,origin="upper",
          extent=extent,transform=crs)
@@ -201,6 +200,12 @@ cbar.set_label('ndvi index')
 ```
 
 ## write out the bands 3, 4, 5 as a new geotiff
+
+Now I'm going to write out a new 3 channel tiff.  I can add extra tags to the
+tiff to remind me what I did.  I'm writing out the names of the original big tiffs
+I used, the names of the channels and some comments about the time and the name
+of this notebook.  As demonstrated in class, I can read these tags using `rio insp` from
+a terminal prompt.
 
 ```{code-cell} ipython3
 week10_dir = notebook_dir / "week10"
