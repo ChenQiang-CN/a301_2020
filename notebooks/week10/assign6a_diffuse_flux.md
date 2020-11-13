@@ -14,6 +14,7 @@ kernelspec:
 
 +++ {"toc": true}
 
+(assign6a)=
 # Assignment 6a -- diffuse flux
 
 ```{code-cell} ipython3

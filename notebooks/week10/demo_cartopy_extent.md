@@ -13,6 +13,7 @@ kernelspec:
   name: python3
 ---
 
+(demo_cartopy_extent)=
 # Setting up the cartopy plot 
 
 We will be using cartopy to plot our landsat scenes using the UTM projection.  One important part of that

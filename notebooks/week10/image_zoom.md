@@ -12,6 +12,7 @@ kernelspec:
   name: python3
 ---
 
+(image_zoom)=
 # Zooming an image
 
 We need to be able to select a small region of a landsat image to work with.  This notebook
