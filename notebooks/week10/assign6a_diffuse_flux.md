@@ -21,7 +21,7 @@ import numpy as np
 
 
 
-In the [flux_schwartzchild](https://clouds.eos.ubc.ca/~phil/courses/atsc301/flux_schwartzchild.html) notes I claimed
+In the {ref}`flux_schwartzchild` notes I claimed
  that the following approximation was a good one:
  
  $$\hat{t}_f =  2 \int_0^1 \mu \exp \left (- \frac{\tau }{\mu} \right ) d\mu

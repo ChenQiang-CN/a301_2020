@@ -192,7 +192,7 @@ if response.status_code == 200:
             good_list.append(the_file)
     print(f"here is goodlist: {good_list}")
         
-download=True
+download=False
 if download:
     for the_file in good_list:
         print(f'  Downloading: {the_file}')
