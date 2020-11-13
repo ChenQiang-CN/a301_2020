@@ -12,16 +12,12 @@ kernelspec:
   name: python3
 ---
 
-+++ {"toc": true}
-
 (assign6a)=
 # Assignment 6a -- diffuse flux
 
 ```{code-cell} ipython3
 import numpy as np
 ```
-
-# Introduction
 
 
 

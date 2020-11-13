@@ -55,7 +55,7 @@ mtl_file = (week10_dir.parent / "week9/landsat_scenes").glob("**/*MTL.txt")
 mtl_file = list(mtl_file)[0]
 ```
 
-# Save the crs and the full_affine
+## Save the crs and the full_affine
 
 We need to keep both full_affine (the affine transform for the full scene, and the coordinate reference system for pyproj (called crs below)
 
@@ -79,7 +79,7 @@ plt.title("band 5 reflectance whole scene");
 print(f"profile: \n{pprint.pformat(full_profile)}")
 ```
 
-# Locate UBC on the map
+## Locate UBC on the map
 
 We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj_transform and our crs (which in this case is UTM).  We can transform from lon,lat (p_lonlat) to x,y (p_utm) to anchor us to a known point in the map coordinates.
 
@@ -91,7 +91,7 @@ ubc_lat = 49.2606
 ubc_x, ubc_y = proj_transform(p_lonlat, p_utm, ubc_lon, ubc_lat)
 ```
 
-# Locate UBC on the image
+## Locate UBC on the image
 
 Now we need to use the affine transform to go between x,y and
 col, row on the image.  The next cell creates two slice objects that extend  on either side of the center point.  The tilde (~) in front of the transform indicates that we're going from x,y to col,row, instead of col,row to x,y.  (See [this blog entry](http://www.perrygeo.com/python-affine-transforms.html) for reference.)  Remember that row 0 is the top row, with rows decreasing downward to the south.  To demonstrate, the cell below uses the tranform to calculate the x,y coordinates of the (0,0) corner.
@@ -101,7 +101,7 @@ full_ul_xy = np.array(full_affine * (0, 0))
 print(f"orig ul corner x,y (km)={full_ul_xy*1.e-3}")
 ```
 
-# make our subscene 400 pixels wide and 600 pixels tall, using UBC as a reference point
+## make our subscene 400 pixels wide and 600 pixels tall, using UBC as a reference point
 
 We need to find the right rows and columns on the image to save for the subscene.  Do this by working outward from UBC by a certain number of pixels in each direction, using the inverse of the full_affine transform to go from x,y to col,row
 
@@ -143,7 +143,7 @@ fig, ax = plt.subplots(1, 1, figsize=(15, 25))
 ax.imshow(section, cmap=pal, norm=the_norm, origin="upper")
 ```
 
-# put this on a map
+## put this on a map
 
 Note that the origin is switched to "lower" in the x,y coordinate system below,
 since y increases upwards.  The coastline is very crude, but at least indicates we've got the coords roughly correct.  See the "high_res_map" notebook for a better coastline.
@@ -166,9 +166,9 @@ ax.plot(ubc_x, ubc_y, "ro", markersize=25)
 ax.set_extent(image_extent, crs=cartopy_crs)
 ```
 
-# Use  rasterio  to write a new tiff file
+##  Use  rasterio  to write a new tiff file
 
-## Set the affine transform for the scene
+* Set the affine transform for the scene
 
 We can write this clipped image back out to a much smaller tiff file if we can come up with the new affine transform for the smaller scene.  Referring again [to the writeup](http://www.perrygeo.com/python-affine-transforms.html) we need:
 
@@ -194,7 +194,7 @@ out_section = section[np.newaxis, ...]
 print(out_section.shape)
 ```
 
-##  Now write this out to small_file.tiff
+*  Now write this out to small_file.tiff
 
 See the hires_map notebook for how to read this in and plot it
 
