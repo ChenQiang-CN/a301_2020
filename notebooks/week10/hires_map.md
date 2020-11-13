@@ -12,9 +12,10 @@ kernelspec:
   name: python3
 ---
 
-# Introduction
+(vancouver_hires)=
+# Adding a high resolution map
 
-Below we read in the small Vancouver image we wrote out in the image_zoom notebook, and put it on a map with a UTM-10N crs.  We then add a high resolution coastline read from the openstreetmap coastline database.
+Below we read band 5 from the small Vancouver image we wrote out in the {ref}`rasterio_3bands` notebook, and put it on a map with a UTM-10N crs.  We then add a high resolution coastline read from the openstreetmap coastline database.
 
 ```{code-cell} ipython3
 import pprint
@@ -36,7 +37,7 @@ from pyproj import Transformer
 from pyproj import CRS
 ```
 
-# Read the geotiff with rasterio
+## Read the geotiff with rasterio
 
 ```{code-cell} ipython3
 notebook_dir=Path().resolve().parent
@@ -55,7 +56,7 @@ plt.title("band 5 reflectance for Vancouver section")
 print(f"profile: \n{pprint.pformat(profile)}")
 ```
 
-# Locate UBC on the map
+## Locate UBC on the map
 
 We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj.Transformer.transform
 https://pyproj4.github.io/pyproj/stable/examples.html?highlight=transform
@@ -77,7 +78,7 @@ ubc_lr_xy = affine_transform * (width, height)
 ubc_ul_xy, ubc_lr_xy
 ```
 
-# Higher resolution coastline
+## Higher resolution coastline
 
 +++
 

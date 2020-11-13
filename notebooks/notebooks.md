@@ -12,5 +12,7 @@
 * {ref}`landsat_wrs`
 * {ref}`landsat1`
 * {ref}`landsat2`
+* {ref}`rasterio_3bands`
+
 
 

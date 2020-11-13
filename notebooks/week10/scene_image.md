@@ -12,6 +12,13 @@ kernelspec:
   name: python3
 ---
 
+(rasterio_png)=
+# Making a png image
+
+In the cells below I read in bands 3, 4 and 5 from the
+vancouver_345_refl.tiff that was produced by the 
+{ref}`rasterio_3bands` notebook.
+
 ```{code-cell} ipython3
 import a301_lib
 import rasterio

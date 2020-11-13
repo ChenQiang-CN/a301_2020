@@ -52,7 +52,7 @@ to something besides `\cos \theta = 0\ (\mu = 1)`.  Step 1 is to remember the re
            E&= 2\pi\int_0^{1}  \mu  L d\mu 
    \end{align}
 
-For :eq:`rad_constant` we took `L` out of the integral and got `E=\pi L`, but this isn't an option now, because the transmissivity depends on `\mu`.  Specifically, with `\mu \neq 1` we have new
+For :eq:`flux_final` we took `L` out of the integral and got `E=\pi L`, but this isn't an option now, because the transmissivity depends on `\mu`.  Specifically, with `\mu \neq 1` we have new
 definitions for the **slant transmissivity** `\hat{t}_s`:
 
 .. math::

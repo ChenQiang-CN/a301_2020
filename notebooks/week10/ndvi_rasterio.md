@@ -12,10 +12,14 @@ kernelspec:
   name: python3
 ---
 
-# Introduction
+(rasterio_3bands)=
+# Rasterio: reading bands 3,4 and 5
 
-There are 4 cells that ask for changes below, the rest should run as long as you
-use the variable names I ask for in the questions.
+In this notebook I clip bands 3, 4 and 5 to a 600 row by
+400 column raster and write them out in a new tiff file
+called vancouver_345_refl.tiff
+
+
 
 ```{code-cell} ipython3
 import rasterio
@@ -36,11 +40,7 @@ import copy
 import datetime
 ```
 
-```{code-cell} ipython3
-str(datetime.date.today())
-```
-
-# Get bands 3, 4, 5 fullsize (green, red, near-ir)
+## Get bands 3, 4, 5 fullsize (green, red, near-ir)
 
 At the end of this cell you shiould have the following path objects for your spring scene:
 
@@ -73,7 +73,7 @@ band5_bigfile = list(landsat_dir.glob("**/*B5.TIF"))[0]
 mtl_file = list(landsat_dir.glob("**/*MTL.txt"))[0]
 ```
 
-# This cell reads in your affine transform, metadata and profile
+## This cell reads in your affine transform, metadata and profile
 
 Using band4_bigfile (arbitrary)
 
@@ -94,7 +94,7 @@ print(big_profile)
 print(big_transform)
 ```
 
-## Read the scene corners we want from the image_zoom tiff
+*  Read the scene corners we want from the image_zoom tiff
 
 ```{code-cell} ipython3
 week10_scene = notebook_dir / "week10/small_file.tiff"
@@ -135,7 +135,7 @@ lr_x, lr_y = small_transform*(small_width,-small_height)
 print(f"{lr_x=},{lr_y=}")
 ```
 
-# Define a subscene window and a transform
+* Define a subscene window and a transform
 
 In the cell below, get the upper left col,row (ul_col,ul_row) and upper left and lower
 right x,y (ul_x,ul_y,lr_x,lr_y)
@@ -148,7 +148,7 @@ width and height to make a rasterio window and new transform.
     extent = [ul_x,lr_x,lr_y,ul_y]
 
 
-# Read only the window pixels from the band 3, 4, 5 files
+*  Read only the window pixels from the band 3, 4, 5 files
 
 ```{code-cell} ipython3
 refl_dict=dict()
@@ -160,7 +160,7 @@ for bandnum,filepath in zip([3,4,5],[band3_bigfile,band4_bigfile,band5_bigfile])
 print(f"{refl_dict[4].shape=}")
 ```
 
-## In the next cell calculate your ndvi
+*  In the next cell calculate your ndvi
 
 ```{code-cell} ipython3
 ndvi = (refl_dict[5]-refl_dict[4])/(refl_dict[5]+refl_dict[4])

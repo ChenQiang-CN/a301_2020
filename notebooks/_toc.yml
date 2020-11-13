@@ -66,6 +66,9 @@
     - file: week10/demo_cartopy_extent.md
     - file: week10/image_zoom.md
     - file: week10/flux_schwartzchild.rst
+    - file: week10/ndvi_rasterio.md
+    - file: week10/scene_image.md
+    - file: week10/hires_map.md
 
 - file: assignments.md
 - file: review.md
