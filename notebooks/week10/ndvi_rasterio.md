@@ -59,7 +59,7 @@ import datetime
 
 ## Get bands 3, 4, 5 fullsize (green, red, near-ir)
 
-This cells finds the TIF files downloaded by {rer}`landsat1` and
+This cells finds the TIF files downloaded by {ref}`landsat1` and
 saves the paths as band3_bigfile, band4_bigfile, band5_bigfile
 
 ```{code-cell} ipython3
