@@ -12,12 +12,20 @@ kernelspec:
   name: python3
 ---
 
+```{code-cell} ipython3
+import datetime
+import pytz
+pacific = pytz.timezone('US/Pacific')
+date=datetime.datetime.today().astimezone(pacific)
+print(f"written on {date}")
+```
+
 (rasterio_png)=
 # Making a png image
 
 In the cells below I read in bands 3, 4 and 5 from the
-vancouver_345_refl.tiff that was produced by the 
-{ref}`rasterio_3bands` notebook. and write convert it to a png file so
+`vancouver_345_refl.tiff` that was produced by the 
+{ref}`rasterio_3bands` notebook. and convert it to a png file so
 I can look at it with standard image viewers.   I use "histogram equalization"
 from the scikit-image library to boost the color contrast in each of the bands.  I
 check the histograms using the jointplot function from the seaborn plotting library
@@ -55,9 +63,13 @@ with rasterio.open(week10_scene) as van_raster:
 print(tags,chan1_tags)
 ```
 
+## Note the low reflectivity for band 3
+
 ```{code-cell} ipython3
 plt.imshow(b3_refl);
 ```
+
+* Below I do some joint histograms of band3 vs. band 4 to get a feeling for the distribution
 
 ```{code-cell} ipython3
 sns.jointplot(x=b3_refl.flat, y=b4_refl.flat,xlim=(0,0.2),ylim=(0.,0.2),
@@ -68,6 +80,11 @@ sns.jointplot(x=b3_refl.flat, y=b4_refl.flat,xlim=(0,0.2),ylim=(0.,0.2),
 sns.jointplot(x=b4_refl.flat, y=b5_refl.flat, kind="hex" ,xlim=(0,0.3),ylim=(0.,0.5),
               color="#4CB391");
 ```
+
+* I'm okay with changing the data values to get a qualitative feeling
+  for the image.  To do this, I can use the scikit-image equalization module
+  See this doc for more information: https://scikit-image.org/docs/dev/auto_examples/color_exposure/plot_equalize.html
+  
 
 ```{code-cell} ipython3
 channels = np.empty([3, b3_refl.shape[0], b3_refl.shape[1]], dtype=np.uint8)
@@ -88,6 +105,11 @@ sns.jointplot(x='band3', y='band4',data=the_data,
               xlim=(0,255),ylim=(0.,255),
               kind="hex", color="#4CB391");
 ```
+
+## Write out the png
+
+Now that I have 3 bands scaled from 0-255, I can write them out as
+a png file, with new tags
 
 ```{code-cell} ipython3
 png_filename = notebook_dir / "week10/vancouver_345_stretched.png"
@@ -116,6 +138,13 @@ with rasterio.open(
         dst.update_tags(index + 1, name=chan_name)
         dst.update_tags(index + 1, valid_range=valid_range)
 ```
+
+## View the image
+
+Here's the finished image -- since Band 4 is the wavelength that
+plants use for photosynthesis, it's reflectivity values are
+very low for vegetated pixels.  Only Band 3 (green now mapped to blue) and
+Band 5 (near-ir now mapped to red) are reflecting, which makes purple.
 
 ```{code-cell} ipython3
 from IPython.display import Image

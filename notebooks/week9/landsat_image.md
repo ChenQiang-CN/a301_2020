@@ -12,6 +12,14 @@ kernelspec:
   name: python3
 ---
 
+```{code-cell} ipython3
+import datetime
+import pytz
+pacific = pytz.timezone('US/Pacific')
+date=datetime.datetime.today().astimezone(pacific)
+print(f"written on {date}")
+```
+
 (landsat1)=
 # Landsat image processing 1
 
@@ -192,7 +200,7 @@ if response.status_code == 200:
             good_list.append(the_file)
     print(f"here is goodlist: {good_list}")
         
-download=False
+download=True
 if download:
     for the_file in good_list:
         print(f'  Downloading: {the_file}')

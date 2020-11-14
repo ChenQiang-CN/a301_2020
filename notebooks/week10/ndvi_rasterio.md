@@ -12,6 +12,18 @@ kernelspec:
   name: python3
 ---
 
+```{code-cell} ipython3
+import datetime
+import pytz
+pacific = pytz.timezone('US/Pacific')
+date=datetime.datetime.today().astimezone(pacific)
+print(f"written on {date}")
+```
+
+```{raw-cell}
+
+```
+
 (rasterio_3bands)=
 # Rasterio: reading bands 3,4 and 5
 
@@ -21,9 +33,9 @@ called vancouver_345_refl.tiff
 
 What to look for:
 
-* 
-
-
+* Reading the original transform and crs from the B4.TIF file
+* Finding the upper-left hand corner of the 600, 400 subscene
+* Writing out the new 3-band geotiff with new tags
 
 ```{code-cell} ipython3
 import rasterio
@@ -40,6 +52,7 @@ import pprint
 from pathlib import Path
 from affine import Affine
 from IPython.display import Image
+from IPython.display import display
 import copy
 import datetime
 ```
@@ -48,7 +61,6 @@ import datetime
 
 This cells finds the TIF files downloaded by {rer}`landsat1` and
 saves the paths as band3_bigfile, band4_bigfile, band5_bigfile
-
 
 ```{code-cell} ipython3
 notebook_dir=Path().resolve().parent
@@ -59,8 +71,15 @@ print(notebook_dir)
 landsat_dir = notebook_dir / "week9/landsat_scenes"
 print(landsat_dir)
 band3_bigfile = list(landsat_dir.glob("**/*B3.TIF"))[0]
+print(band3_bigfile)
 band4_bigfile = list(landsat_dir.glob("**/*B4.TIF"))[0]
+print(band4_bigfile)
 band5_bigfile = list(landsat_dir.glob("**/*B5.TIF"))[0]
+print(band5_bigfile)
+mtl_file = (notebook_dir / "week9/landsat_scenes").glob("**/*MTL.txt")
+mtl_file = list(mtl_file)[0]
+print(mtl_file)
+from sat_lib.landsat.toa_reflectance import toa_reflectance_8
 ```
 
 ## Now use rasterio to read in your affine transform, and profile
@@ -71,19 +90,17 @@ Using band4_bigfile (arbitrary, could be any of the 3 tif files)
 with rasterio.open(band4_bigfile) as raster:
     big_transform=raster.transform
     big_profile=raster.profile
+print(big_transform)
+print(big_profile)
 ```
 
-I need to get two coordinate references systems to move lat/lon values
-into the UTM zone 10 projection and vice versa.  I can get p_utm, the zone 10
-projection from rasterio.  I'll create p_latlon the simple lat/lon projection (called either
-"geodetic" or "Plate-carree") from proj4.
+* Note that cartopy needs its own version of the crs -- it doesn't understand rasterio's format
 
 ```{code-cell} ipython3
-utm_code = big_profile['crs'].to_epsg()
-crs = cartopy.crs.epsg(utm_code)
-p_utm=Proj(crs.proj4_init)
-p_lonlat=Proj(proj='latlong',datum='WGS84')
-print(big_profile)
+crs = big_profile['crs']
+cartopy_crs = cartopy.crs.epsg(crs.to_epsg())
+print(f"crs for cartopy: {cartopy_crs}")
+print(f"crs for rasterio: {crs}")
 ```
 
 ```{code-cell} ipython3
@@ -92,7 +109,6 @@ print(big_transform)
 
 *  Read the affine transform we want from the small_file.tiff we created in the
    in the {ref}`image_zoom` notebook.
-   
 
 ```{code-cell} ipython3
 week10_scene = notebook_dir / "week10/small_file.tiff"
@@ -105,6 +121,8 @@ print(small_transform)
 ```{code-cell} ipython3
 print(small_profile)
 ```
+
+## Finding the upper left corner in UTM10 coords
 
 How do we find this small rectangle on the band4_bigfile raster?
 
@@ -127,12 +145,16 @@ small_height = small_profile['height']
 print(f"{small_width=},{small_height=}")
 ```
 
+## Reading from a rasterio window
+
 Now I'm ready to form a rasterio "window" that just gives me
-the part of the big scenes I need to read in:
+the part of the big scenes I need to read in
 
 ```{code-cell} ipython3
 small_window=Window(ul_col, ul_row, small_width, small_height)
 ```
+
+* Here is how to find the lower right corner by counting over and down from (0,0)
 
 ```{code-cell} ipython3
 lr_x, lr_y = small_transform*(small_width,-small_height)
@@ -145,14 +167,17 @@ print(f"{lr_x=},{lr_y=}")
 I can use rasterio to read only the small_window part of the files.  I do that
 for each of the bands below.
 
+## Calculate the reflectivites
+
 ```{code-cell} ipython3
 refl_dict=dict()
+metadata=landsat_metadata(mtl_file)
 for bandnum,filepath in zip([3,4,5],[band3_bigfile,band4_bigfile,band5_bigfile]):
     with rasterio.open(filepath) as src:
         counts = src.read(1, window=small_window)
         refl_vals = calc_reflc_8(counts,bandnum,metadata)
         refl_dict[bandnum]=refl_vals
-print(f"{refl_dict[4].shape=}")
+print(refl_vals)
 ```
 
 *  In the next cell calculate the ndvi
@@ -173,6 +198,9 @@ plt.savefig('spring_ndvi.png')
   ul corner and a white dot in the lr corner to test my coordinate transformation.
   I keep the crs from the big file, since that hasn't changed from UTM10N.
 
++++
+
+## Put the image on a map
 
 ```{code-cell} ipython3
 vmin=0.0
@@ -184,16 +212,16 @@ pal.set_bad('0.75') #75% grey for out-of-map cells
 pal.set_over('w')  #color cells > vmax red
 pal.set_under('k')  #color cells < vmin black
 fig, ax = plt.subplots(1, 1,figsize=[10,15],
-                       subplot_kw={'projection': crs})
+                       subplot_kw={'projection': cartopy_crs})
 #
 # limit cartopy to only show the small_window extent
 #
 extent = [ul_x,lr_x,lr_y,ul_y]
 col=ax.imshow(ndvi,origin="upper",
-         extent=extent,transform=crs)
+         extent=extent,transform=cartopy_crs)
 ax.plot(ul_x,ul_y,'ro',markersize=50)
 ax.plot(lr_x,lr_y,'wo',markersize=50)
-ax.set(title="spring ndvi")
+ax.set(title="June ndvi")
 cbar_ax = fig.add_axes([0.95, 0.2, 0.05, 0.6])
 cbar=ax.figure.colorbar(col,extend='both',cax=cbar_ax,orientation='vertical')
 cbar.set_label('ndvi index')
@@ -241,6 +269,8 @@ with rasterio.open(
         dst.update_tags(index + 1, name=chan_name)
         dst.update_tags(index + 1, valid_range="0,1")
 ```
+
+## Read the new tif_file back in to check
 
 ```{code-cell} ipython3
 with rasterio.open(tif_filename) as raster:

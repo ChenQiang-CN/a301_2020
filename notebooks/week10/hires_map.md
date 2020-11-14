@@ -11,9 +11,13 @@ kernelspec:
   language: python
   name: python3
 ---
+
 ```{code-cell} ipython3
 import datetime
-str(datetime.datetime.now())
+import pytz
+pacific = pytz.timezone('US/Pacific')
+date=datetime.datetime.today().astimezone(pacific)
+print(f"written on {date}")
 ```
 
 (vancouver_hires)=
@@ -21,6 +25,10 @@ str(datetime.datetime.now())
 
 Below we read band 5 from the small Vancouver image we wrote out in the {ref}`rasterio_3bands` notebook, and put it on a map with a UTM-10N crs.  We then add a high resolution coastline read from the openstreetmap coastline database.  I use geopandas to inspect the shapefile that
 holds the streetmap coastline shapes.
+
+```{code-cell} ipython3
+from IPython.display import display
+```
 
 ```{code-cell} ipython3
 import pprint
@@ -42,6 +50,8 @@ from pyproj import CRS
 ```
 
 ## Read the geotiff with rasterio
+
+I'm going to map Band 5, which is layer 3 in the tiff file.
 
 ```{code-cell} ipython3
 notebook_dir=Path().resolve().parent
@@ -65,6 +75,9 @@ print(f"profile: \n{pprint.pformat(profile)}")
 We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj.Transformer.transform
 https://pyproj4.github.io/pyproj/stable/examples.html?highlight=transform
 
+I create a geodetic lat/lon transform (`p_latlon`) so a I can
+move from the UTM10 crs to lat/lon and back.
+
 ```{code-cell} ipython3
 from pyproj import Transformer
 from pyproj import CRS
@@ -79,7 +92,8 @@ ubc_x, ubc_y = transform.transform(ubc_lon, ubc_lat)
 height, width = refl.shape
 ubc_ul_xy = affine_transform * (0, 0)
 ubc_lr_xy = affine_transform * (width, height)
-ubc_ul_xy, ubc_lr_xy
+print(f"here are the ul and lr corners: \n"
+      f"{ubc_ul_xy=}, {ubc_lr_xy=}")
 ```
 
 ## Higher resolution coastline
@@ -93,7 +107,7 @@ https://ocefpaf.github.io/python4oceanographers/blog/2015/06/22/osm/).  The basi
 
 1. Download the 700 Mbyte shape file of the WGS84 coastline database from [openstreetmap](https://osmdata.openstreetmap.de/data/coastlines.html)
 
-2. Unzipping the file (it will be about 700 Mbytes) will create a folder called
+2. Unzipping the file (it will be about 800 Mbytes) will create a folder called
    coastlines-split-4326  (4326 is the epsg number for WGS84 lon/lat)
 
 3. Figure out the lon/lat coordinates of a bounding box that contains your scene
@@ -113,13 +127,13 @@ https://ocefpaf.github.io/python4oceanographers/blog/2015/06/22/osm/).  The basi
 
        ogr2ogr -skipfailures -f "ESRI Shapefile"  -clipsrc -123.5 49 -123.1 49.4   ubc_coastlines coastlines-split-4326
 
-   this extracts the segments and writes them to a new  folder called [ubc_coastlines](https://github.com/phaustin/a301_code/tree/master/test_data/ubc_coastlines) which is less than 140 K and which provides the coastlines below.
+   this extracts the segments and writes them to a new  folder called [ubc_coastlines](https://github.com/phaustin/a301_2020/tree/master/sat_data/openstreetmap) which is less than 140 K and which provides the coastlines below.
 
 +++
 
 ## Mapped image with no coastline
 
-Sanity check to make sure we've got the right image
+Sanity check to make sure we've got the right image.  I set the 
 
 ```{code-cell} ipython3
 vmin = 0.0
@@ -130,8 +144,12 @@ pal = copy.copy(plt.get_cmap(palette))
 pal.set_bad("0.75")  # 75% grey for out-of-map cells
 pal.set_over("w")  # color cells > vmax red
 pal.set_under("k")  # color cells < vmin black
+#
+# cartopy needs it's own flavor of the crs
+#
 cartopy_crs = cartopy.crs.epsg(crs.to_epsg())
-fig, ax = plt.subplots(1, 1, figsize=[15, 25], subplot_kw={"projection": cartopy_crs})
+fig, ax = plt.subplots(1, 1, figsize=[15, 25], 
+                       subplot_kw={"projection": cartopy_crs})
 image_extent = [ubc_ul_xy[0], ubc_lr_xy[0], ubc_lr_xy[1], ubc_ul_xy[1]]
 ax.imshow(
     refl,
@@ -151,6 +169,10 @@ Note that PlateCarree is another name for WGS84 datum, simple lat/lon which is t
 
 https://desktop.arcgis.com/en/arcmap/10.3/guide-books/map-projections/plate-carr-e.htm
 
+The cell below reads the coastlines into a geopandas dataframe.  The
+part we want is the column called "geometry" which lists the linestring
+objects that form the coastline.  Here is the first row:
+
 ```{code-cell} ipython3
 import geopandas as gpd
 coastline_dir = a301_lib.sat_data / 'openstreetmap/ubc_coastlines'
@@ -158,9 +180,16 @@ df_coast = gpd.read_file(coastline_dir)
 print(len(df_coast))
 print(df_coast.head())
 print(df_coast.crs)
-df_coast.iloc[-1].geometry
 df_coast['geometry']
 ```
+
+```{code-cell} ipython3
+df_coast.iloc[0].geometry
+```
+
+## Make the map
+
+To put on thecoastlines, I just add all the shapes to the axis
 
 ```{code-cell} ipython3
 shape_project = cartopy.crs.Geodetic()
@@ -168,12 +197,4 @@ ax.add_geometries(
         df_coast['geometry'], shape_project, facecolor="none", 
        edgecolor="red", lw=2)
 display(fig)
-```
-
-```{code-cell} ipython3
-
-```
-
-```{code-cell} ipython3
-
 ```
