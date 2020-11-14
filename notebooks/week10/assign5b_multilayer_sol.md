@@ -22,7 +22,7 @@ of a stack of layers given the optical thickness, layer temperature and
 surface temperature.  I borrowed code from the weighting_functions notebook, my
 answer is 9 lines of code including the return statement
 
-```{code-cell} ipython3
+```{code-cell}
 ---
 nbgrader:
   grade: false
@@ -43,56 +43,56 @@ def multi_layer_radiance(Tsfc, Temps, tau, the_wavel):
     """
     Find the radiance $L_λ$ reaching a satllite from an N-level atmosphere
     using Stull equation 8.4
-    
+
     Given N levels (counting surface), and N-1 layers with the following layout:
-    
+
     ============= tau[-1]
-    
+
       Temps[-1]
-      
+
     ============= tau[N-2]
-      
+
       .....
-      
+
     ============= tau[2]
-    
+
       Temps[1]
-      
+
     ============= tau[1]
-     
+
       Temps[0]
-      
+
     ============= Tsfc, tau[0]=0
-    
+
     this function calculates the vertical, upward, monochromatic radiance
     at a given wavelength, passing through the top level N of layer N-1.  It includes
     both surface emission (assuming a black surface at temperature Tsfc)
-    
+
     Parameters
     ----------
-    
+
     Tsfc:  float (Kelvin)
        temperature of the black surface
-    
+
     Temps: numpy vector (Kelvin)
        Layer temperatures with Temps[0] being closest to the surface
        Length is N-1, where N is the number of levels
-       
+
     tau: numpy vector (unitless)
        Level values of the absorption optical thicknesses at this wavelength
        taus[0]=0 is the surface, tau[-1]=tau_tot is the total optical thickness
        lenght is N, the number of levels
-       
+
     the_wavel: float (m)
        wavelength for calc_radiance
-       
+
     Returns
     -------
-    
-    Radiance: float (W/m^2/m/sr) 
+
+    Radiance: float (W/m^2/m/sr)
        Radiance from the surface and layers passing through the top level
-    
-    
+
+
     """
     ### BEGIN SOLUTION
     Batm = np.array([calc_radiance(the_wavel, the_temp) for the_temp in Temps])
@@ -116,7 +116,7 @@ Here is a test set of layers that should produce a radiance of 9.045 W/m^2/micro
 
 * test 1
 
-```{code-cell} ipython3
+```{code-cell}
 ---
 nbgrader:
   grade: true
@@ -133,12 +133,12 @@ taus = np.asarray([0.0, 0.2, 0.35, 0.5, 0.6])
 Tsfc = 305.0
 the_wavel = 10.0e-6
 out = multi_layer_radiance(Tsfc, Temps, taus, the_wavel)
-assert_almost_equal(out * 1.0e-6, 9.045, decimal=3);
+assert_almost_equal(out * 1.0e-6, 9.045, decimal=3)
 ```
 
 * test 2
 
-```{code-cell} ipython3
+```{code-cell}
 ---
 nbgrader:
   grade: true
@@ -153,9 +153,9 @@ taus = np.asarray([0.0, 0.2, 0.35, 0.5, 0.6, 0.65, 0.75])
 Tsfc = 305.0
 the_wavel = 10.0e-6
 out = multi_layer_radiance(Tsfc, Temps, taus, the_wavel)
-assert_almost_equal(out * 1.0e-6, 8.134, decimal=3);
+assert_almost_equal(out * 1.0e-6, 8.134, decimal=3)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 
 ```

@@ -23,7 +23,7 @@ We need to be able to select a small region of a landsat image to work with.  Th
 
 3. Calculates the new affine transform for the subcene, and writes the image out to a 1 Mbyte tiff file
 
-```{code-cell} ipython3
+```{code-cell}
 import pprint
 from pathlib import Path
 
@@ -45,7 +45,7 @@ from sat_lib.landsat.toa_reflectance import toa_reflectance_8
 
 * Get the tiff files and calculate band 5 reflectance
 
-```{code-cell} ipython3
+```{code-cell}
 week10_dir = Path().resolve()
 band4 = (week10_dir.parent / "week9/landsat_scenes").glob("**/*B4.TIF")
 band4 = list(band4)[0]
@@ -59,23 +59,22 @@ mtl_file = list(mtl_file)[0]
 
 We need to keep both full_affine (the affine transform for the full scene, and the coordinate reference system for pyproj (called crs below)
 
-```{code-cell} ipython3
+```{code-cell}
 with rasterio.open(band5) as b5_raster:
     full_affine = b5_raster.transform
     crs = b5_raster.crs
     full_profile = b5_raster.profile
     refl = toa_reflectance_8([5], mtl_file)
     b5_refl = refl[5]
-    
 ```
 
-```{code-cell} ipython3
-subset = np.random.randint(0, high=len(b5_refl.flat), size=1000, dtype='l')    
-plt.hist(b5_refl.flat[subset]);
-plt.title("band 5 reflectance whole scene");
+```{code-cell}
+subset = np.random.randint(0, high=len(b5_refl.flat), size=1000, dtype="l")
+plt.hist(b5_refl.flat[subset])
+plt.title("band 5 reflectance whole scene")
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 print(f"profile: \n{pprint.pformat(full_profile)}")
 ```
 
@@ -83,10 +82,10 @@ print(f"profile: \n{pprint.pformat(full_profile)}")
 
 We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj.Transformer and our crs (which in this case is UTM).  We can transform from lon,lat (p_lonlat) to x,y (p_utm) to anchor us to a known point in the map coordinates.
 
-```{code-cell} ipython3
+```{code-cell}
 p_utm = crs
 p_latlon = CRS.from_proj4("+proj=latlon")
-transform=Transformer.from_crs(p_latlon, p_utm)
+transform = Transformer.from_crs(p_latlon, p_utm)
 ubc_lon = -123.2460
 ubc_lat = 49.2606
 ubc_x, ubc_y = transform.transform(ubc_lon, ubc_lat)
@@ -97,7 +96,7 @@ ubc_x, ubc_y = transform.transform(ubc_lon, ubc_lat)
 Now we need to use the affine transform to go between x,y and
 col, row on the image.  The next cell creates two slice objects that extend  on either side of the center point.  The tilde (~) in front of the transform indicates that we're going from x,y to col,row, instead of col,row to x,y.  (See [this blog entry](http://www.perrygeo.com/python-affine-transforms.html) for reference.)  Remember that row 0 is the top row, with rows decreasing downward to the south.  To demonstrate, the cell below uses the tranform to calculate the x,y coordinates of the (0,0) corner.
 
-```{code-cell} ipython3
+```{code-cell}
 full_ul_xy = np.array(full_affine * (0, 0))
 print(f"orig ul corner x,y (km)={full_ul_xy*1.e-3}")
 ```
@@ -106,7 +105,7 @@ print(f"orig ul corner x,y (km)={full_ul_xy*1.e-3}")
 
 We need to find the right rows and columns on the image to save for the subscene.  Do this by working outward from UBC by a certain number of pixels in each direction, using the inverse of the full_affine transform to go from x,y to col,row
 
-```{code-cell} ipython3
+```{code-cell}
 ubc_col, ubc_row = ~full_affine * (ubc_x, ubc_y)
 ubc_col, ubc_row = int(ubc_col), int(ubc_row)
 l_col_offset = -100
@@ -121,17 +120,17 @@ ubc_lr_xy = full_affine * (col_slice.stop, row_slice.stop)
 ubc_ul_xy, ubc_lr_xy
 ```
 
-```{code-cell} ipython3
-upper_left_col=ubc_col + l_col_offset
-upper_left_row=ubc_row + t_row_offset
-print(upper_left_row,upper_left_col)
+```{code-cell}
+upper_left_col = ubc_col + l_col_offset
+upper_left_row = ubc_row + t_row_offset
+print(upper_left_row, upper_left_col)
 ```
 
 # Plot the raw band 5 image, clipped to reflectivities below 0.6
 
 This is a simple check that we got the right section.
 
-```{code-cell} ipython3
+```{code-cell}
 vmin = 0.0
 vmax = 0.6
 the_norm = Normalize(vmin=vmin, vmax=vmax, clip=False)
@@ -141,7 +140,7 @@ pal.set_bad("0.75")  # 75% grey for out-of-map cells
 pal.set_over("w")  # color cells > vmax red
 pal.set_under("k")  # color cells < vmin black
 fig, ax = plt.subplots(1, 1, figsize=(15, 25))
-ax.imshow(section, cmap=pal, norm=the_norm, origin="upper");
+ax.imshow(section, cmap=pal, norm=the_norm, origin="upper")
 ```
 
 ## put this on a map
@@ -149,7 +148,7 @@ ax.imshow(section, cmap=pal, norm=the_norm, origin="upper");
 Note that the origin is switched to "lower" in the x,y coordinate system below,
 since y increases upwards.  The coastline is very crude, but at least indicates we've got the coords roughly correct.  See the "high_res_map" notebook for a better coastline.
 
-```{code-cell} ipython3
+```{code-cell}
 cartopy_crs = cartopy.crs.epsg(crs.to_epsg())
 fig, ax = plt.subplots(1, 1, figsize=[15, 25], subplot_kw={"projection": cartopy_crs})
 image_extent = [ubc_ul_xy[0], ubc_lr_xy[0], ubc_lr_xy[1], ubc_ul_xy[1]]
@@ -187,7 +186,7 @@ new_affine=Affine(a,b,c,d,e,f)
 In addition, need to add a third dimension to the section array, because
 rasterio expects [band,x,y] for its writer.  Do this with np.newaxis in the next cell
 
-```{code-cell} ipython3
+```{code-cell}
 image_height, image_width = section.shape
 ul_x, ul_y = ubc_ul_xy[0], ubc_ul_xy[1]
 new_affine = Affine(30.0, 0.0, ul_x, 0.0, -30.0, ul_y)
@@ -199,7 +198,7 @@ print(out_section.shape)
 
 See the hires_map notebook for how to read this in and plot it
 
-```{code-cell} ipython3
+```{code-cell}
 tif_filename = week10_dir / Path("small_file.tiff")
 num_chans = 1
 with rasterio.open(

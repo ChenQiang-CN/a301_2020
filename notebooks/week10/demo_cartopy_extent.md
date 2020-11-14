@@ -14,10 +14,10 @@ kernelspec:
 ---
 
 (demo_cartopy_extent)=
-# Setting up the cartopy plot 
+# Setting up the cartopy plot
 
 We will be using cartopy to plot our landsat scenes using the UTM projection.  One important part of that
-is being able to set the scene extent, so we can zoom in and out of the image.  
+is being able to set the scene extent, so we can zoom in and out of the image.
 
 This short demo showing how to use [ax.set_extent](https://scitools.org.uk/cartopy/docs/v0.15/matplotlib/geoaxes.html#cartopy.mpl.geoaxes.GeoAxes.set_extent)
 in the PlateCaree projection
@@ -28,7 +28,7 @@ Vancouver on the map for each projection, using Vancouver as a reference point. 
 is that the extent limits are given in the projection crs.  So that with a central longitude  of 60 deg E,
 for example (plot 2), -180 deg E in the projection crs is -120 deg E in the geodetic crs.
 
-```{code-cell} ipython3
+```{code-cell}
 import cartopy.crs as ccrs
 import numpy as np
 from matplotlib import pyplot as plt
@@ -71,11 +71,11 @@ def plate_carree_plot(fig):
         ax.set_extent([-180, 180, -90, 90], crs=projection)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 fig = plt.figure(figsize=(10, 16))
 plate_carree_plot(fig)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 
 ```

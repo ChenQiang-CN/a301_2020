@@ -12,11 +12,12 @@ kernelspec:
   name: python3
 ---
 
-```{code-cell} ipython3
+```{code-cell}
 import datetime
 import pytz
-pacific = pytz.timezone('US/Pacific')
-date=datetime.datetime.today().astimezone(pacific)
+
+pacific = pytz.timezone("US/Pacific")
+date = datetime.datetime.today().astimezone(pacific)
 print(f"written on {date}")
 ```
 
@@ -26,11 +27,11 @@ print(f"written on {date}")
 Below we read band 5 from the small Vancouver image we wrote out in the {ref}`rasterio_3bands` notebook, and put it on a map with a UTM-10N crs.  We then add a high resolution coastline read from the openstreetmap coastline database.  I use geopandas to inspect the shapefile that
 holds the streetmap coastline shapes.
 
-```{code-cell} ipython3
+```{code-cell}
 from IPython.display import display
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 import pprint
 from pathlib import Path
 
@@ -53,8 +54,8 @@ from pyproj import CRS
 
 I'm going to map Band 5, which is layer 3 in the tiff file.
 
-```{code-cell} ipython3
-notebook_dir=Path().resolve().parent
+```{code-cell}
+notebook_dir = Path().resolve().parent
 print(notebook_dir)
 week10_scene = notebook_dir / "week10/vancouver_345_refl.tiff"
 with rasterio.open(week10_scene) as raster:
@@ -66,7 +67,7 @@ plt.hist(refl.flat)
 plt.title("band 5 reflectance for Vancouver section")
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 print(f"profile: \n{pprint.pformat(profile)}")
 ```
 
@@ -78,22 +79,22 @@ https://pyproj4.github.io/pyproj/stable/examples.html?highlight=transform
 I create a geodetic lat/lon transform (`p_latlon`) so a I can
 move from the UTM10 crs to lat/lon and back.
 
-```{code-cell} ipython3
+```{code-cell}
 from pyproj import Transformer
 from pyproj import CRS
+
 p_utm = crs
 print(f"\nutm projection:\n\n{p_utm.to_wkt()}")
 p_latlon = CRS.from_proj4("+proj=latlon")
 print(f"\ngeodetic (latlon) projection: \n\n{p_latlon.to_wkt()}\n")
-transform=Transformer.from_crs(p_latlon, p_utm)
+transform = Transformer.from_crs(p_latlon, p_utm)
 ubc_lon = -123.2460
 ubc_lat = 49.2606
 ubc_x, ubc_y = transform.transform(ubc_lon, ubc_lat)
 height, width = refl.shape
 ubc_ul_xy = affine_transform * (0, 0)
 ubc_lr_xy = affine_transform * (width, height)
-print(f"here are the ul and lr corners: \n"
-      f"{ubc_ul_xy=}, {ubc_lr_xy=}")
+print(f"here are the ul and lr corners: \n" f"{ubc_ul_xy=}, {ubc_lr_xy=}")
 ```
 
 ## Higher resolution coastline
@@ -116,13 +117,13 @@ https://ocefpaf.github.io/python4oceanographers/blog/2015/06/22/osm/).  The basi
    (ogr stands for"OpenGIS Simple Features Reference Implementation"). Just as rasterio has `rio insp`
    to look at metadata, etc., fiona as `fio insp`.  To use it, open a terminal and point fiona
    at coastlines-split-4326 by typing
-    
+
        fio insp coastlines-split-4326
-       
+
    in the directory where you unzipped the folder.
-  
-   
-   For Vancouver, I used this command at the prompt (all one line, lons are negative, 
+
+
+   For Vancouver, I used this command at the prompt (all one line, lons are negative,
    lats are positive).  Substitute your own lons and lats (note all - signs are single, not double hyphens)
 
        ogr2ogr -skipfailures -f "ESRI Shapefile"  -clipsrc -123.5 49 -123.1 49.4   ubc_coastlines coastlines-split-4326
@@ -133,9 +134,9 @@ https://ocefpaf.github.io/python4oceanographers/blog/2015/06/22/osm/).  The basi
 
 ## Mapped image with no coastline
 
-Sanity check to make sure we've got the right image.  I set the 
+Sanity check to make sure we've got the right image.  I set the
 
-```{code-cell} ipython3
+```{code-cell}
 vmin = 0.0
 vmax = 0.5
 the_norm = Normalize(vmin=vmin, vmax=vmax, clip=False)
@@ -148,8 +149,7 @@ pal.set_under("k")  # color cells < vmin black
 # cartopy needs it's own flavor of the crs
 #
 cartopy_crs = cartopy.crs.epsg(crs.to_epsg())
-fig, ax = plt.subplots(1, 1, figsize=[15, 25], 
-                       subplot_kw={"projection": cartopy_crs})
+fig, ax = plt.subplots(1, 1, figsize=[15, 25], subplot_kw={"projection": cartopy_crs})
 image_extent = [ubc_ul_xy[0], ubc_lr_xy[0], ubc_lr_xy[1], ubc_ul_xy[1]]
 ax.imshow(
     refl,
@@ -173,17 +173,18 @@ The cell below reads the coastlines into a geopandas dataframe.  The
 part we want is the column called "geometry" which lists the linestring
 objects that form the coastline.  Here is the first row:
 
-```{code-cell} ipython3
+```{code-cell}
 import geopandas as gpd
-coastline_dir = a301_lib.sat_data / 'openstreetmap/ubc_coastlines'
+
+coastline_dir = a301_lib.sat_data / "openstreetmap/ubc_coastlines"
 df_coast = gpd.read_file(coastline_dir)
 print(len(df_coast))
 print(df_coast.head())
 print(df_coast.crs)
-df_coast['geometry']
+df_coast["geometry"]
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 df_coast.iloc[0].geometry
 ```
 
@@ -191,10 +192,10 @@ df_coast.iloc[0].geometry
 
 To put on thecoastlines, I just add all the shapes to the axis
 
-```{code-cell} ipython3
+```{code-cell}
 shape_project = cartopy.crs.Geodetic()
 ax.add_geometries(
-        df_coast['geometry'], shape_project, facecolor="none", 
-       edgecolor="red", lw=2)
+    df_coast["geometry"], shape_project, facecolor="none", edgecolor="red", lw=2
+)
 display(fig)
 ```
