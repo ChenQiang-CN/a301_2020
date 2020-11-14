@@ -11,6 +11,10 @@ kernelspec:
   language: python
   name: python3
 ---
+```{code-cell} ipython3
+import datetime
+str(datetime.datetime.now())
+```
 
 (vancouver_hires)=
 # Adding a high resolution map
