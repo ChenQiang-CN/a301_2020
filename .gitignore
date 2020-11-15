@@ -7,3 +7,19 @@ conda-bld/
 docker-compose.yml
 
 
+*.ipynb
+*png
+*tiff
+*pdf
+*hdf
+*cpg
+*dbf
+*prj
+*shp
+*shx
+/.ipynb*
+*.ipynb*
+/notebooks/week2/radiation.py
+landsat-path-row
+landsat_scenes
+temp.md

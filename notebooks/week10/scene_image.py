@@ -15,9 +15,23 @@
 
 # %%
 import datetime
+from pathlib import Path
+
+import numpy as np
 import pytz
-pacific = pytz.timezone('US/Pacific')
-date=datetime.datetime.today().astimezone(pacific)
+import rasterio
+import seaborn as sns
+
+# %%
+from IPython.display import Image
+from matplotlib import pyplot as plt
+from skimage import exposure, img_as_ubyte
+
+# %%
+import a301_lib  # noqa
+
+pacific = pytz.timezone("US/Pacific")
+date = datetime.datetime.today().astimezone(pacific)
 print(f"written on {date}")
 
 # %% [markdown]
@@ -25,7 +39,7 @@ print(f"written on {date}")
 # # Making a png image
 #
 # In the cells below I read in bands 3, 4 and 5 from the
-# `vancouver_345_refl.tiff` that was produced by the 
+# `vancouver_345_refl.tiff` that was produced by the
 # {ref}`rasterio_3bands` notebook. and convert it to a png file so
 # I can look at it with standard image viewers.   I use "histogram equalization"
 # from the scikit-image library to boost the color contrast in each of the bands.  I
@@ -33,51 +47,52 @@ print(f"written on {date}")
 # that adds a lot of nice features to matplotlib.  The new normailzed bands are put
 # together to make a "false color composite" that shows vegetation as purple.
 
-# %%
-import a301_lib
-import rasterio
-from pathlib import Path
-from matplotlib import pyplot as plt
-import seaborn as sns
-from skimage import img_as_ubyte
-from skimage import exposure
-import numpy as np
-import PIL
-import datetime
 
 # %%
-notebook_dir=Path().resolve().parent
+notebook_dir = Path().resolve().parent
 print(notebook_dir)
 week10_scene = notebook_dir / "week10/vancouver_345_refl.tiff"
 
 with rasterio.open(week10_scene) as van_raster:
     b3_refl = van_raster.read(1)
-    chan1_tags=van_raster.tags(1)
+    chan1_tags = van_raster.tags(1)
     b4_refl = van_raster.read(2)
-    chan2_tags=van_raster.tags(2)
+    chan2_tags = van_raster.tags(2)
     b5_refl = van_raster.read(3)
-    chan3_tags=van_raster.tags(3)
-    crs = van_raster.profile['crs']
-    transform = van_raster.profile['transform']
-    tags=van_raster.tags()
-print(tags,chan1_tags)
+    chan3_tags = van_raster.tags(3)
+    crs = van_raster.profile["crs"]
+    transform = van_raster.profile["transform"]
+    tags = van_raster.tags()
+print(tags, chan1_tags)
 
 # %% [markdown]
 # ## Note the low reflectivity for band 3
 
 # %%
-plt.imshow(b3_refl);
+plt.imshow(b3_refl)
 
 # %% [markdown]
 # * Below I do some joint histograms of band3 vs. band 4 to get a feeling for the distribution
 
 # %%
-sns.jointplot(x=b3_refl.flat, y=b4_refl.flat,xlim=(0,0.2),ylim=(0.,0.2),
-              kind="hex", color="#4CB391");
+sns.jointplot(
+    x=b3_refl.flat,
+    y=b4_refl.flat,
+    xlim=(0, 0.2),
+    ylim=(0.0, 0.2),
+    kind="hex",
+    color="#4CB391",
+)
 
 # %%
-sns.jointplot(x=b4_refl.flat, y=b5_refl.flat, kind="hex" ,xlim=(0,0.3),ylim=(0.,0.5),
-              color="#4CB391");
+sns.jointplot(
+    x=b4_refl.flat,
+    y=b5_refl.flat,
+    kind="hex",
+    xlim=(0, 0.3),
+    ylim=(0.0, 0.5),
+    color="#4CB391",
+)
 
 # %% [markdown]
 # * I'm okay with changing the data values to get a qualitative feeling
@@ -91,16 +106,22 @@ for index, image in enumerate([b3_refl, b4_refl, b5_refl]):
     channels[index, :, :] = img_as_ubyte(stretched)
 
 # %%
-plt.imshow(channels[0,:,:]);
+plt.imshow(channels[0, :, :])
 
 # %% [markdown]
 # https://seaborn.pydata.org/generated/seaborn.jointplot.html
 
 # %%
-the_data={'band3':channels[0,...].flat, 'band4':channels[1,...].flat}
-sns.jointplot(x='band3', y='band4',data=the_data,
-              xlim=(0,255),ylim=(0.,255),
-              kind="hex", color="#4CB391");
+the_data = {"band3": channels[0, ...].flat, "band4": channels[1, ...].flat}
+sns.jointplot(
+    x="band3",
+    y="band4",
+    data=the_data,
+    xlim=(0, 255),
+    ylim=(0.0, 255),
+    kind="hex",
+    color="#4CB391",
+)
 
 # %% [markdown]
 # ## Write out the png
@@ -123,7 +144,11 @@ with rasterio.open(
     transform=transform,
     nodata=0.0,
 ) as dst:
-    chan_tags = ["LC8_Band3_refl_counts", "LC8_Band4_refl_counts", "LC8_Band5_refl_counts"]
+    chan_tags = [
+        "LC8_Band3_refl_counts",
+        "LC8_Band4_refl_counts",
+        "LC8_Band5_refl_counts",
+    ]
     dst.update_tags(**tags)
     dst.update_tags(written_on=str(datetime.date.today()))
     dst.update_tags(history="written by scene_image.md")
@@ -143,6 +168,5 @@ with rasterio.open(
 # very low for vegetated pixels.  Only Band 3 (green now mapped to blue) and
 # Band 5 (near-ir now mapped to red) are reflecting, which makes purple.
 
-# %%
-from IPython.display import Image
-Image(filename=png_filename,width="80%") 
+
+Image(filename=png_filename, width="80%")

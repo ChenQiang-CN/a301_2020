@@ -4,9 +4,9 @@
 #
 # * Monday
 #
-#   * {ref}`assign5b_sol`  
-#   * {ref}`assign6a`  
-#   * {ref}`demo_cartopy_extent`  
+#   * {ref}`assign5b_sol`
+#   * {ref}`assign6a`
+#   * {ref}`demo_cartopy_extent`
 #   * {ref}`image_zoom`
 #
 # * Friday
@@ -22,4 +22,4 @@
 #
 #   * For Monday -- Produce a png file showing your clipped section from your
 #     landsat file and save it in the data_share folder.
-#     
+#

@@ -16,10 +16,10 @@
 
 # %% [markdown]
 # (demo_cartopy_extent)=
-# # Setting up the cartopy plot 
+# # Setting up the cartopy plot
 #
 # We will be using cartopy to plot our landsat scenes using the UTM projection.  One important part of that
-# is being able to set the scene extent, so we can zoom in and out of the image.  
+# is being able to set the scene extent, so we can zoom in and out of the image.
 #
 # This short demo showing how to use [ax.set_extent](https://scitools.org.uk/cartopy/docs/v0.15/matplotlib/geoaxes.html#cartopy.mpl.geoaxes.GeoAxes.set_extent)
 # in the PlateCaree projection

@@ -25,23 +25,22 @@
 #
 # 3. Calculates the new affine transform for the subcene, and writes the image out to a 1 Mbyte tiff file
 
+import copy
+
 # %%
 import pprint
 from pathlib import Path
 
 import cartopy
 import numpy as np
+import numpy.random
 import rasterio
 from affine import Affine
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
-from pyproj import Transformer
-from pyproj import CRS
-from rasterio.windows import Window
-import numpy.random
-import copy
+from pyproj import CRS, Transformer
 
-import a301_lib
+import a301_lib  # noqa
 from sat_lib.landsat.toa_reflectance import toa_reflectance_8
 
 # %% [markdown]
@@ -68,12 +67,12 @@ with rasterio.open(band5) as b5_raster:
     full_profile = b5_raster.profile
     refl = toa_reflectance_8([5], mtl_file)
     b5_refl = refl[5]
-    
+
 
 # %%
-subset = np.random.randint(0, high=len(b5_refl.flat), size=1000, dtype='l')    
-plt.hist(b5_refl.flat[subset]);
-plt.title("band 5 reflectance whole scene");
+subset = np.random.randint(0, high=len(b5_refl.flat), size=1000, dtype="l")
+plt.hist(b5_refl.flat[subset])
+plt.title("band 5 reflectance whole scene")
 
 # %%
 print(f"profile: \n{pprint.pformat(full_profile)}")
@@ -86,7 +85,7 @@ print(f"profile: \n{pprint.pformat(full_profile)}")
 # %%
 p_utm = crs
 p_latlon = CRS.from_proj4("+proj=latlon")
-transform=Transformer.from_crs(p_latlon, p_utm)
+transform = Transformer.from_crs(p_latlon, p_utm)
 ubc_lon = -123.2460
 ubc_lat = 49.2606
 ubc_x, ubc_y = transform.transform(ubc_lon, ubc_lat)
@@ -121,9 +120,9 @@ ubc_lr_xy = full_affine * (col_slice.stop, row_slice.stop)
 ubc_ul_xy, ubc_lr_xy
 
 # %%
-upper_left_col=ubc_col + l_col_offset
-upper_left_row=ubc_row + t_row_offset
-print(upper_left_row,upper_left_col)
+upper_left_col = ubc_col + l_col_offset
+upper_left_row = ubc_row + t_row_offset
+print(upper_left_row, upper_left_col)
 
 # %% [markdown]
 # # Plot the raw band 5 image, clipped to reflectivities below 0.6
@@ -140,7 +139,7 @@ pal.set_bad("0.75")  # 75% grey for out-of-map cells
 pal.set_over("w")  # color cells > vmax red
 pal.set_under("k")  # color cells < vmin black
 fig, ax = plt.subplots(1, 1, figsize=(15, 25))
-ax.imshow(section, cmap=pal, norm=the_norm, origin="upper");
+ax.imshow(section, cmap=pal, norm=the_norm, origin="upper")
 
 # %% [markdown]
 # ## put this on a map

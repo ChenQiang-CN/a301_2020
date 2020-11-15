@@ -17,26 +17,30 @@
 # (assign6a)=
 # # Assignment 6a -- diffuse flux
 
+import matplotlib
+import matplotlib.pyplot as plt
+
 # %%
 import numpy as np
+from scipy.special import expn
 
 # %% [markdown]
 # In the {ref}`flux_schwartzchild` notes I claimed
 #  that the following approximation was a good one:
-#  
+#
 #  $$\hat{t}_f =  2 \int_0^1 \mu \exp \left (- \frac{\tau }{\mu} \right ) d\mu
 #        \approx  \exp \left (-1.66 \tau \right )$$
-#        
-#  We can check this with an exact answer, since this integral is important enough to have a function defined for it in the scipy math module.  First, be sure you understand how the change in variables 
-#  
+#
+#  We can check this with an exact answer, since this integral is important enough to have a function defined for it in the scipy math module.  First, be sure you understand how the change in variables
+#
 #  $$u = \mu^{-1}$$
-#  
+#
 #  Transforms this equation into the **third exponential integral**:
-#  
+#
 #  $$\hat{t}_f = 2 \int_1^\infty \frac{\exp(-u \tau)}{u^3} du$$
-#  
+#
 #  The cell below graphs this function which in python is available as::
-#  
+#
 #      scipy.special.expn(3,the_tau))
 
 # %%
@@ -44,19 +48,16 @@ import numpy as np
    plot 2*scipy.special.expn(3,the_tau))
    this is the accurate version of the flux transmission function
    defined above
-"""   
-from scipy.special import expn 
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.style.use('ggplot')
-tau = np.arange(0.1,5,0.1)
-flux_trans = 2*expn(3.,tau)
-fig, ax =plt.subplots(1,1)
-ax.plot(tau,flux_trans,label='exact')
-ax.plot(tau,np.exp(-1.66*tau),label='approx')
+"""
+
+matplotlib.style.use("ggplot")
+tau = np.arange(0.1, 5, 0.1)
+flux_trans = 2 * expn(3.0, tau)
+fig, ax = plt.subplots(1, 1)
+ax.plot(tau, flux_trans, label="exact")
+ax.plot(tau, np.exp(-1.66 * tau), label="approx")
 ax.legend()
-ax.set(ylabel='flux_trans',xlabel=r'vertical optical depth $\tau$');
+ax.set(ylabel="flux_trans", xlabel=r"vertical optical depth $\tau$")
 
 # %% [markdown]
 # ## 6a Flux transmission problem
@@ -70,7 +71,7 @@ ax.set(ylabel='flux_trans',xlabel=r'vertical optical depth $\tau$');
 # using np.sum and np.diff as usual.  The x axis should use these tau values
 #
 #     tau=np.arange(0.1,5,0.1)
-#     
+#
 # Make the line green, with a linewidth of lw=5 so it stands out. Add it to the legend
 #
 # For the second line, plot the ordinary vertical transmission:
