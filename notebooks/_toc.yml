@@ -69,6 +69,7 @@
     - file: week10/scene_image.md
 - file: week11/week11_topics.md
   chapters:
+    - file: week11/final_guide.rst
     - file: week11/hires_map.md
     - file: week11/ndvi_fiona.md
     - file: week11/heating_rate.rst

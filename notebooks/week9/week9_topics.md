@@ -28,15 +28,15 @@
 
     - [autogis](https://automating-gis-processes.github.io/site/index.html) -- U. Helsinki GIS notebooks
 
-   * For Wednesday: Read the [Landsat overview](https://www.earthdatascience.org/courses/use-data-open-source-python/multispectral-remote-sensing/landsat-in-Python/) and 
-   the 
+   * For Wednesday: Read the [Landsat overview](https://www.earthdatascience.org/courses/use-data-open-source-python/multispectral-remote-sensing/landsat-in-Python/) and
+   the
 [geotif explainer](https://www.earthdatascience.org/courses/use-data-open-source-python/intro-raster-data-python/fundamentals-raster-data/intro-to-the-geotiff-file-format/)
 
-    - Review the Universal Transverse Mercator projection in 
-      <a href="./figures/understanding_map_projections.pdf">Understanding map projections </a>> (p. 21 and p. 98)
+    - Review the Universal Transverse Mercator projection in
+      [understanding map projections](https://drive.google.com/file/d/1araPnZwMui9tBTPyLO_UHVC2DDEIdZ0p/view?usp=sharing) (p. 21 and p. 98)
 
     - Make sure the {ref}`vancouver_visible` notebook works for you.
-    
+
 * Wednesday
 
   - New cells in the {ref}`vancouver_visible` notebook for the MYD02QM image
@@ -46,27 +46,27 @@
     - [Landsat band combinations](https://gisgeography.com/landsat-8-bands-combinations/)
     - [qualitative image interpretation](https://earthobservatory.nasa.gov/features/ColorImage/page2.php)
     - [Landsat history](https://landsat.gsfc.nasa.gov/article/virginia-t-norwood-mother-landsat)
-    
+
   - finding Landsat images
     - [The WRS coordinate system](https://gisgeography.com/landsat-file-naming-convention/)
     - {ref}`landsat_wrs` notebook
     - Getting images from [AWS using the USGS explorer](https://towardsdatascience.com/access-satellite-imagery-with-aws-and-google-colab-4660178444f5)
-    
+
     - For Friday:
-    
+
       - Use the links above to find a Landsat 8 image somewhere on the earth that is:
-      
+
         - on land
         - less than 20% cloud cover
         - Undergoes some kind of change over a 5 year period -- either seasonal cycles, logging, forest fires etc.
         - Upload the full image filename on piazza
         - Register for a [USGS earth explorer account](https://earthexplorer.usgs.gov/)
         - If you're interested sign up for an [AWS free tier account](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc) (requires credit or debit card)
-      
+
 
 * Friday
 
-  - go over the {ref}`landsat1` notebook  
+  - go over the {ref}`landsat1` notebook
   - go over the {ref}`landsat2` notebook
 
   - for Monday -- make both notebooks work for your Landsat image

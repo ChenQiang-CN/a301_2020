@@ -18,7 +18,6 @@
 
   * {ref}`rasterio_3bands`
   * {ref}`rasterio_png`
-  * {ref}`vancouver_hires`
 
   * For Monday -- Produce a png file showing your clipped section from your
     landsat file and save it in the data_share folder.

@@ -7,7 +7,7 @@
 
   * Introduce {ref}`assign1`
 
-  * Go over the notes on {ref}`satellite` 
+  * Go over the notes on {ref}`satellite`
 
   * For Wednesday:
 
@@ -38,4 +38,6 @@
 
     * [Map projection humor from xkcd](https://m.xkcd.com/977)
 
-    * Read the first three chapters of [Understanding map projections]( https://clouds.eos.ubc.ca/~phil/courses/eosc582/downloads/understanding_map_projections.pdf)
+    * Read the first three chapters of [Understanding map projections]( https://drive.google.com/file/d/1araPnZwMui9tBTPyLO_UHVC2DDEIdZ0p/view?usp=sharing)
+
+

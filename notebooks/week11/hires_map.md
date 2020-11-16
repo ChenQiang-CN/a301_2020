@@ -107,12 +107,12 @@ print(f"here are the ul and lr corners: \n" f"{ubc_ul_xy=}, {ubc_lr_xy=}")
 
 Here is what Point Grey looks like with the [open street maps](https://automating-gis-processes.github.io/site/notebooks/L6/retrieve_osm_data.html) coastline database.
 
-Optional: If you want to do this for your own image your're going to need to reduce the size of the coastlines database.  There is a good article about different sources for map data on the blog [python4oceanographers](
-https://ocefpaf.github.io/python4oceanographers/blog/2015/06/22/osm/).  The basic steps that worked for me:
+Optional: If you have a coastline on your own image you can make your own coastlines database.  There is a good article about different sources for map data on the blog [python4oceanographers](
+https://ocefpaf.github.io/python4oceanographers/blog/2015/06/22/osm/).  The basic steps I used:
 
-1. Download the 700 Mbyte shape file of the WGS84 coastline database from [openstreetmap](https://osmdata.openstreetmap.de/data/coastlines.html)
+1. I download the 1 GByte (uncommpressed) zip file of WGS84 coastline database from [openstreetmap](https://osmdata.openstreetmap.de/data/coastlines.html)
 
-2. Unzipping the file (it will be about 800 Mbytes) will create a folder called
+2. It is now in a301_lib.data_share/openstreetmap in the folder
    coastlines-split-4326  (4326 is the epsg number for WGS84 lon/lat)
 
 3. Figure out the lon/lat coordinates of a bounding box that contains your scene
@@ -124,15 +124,19 @@ https://ocefpaf.github.io/python4oceanographers/blog/2015/06/22/osm/).  The basi
 
        fio insp coastlines-split-4326
 
-   in the directory where you unzipped the folder.
+   in the directory where you unzipped the folder.  With fio you can for example, check the crs with
+   `src.crs` as demoed in class.
 
-
+5. Quit fio with `ctrl-D` and get back to a regular bash prompt.  You can create a new shapefile
+   given your bounding box using `ogr2ogr` to filter all lines not in the box.
    For Vancouver, I used this command at the prompt (all one line, lons are negative,
    lats are positive).  Substitute your own lons and lats (note all - signs are single, not double hyphens)
 
-       ogr2ogr -skipfailures -f "ESRI Shapefile"  -clipsrc -123.5 49 -123.1 49.4   ubc_coastlines coastlines-split-4326
+       cd /home/jovyan/work/sat_data/openstreetmap
+       ls *
+       ogr2ogr -skipfailures -f "ESRI Shapefile"  -clipsrc -123.5 49 -123.1 49.4   /home/jovyan/work/ubc_coastlines coastlines-split-4326
 
-   this extracts the segments and writes them to a new  folder called [ubc_coastlines](https://github.com/phaustin/a301_2020/tree/master/sat_data/openstreetmap) which is less than 140 K and which provides the coastlines below.
+   this extracts the segments and writes them to a new  folder called ubc_coastlines in your work directory which is less than 284 Kbytes and which provides the coastlines below.
 
 +++
 
