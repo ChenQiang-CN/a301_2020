@@ -182,7 +182,7 @@ part we want is the column called "geometry" which lists the linestring
 objects that form the coastline.  Here is the first row:
 
 ```{code-cell}
-coastline_dir = a301_lib.sat_data / "openstreetmap/ubc_coastlines"
+coastline_dir = a301_lib.data_share / "openstreetmap/ubc_coastlines"
 df_coast = gpd.read_file(coastline_dir)
 print(len(df_coast))
 print(df_coast.head())

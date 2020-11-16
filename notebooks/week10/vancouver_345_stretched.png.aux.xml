@@ -7,7 +7,7 @@
     <MDI key="band4_file">LC08_L1TP_047026_20150614_20180131_01_T1_B4.TIF</MDI>
     <MDI key="band5_file">LC08_L1TP_047026_20150614_20180131_01_T1_B5.TIF</MDI>
     <MDI key="history">written by scene_image.md</MDI>
-    <MDI key="written_on">2020-11-13</MDI>
+    <MDI key="written_on">2020-11-16</MDI>
   </Metadata>
   <Metadata domain="IMAGE_STRUCTURE">
     <MDI key="INTERLEAVE">PIXEL</MDI>
