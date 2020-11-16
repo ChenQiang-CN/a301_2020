@@ -175,7 +175,7 @@ geo_box = gpd.GeoDataFrame({"feature": [1], "geometry": bbox}, crs=crs)
 print(f"{geo_box['geometry'].crs=}")
 print(f"{geo_box['geometry'].area=}")
 print(geo_box["geometry"].crs.to_wkt())
-vancouver_dir = a301_lib.data_share / "vancouver_dir"
+vancouver_dir = Path().home() / "vancouver_dir"
 vancouver_dir.mkdir(parents=True, exist_ok=True)
 geo_box.to_file(vancouver_dir / "vancouver_box.shp")
 geo_box.to_file("vancouver.geojson", driver="GeoJSON")
