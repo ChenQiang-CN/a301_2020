@@ -197,7 +197,7 @@ type(bbox)
 * Define a subscene window and a transform
 
 
-I can use rasterio to read only the small_window part of the files.  I do that
+I can use rasterio.mask crop the rasters to the box.  I do that
 for each of the bands below.
 
 ## Calculate the reflectivites
