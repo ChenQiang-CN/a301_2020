@@ -12,13 +12,15 @@ kernelspec:
   name: python3
 ---
 
-+++ {"toc": true}
-
-<h1>Table of Contents<span class="tocSkip"></span></h1>
-<div class="toc"><ul class="toc-item"><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#15B-Flux-transmission-problem" data-toc-modified-id="15B-Flux-transmission-problem-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>15B Flux transmission problem</a></span></li></ul></div>
+```{code-cell}
+#
+import matplotlib
+import matplotlib.pyplot as plt
+```
 
 ```{code-cell}
 import numpy as np
+from scipy.special import expn
 
 np.log(0.2)
 ```
@@ -52,10 +54,6 @@ In the [flux_schwartzchild](https://clouds.eos.ubc.ca/~phil/courses/atsc301/flux
    defined above
 """
 %matplotlib inline
-from scipy.special import expn
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib
 
 matplotlib.style.use("ggplot")
 tau = np.arange(0.1, 5, 0.1)

@@ -16,7 +16,10 @@ kernelspec:
 # Assignment 6a -- diffuse flux
 
 ```{code-cell}
+import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
+from scipy.special import expn
 ```
 
 In the {ref}`flux_schwartzchild` notes I claimed
@@ -43,10 +46,6 @@ In the {ref}`flux_schwartzchild` notes I claimed
    this is the accurate version of the flux transmission function
    defined above
 """
-from scipy.special import expn
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib
 
 matplotlib.style.use("ggplot")
 tau = np.arange(0.1, 5, 0.1)

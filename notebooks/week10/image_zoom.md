@@ -24,22 +24,20 @@ We need to be able to select a small region of a landsat image to work with.  Th
 3. Calculates the new affine transform for the subcene, and writes the image out to a 1 Mbyte tiff file
 
 ```{code-cell}
+import copy
 import pprint
 from pathlib import Path
 
 import cartopy
 import numpy as np
+import numpy.random
 import rasterio
 from affine import Affine
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
-from pyproj import Transformer
-from pyproj import CRS
-from rasterio.windows import Window
-import numpy.random
-import copy
+from pyproj import CRS, Transformer
 
-import a301_lib
+import a301_lib  # noqa
 from sat_lib.landsat.toa_reflectance import toa_reflectance_8
 ```
 

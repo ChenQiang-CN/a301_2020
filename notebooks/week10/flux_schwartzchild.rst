@@ -6,7 +6,6 @@ The Schwartzchild equation for flux
 +++++++++++++++++++++++++++++++++++
 
 Remember what the equation looks like for radiance reaching a satellite
-from an absorbing atmosphere:
 
 .. math::
 
@@ -113,7 +112,3 @@ The two stream approximation
 When we repeat this for the downward facing hemisphere (`\pi/2 \leq \theta \leq \pi`) and get
 the downward flux `E_\downarrow`,
 we've got the **two stream approximation**.  We'll use this to get heating rates in the atmosphere
-from Cloudsat.
-
-
-

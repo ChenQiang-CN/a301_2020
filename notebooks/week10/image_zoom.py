@@ -24,10 +24,10 @@
 # 2. Puts on crude coastlines in the UTM-10N crs
 #
 # 3. Calculates the new affine transform for the subcene, and writes the image out to a 1 Mbyte tiff file
-
-import copy
+#
 
 # %%
+import copy
 import pprint
 from pathlib import Path
 

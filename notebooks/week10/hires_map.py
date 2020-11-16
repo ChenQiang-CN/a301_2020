@@ -13,6 +13,7 @@
 #     name: python3
 # ---
 
+# %%
 import copy
 
 # %%
@@ -49,8 +50,6 @@ print(f"written on {date}")
 #
 # Below we read band 5 from the small Vancouver image we wrote out in the {ref}`rasterio_3bands` notebook, and put it on a map with a UTM-10N crs.  We then add a high resolution coastline read from the openstreetmap coastline database.  I use geopandas to inspect the shapefile that
 # holds the streetmap coastline shapes.
-
-
 # %% [markdown]
 # ## Read the geotiff with rasterio
 #
@@ -79,7 +78,7 @@ print(f"profile: \n{pprint.pformat(profile)}")
 # I create a geodetic lat/lon transform (`p_latlon`) so a I can
 # move from the UTM10 crs to lat/lon and back.
 
-
+# %%
 p_utm = crs
 print(f"\nutm projection:\n\n{p_utm.to_wkt()}")
 p_latlon = CRS.from_proj4("+proj=latlon")
@@ -168,7 +167,7 @@ ax.set_extent(image_extent, crs=cartopy_crs)
 # part we want is the column called "geometry" which lists the linestring
 # objects that form the coastline.  Here is the first row:
 
-
+# %%
 coastline_dir = a301_lib.sat_data / "openstreetmap/ubc_coastlines"
 df_coast = gpd.read_file(coastline_dir)
 print(len(df_coast))

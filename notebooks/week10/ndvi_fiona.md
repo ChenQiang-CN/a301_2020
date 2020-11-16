@@ -21,15 +21,21 @@ import datetime
 from pathlib import Path
 
 import cartopy
+```
+
+```{code-cell}
+import geopandas as gpd
 import numpy as np
 import pytz
 ```
 
 ```{code-cell}
 import rasterio
+import rasterio.mask
+import shapely
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
-from rasterio.windows import Window
+from shapely.geometry import Polygon, box
 
 import a301_lib  # noqa
 from sat_lib.landsat.landsat_metadata import landsat_metadata
@@ -40,12 +46,8 @@ date = datetime.datetime.today().astimezone(pacific)
 print(f"written on {date}")
 ```
 
-```{raw-cell}
-
-```
-
-(rasterio_3bands)=
-# Rasterio: reading bands 3,4 and 5
+(rasterio_3bandsII)=
+# Rasterio II: clipping bands 3,4 and 5
 
 In this notebook I clip bands 3, 4 and 5 to a 600 row by
 400 column raster and write them out in a new tiff file
@@ -146,20 +148,54 @@ small_height = small_profile["height"]
 print(f"{small_width=},{small_height=}")
 ```
 
-## Reading from a rasterio window
+##  Clipping to a shape
 
-Now I'm ready to form a rasterio "window" that just gives me
-the part of the big scenes I need to read in
+Define a box that we can use to mask the big image
 
-```{code-cell}
-small_window = Window(ul_col, ul_row, small_width, small_height)
-```
++++
 
 * Here is how to find the lower right corner by counting over and down from (0,0)
 
 ```{code-cell}
 lr_x, lr_y = small_transform * (small_width, small_height)
 print(f"{lr_x=},{lr_y=}")
+```
+
+```{code-cell}
+help(shapely.geometry.box)
+```
+
+```{code-cell}
+!conda install geopandas -y
+```
+
+```{code-cell}
+ul_x, ul_y, lr_x, lr_y
+
+
+bbox = Polygon([(ul_x, ul_y), (ul_x, lr_y), (lr_x, lr_y), (lr_x, ul_y), (ul_x, ul_y)])
+feature = [1]
+geo_box = gpd.GeoDataFrame({"feature": [1], "geometry": bbox}, crs=crs)
+print(f"{geo_box['geometry'].crs=}")
+print(f"{geo_box['geometry'].area=}")
+print(geo_box["geometry"].crs.to_wkt())
+vancouver_dir = a301_lib.data_share / "vancouver_dir"
+vancouver_dir.mkdir(parents=True, exist_ok=True)
+geo_box.to_file(vancouver_dir / "vancouver_box.shp")
+geo_box.to_file("vancouver.geojson", driver="GeoJSON")
+```
+
+```{code-cell}
+600 * 400 * 30 * 30
+```
+
+```{code-cell}
+geo_box["geometry"][0]
+```
+
+```{code-cell}
+bbox = box(ul_x, lr_y, lr_x, ul_y)
+type(bbox)
 ```
 
 * Define a subscene window and a transform
@@ -175,10 +211,13 @@ refl_dict = dict()
 metadata = landsat_metadata(mtl_file)
 for bandnum, filepath in zip([3, 4, 5], [band3_bigfile, band4_bigfile, band5_bigfile]):
     with rasterio.open(filepath) as src:
-        counts = src.read(1, window=small_window)
-        refl_vals = calc_reflc_8(counts, bandnum, metadata)
+        out_counts, out_transform = rasterio.mask.mask(src, [bbox], crop=True)
+        out_meta = src.meta
+        refl_vals = calc_reflc_8(out_counts[0, :, :], bandnum, metadata)
         refl_dict[bandnum] = refl_vals
 print(refl_vals)
+print(out_transform)
+print(out_meta)
 ```
 
 *  In the next cell calculate the ndvi
@@ -186,6 +225,10 @@ print(refl_vals)
 ```{code-cell}
 ndvi = (refl_dict[5] - refl_dict[4]) / (refl_dict[5] + refl_dict[4])
 print(f"{ndvi.shape=}")
+```
+
+```{code-cell}
+small_transform
 ```
 
 ```{code-cell}
@@ -206,10 +249,6 @@ plt.savefig("june_ndvi.png")
 +++
 
 ## Put the image on a map
-
-```{code-cell}
-ul_x, lr_x, lr_y, ul_y
-```
 
 ```{code-cell}
 vmin = 0.0

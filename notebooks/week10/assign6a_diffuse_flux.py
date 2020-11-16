@@ -16,11 +16,11 @@
 # %% [markdown]
 # (assign6a)=
 # # Assignment 6a -- diffuse flux
-
-import matplotlib
-import matplotlib.pyplot as plt
+#
 
 # %%
+import matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 from scipy.special import expn
 

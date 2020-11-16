@@ -13,8 +13,36 @@ kernelspec:
 ---
 
 ```{code-cell}
+import copy
+```
+
+```{code-cell}
 import datetime
+```
+
+```{code-cell}
+import pprint
+from pathlib import Path
+
+import cartopy
+```
+
+```{code-cell}
+import geopandas as gpd
 import pytz
+import rasterio
+```
+
+```{code-cell}
+from IPython.display import display
+from matplotlib import pyplot as plt
+from matplotlib.colors import Normalize
+```
+
+```{code-cell}
+from pyproj import CRS, Transformer
+
+import a301_lib  # noqa
 
 pacific = pytz.timezone("US/Pacific")
 date = datetime.datetime.today().astimezone(pacific)
@@ -27,28 +55,7 @@ print(f"written on {date}")
 Below we read band 5 from the small Vancouver image we wrote out in the {ref}`rasterio_3bands` notebook, and put it on a map with a UTM-10N crs.  We then add a high resolution coastline read from the openstreetmap coastline database.  I use geopandas to inspect the shapefile that
 holds the streetmap coastline shapes.
 
-```{code-cell}
-from IPython.display import display
-```
-
-```{code-cell}
-import pprint
-from pathlib import Path
-
-import cartopy
-import numpy as np
-import rasterio
-from affine import Affine
-from matplotlib import pyplot as plt
-from matplotlib.colors import Normalize
-from pyproj import Proj
-from rasterio.windows import Window
-from pathlib import Path
-import a301_lib
-import copy
-from pyproj import Transformer
-from pyproj import CRS
-```
++++
 
 ## Read the geotiff with rasterio
 
@@ -80,9 +87,6 @@ I create a geodetic lat/lon transform (`p_latlon`) so a I can
 move from the UTM10 crs to lat/lon and back.
 
 ```{code-cell}
-from pyproj import Transformer
-from pyproj import CRS
-
 p_utm = crs
 print(f"\nutm projection:\n\n{p_utm.to_wkt()}")
 p_latlon = CRS.from_proj4("+proj=latlon")
@@ -174,8 +178,6 @@ part we want is the column called "geometry" which lists the linestring
 objects that form the coastline.  Here is the first row:
 
 ```{code-cell}
-import geopandas as gpd
-
 coastline_dir = a301_lib.sat_data / "openstreetmap/ubc_coastlines"
 df_coast = gpd.read_file(coastline_dir)
 print(len(df_coast))

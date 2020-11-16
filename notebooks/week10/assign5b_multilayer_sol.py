@@ -23,8 +23,9 @@
 # of a stack of layers given the optical thickness, layer temperature and
 # surface temperature.  I borrowed code from the weighting_functions notebook, my
 # answer is 9 lines of code including the return statement
-
-
+#
+#
+# %%
 import numpy as np
 from numpy.testing import assert_almost_equal
 
@@ -32,6 +33,7 @@ import a301_lib  # noqa
 from sat_lib.radiation import calc_radiance
 
 
+# %%
 def multi_layer_radiance(Tsfc, Temps, tau, the_wavel):
     """
     Find the radiance $L_λ$ reaching a satllite from an N-level atmosphere
@@ -108,8 +110,9 @@ def multi_layer_radiance(Tsfc, Temps, tau, the_wavel):
 
 # %% [markdown]
 # * test 1
-
-
+#
+#
+# %%
 Temps = np.asarray([300.0, 280.0, 270.0, 260.0])
 taus = np.asarray([0.0, 0.2, 0.35, 0.5, 0.6])
 Tsfc = 305.0
@@ -120,12 +123,10 @@ assert_almost_equal(out * 1.0e-6, 9.045, decimal=3)
 # %% [markdown]
 # * test 2
 
-# %% nbgrader={"grade": true, "grade_id": "cell-2b9eda536a6863f6", "locked": true, "points": 0, "schema_version": 2, "solution": false}
+# %%
 Temps = np.asarray([300.0, 280.0, 270.0, 260.0, 240.0, 230.0])
 taus = np.asarray([0.0, 0.2, 0.35, 0.5, 0.6, 0.65, 0.75])
 Tsfc = 305.0
 the_wavel = 10.0e-6
 out = multi_layer_radiance(Tsfc, Temps, taus, the_wavel)
 assert_almost_equal(out * 1.0e-6, 8.134, decimal=3)
-
-# %%

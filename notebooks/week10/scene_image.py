@@ -23,7 +23,6 @@ import rasterio
 import seaborn as sns
 
 # %%
-from IPython.display import Image
 from matplotlib import pyplot as plt
 from skimage import exposure, img_as_ubyte
 
@@ -167,6 +166,6 @@ with rasterio.open(
 # plants use for photosynthesis, it's reflectivity values are
 # very low for vegetated pixels.  Only Band 3 (green now mapped to blue) and
 # Band 5 (near-ir now mapped to red) are reflecting, which makes purple.
-
-
-Image(filename=png_filename, width="80%")
+#
+#
+# Image(filename=png_filename, width="80%")

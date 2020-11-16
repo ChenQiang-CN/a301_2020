@@ -14,7 +14,21 @@ kernelspec:
 
 ```{code-cell}
 import datetime
+from pathlib import Path
+
+import numpy as np
 import pytz
+import rasterio
+import seaborn as sns
+```
+
+```{code-cell}
+from matplotlib import pyplot as plt
+from skimage import exposure, img_as_ubyte
+```
+
+```{code-cell}
+import a301_lib  # noqa
 
 pacific = pytz.timezone("US/Pacific")
 date = datetime.datetime.today().astimezone(pacific)
@@ -32,19 +46,6 @@ from the scikit-image library to boost the color contrast in each of the bands. 
 check the histograms using the jointplot function from the seaborn plotting library
 that adds a lot of nice features to matplotlib.  The new normailzed bands are put
 together to make a "false color composite" that shows vegetation as purple.
-
-```{code-cell}
-import a301_lib
-import rasterio
-from pathlib import Path
-from matplotlib import pyplot as plt
-import seaborn as sns
-from skimage import img_as_ubyte
-from skimage import exposure
-import numpy as np
-import PIL
-import datetime
-```
 
 ```{code-cell}
 notebook_dir = Path().resolve().parent
@@ -168,8 +169,5 @@ plants use for photosynthesis, it's reflectivity values are
 very low for vegetated pixels.  Only Band 3 (green now mapped to blue) and
 Band 5 (near-ir now mapped to red) are reflecting, which makes purple.
 
-```{code-cell}
-from IPython.display import Image
 
 Image(filename=png_filename, width="80%")
-```
