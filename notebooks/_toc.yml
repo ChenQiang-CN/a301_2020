@@ -1,6 +1,6 @@
 - file: index.md
   numbered: true
-  
+
 - file: week1/week1_topics.md
   chapters:
     - file: week1/syllabus.rst
@@ -13,7 +13,7 @@
     - file: week2/flux_from_radiance.rst
     - file: week2/debugging_intro.md
     - file: week2/derivs_and_ints.md
-    - file: week2/planck_function.md   
+    - file: week2/planck_function.md
 - file: week3/week3_topics.md
   chapters:
     - file: week3/assignment1.md
@@ -65,12 +65,14 @@
     - file: week10/assign6a_diffuse_flux.md
     - file: week10/demo_cartopy_extent.md
     - file: week10/image_zoom.md
-    - file: week10/flux_schwartzchild.rst
     - file: week10/ndvi_rasterio.md
     - file: week10/scene_image.md
-    - file: week10/hires_map.md
+- file: week11/week11_topics.md
+  chapters:
+    - file: week11/hires_map.md
+    - file: week11/ndvi_fiona.md
+    - file: week11/heating_rate.rst
 
 - file: assignments.md
 - file: review.md
 - file: notebooks.md
-

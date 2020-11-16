@@ -1,6 +1,6 @@
 .. include:: coursebuild/index_notebooks.txt
 .. default-role:: math
-                  
+
 .. _mid_review2_sols:
 
 Solutions: sample questions II
@@ -17,7 +17,7 @@ From :ref:`schwartz`
 
    .. math::
       :label: vary
-              
+
       L^\uparrow (\tau_T) = L^\uparrow (0) \, t_{tot} + \int_0^{z_T} t(\tau_T, \tau^\prime) B(T^\prime)\, d\tau^\prime
 
    where `T^\prime` is the layer temperature at optical depth `\tau^\prime`.
@@ -31,7 +31,7 @@ From :ref:`schwartz`
 
         .. image:: figures/midII_layers.png
            :width: 60%
-              
+
    #. Use the definition of the transmissivity
       `t(\tau_T, \tau^\prime)` to prove that
 
@@ -52,31 +52,31 @@ From :ref:`schwartz`
           :label: eq_tdef
 
             t(\tau_T,\tau^\prime) = \exp( - (\tau_T - \tau^\prime))
-    
+
         From Beer’s law notes on differentials:
 
         .. math::
           :label: eq_diff
 
             dt = \frac{dt}{d\tau^\prime} d\tau^\prime
-    
+
         So take the derivative of :eq:`eq_tdef`:
-    
+
         .. math::
            :label: eq_deriv
 
              \frac{dt}{d\tau^\prime} = \exp( - (\tau_T - \tau^\prime)) = t(\tau_T,\tau^\prime)
-    
+
         and therefore:
 
         .. math::
            :label: eq_diff2
-    
+
             dt^\prime = t(\tau_T,\tau^\prime) d\tau^\prime
 
         where the prime is there to remind us that it is changing as `\tau^\prime`
         changes.
-    
+
         If we substitute :eq:`eq_diff2` into the right hand side
         of :eq:`eq_orig` we get the left hand side.
 
@@ -96,9 +96,9 @@ From :ref:`beers_law` and :ref:`flux_from_radiance`
       * **Answer:**:
 
         absorption = 0.3 so t=0.7 = `\exp(-\tau)`
-        
+
         therefore `\tau = -\ln(0.7) = 0.36`
-    
+
 
    #. What is the value of the absorptivity at 4pm, when the sun is
       `60^\circ` away from the zenith?
@@ -107,9 +107,9 @@ From :ref:`beers_law` and :ref:`flux_from_radiance`
 
         The path is going to be longer by `1/\cos(60\ deg)` = 2 so the new
         transmissivity will be
-        
+
         `t = \exp( - 2 * 0.36) = 0.49`
-        
+
         and absorptivity will be `a = (1 - t) = 0.51`
 
 
@@ -119,19 +119,18 @@ From :ref:`beers_law` and :ref:`flux_from_radiance`
       * **Answer:**
 
         The flux at the surface in the direction of the solar beam is
-        
+
         `S_{sfc} = t \times S_0 = 0.49 \times 200 = 98\ W\,m^{-2}`
-        
+
         But because the beam is coming in at a 60 degree angle, the area
         that the power is spread over will be larger by `1/\cos(60)` =
         1/0.5 = 2.
-        
+
         So `E_{sfc} = 98/2 = 49\ W\,m^{-2}`
 
 
 Hydrostatic equation
-..
-   --------------------
+--------------------
 
    From :ref:`hydro` and the :ref:`weighting_funs` notebook.
 
@@ -209,5 +208,3 @@ Hydrostatic equation
            `L_{10} = 7.4\ W\,m^{-2}\,\mu m^{-1}\,sr^{-1}`
 
            which gives `T_{B} \approx 284\ K`
-
-

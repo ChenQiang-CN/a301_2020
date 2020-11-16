@@ -1,11 +1,11 @@
 .. default-role:: math
-   
+
 .. _flux_from_radianceII:
 
 Flux and radiance review
 ++++++++++++++++++++++++
 
-* Question:  "I'm confused about the difference between emission/radiance/flux. The incoming flux = irradiance = E. Radiance = L = independent of distance = luminosity. What's the outgoing flux then? Is the emission the outgoing flux? In Q4 of Beer's Law in MT Questions Part 1, it asks us to calculate emission (among other things). Are we calculating the outgoing flux (aka irradiance)? Or the outgoing radiance? 
+* Question:  "I'm confused about the difference between emission/radiance/flux. The incoming flux = irradiance = E. Radiance = L = independent of distance = luminosity. What's the outgoing flux then? Is the emission the outgoing flux? In Q4 of Beer's Law in MT Questions Part 1, it asks us to calculate emission (among other things). Are we calculating the outgoing flux (aka irradiance)? Or the outgoing radiance?
 
 * The pertinent review question is :ref:`mid_review1` Q4:
 
@@ -21,20 +21,20 @@ Flux and radiance review
   we haven't had yet (and that's a bit of a detour from remote sensing, where the
   "narrow beam approximation" almost always works.
 
-  
+
 Definitions
 ===========
-  
+
 * First some definitions -- see `Wikipedia <https://en.wikipedia.org/wiki/Radiometry>`_
   for the (really complicated) full story.
-  
-  a. **Spectral (monochromatic) radiative flux density (or monochromatic irradiance). Symbol** `E_\lambda`: the energy of photons of a given wavelength crossing a plane surface from all directions.  We need to know this when we try to figure out whether a horizontal layer of the atmosphere is being heated or cooled by radiation.  The direction of the flux is defined as being perpendicular to the plane that it is crossing.  Monochromatic (single wavelength) Units: `W\,m^{-2}\,\mu m^{-1}` 
 
-  b. **Spectral (monochromatic) radiance (also sometimes called intensity). Symbol** `L_\lambda`: the energy of photons of wavelength `\lambda` traveling within a solid angle (cone) field of view and crossing a surface. This is much more common than flux in remote sensing measurements, because every instrument has some limited field of view. The radiance direction is defined by the direction of the "spine" of the cone field of view.  Monochromatic units: `W\,m^{-2}\,\mu m^{-1}\,sr^{-1}`   
+  a. **Spectral (monochromatic) radiative flux density (or monochromatic irradiance). Symbol** `E_\lambda`: the energy of photons of a given wavelength crossing a plane surface from all directions.  We need to know this when we try to figure out whether a horizontal layer of the atmosphere is being heated or cooled by radiation.  The direction of the flux is defined as being perpendicular to the plane that it is crossing.  Monochromatic (single wavelength) Units: `W\,m^{-2}\,\mu m^{-1}`
+
+  b. **Spectral (monochromatic) radiance (also sometimes called intensity). Symbol** `L_\lambda`: the energy of photons of wavelength `\lambda` traveling within a solid angle (cone) field of view and crossing a surface. This is much more common than flux in remote sensing measurements, because every instrument has some limited field of view. The radiance direction is defined by the direction of the "spine" of the cone field of view.  Monochromatic units: `W\,m^{-2}\,\mu m^{-1}\,sr^{-1}`
 
   c. **Slant path. Symbol s.**  The distance traveled along the cone field of view.
      From the figure below:  `z = s/\cos \theta`. Units: m.
-     
+
      .. image:: figures/ppt_slant_path.png
         :width: 40.0%
 
@@ -56,7 +56,7 @@ To get the flux `E` from the radiance `L` in any situation, it always works to i
 
 .. math::
    :label: flux_revB
-           
+
      E =  \int_0^{2\pi}\int_0^{\pi/2} L \cos \theta  \sin \theta \, d\theta \, d \phi =
         \int_0^{2\pi}\int_0^{1}\, \mu \,L\,  d \mu d\phi =        \int_0^{2\pi}\int_0^{1} \mu L  d \omega
 
@@ -77,11 +77,11 @@ constant within the cone, so we can move it out of the integral and get:
 
 .. math::
    :label: flux_revC
-           
+
      E_{satellite} =  \int_0^{2\pi}\int_0^{\pi/2} L \cos \theta  \sin \theta \, d\theta \, d \phi =
         L \int_{\Delta \omega}   d \omega = L \Delta \omega
 
-        
+
 
 Narrow beam approximation -- flux from the sun
 ----------------------------------------------
@@ -120,10 +120,10 @@ This is the situation Stull is illustrating in Figure 2.2 -- sunlight at noon:
 .. image:: figures/stull_fig2_2_direct.png
    :width: 40.0%
 
-   
+
 
 Narrow beam approximation -- sun at zenith angle `\theta_{0}`
----------------------------------------------------------
+-------------------------------------------------------------
 
 If it isn't noon, the sun isn't directly overhead and the solar zenith angle `\theta_0 \ne 0`, so we've got the
 situation discussed in the :ref:`flux_from_radiance` notes :eq:`cosflux`:
@@ -151,7 +151,7 @@ out :eq:`flux_revB` but `\theta` has to stay in:
 
 .. math::
    :label: flux_rev_iso
-           
+
     E = 2 \pi L \int_0^{\pi/2}  \cos \theta  \sin \theta\, d\theta =
    2 \pi \int_0^{1} \mu \, d\mu = 2 \pi L \, \left . \frac{\mu^2}{2} \right |_0^1 = \pi L
 
@@ -162,10 +162,10 @@ L varying over a range of angles
 --------------------------------
 
 The atmosphere introduces an absorbing emitting layers that changes the value of L
-with changing zenith angle.  How do we solve  to solve :eq:`flux_revB` when 
+with changing zenith angle.  How do we solve  to solve :eq:`flux_revB` when
 `L` an't come out of the integral?  There is a simple approximation
 for that situation as well, discussed in :ref:`flux_schwartzchild`
 
-.. 
+..
   # radius of sun 695508 km = 700000e.3 = 7.e8
   # earth sun distance  150e6 km = 150.e9

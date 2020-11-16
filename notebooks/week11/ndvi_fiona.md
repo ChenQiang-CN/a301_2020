@@ -166,10 +166,6 @@ help(shapely.geometry.box)
 ```
 
 ```{code-cell}
-!conda install geopandas -y
-```
-
-```{code-cell}
 ul_x, ul_y, lr_x, lr_y
 
 

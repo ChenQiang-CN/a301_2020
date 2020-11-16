@@ -1,9 +1,9 @@
 # List of notebooks
 
-* {ref}`sec:numpy`  
-* {ref}`sec:planck`  
-* {ref}`modis_level1b`  
-* {ref}`week4:coords`  
+* {ref}`sec:numpy`
+* {ref}`sec:planck`
+* {ref}`modis_level1b`
+* {ref}`week4:coords`
 * {ref}`week4:resample`
 * {ref}`scale_heights`
 * {ref}`pandas_intro`
@@ -15,7 +15,5 @@
 * {ref}`rasterio_3bands`
 * {ref}`rasterio_png`
 * {ref}`vancouver_hires`
-
-
-
-
+* {ref}`rasterio_3bandsII`
+* {ref}`heating_rate`
