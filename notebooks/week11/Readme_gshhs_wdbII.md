@@ -18,7 +18,7 @@ very very large.  The data are organized under two directories:
 		   WDBII_border_<resolution>_L<level>.*
 		   WDBII_river_<resolution>_L<level>.*
 
-where <resolution> is one of f,h,i,l,c and <level> is an integer.
+where `resolution` is one of f,h,i,l,c and `level` is an integer.
 
 All data sets come in 5 different resolutions:
 	f : Full resolution.  These contain the maximum resolution
