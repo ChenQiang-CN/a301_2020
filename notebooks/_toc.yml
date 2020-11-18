@@ -73,6 +73,8 @@
     - file: week11/hires_map.md
     - file: week11/ndvi_fiona.md
     - file: week11/heating_rate.rst
+    - file: week11/features_demo.md
+    - file: week11/marshall_palmer.rst
 
 - file: assignments.md
 - file: review.md

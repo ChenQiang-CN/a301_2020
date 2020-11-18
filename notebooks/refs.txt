@@ -116,7 +116,7 @@
 
 .. _COMET radar course: http://www.meted.ucar.edu/radar/basic_wxradar
 
-.. _marshall_palmer.py: https://github.com/phaustin/a301_code/blob/master/a301/scripts/marshall_palmer.py
+.. _marshall_palmer.py: https://github.com/phaustin/a301_2020/blob/master/sat_lib/utils/marshall_palmer.py
 
 .. _a10_a15.py: https://github.com/a301-teaching/classcode/blob/master/lib/a10_a15.py
 
@@ -363,7 +363,3 @@
 .. _2006 final solutions: downloads/a301_2006_final_solutions.pdf
 
 .. _2008 final solutions: downloads/final_2008_solutions.pdf
-
-
-
-

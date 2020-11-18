@@ -59,7 +59,7 @@ from pathlib import Path
 ```
 
 ```{code-cell} ipython3
-download_catalog=True
+download_catalog=False
 if download_catalog:
     s3_scenes = pd.read_csv('http://landsat-pds.s3.amazonaws.com/c1/L8/scene_list.gz', compression='gzip')
 else:
@@ -76,8 +76,8 @@ path, row = 47, 26
 print('Path:',path, 'Row:', row)
 
 # Filter the Landsat Amazon S3 table for images matching path, row, cloudcover and processing state.
-scenes = s3_scenes[(s3_scenes.path == path) & (s3_scenes.row == row) & 
-                   (s3_scenes.cloudCover <= 20) & 
+scenes = s3_scenes[(s3_scenes.path == path) & (s3_scenes.row == row) &
+                   (s3_scenes.cloudCover <= 20) &
                    (~s3_scenes.productId.str.contains('_T2')) &
                    (~s3_scenes.productId.str.contains('_RT'))]
 print(' Found {} images\n'.format(len(scenes)))
@@ -170,7 +170,7 @@ import os
 import shutil
 
 
-# Request the html text of the download_url from the amazon server. 
+# Request the html text of the download_url from the amazon server.
 # download_url example: https://landsat-pds.s3.amazonaws.com/c1/L8/139/045/LC08_L1TP_139045_20170304_20170316_01_T1/index.html
 response = requests.get(scene_url)
 print(f"response: {response}, {type(response)}")
@@ -199,7 +199,7 @@ if response.status_code == 200:
         if the_file.find('MTL.txt') > 0:
             good_list.append(the_file)
     print(f"here is goodlist: {good_list}")
-        
+
 download=True
 if download:
     for the_file in good_list:
