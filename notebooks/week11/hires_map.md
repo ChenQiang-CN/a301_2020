@@ -132,7 +132,7 @@ https://ocefpaf.github.io/python4oceanographers/blog/2015/06/22/osm/).  The basi
    For Vancouver, I used this command at the prompt (all one line, lons are negative,
    lats are positive).  Substitute your own lons and lats (note all - signs are single, not double hyphens)
 
-       cd /home/jovyan/work/sat_data/openstreetmap
+       cd /home/jovyan/work/data_share/openstreetmap
        ls *
        ogr2ogr -skipfailures -f "ESRI Shapefile"  -clipsrc -123.5 49 -123.1 49.4   /home/jovyan/work/ubc_coastlines coastlines-split-4326
 
