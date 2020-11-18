@@ -1,6 +1,6 @@
 .. include:: ../refs.txt
 
-.. _notes_on_marshall_palmer:
+.. _assign6c:
 
 Notes on the Marshall-Palmer distribution and the Z-RR relation
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -53,7 +53,7 @@ You can run it using its main function::
   import a301_lib
   from sat_lib.utils.marshall_palmer import main
   main()
-      
+
 
 and should see the following plot:
 
@@ -90,5 +90,4 @@ Hand in a png file/scan plus a notebook that does the following:
 
 2) Repeat using numerical integration in python (i.e. np.diff and np.sum) and show that the
    the result agrees.
-   
 
