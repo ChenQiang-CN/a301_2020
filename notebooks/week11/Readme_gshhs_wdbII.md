@@ -36,12 +36,12 @@ For each resolution there are several levels; these depends on the data type.
 
 The shoreline data are distributed in 6 levels:
 
-Level 1: Continental land masses and ocean islands, except Antarctica.
-Level 2: Lakes
-Level 3: Islands in lakes
-Level 4: Ponds in islands within lakes
-Level 5: Antarctica based on ice front boundary.
-Level 6: Antarctica based on grounding line boundary.
+    Level 1: Continental land masses and ocean islands, except Antarctica.
+    Level 2: Lakes
+    Level 3: Islands in lakes
+    Level 4: Ponds in islands within lakes
+    Level 5: Antarctica based on ice front boundary.
+    Level 6: Antarctica based on grounding line boundary.
 
 Note that because GIS software confusingly seem to assume a Cartesian geometry,
 any polygon straddling the Dateline is broken into an east and west component.
@@ -49,20 +49,20 @@ The most obvious example is Antarctica.
 
 The political boundary data come in 3 levels:
 
-Level 1: National boundaries.
-Level 2: Internal (state) boundaries for the 8 largest countries only.
-Level 3: Maritime boundaries.
+    Level 1: National boundaries.
+    Level 2: Internal (state) boundaries for the 8 largest countries only.
+    Level 3: Maritime boundaries.
 
 The river database come with 11 levels:
 
-Level  1: Double-lined rivers (river-lakes).
-Level  2: Permanent major rivers.
-Level  3: Additional major rivers.
-Level  4: Additional rivers.
-Level  5: Minor rivers.
-Level  6: Intermittent rivers - major.
-Level  7: Intermittent rivers - additional.
-Level  8: Intermittent rivers - minor.
-Level  9: Major canals.
-Level 10: Minor canals.
-Level 11: Irrigation canals.
+    Level  1: Double-lined rivers (river-lakes).
+    Level  2: Permanent major rivers.
+    Level  3: Additional major rivers.
+    Level  4: Additional rivers.
+    Level  5: Minor rivers.
+    Level  6: Intermittent rivers - major.
+    Level  7: Intermittent rivers - additional.
+    Level  8: Intermittent rivers - minor.
+    Level  9: Major canals.
+    Level 10: Minor canals.
+    Level 11: Irrigation canals.
