@@ -21,6 +21,7 @@ very very large.  The data are organized under two directories:
 where `resolution` is one of f,h,i,l,c and `level` is an integer.
 
 All data sets come in 5 different resolutions:
+
 	f : Full resolution.  These contain the maximum resolution
 	    of this data and has not been decimated.
 	h : High resolution.  The Douglas-Peucker line reduction was
