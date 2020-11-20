@@ -1,7 +1,7 @@
 .. include:: refs.txt
 
 .. _notes_on_radar:
-             
+
 Notes on the radar equation
 +++++++++++++++++++++++++++
 
@@ -22,7 +22,7 @@ where
 * :math:`\Delta \beta` = beam width in radians
 * :math:`\Delta t` = radar pulse with in seconds
 * :math:`\lambda` = radar wavelength
-* :math:`K` = complex index of refraction for water/ice  
+* :math:`K` = complex index of refraction for water/ice
 * R=distance to target
 * :math:`L_a` = attenuation factor :math:`\geq` 1
 * Z= :math:`\int D^6 n(D) dD` where D is the drop diameter and n(D) is the drop size distribution
@@ -30,7 +30,7 @@ where
 As Stull points out, if you divide and multiply this equation by :math:`Z_1= 1\ mm^6\,m^{-3}` the equation becomes:
 
 .. math::
-   
+
    \frac{P_r}{P_t}=\underbrace{\frac{\pi^3 G^2 (\Delta \beta)^2}{1024 \ln(2)}}_{b=10^{4.55}\ for\ Nexrad} \times
           \overbrace{Z_1 c  \Delta t/\lambda^2}^{R_1^2 = (2.17 \times 10^{-10}\ km)^2\ for\ Nexrad} \times
           \underbrace{\left ( \frac{|K|}{L_a R} \right )^2 \frac{Z}{Z_1}}_{\text{atmospheric target characteristics}}
@@ -38,14 +38,14 @@ As Stull points out, if you divide and multiply this equation by :math:`Z_1= 1\ 
 and taking :math:`10 \log_{10}` of both sides:
 
 .. math::
-   
+
   10 \log_{10} \left ( \frac{P_r}{P_t} \right ) = 10 \log_{10}(b) + 20 \log_{10} (R_1) + 20 \log_{10} \left | \frac{K}{L_a} \right |
           - 20 \log_{10} (R) + 10 \log_{10} \frac{Z}{Z_1}
 
 Rearranging:
 
 .. math::
-   
+
    10 \log_{10} \frac{Z}{Z_1} =  10 \log_{10} \left ( \frac{P_r}{P_t} \right ) - 10 \log_{10}(b)  - 20 \log_{10} \left | \frac{K}{L_a} \right |
          +  20 \log_{10} \left ( \frac{R}{R_1} \right )
 
