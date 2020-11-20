@@ -31,3 +31,6 @@
   - repeats the cropping of {ref}`rasterio_3bands` using a fiona/geopandas box shape and
     rasterio.mask
 * {ref}`heating_rate`
+* {ref}`feature_demo`
+* {ref}`assign5asol`
+
