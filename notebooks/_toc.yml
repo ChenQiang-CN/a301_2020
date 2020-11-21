@@ -77,6 +77,7 @@
     - file: week11/marshall_palmer.rst
     - file: week11/radar.rst
     - file: week8/level2_cartopy_resample_sol.md
+    - file: week11/subset_map.md
 
 - file: assignments.md
 - file: review.md

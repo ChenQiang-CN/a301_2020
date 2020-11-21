@@ -30,7 +30,9 @@
 * {ref}`rasterio_3bandsII`
   - repeats the cropping of {ref}`rasterio_3bands` using a fiona/geopandas box shape and
     rasterio.mask
-* {ref}`heating_rate`
 * {ref}`feature_demo`
+* {ref}`heating_rate`
 * {ref}`assign5asol`
+* {ref}`subset_map`
+   - produces geojson files on /home/jovyan with feature subsets
 
