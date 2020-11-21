@@ -14,13 +14,6 @@ kernelspec:
 ---
 
 ```{code-cell} ipython3
----
-execution:
-  iopub.execute_input: '2020-11-21T21:06:36.377050Z'
-  iopub.status.busy: '2020-11-21T21:06:36.375846Z'
-  iopub.status.idle: '2020-11-21T21:06:37.958880Z'
-  shell.execute_reply: '2020-11-21T21:06:37.958016Z'
----
 import datetime
 import pprint
 from pathlib import Path
@@ -32,13 +25,6 @@ from matplotlib import pyplot as plt
 ```
 
 ```{code-cell} ipython3
----
-execution:
-  iopub.execute_input: '2020-11-21T21:06:37.964613Z'
-  iopub.status.busy: '2020-11-21T21:06:37.963860Z'
-  iopub.status.idle: '2020-11-21T21:06:38.033426Z'
-  shell.execute_reply: '2020-11-21T21:06:38.032746Z'
----
 import a301_lib
 
 pacific = pytz.timezone("US/Pacific")
@@ -66,20 +52,13 @@ Things to notice:
 3) how I create a figure in make_map and then add to it in the next cell
 
 ```{code-cell} ipython3
----
-execution:
-  iopub.execute_input: '2020-11-21T21:06:38.043946Z'
-  iopub.status.busy: '2020-11-21T21:06:38.043050Z'
-  iopub.status.idle: '2020-11-21T21:06:38.828603Z'
-  shell.execute_reply: '2020-11-21T21:06:38.828072Z'
----
 #
 # customize extent, read_files and small_shapes here
 #
 # extent order (xleft, xright, ybot, ytop)
 extent = [130, 140, 30, 40]  # Osaka
 # extent = [-125, -115,35, 50]  #bc/washington/oregon
-read_files = False
+read_files = True
 small_shapes = Path().home() / "pha_shapes_asia"
 #
 #
