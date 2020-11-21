@@ -735,6 +735,7 @@ sns.jointplot(
     color="#4CB391",
 );
 ```
+## Appendix -- try resampling the BTD to 5 km
 
 ```{code-cell} ipython3
 fill_value = -9999.0
@@ -751,12 +752,12 @@ print(f"\ndump area definition:\n{area_def_lr}\n")
 print(
     (
         f"\nx and y pixel dimensions in meters:"
-        f"\n{area_def_hr.pixel_size_x}\n{area_def_hr.pixel_size_y}\n"
+        f"\n{area_def_lr.pixel_size_x}\n{area_def_lr.pixel_size_y}\n"
     )
 )
 ```
 
-## Appendix -- try resampling the BTD to 5 km
+
 
 We'll also remove all pixels that are set to NaN in the IR water vapor image.  Once the
 ocean pixels are taken out, the comparison looks a little better
