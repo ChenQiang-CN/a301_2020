@@ -46,43 +46,46 @@
     - For Wednesday: Read this [mission description](https://cloudsat.atmos.colostate.edu/mission/)
       and [instrument description](https://cloudsat.atmos.colostate.edu/instrument)
 
-s    - Modify {ref}`heating-rate-profile` so that you calculate and store the
-          temperature profile as a function of time by computing
+    - For next Monday:
 
-      $$
-      T(t + \Delta t) = T(t) + \frac{dT}{dz} \Delta t
-      $$
+      - Modify {ref}`heating-rate-profile` so that you calculate and store the
+            temperature profile as a function of time by computing
 
-      for each level, integrating forward in 1 hour timesteps $\Delta t$ until the atmosphere's
-      temperature profile stops changing.
+          $$
+          T(t + \Delta t) = T(t) + \frac{dT}{dz} \Delta t
+          $$
 
-    - Write out a geotiff and png file for your Modis level2 water vapor retrieval from
-      {ref}`assign5asol`, changing the crs
-      given by `swath_def.compute_optimal_bb_area` (which is specfic to your particular scene)
-      to a new laea projection with a central latitude and longitude and bounding box
-      that could work
-      for multiple scenes.  That is, write out a new geotiff that uses pyresample with a
-      new  crs and and area extent that, instead of looking something like this:
+        for each level, integrating forward in 1 hour timesteps $\Delta t$ until the atmosphere's
+        temperature profile stops changing.  (We'll turn this into an
+        animation)
 
-      ```
-        dump area definition:
-        Area ID: laea_otf
-        Description: On-the-fly laea area
-        Projection: {'datum': 'WGS84', 'lat_0': '39.4580671712606',
-           'lon_0': '-121.464976619873',
-           'no_defs': 'None', 'proj': 'laea', 'type': 'crs',
-           'units': 'm', 'x_0': '0', 'y_0': '0'}
-        Number of columns: 499
-        Number of rows: 448
-        Area extent: (-1238434.2527, -1155685.6368, 1529176.4655, 1278445.1434)
+      - Write out a geotiff and png file for your Modis level2 water vapor retrieval from
+        {ref}`assign5asol`, changing the crs
+        given by `swath_def.compute_optimal_bb_area` (which is specfic to your particular scene)
+        to a new laea projection with a central latitude and longitude and bounding box
+        that could work
+        for multiple scenes.  That is, write out a new geotiff that uses pyresample with a
+        new  crs and and area extent that, instead of looking something like this:
 
-         x and y pixel dimensions in meters:
-         5546.3140647124765
-         5433.327634487678
-      ```
+        ```
+          dump area definition:
+          Area ID: laea_otf
+          Description: On-the-fly laea area
+          Projection: {'datum': 'WGS84', 'lat_0': '39.4580671712606',
+            'lon_0': '-121.464976619873',
+            'no_defs': 'None', 'proj': 'laea', 'type': 'crs',
+            'units': 'm', 'x_0': '0', 'y_0': '0'}
+          Number of columns: 499
+          Number of rows: 448
+          Area extent: (-1238434.2527, -1155685.6368, 1529176.4655, 1278445.1434)
 
-      using the laea projection, but with
-      a `lat_0` and `lon_0` of -121 deg E and 39 deg N. and and an area extent that corresponds
-      to corner latitudes and longitudes that need to be specified to at most 3 decimal places.
-      (although the transformed corner x,y values in laea coords will still require 11 digits
-       to specify)
+          x and y pixel dimensions in meters:
+          5546.3140647124765
+          5433.327634487678
+        ```
+
+        using the laea projection, but with
+        a `lat_0` and `lon_0` of -121 deg E and 39 deg N. and and an area extent that corresponds
+        to corner latitudes and longitudes that need to be specified to at most 3 decimal places.
+        (although the transformed corner x,y values in laea coords will still require 11 digits
+        to specify)

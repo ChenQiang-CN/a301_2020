@@ -53,4 +53,8 @@ if __name__=="__main__":
     values={'Prval':power_watts,'dBm':10*log10(power_watts*1.e3)}
     print   the_text.format(**values)
 
+    # %%
+    main()
+    
+
 

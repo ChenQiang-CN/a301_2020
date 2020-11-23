@@ -6,7 +6,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.12
-    jupytext_version: 1.7.1
+    jupytext_version: 1.6.0
 kernelspec:
   display_name: Python 3
   language: python
@@ -19,13 +19,13 @@ kernelspec:
 This notebook runs through the sample problem on page 246 of
 [Stull Chapter 8](https://www.eoas.ubc.ca/books/Practical_Meteorology/prmet102/Ch08-satellite_radar-v102b.pdf)
 
-```{code-cell} ipython3
+```{code-cell}
 import numpy as np
 from numpy import log10
 from numpy.testing import assert_almost_equal
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 def findPr(Z,K2,La,R,R1=None,Pt=None,b=None):
    """
     solve stull eqn 8.23
@@ -37,7 +37,7 @@ def findPr(Z,K2,La,R,R1=None,Pt=None,b=None):
    return Pr
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 def finddbz(Pr,K2,La,R,R1=None,Pt=None,b=None):
    """calculate dbZ using Stull 8.28
       with Pr the returned power in Watts
@@ -47,7 +47,7 @@ def finddbz(Pr,K2,La,R,R1=None,Pt=None,b=None):
    return dbZ
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 def findRR_snow(dbZ):
    """
     find the rain rate in mm/hr using Stull 8.29
@@ -61,7 +61,7 @@ def findRR_snow(dbZ):
    return RR
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 def findRR_rain(dbZ):
    """
     find the rain rate in mm/hr using Stull 8.29
@@ -77,7 +77,7 @@ def findRR_rain(dbZ):
    return RR
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 def main():
     #stull p. 246 sample appliation
     # given
@@ -168,4 +168,8 @@ def main():
         """
 
     print(q3ans.format(**the_answ))
+```
+
+```{code-cell}
+main()
 ```

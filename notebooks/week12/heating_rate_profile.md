@@ -305,8 +305,8 @@ def main():
 
     fig2,axis2=plt.subplots(1,1,figsize=(10,10))
     axis2.plot(up-down,height*0.001,'b-',lw=5)
-    axis2.set_title('net upward flux')
-    axis2.set_xlabel('net upward flux $(W\,m^{-2})$')
+    axis2.set_title('net downward flux')
+    axis2.set_xlabel('net downward flux $(W\,m^{-2})$')
     axis2.set_ylabel('height (km)')
     axis2.grid(True)
 
