@@ -72,7 +72,7 @@ execution:
 # extent order (xleft, xright, ybot, ytop)
 extent = [130, 140, 30, 40]  # Osaka
 # extent = [-125, -115,35, 50]  #bc/washington/oregon
-read_files = False
+read_files = True
 small_shapes = Path().home() / "pha_shapes_asia"
 #
 #
