@@ -236,10 +236,14 @@ execution:
   iopub.status.idle: '2020-11-21T20:40:35.543063Z'
   shell.execute_reply: '2020-11-21T20:40:35.541853Z'
 ---
+import os
 if read_files:
     for key, df in subset_dict.items():
-        filename = small_shapes / key
-        filename = filename.with_suffix(".json")
-        print(f"writing {filename}")
-        df.to_file(filename, driver="GeoJSON")
+        folder_name = small_shapes / key
+        folder_name.mkdir(exist_ok=True,parents=True)
+        curr_dir=Path()
+        os.chdir(folder_name)
+        df.to_file(folder_name)
+        print(f"writing shapefiles to {folder_name}")
+        os.chdir(curr_dir)
 ```
