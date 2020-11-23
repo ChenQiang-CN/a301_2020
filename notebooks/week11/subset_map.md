@@ -159,7 +159,7 @@ if read_files:
         df_subset = find_features(extent, df)
         if len(df_subset) > 0:
             subset_dict[key] = df_subset
-    print(f"clipping {key}")
+            print(f"clipping {key}")
 else:
     subset_dict=gpd_dict
 ```
