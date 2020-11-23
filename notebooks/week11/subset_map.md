@@ -155,7 +155,7 @@ execution:
 ---
 if read_files:
     subset_dict = {}
-    for key, df in subset_dict.items():
+    for key, df in gpd_dict.items():
         df_subset = find_features(extent, df)
         if len(df_subset) > 0:
             subset_dict[key] = df_subset
