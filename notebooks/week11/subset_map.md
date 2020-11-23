@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-```{code-cell} ipython3
+```{code-cell}
 import datetime
 import pprint
 from pathlib import Path
@@ -24,7 +24,14 @@ import pytz
 from matplotlib import pyplot as plt
 ```
 
-```{code-cell} ipython3
+```{code-cell}
+---
+execution:
+  iopub.execute_input: '2020-11-21T20:39:57.801978Z'
+  iopub.status.busy: '2020-11-21T20:39:57.800746Z'
+  iopub.status.idle: '2020-11-21T20:40:00.091652Z'
+  shell.execute_reply: '2020-11-21T20:40:00.089999Z'
+---
 import a301_lib
 
 pacific = pytz.timezone("US/Pacific")
@@ -51,14 +58,21 @@ Things to notice:
 2) how geopandas uses .cx  to slice by coordinate the find_features function
 3) how I create a figure in make_map and then add to it in the next cell
 
-```{code-cell} ipython3
+```{code-cell}
+---
+execution:
+  iopub.execute_input: '2020-11-21T20:40:00.110965Z'
+  iopub.status.busy: '2020-11-21T20:40:00.105738Z'
+  iopub.status.idle: '2020-11-21T20:40:18.624121Z'
+  shell.execute_reply: '2020-11-21T20:40:18.622876Z'
+---
 #
 # customize extent, read_files and small_shapes here
 #
 # extent order (xleft, xright, ybot, ytop)
 extent = [130, 140, 30, 40]  # Osaka
 # extent = [-125, -115,35, 50]  #bc/washington/oregon
-read_files = True
+read_files = False
 small_shapes = Path().home() / "pha_shapes_asia"
 #
 #
@@ -84,12 +98,12 @@ if read_files:
         print(f"read {item.name}")
 else:
     shape_files = list(small_shapes.glob("*"))
-    pprint.pprint(small_shapes)
     for item in shape_files:
-        no_suffix = item.with_suffix("")
-        key = no_suffix.name
+        key = item.stem
         gpd_dict[key] = gpd.read_file(item)
-pprint.pprint(gpd_dict.keys())
+        print((f"reading saved shapefile {item} with\n"
+               f"{len(gpd_dict[key])} rows"))
+
 ```
 
 ## Subsetting
@@ -102,13 +116,13 @@ a special type of coordinate indexing (`.cx`), so that this:
 
 runs ogr2ogr to clip the rows that are inside the bounding box.
 
-```{code-cell} ipython3
+```{code-cell}
 ---
 execution:
-  iopub.execute_input: '2020-11-21T21:06:38.834739Z'
-  iopub.status.busy: '2020-11-21T21:06:38.833901Z'
-  iopub.status.idle: '2020-11-21T21:06:38.837895Z'
-  shell.execute_reply: '2020-11-21T21:06:38.837296Z'
+  iopub.execute_input: '2020-11-21T20:40:18.631635Z'
+  iopub.status.busy: '2020-11-21T20:40:18.630362Z'
+  iopub.status.idle: '2020-11-21T20:40:18.633058Z'
+  shell.execute_reply: '2020-11-21T20:40:18.633673Z'
 ---
 def find_features(extent, df):
     """
@@ -131,30 +145,32 @@ def find_features(extent, df):
 Keep only those frames that have shapes in the extent.  We only
 need to do this the first time we run the notebook
 
-```{code-cell} ipython3
+```{code-cell}
 ---
 execution:
-  iopub.execute_input: '2020-11-21T21:06:38.843882Z'
-  iopub.status.busy: '2020-11-21T21:06:38.843032Z'
-  iopub.status.idle: '2020-11-21T21:06:38.847534Z'
-  shell.execute_reply: '2020-11-21T21:06:38.846633Z'
+  iopub.execute_input: '2020-11-21T20:40:18.640163Z'
+  iopub.status.busy: '2020-11-21T20:40:18.639402Z'
+  iopub.status.idle: '2020-11-21T20:40:31.920411Z'
+  shell.execute_reply: '2020-11-21T20:40:31.918912Z'
 ---
-subset_dict = {}
 if read_files:
-    for key, df in gpd_dict.items():
+    subset_dict = {}
+    for key, df in subset_dict.items():
         df_subset = find_features(extent, df)
         if len(df_subset) > 0:
             subset_dict[key] = df_subset
-    print(subset_dict.keys())
+    print(f"clipping {key}")
+else:
+    subset_dict=gpd_dict
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 ---
 execution:
-  iopub.execute_input: '2020-11-21T21:06:38.854309Z'
-  iopub.status.busy: '2020-11-21T21:06:38.853448Z'
-  iopub.status.idle: '2020-11-21T21:06:38.857396Z'
-  shell.execute_reply: '2020-11-21T21:06:38.858195Z'
+  iopub.execute_input: '2020-11-21T20:40:31.929059Z'
+  iopub.status.busy: '2020-11-21T20:40:31.927624Z'
+  iopub.status.idle: '2020-11-21T20:40:31.931711Z'
+  shell.execute_reply: '2020-11-21T20:40:31.930525Z'
 ---
 def make_map(extent, figsize=(15, 15)):
     """
@@ -176,13 +192,13 @@ def make_map(extent, figsize=(15, 15)):
     return fig, ax
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 ---
 execution:
-  iopub.execute_input: '2020-11-21T21:06:38.868737Z'
-  iopub.status.busy: '2020-11-21T21:06:38.867715Z'
-  iopub.status.idle: '2020-11-21T21:06:39.411379Z'
-  shell.execute_reply: '2020-11-21T21:06:39.412508Z'
+  iopub.execute_input: '2020-11-21T20:40:31.941677Z'
+  iopub.status.busy: '2020-11-21T20:40:31.940913Z'
+  iopub.status.idle: '2020-11-21T20:40:33.917380Z'
+  shell.execute_reply: '2020-11-21T20:40:33.918765Z'
 ---
 fig, ax = make_map(extent)
 for key, df in subset_dict.items():
@@ -212,17 +228,18 @@ To read these back in, set
 
     read_files=False
 
-```{code-cell} ipython3
+```{code-cell}
 ---
 execution:
-  iopub.execute_input: '2020-11-21T21:06:39.419050Z'
-  iopub.status.busy: '2020-11-21T21:06:39.417945Z'
-  iopub.status.idle: '2020-11-21T21:06:39.422448Z'
-  shell.execute_reply: '2020-11-21T21:06:39.421363Z'
+  iopub.execute_input: '2020-11-21T20:40:33.959037Z'
+  iopub.status.busy: '2020-11-21T20:40:33.931335Z'
+  iopub.status.idle: '2020-11-21T20:40:35.543063Z'
+  shell.execute_reply: '2020-11-21T20:40:35.541853Z'
 ---
-for key, df in subset_dict.items():
-    filename = small_shapes / key
-    filename = filename.with_suffix(".json")
-    print(f"writing {filename}")
-    df.to_file(filename, driver="GeoJSON")
+if read_files:
+    for key, df in subset_dict.items():
+        filename = small_shapes / key
+        filename = filename.with_suffix(".json")
+        print(f"writing {filename}")
+        df.to_file(filename, driver="GeoJSON")
 ```
