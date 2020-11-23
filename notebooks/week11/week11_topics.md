@@ -5,7 +5,7 @@
   * {ref}`final_guide`
   * {ref}`vancouver_hires`
   * {ref}`rasterio_3bandsII`
-  * {ref}`heating_rate`
+  * {ref}`heating-rate`
 
 * For Wednesday -- start on Assignment 6b
 

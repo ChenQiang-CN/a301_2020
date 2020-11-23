@@ -22,7 +22,7 @@ import matplotlib
 (heating_profile)=
 # Heating rate profiles
 
-In {ref}`heating_rate` we showed that the heating rate $Q_r$ (K/s) for a particular height in
+In {ref}`heating-rate`  we showed that the heating rate $Q_r$ (K/s) for a particular height in
 the atmosphere was defined by:
 
 $$
@@ -36,21 +36,21 @@ where $E_n$ was the net flux integrated overall wavelengths (positive downwards)
 
 In this notebook we use the hydrostatic equation  from {ref}`hydro` and the flux equation
 from {ref}`flux_schwartzchild` to find dT/dz as a function of height for an atmosphere with
-containing an absorbing gas with a mixing ratio of $r_gas=0.01$ kg/kg and a mass absorption coefficient
+containing an absorbing gas with a mixing ratio of $r_{gas}=0.01$ kg/kg and a mass absorption coefficient
 averaged across all longwave wavelengths of $k=0.01$   $m^2/kg$.
 
 +++
 
 ## Integrate the atmospheric pressure, temperature and density
 
-Recall equation {mat:numref}`hydro_eq`:
+Recall equation {math:numref}`hydro_eq`:
 
 $$
 dp = -\rho g dz
 $$
 
 for a hydrostatic atmosphere, if we assume that dT/dz is constant with height, we can
-build up an atmosphere one level at a time, but starting with know $p$, $\rho$ and $T$ at the
+build up an atmosphere one level at a time, but starting with known $p$, $\rho$ and $T$ at the
 surface and using the values of $dT/dz$, $dp/dz$  to find $T$ and $p$ at the next level.  Once
 we have those, we can use the ideal gas law to find the density $\rho$ and move up.
 
@@ -133,8 +133,21 @@ the transmission -- this is the flux diffusivity approximation.  The function be
 solves for the upward and downward fluxes one layer at at time by calculating
 the transmitted flux arriving from the bottom or the top of each layer, and the
 emitted flux that the layer is sending to the next layer above or below using the equation given in
-{math:numref}`layer_flux`. This is the
-"two stream approximation" mentioned in {ref}`two_stream`
+{math:numref}`layer_flux`. We are using a version of the 
+"two stream approximation" mentioned in {ref}`two-stream-approx`  for the layer. Specifically, to find the upward flux at the top of a layer given the upward flux at the bottom of the layer:
+
+$$
+E_{\uparrow top} = E_{\uparrow bot} \exp(-1.666 \tau_{layer}) + (1 - \exp(-1.666 \tau_{layer}))\,E_{layer}
+$$
+
+and the downward flux at the bottom of the layer is:
+
+$$
+E_{\downarrow bot} = E_{\downarrow top} \exp(-1.666 \tau_{layer}) + (1 - \exp(-1.666 \tau_{layer}))\,E_{layer}
+$$
+
+where $E_{layer} = \sigma T_{layer}^4$.
+
 
 ```{code-cell} ipython3
 def fluxes(tau,Temp,height,T_surf):

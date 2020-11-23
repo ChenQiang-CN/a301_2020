@@ -5,13 +5,7 @@
 The Schwartzchild equation for flux
 +++++++++++++++++++++++++++++++++++
 
-From the :ref:`heating` notes we have the heating rate equation :eq:`temprate` used by cloudsat:
-
-.. math::
-
-      \frac{dT}{dt} = \frac{1}{\rho c_p} \frac{dE_{net}}{dz}
-
-But how do we get `E_{net}` if the satellites only measure radiance `L`?  Graphically, this is the
+How do we get `E_{net}` if the satellites only measure radiance `L`?  Graphically, this is the
 situation we know how to solve, from :ref:`schwartz` notes:
 
 .. figure::  figures/schwartzchild.png
@@ -93,7 +87,8 @@ And if we then integrate this over all wavelengths we get the **broadband flux e
    
 where the overbar indicates that we've average `\tau_\lambda` over all thermal wavelengths.
 
-.. _two_stream:
+.. _two-stream-approx:
+
 The two stream approximation
 ============================
 

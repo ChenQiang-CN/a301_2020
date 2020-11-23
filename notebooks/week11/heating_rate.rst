@@ -1,4 +1,4 @@
-.. _heating_rate:
+.. _heating-rate:
 
 Finding the heating rate of the atmosphere
 ++++++++++++++++++++++++++++++++++++++++++
