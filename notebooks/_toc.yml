@@ -77,7 +77,12 @@
     - file: week11/marshall_palmer.rst
     - file: week11/radar.rst
     - file: week8/level2_cartopy_resample_sol.md
+- file: week12/week12_topics.md
+  chapters:
     - file: week11/subset_map.md
+    - file: week12/heating_rate_profile.md
+    - file: week12/stull_radar_app.md
+    - file: week12/heating_rate_profile.md
 
 - file: assignments.md
 - file: review.md

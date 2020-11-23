@@ -87,11 +87,13 @@ This gives a the upward flux version of :eq:`rep_constant`:
 And if we then integrate this over all wavelengths we get the **broadband flux equation**:
 
 .. math::
+   :label: layer_flux
 
    E_{\uparrow} = \sigma T_0^4 \exp( -1.66 \overline{\tau}_{\lambda T}  ) + \sigma T_{layer}^4(1- \exp( -1.66 \overline{\tau}_{\lambda T} ))
    
 where the overbar indicates that we've average `\tau_\lambda` over all thermal wavelengths.
 
+.. _two_stream:
 The two stream approximation
 ============================
 

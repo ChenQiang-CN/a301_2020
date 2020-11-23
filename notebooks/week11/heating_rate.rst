@@ -118,5 +118,5 @@ Putting these two equations together gives the heating rate, :math:`Q_r` (units:
 
    \rho c_p \Delta z \frac{dT}{dt} &= \Delta E_n\\
 
-   Q_r = \frac{dT}{dt} = \frac{1}{\rho c_p} \frac{\Delta E_n}{\Delta z} = \frac{1}{\rho c_p} \frac{dE_n}{dz}
+   Q_r = \frac{dT}{dt} &= \frac{1}{\rho c_p} \frac{\Delta E_n}{\Delta z} = \frac{1}{\rho c_p} \frac{dE_n}{dz}
    \end{aligned}
