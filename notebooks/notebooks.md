@@ -35,4 +35,7 @@
 * {ref}`assign5asol`
 * {ref}`subset_map`
    - produces geojson files on /home/jovyan with feature subsets
+* {ref}`stull-radar-app`
+* {ref}`heating-rate-profile`
+
 

@@ -19,10 +19,11 @@ import matplotlib.pyplot as plt
 import matplotlib
 ```
 
-(heating_profile)=
+(heating-rate-profile)=
+
 # Heating rate profiles
 
-In {ref}`heating-rate`  we showed that the heating rate $Q_r$ (K/s) for a particular height in
+In {ref}`heating-rate` we showed that the heating rate $Q_r$ (K/s) for a particular height in
 the atmosphere was defined by:
 
 $$
@@ -32,25 +33,26 @@ Q_r = \frac{dT}{dt} &= \frac{1}{\rho c_p} \frac{\Delta E_n}{\Delta z} = \frac{1}
 \end{aligned}
 $$
 
-where $E_n$ was the net flux integrated overall wavelengths (positive downwards).
+where $E_n$ was the net flux integrated over all wavelengths (positive downwards), and $\Delta E_n$ is
+the net downward flux $(E_{ntop} - E_{nbot})$ across a layer of thickness $\Delta z$.
 
 In this notebook we use the hydrostatic equation  from {ref}`hydro` and the flux equation
 from {ref}`flux_schwartzchild` to find dT/dz as a function of height for an atmosphere with
-containing an absorbing gas with a mixing ratio of $r_{gas}=0.01$ kg/kg and a mass absorption coefficient
+containing an absorbing gas with a mixing ratio of $r_gas=0.01$ kg/kg and a mass absorption coefficient
 averaged across all longwave wavelengths of $k=0.01$   $m^2/kg$.
 
 +++
 
 ## Integrate the atmospheric pressure, temperature and density
 
-Recall equation {math:numref}`hydro_eq`:
+Recall equation {mat:numref}`hydro`:
 
 $$
 dp = -\rho g dz
 $$
 
 for a hydrostatic atmosphere, if we assume that dT/dz is constant with height, we can
-build up an atmosphere one level at a time, but starting with known $p$, $\rho$ and $T$ at the
+build up an atmosphere one level at a time, but starting with know $p$, $\rho$ and $T$ at the
 surface and using the values of $dT/dz$, $dp/dz$  to find $T$ and $p$ at the next level.  Once
 we have those, we can use the ideal gas law to find the density $\rho$ and move up.
 
@@ -61,13 +63,31 @@ def hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels):
     """
        build a hydrostatic atmosphere by integrating the hydrostatic equation from the surface,
        using num_levels of constant thickness delta_z
-       input:  T_surf -- surface temperature in K
-              p_surf -- surface pressure in Pa
-              dT_dz -- constant rate of temperature change with height in K/m
-              delta_z  -- layer thickness in m
-              num_levels -- number of levels in the atmosphere
-       output:
-              numpy arrays: Temp (K) , press (Pa), rho (kg/m^3), height (m)
+       
+       Parameters
+       ----------
+       
+       T_surf: float
+            surface temperature in K
+       p_surf: float
+            surface pressure in Pa
+       dT_dz: float
+             constant rate of temperature change with height in K/m
+       delta_z: float
+             layer thickness in m
+       num_levels: float
+             number of levels in the atmosphere
+       
+       Returns
+       -------
+       
+       Temp, press, rho, height: tuple of ndarrays of length num_levels
+          where the surface is level 0, and each index i larger than 0
+          is located at the height corresponding to the top of a particular layer,
+          so that values at the top of the atmosphere are given by index
+          numlevels - 1
+       
+          Temp (K) , press (Pa), rho (kg/m^3), height (m) for each layer
     """
     Rd=287. #J/kg/K  -- gas constant for dry air
     g=9.8  #m/s^2
@@ -85,7 +105,8 @@ def hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels):
     rho[0]=p_surf/(Rd*T_surf)
     height[0]=0
     num_layers=num_levels - 1
-    #now march up the atmosphere a layer at a time
+    #now march up the atmosphere a level at a time
+    # finding the values at the top of each layer
     for i in range(num_layers):
         delP= -rho[i]*g*delta_z
         height[i+1] = height[i] + delta_z
@@ -109,11 +130,23 @@ where $\Delta z$ is the layer thickness.  That's done in the next cell.
 ```{code-cell} ipython3
 def find_tau(r_gas,k,rho,height):
     """
-       input: r_gas -- gas mixing ratio in kg/kg
-              k -- mass absorption coefficient in kg/m^2
-              rho -- vector of air densities in kg/m^3 at each level
-              height -- corresponding level heights in m
-       output:  tau -- vetical optical depth from the surface, same shape as rho
+       Parameters
+       ----------
+       
+       r_gas: float
+           gas mixing ratio in kg/kg
+       k: float
+           mass absorption coefficient in kg/m^2
+       rho: ndarray
+           vector of air densities in kg/m^3 for each layer
+       height: ndarray
+        corresponding level heights in m
+        
+       Returns
+       -------
+       
+          tau: ndarray 
+             vertical optical depths of each level, starting from 0 at the surface
     """
     tau=np.empty_like(rho)
     tau[0]=0
@@ -133,24 +166,33 @@ the transmission -- this is the flux diffusivity approximation.  The function be
 solves for the upward and downward fluxes one layer at at time by calculating
 the transmitted flux arriving from the bottom or the top of each layer, and the
 emitted flux that the layer is sending to the next layer above or below using the equation given in
-{math:numref}`layer_flux`. We are using a version of the 
-"two stream approximation" mentioned in {ref}`two-stream-approx`  for the layer. Specifically, to find the upward flux at the top of a layer given the upward flux at the bottom of the layer:
+{math:numref}`layer_flux`. This is the
+"two stream approximation" mentioned in {ref}`two-stream-approx`
 
-$$
-E_{\uparrow top} = E_{\uparrow bot} \exp(-1.666 \tau_{layer}) + (1 - \exp(-1.666 \tau_{layer}))\,E_{layer}
-$$
-
-and the downward flux at the bottom of the layer is:
-
-$$
-E_{\downarrow bot} = E_{\downarrow top} \exp(-1.666 \tau_{layer}) + (1 - \exp(-1.666 \tau_{layer}))\,E_{layer}
-$$
-
-where $E_{layer} = \sigma T_{layer}^4$.
-
+Assumption:  layers are thin enough so that it is safe to assume constant values
+within each layer
 
 ```{code-cell} ipython3
 def fluxes(tau,Temp,height,T_surf):
+    """
+    given properties at each level return the upward and downward
+    total flux at each level assuming no downward longwave flux at the top
+    of the atmosphere, and a surface flux of sigma*T_surf**4.
+    
+    Parameters
+    -----------
+    
+    tau, Temp, height:  ndarray of length tot_levels
+        total optical depth (from surface), temperature (K) and height (m)
+        at each level
+        
+    Returns
+    -------
+    
+    up_flux, down_flux: ndarrays
+       upward and downward flux of each level (W/m^2), all positive
+    
+    """
     sigma=5.67e-8 #W/m^2/K^4
     up_flux=np.empty_like(height)
     down_flux=np.empty_like(height)
@@ -188,27 +230,65 @@ def fluxes(tau,Temp,height,T_surf):
 ```
 
 ```{code-cell} ipython3
-def heating_rate(net_up,height,rho):
+def heating_rate(net_down,height,rho):
+    """
+    given the net flux at each level (downward positive) and the
+    height, and density of the atmosphere at each level, return
+    the rate of change of temperature in each layer between two levels
+    
+    Parameters
+    ----------
+    
+    net_down: ndarray
+       positive downward net flux (W/m^2) at each level
+       
+    height: ndarray
+       vertical location of each level (m)
+       
+    rho: ndarray
+       density (kg/m^3) at each level
+    
+    Returns
+    -------
+    
+    dT_dz: ndarray  -- length nlevels -1
+       vector of temperature gradients across each layer (K/m)
+       
+    
+    """
+    
     cpd=1004.
     #
     # find the flux divergence across the layer
-    # by differencing the levels
+    # by differencing the levels.  Assume the layer density is constant
+    # and equal to the average of the densities at the top and bottom levels
     #
     rho_mid=(rho[1:] + rho[:-1])/2.
-    dEn_dz= np.diff(net_up)/np.diff(height)
+    dEn_dz= np.diff(net_down)/np.diff(height)
     dT_dz=dEn_dz/(rho_mid*cpd)
     return dT_dz
 ```
 
 ```{code-cell} ipython3
 def main():
+    """
+    find the heating rate (K/km) for a hydrostatic
+    atmosphere with a constant decrease of temperature with heigt
+    """
+    
+    #
+    # use 15000 1 m thick layers from 0 to 15 km
+    #
     r_gas=0.01  #kg/kg
     k=0.01  #m^2/kg
     T_surf=300 #K
     p_surf=100.e3 #Pa
     dT_dz = -7.e-3 #K/km
-    delta_z=1
+    delta_z=1  #m
     num_levels=15000
+    #
+    #
+    #
     Temp,press,rho,height=hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels)
     tau=find_tau(r_gas,k,rho,height)
     up,down=fluxes(tau,Temp,height,T_surf)
@@ -221,12 +301,14 @@ def main():
     axis1.set_xlabel('flux $(W\,m^{-2}$')
     axis1.set_ylabel('height (km)')
     axis1.legend(numpoints=1,loc='best')
+    axis1.grid(True)
 
     fig2,axis2=plt.subplots(1,1,figsize=(10,10))
     axis2.plot(up-down,height*0.001,'b-',lw=5)
     axis2.set_title('net upward flux')
     axis2.set_xlabel('net upward flux $(W\,m^{-2})$')
     axis2.set_ylabel('height (km)')
+    axis2.grid(True)
 
     fig3,axis3=plt.subplots(1,1,figsize=(10,10))
     dT_dz=dT_dz*3600.
@@ -235,6 +317,7 @@ def main():
     axis3.set_title('heating rate')
     axis3.set_xlabel('heating rate in K/hr')
     axis3.set_ylabel('height (km)')
+    axis3.grid(True)
 ```
 
 ```{code-cell} ipython3

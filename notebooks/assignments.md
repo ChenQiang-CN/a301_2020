@@ -1,3 +1,4 @@
+(assignments)=
 # Assignments
 
 * {ref}`assign1`
@@ -8,6 +9,7 @@
   * {ref}`assign3_solution`
 * {ref}`assign4`
 * {ref}`assign5a`
+  {ref}`assign4asol`
 * {ref}`assign5b`
 * {ref}`assign6a`
 * Assignment 6b: Friday, Nov. 20
