@@ -221,9 +221,11 @@ gl = ax.gridlines(
 )
 ```
 
-## Save the dataframes as geojson files for replotting
+## Save the dataframes as shape files for replotting
 
-This will write geojson files into the `small_shapes` folder you defined at the top of the notebook.
+This will write shape files into the `small_shapes` folder you defined at the top of the notebook.
+Each set of shapes is put into their own directory to keep things organized.
+
 To read these back in, set
 
     read_files=False
