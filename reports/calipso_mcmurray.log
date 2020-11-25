@@ -1,0 +1,55 @@
+Traceback (most recent call last):
+  File "/home/phil/mini38/envs/work/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/home/phil/mini38/envs/work/lib/python3.8/site-packages/nbclient/client.py", line 1082, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/home/phil/mini38/envs/work/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/home/phil/mini38/envs/work/lib/python3.8/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/home/phil/mini38/envs/work/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/home/phil/mini38/envs/work/lib/python3.8/site-packages/nbclient/client.py", line 535, in async_execute
+    await self.async_execute_cell(
+  File "/home/phil/mini38/envs/work/lib/python3.8/site-packages/nbclient/client.py", line 827, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/home/phil/mini38/envs/work/lib/python3.8/site-packages/nbclient/client.py", line 735, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import h5py
+import numpy as np
+import datetime as dt
+from datetime import timezone as tz
+from matplotlib import pyplot as plt
+import pyproj
+from numpy import ma
+from a301utils.a301_readfile import download
+from a301lib.cloudsat import get_geo as radar_get_geo
+from a301lib.calipso import get_geo as lidar_get_geo
+import json
+from matplotlib import pyplot as plt
+from mpl_toolkits.basemap import Basemap
+from a301lib.geolocate import trim_track
+
+modis_file='MYD021KM.A2016136.2015.006.reproject.h5'
+cloudsat_file='2016136191427_53456_CS_2B-GEOPROF_GRANULE_P_R04_E06.h5'
+calipso_file='CAL_LID_L2_05kmALay-Prov-V3-30.2016-05-15T19-42-56ZD_Subset.h5'
+download(modis_file)
+download(cloudsat_file)
+download(calipso_file)
+download('after_stretch.png')  #my png file created by qgis
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+[0;32m<ipython-input-1-c32efed8cf73>[0m in [0;36m<module>[0;34m[0m
+[1;32m      6[0m [0;32mimport[0m [0mpyproj[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      7[0m [0;32mfrom[0m [0mnumpy[0m [0;32mimport[0m [0mma[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 8[0;31m [0;32mfrom[0m [0ma301utils[0m[0;34m.[0m[0ma301_readfile[0m [0;32mimport[0m [0mdownload[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      9[0m [0;32mfrom[0m [0ma301lib[0m[0;34m.[0m[0mcloudsat[0m [0;32mimport[0m [0mget_geo[0m [0;32mas[0m [0mradar_get_geo[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     10[0m [0;32mfrom[0m [0ma301lib[0m[0;34m.[0m[0mcalipso[0m [0;32mimport[0m [0mget_geo[0m [0;32mas[0m [0mlidar_get_geo[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mModuleNotFoundError[0m: No module named 'a301utils'
+ModuleNotFoundError: No module named 'a301utils'
+

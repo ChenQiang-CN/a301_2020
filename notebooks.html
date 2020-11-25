@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>12. List of notebooks &#8212; ATSC 301</title>
+    <title>14. List of notebooks &#8212; ATSC 301</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -58,7 +58,7 @@
     <link rel="canonical" href="https://a301_web.eoas.ubc.ca/notebooks.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="11. Review/logistics" href="review.html" />
+    <link rel="prev" title="13. Assignments" href="assignments.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -152,18 +152,28 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="assignments.html">
-   10. Assignments
+  <a class="reference internal" href="week10/week10_topics.html">
+   10. Week 10
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="review.html">
-   11. Review/logistics
+  <a class="reference internal" href="week11/week11_topics.html">
+   11. Week 11
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="week12/week12_topics.html">
+   12. Week 12
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="assignments.html">
+   13. Assignments
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   12. List of notebooks
+   14. List of notebooks
   </a>
  </li>
 </ul>
@@ -241,7 +251,7 @@
               <div>
                 
   <div class="section" id="list-of-notebooks">
-<h1><span class="section-number">12. </span>List of notebooks<a class="headerlink" href="#list-of-notebooks" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">14. </span>List of notebooks<a class="headerlink" href="#list-of-notebooks" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="week2/derivs_and_ints.html#sec-numpy"><span class="std std-ref">working with numpy arrays</span></a></p></li>
 <li><p><a class="reference internal" href="week2/planck_function.html#sec-planck"><span class="std std-ref">Integrating the Planck function with python</span></a></p></li>
@@ -250,8 +260,63 @@
 <li><p><a class="reference internal" href="week4/cartopy_resample_ch30_h5.html#week4-resample"><span class="std std-ref">Use pyresample to plot channel 30 radiances</span></a></p></li>
 <li><p><a class="reference internal" href="week5/hydrostatic_balance.html#scale-heights"><span class="std std-ref">Scale heights for typical atmospheric soundings</span></a></p></li>
 <li><p><a class="reference internal" href="week5/pandas_csv_intro.html#pandas-intro"><span class="std std-ref">Reading &amp; Summarizing CSV Data</span></a></p></li>
+<li><p><a class="reference internal" href="week8/level2_cartopy_resample.html#level2-wv"><span class="std std-ref">Water vapor retrieval using MYD05 data</span></a></p></li>
 <li><p><a class="reference internal" href="week9/vancouver_visible.html#vancouver-visible"><span class="std std-ref">NDVI for Vancouver</span></a></p></li>
-<li><p><a class="reference internal" href="week9/landsat_wrs.html#landsat-wrs"><span class="std std-ref">Landsat: finding wrs path/row</span></a></p></li>
+<li><p><a class="reference internal" href="week9/landsat_wrs.html#landsat-wrs"><span class="std std-ref">Landsat: finding wrs path/row</span></a></p>
+<ul>
+<li><p>find path/row for your scene</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="week9/landsat_image.html#landsat1"><span class="std std-ref">Landsat image processing 1</span></a></p>
+<ul>
+<li><p>uses path/row from <a class="reference internal" href="week9/landsat_wrs.html#landsat-wrs"><span class="std std-ref">Landsat: finding wrs path/row</span></a></p></li>
+<li><p>writes <code class="docutils literal notranslate"><span class="pre">week9/landsat_scenes</span></code> folder with TIF files  from AWS</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="week9/calc_ndvi.html#landsat2"><span class="std std-ref">Landast part 2: rasterio</span></a></p>
+<ul>
+<li><p>uses B4.TIFF and B5.TIFF from <a class="reference internal" href="week9/landsat_image.html#landsat1"><span class="std std-ref">Landsat image processing 1</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="week10/image_zoom.html#image-zoom"><span class="std std-ref">Zooming an image</span></a></p>
+<ul>
+<li><p>clips an image to 600 rows x 400 cols and produces <code class="docutils literal notranslate"><span class="pre">week10/small_file.tiff</span></code></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="week10/ndvi_rasterio.html#rasterio-3bands"><span class="std std-ref">Rasterio: reading bands 3,4 and 5</span></a></p>
+<ul>
+<li><p>uses the affine transform from <code class="docutils literal notranslate"><span class="pre">small_file.tiff</span></code> to clip 3 bands to same window using
+rasterio.Window</p></li>
+<li><p>writes a new 3-band geotiff <code class="docutils literal notranslate"><span class="pre">week10/vancouver_345_refl.tiff</span></code></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="week10/scene_image.html#rasterio-png"><span class="std std-ref">Making a png image</span></a></p>
+<ul>
+<li><p>reads <code class="docutils literal notranslate"><span class="pre">vancouver_345_refl.tiff</span></code> and creates a rgb false color png file
+with histogram equalization called <code class="docutils literal notranslate"><span class="pre">week10/vancouver_345_stretched.png</span></code></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="week11/hires_map.html#vancouver-hires"><span class="std std-ref">Adding a high resolution map</span></a></p>
+<ul>
+<li><p>Reads <code class="docutils literal notranslate"><span class="pre">week10/vancouver_345_refl.tiff</span></code> band 5 and overlays an openstreetmap coastline map</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="week11/ndvi_fiona.html#rasterio-3bandsii"><span class="std std-ref">Rasterio II: clipping bands 3,4 and 5</span></a></p>
+<ul>
+<li><p>repeats the cropping of <a class="reference internal" href="week10/ndvi_rasterio.html#rasterio-3bands"><span class="std std-ref">Rasterio: reading bands 3,4 and 5</span></a> using a fiona/geopandas box shape and
+rasterio.mask</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="week11/features_demo.html#feature-demo"><span class="std std-ref">Adding features to a cartopy map</span></a></p></li>
+<li><p><span class="xref std std-ref">heating_rate</span></p></li>
+<li><p><a class="reference internal" href="week8/level2_cartopy_resample_sol.html#assign5asol"><span class="std std-ref">Assign 5a: Water vapor retrieval solution</span></a></p></li>
+<li><p><a class="reference internal" href="week11/subset_map.html#subset-map"><span class="std std-ref">Finding shapefiles with fiona</span></a></p>
+<ul>
+<li><p>produces geojson files on /home/jovyan with feature subsets</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="week12/stull_radar_app.html#stull-radar-app"><span class="std std-ref">Stull page 246 – application</span></a></p></li>
+<li><p><a class="reference internal" href="week12/heating_rate_profile.html#heating-rate-profile"><span class="std std-ref">Heating rate profiles</span></a></p></li>
 </ul>
 </div>
 
@@ -283,7 +348,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="review.html" title="previous page"><span class="section-number">11. </span>Review/logistics</a>
+    <a class='left-prev' id="prev-link" href="assignments.html" title="previous page"><span class="section-number">13. </span>Assignments</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

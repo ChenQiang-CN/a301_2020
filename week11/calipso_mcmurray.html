@@ -1,0 +1,634 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adding lidar data to the Ft. McMurray fire overpass &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week11/calipso_mcmurray.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week11/calipso_mcmurray.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Adding lidar data to the Ft. McMurray fire overpass" />
+<meta property="og:description" content="Adding lidar data to the Ft. McMurray fire overpass  1. Read in the cloudsat and calipso groundtracks  See https://www-calipso.larc.nasa.gov/resources/calipso_u" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week2/week2_topics.html">
+   2. Week 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week5/week5_topics.html">
+   5. Week 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week6/week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week7/week7_topics.html">
+   7. Week 7
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week8/week8_topics.html">
+   8. Week 8
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week9/week9_topics.html">
+   9. Week 9
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week10/week10_topics.html">
+   10. Week 10
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="week11_topics.html">
+   11. Week 11
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week12/week12_topics.html">
+   12. Week 12
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   13. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks.html">
+   14. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/week11/calipso_mcmurray.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/week11/calipso_mcmurray.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week11/calipso_mcmurray.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week11/calipso_mcmurray.ipynb&branch=master"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="../_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Adding lidar data to the Ft. McMurray fire overpass
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-in-the-cloudsat-and-calipso-groundtracks">
+     1. Read in the cloudsat and calipso groundtracks
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-the-groundtracks-for-cloudsat-and-calipso">
+     get the groundtracks for  cloudsat and calipso
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#read-in-the-modis-image-for-ft-mcmurray">
+     Read in the modis image for Ft. Mcmurray
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-the-two-groundtracks-on-a-8-bit-256-color-modis-image-of-channel-1">
+     Plot the two groundtracks on a 8 bit (256 color) modis image of channel 1
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#read-in-my-hand-crafted-qgis-file-which-i-ve-converted-to-png">
+   read in my hand-crafted qgis file which I’ve converted to png
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#write-the-groundtracks-out-for-future-translation-to-shapefiles-with-fiona-as-in-vector-data-ipynb">
+     Write the groundtracks out for future translation to shapefiles with fiona (as in vector_data.ipynb)
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-the-0-5-micron-and-the-1-0-micron-optical-depthts-for-calipso">
+     Plot the 0.5 micron and the 1.0 micron optical depthts for calipso
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="adding-lidar-data-to-the-ft-mcmurray-fire-overpass">
+<h1>Adding lidar data to the Ft. McMurray fire overpass<a class="headerlink" href="#adding-lidar-data-to-the-ft-mcmurray-fire-overpass" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="read-in-the-cloudsat-and-calipso-groundtracks">
+<h2>1. Read in the cloudsat and calipso groundtracks<a class="headerlink" href="#read-in-the-cloudsat-and-calipso-groundtracks" title="Permalink to this headline">¶</a></h2>
+<p>See https://www-calipso.larc.nasa.gov/resources/calipso_users_guide/data_summaries/layer/index.php
+for the lidar profile data specification</p>
+<p>I’ve added two new functions to a301lib.geolocate:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/a301-teaching/a301_code/blob/5029c180cd8ebeb431069cc28b6699c8b7f4fcfa/a301lib/geolocate.py#L534">trim_track</a>
+selects the part of the ground-track that is within a Modis scene</p></li>
+<li><p><a class="reference external" href="https://github.com/a301-teaching/a301_code/blob/5029c180cd8ebeb431069cc28b6699c8b7f4fcfa/a301lib/geolocate.py#L582">gc_distance</a> computes the great circle distance for a lon,lat groundtrack</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timezone</span> <span class="k">as</span> <span class="n">tz</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">pyproj</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ma</span>
+<span class="kn">from</span> <span class="nn">a301utils.a301_readfile</span> <span class="kn">import</span> <span class="n">download</span>
+<span class="kn">from</span> <span class="nn">a301lib.cloudsat</span> <span class="kn">import</span> <span class="n">get_geo</span> <span class="k">as</span> <span class="n">radar_get_geo</span>
+<span class="kn">from</span> <span class="nn">a301lib.calipso</span> <span class="kn">import</span> <span class="n">get_geo</span> <span class="k">as</span> <span class="n">lidar_get_geo</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.basemap</span> <span class="kn">import</span> <span class="n">Basemap</span>
+<span class="kn">from</span> <span class="nn">a301lib.geolocate</span> <span class="kn">import</span> <span class="n">trim_track</span>
+
+<span class="n">modis_file</span><span class="o">=</span><span class="s1">&#39;MYD021KM.A2016136.2015.006.reproject.h5&#39;</span>
+<span class="n">cloudsat_file</span><span class="o">=</span><span class="s1">&#39;2016136191427_53456_CS_2B-GEOPROF_GRANULE_P_R04_E06.h5&#39;</span>
+<span class="n">calipso_file</span><span class="o">=</span><span class="s1">&#39;CAL_LID_L2_05kmALay-Prov-V3-30.2016-05-15T19-42-56ZD_Subset.h5&#39;</span>
+<span class="n">download</span><span class="p">(</span><span class="n">modis_file</span><span class="p">)</span>
+<span class="n">download</span><span class="p">(</span><span class="n">cloudsat_file</span><span class="p">)</span>
+<span class="n">download</span><span class="p">(</span><span class="n">calipso_file</span><span class="p">)</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;after_stretch.png&#39;</span><span class="p">)</span>  <span class="c1">#my png file created by qgis</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="get-the-groundtracks-for-cloudsat-and-calipso">
+<h2>get the groundtracks for  cloudsat and calipso<a class="headerlink" href="#get-the-groundtracks-for-cloudsat-and-calipso" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">radar_lats</span><span class="p">,</span><span class="n">radar_lons</span><span class="p">,</span><span class="n">radar_date_times</span><span class="p">,</span><span class="n">radar_prof_times</span><span class="p">,</span><span class="n">radar_dem_elevation</span><span class="o">=</span><span class="n">radar_get_geo</span><span class="p">(</span><span class="n">cloudsat_file</span><span class="p">)</span>
+    
+<span class="n">lidar_lats</span><span class="p">,</span><span class="n">lidar_lons</span><span class="p">,</span><span class="n">lidar_date_times</span><span class="p">,</span><span class="n">lidar_prof_times</span><span class="p">,</span><span class="n">lidar_dem_elevation</span><span class="o">=</span><span class="n">lidar_get_geo</span><span class="p">(</span><span class="n">calipso_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="read-in-the-modis-image-for-ft-mcmurray">
+<h2>Read in the modis image for Ft. Mcmurray<a class="headerlink" href="#read-in-the-modis-image-for-ft-mcmurray" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">modis_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">h5_file</span><span class="p">:</span>
+    <span class="n">basemap_string</span><span class="o">=</span><span class="n">h5_file</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;basemap_args&#39;</span><span class="p">]</span>
+    <span class="n">basemap_args</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">basemap_string</span><span class="p">)</span>
+    <span class="n">chan1</span><span class="o">=</span><span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;channels&#39;</span><span class="p">][</span><span class="s1">&#39;1&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">geotiff_string</span> <span class="o">=</span> <span class="n">h5_file</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;geotiff_args&#39;</span><span class="p">]</span>
+    <span class="n">geotiff_args</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">geotiff_string</span><span class="p">)</span>
+    <span class="n">level1b_file</span><span class="o">=</span><span class="n">h5_file</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;level1b_file&#39;</span><span class="p">]</span>
+
+<span class="n">transform</span> <span class="o">=</span> <span class="n">geotiff_args</span><span class="p">[</span><span class="s1">&#39;adfgeotransform&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;basemap_args: </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">basemap_args</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;geotiff_args: </span><span class="se">\n</span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">geotiff_args</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plot-the-two-groundtracks-on-a-8-bit-256-color-modis-image-of-channel-1">
+<h2>Plot the two groundtracks on a 8 bit (256 color) modis image of channel 1<a class="headerlink" href="#plot-the-two-groundtracks-on-a-8-bit-256-color-modis-image-of-channel-1" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+<div class="section" id="read-in-my-hand-crafted-qgis-file-which-i-ve-converted-to-png">
+<h1>read in my hand-crafted qgis file which I’ve converted to png<a class="headerlink" href="#read-in-my-hand-crafted-qgis-file-which-i-ve-converted-to-png" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
+
+<span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">autumn</span>  <span class="c1">#see http://wiki.scipy.org/Cookbook/Matplotlib/Show_colormaps</span>
+<span class="n">cmap</span><span class="o">.</span><span class="n">set_over</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">cmap</span><span class="o">.</span><span class="n">set_under</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">cmap</span><span class="o">.</span><span class="n">set_bad</span><span class="p">(</span><span class="s1">&#39;0.75&#39;</span><span class="p">)</span> <span class="c1">#75% grey</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
+<span class="c1">#</span>
+<span class="c1"># set up the Basemap object</span>
+<span class="c1">#</span>
+<span class="n">basemap_args</span><span class="p">[</span><span class="s1">&#39;ax&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">ax</span>
+<span class="n">basemap_args</span><span class="p">[</span><span class="s1">&#39;resolution&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;c&#39;</span>
+<span class="n">bmap</span> <span class="o">=</span> <span class="n">Basemap</span><span class="p">(</span><span class="o">**</span><span class="n">basemap_args</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bmap</span><span class="o">.</span><span class="n">projparams</span><span class="p">)</span>
+<span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="o">=</span><span class="n">bmap</span><span class="o">.</span><span class="n">projparams</span><span class="p">[</span><span class="s1">&#39;x_0&#39;</span><span class="p">],</span><span class="n">bmap</span><span class="o">.</span><span class="n">projparams</span><span class="p">[</span><span class="s1">&#39;y_0&#39;</span><span class="p">]</span>
+<span class="c1">#</span>
+<span class="c1"># transform the ground track lons/lats to x/y</span>
+<span class="c1">#</span>
+<span class="n">radarx</span><span class="p">,</span><span class="n">radary</span><span class="o">=</span><span class="n">bmap</span><span class="p">(</span><span class="n">radar_lons</span><span class="p">,</span><span class="n">radar_lats</span><span class="p">)</span>
+<span class="n">lidarx</span><span class="p">,</span><span class="n">lidary</span><span class="o">=</span><span class="n">bmap</span><span class="p">(</span><span class="n">lidar_lons</span><span class="p">,</span><span class="n">lidar_lats</span><span class="p">)</span>
+
+<span class="n">x0</span><span class="p">,</span><span class="n">y0</span> <span class="o">=</span> <span class="n">bmap</span><span class="o">.</span><span class="n">projparams</span><span class="p">[</span><span class="s1">&#39;x_0&#39;</span><span class="p">],</span><span class="n">bmap</span><span class="o">.</span><span class="n">projparams</span><span class="p">[</span><span class="s1">&#39;y_0&#39;</span><span class="p">]</span>
+<span class="n">lidar_hit</span><span class="o">=</span><span class="n">trim_track</span><span class="p">(</span><span class="n">lidarx</span><span class="p">,</span><span class="n">lidary</span><span class="p">,</span><span class="n">chan1</span><span class="p">,</span><span class="n">transform</span><span class="p">,</span><span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="o">=</span><span class="n">y0</span><span class="p">)</span>
+<span class="n">lidarx</span><span class="p">,</span><span class="n">lidary</span><span class="o">=</span><span class="n">lidarx</span><span class="p">[</span><span class="n">lidar_hit</span><span class="p">],</span><span class="n">lidary</span><span class="p">[</span><span class="n">lidar_hit</span><span class="p">]</span>
+<span class="n">lidar_lons</span><span class="p">,</span><span class="n">lidar_lats</span><span class="o">=</span><span class="n">lidar_lons</span><span class="p">[</span><span class="n">lidar_hit</span><span class="p">],</span><span class="n">lidar_lats</span><span class="p">[</span><span class="n">lidar_hit</span><span class="p">]</span>
+
+<span class="n">hit</span><span class="o">=</span><span class="n">trim_track</span><span class="p">(</span><span class="n">radarx</span><span class="p">,</span><span class="n">radary</span><span class="p">,</span><span class="n">chan1</span><span class="p">,</span><span class="n">transform</span><span class="p">,</span><span class="n">x0</span><span class="o">=</span><span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="o">=</span><span class="n">y0</span><span class="p">)</span>
+<span class="n">radarx</span><span class="p">,</span><span class="n">radary</span><span class="o">=</span><span class="n">radarx</span><span class="p">[</span><span class="n">hit</span><span class="p">],</span><span class="n">radary</span><span class="p">[</span><span class="n">hit</span><span class="p">]</span>
+<span class="n">radar_lons</span><span class="p">,</span><span class="n">radar_lats</span> <span class="o">=</span> <span class="n">radar_lons</span><span class="p">[</span><span class="n">hit</span><span class="p">],</span><span class="n">radar_lats</span><span class="p">[</span><span class="n">hit</span><span class="p">]</span>
+
+<span class="c1"># #</span>
+<span class="c1"># # plot as blue circles</span>
+<span class="c1"># #</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">radarx</span><span class="p">,</span><span class="n">radary</span><span class="p">,</span><span class="s1">&#39;bo&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lidarx</span><span class="p">,</span><span class="n">lidary</span><span class="p">,</span><span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># now plot channel 1</span>
+<span class="c1">#</span>
+<span class="n">num_meridians</span><span class="o">=</span><span class="mi">180</span>
+<span class="n">num_parallels</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">col</span> <span class="o">=</span> <span class="n">bmap</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">chan1</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">lon_sep</span><span class="p">,</span> <span class="n">lat_sep</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span><span class="mi">5</span>
+<span class="n">parallels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">lat_sep</span><span class="p">)</span>
+<span class="n">meridians</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="n">lon_sep</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawparallels</span><span class="p">(</span><span class="n">parallels</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                       <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">latmax</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawmeridians</span><span class="p">(</span><span class="n">meridians</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                       <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">latmax</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawcoastlines</span><span class="p">()</span>
+<span class="n">colorbar</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">extend</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+<span class="n">colorbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;channel1 reflectivity&#39;</span><span class="p">,</span><span class="n">rotation</span><span class="o">=-</span><span class="mi">90</span><span class="p">,</span><span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+<span class="n">_</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Ft. McMurray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="write-the-groundtracks-out-for-future-translation-to-shapefiles-with-fiona-as-in-vector-data-ipynb">
+<h2>Write the groundtracks out for future translation to shapefiles with fiona (as in vector_data.ipynb)<a class="headerlink" href="#write-the-groundtracks-out-for-future-translation-to-shapefiles-with-fiona-as-in-vector-data-ipynb" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">groundtrack_name</span> <span class="o">=</span> <span class="n">modis_file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;reproject&#39;</span><span class="p">,</span><span class="s1">&#39;groundtrack&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;writing groundtrack to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">groundtrack_name</span><span class="p">))</span>
+<span class="c1">#</span>
+<span class="c1"># h5 files can&#39;t store dates, but they can store floating point</span>
+<span class="c1"># seconds since 1970, which is called POSIX timestamp</span>
+<span class="c1">#</span>
+<span class="n">radar_timestamps</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">radar_date_times</span><span class="p">]</span>
+<span class="n">radar_timestamps</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">radar_timestamps</span><span class="p">)</span>
+<span class="n">lidar_timestamps</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lidar_date_times</span><span class="p">]</span>
+<span class="n">lidar_timestamps</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lidar_timestamps</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">groundtrack_name</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">groundfile</span><span class="p">:</span>
+    <span class="n">groundfile</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;cloudsat_filename&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">cloudsat_file</span>
+    <span class="n">groundfile</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;calipso_filename&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">calipso_file</span>
+    <span class="n">groundfile</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;modis_filename&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">level1b_file</span>
+    <span class="n">groundfile</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;reproject_filename&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">modis_file</span>
+    <span class="n">groundfile</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;basemap_args&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">basemap_string</span>
+    <span class="n">groundfile</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;geotiff_args&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">geotiff_string</span>
+    <span class="n">groundfile</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;proj4params&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">bmap</span><span class="o">.</span><span class="n">projparams</span><span class="p">,</span><span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">dset</span><span class="o">=</span><span class="n">groundfile</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;radar_lons&#39;</span><span class="p">,</span><span class="n">radar_lons</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">radar_lons</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">dset</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">radar_lons</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;radar longitude&#39;</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;degrees East&#39;</span>
+    <span class="n">dset</span><span class="o">=</span><span class="n">groundfile</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;radar_lats&#39;</span><span class="p">,</span><span class="n">radar_lats</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">radar_lats</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">dset</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">radar_lats</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;radar latitude&#39;</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;degrees North&#39;</span>
+    <span class="n">dset</span><span class="o">=</span> <span class="n">groundfile</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;radar_times&#39;</span><span class="p">,</span><span class="n">radar_timestamps</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">radar_timestamps</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">dset</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">radar_timestamps</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+    <span class="n">dset</span><span class="o">=</span><span class="n">groundfile</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;lidar_lons&#39;</span><span class="p">,</span><span class="n">lidar_lons</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">lidar_lons</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">dset</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">lidar_lons</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;lidar longitude&#39;</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;degrees East&#39;</span>
+    <span class="n">dset</span><span class="o">=</span><span class="n">groundfile</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;lidar_lats&#39;</span><span class="p">,</span><span class="n">lidar_lats</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">lidar_lats</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">dset</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">lidar_lats</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;lidar latitude&#39;</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;degrees North&#39;</span>
+    <span class="n">dset</span><span class="o">=</span> <span class="n">groundfile</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="s1">&#39;lidar_times&#39;</span><span class="p">,</span><span class="n">lidar_timestamps</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">lidar_timestamps</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">dset</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">lidar_timestamps</span><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;long_name&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;lidar UTC datetime timestamp&#39;</span>
+    <span class="n">dset</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;seconds since Jan. 1, 1970&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">14</span><span class="p">))</span>
+<span class="n">basemap_args</span><span class="p">[</span><span class="s1">&#39;ax&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">ax</span>
+<span class="n">basemap_args</span><span class="p">[</span><span class="s1">&#39;resolution&#39;</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;i&#39;</span>
+<span class="n">bmap</span> <span class="o">=</span> <span class="n">Basemap</span><span class="p">(</span><span class="o">**</span><span class="n">basemap_args</span><span class="p">)</span>
+<span class="n">im</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s1">&#39;after_stretch.png&#39;</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;upper&#39;</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">radarx</span><span class="p">,</span><span class="n">radary</span><span class="p">,</span><span class="s1">&#39;bo&#39;</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lidarx</span><span class="p">,</span><span class="n">lidary</span><span class="p">,</span><span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+
+<span class="n">num_meridians</span><span class="o">=</span><span class="mi">180</span>
+<span class="n">num_parallels</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">lon_sep</span><span class="p">,</span> <span class="n">lat_sep</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span><span class="mi">5</span>
+<span class="n">parallels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">lat_sep</span><span class="p">)</span>
+<span class="n">meridians</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="n">lon_sep</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawparallels</span><span class="p">(</span><span class="n">parallels</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                       <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">latmax</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawmeridians</span><span class="p">(</span><span class="n">meridians</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                       <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">latmax</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+<span class="n">bmap</span><span class="o">.</span><span class="n">drawcoastlines</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plot-the-0-5-micron-and-the-1-0-micron-optical-depthts-for-calipso">
+<h2>Plot the 0.5 micron and the 1.0 micron optical depthts for calipso<a class="headerlink" href="#plot-the-0-5-micron-and-the-1-0-micron-optical-depthts-for-calipso" title="Permalink to this headline">¶</a></h2>
+<p>Is the lidar seeing the smoke plumes from the fire?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">from</span> <span class="nn">a301lib.geolocate</span> <span class="kn">import</span> <span class="n">gc_distance</span>
+<span class="n">distance</span><span class="o">=</span><span class="n">gc_distance</span><span class="p">(</span><span class="n">lidar_lons</span><span class="p">,</span><span class="n">lidar_lats</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">calipso_file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+    <span class="n">aer_532</span><span class="o">=</span><span class="n">infile</span><span class="p">[</span><span class="s1">&#39;Column_Optical_Depth_Aerosols_532&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">aer_1064</span><span class="o">=</span><span class="n">infile</span><span class="p">[</span><span class="s1">&#39;Column_Optical_Depth_Aerosols_1064&#39;</span><span class="p">][</span><span class="o">...</span><span class="p">]</span>
+<span class="n">fig</span><span class="p">,(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">)</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lidar_lats</span><span class="p">,</span><span class="n">aer_532</span><span class="p">[</span><span class="n">lidar_hit</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;0.5 micron optical depth&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;optical depth&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;latitude (deg N)&#39;</span><span class="p">);</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span><span class="n">aer_532</span><span class="p">[</span><span class="n">lidar_hit</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;optical depth&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;distance (km)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,(</span><span class="n">ax1</span><span class="p">,</span><span class="n">ax2</span><span class="p">)</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lidar_lats</span><span class="p">,</span><span class="n">aer_1064</span><span class="p">[</span><span class="n">lidar_hit</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;optical depth&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;latitude (deg N)&#39;</span><span class="p">);</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">distance</span><span class="p">,</span><span class="n">aer_1064</span><span class="p">[</span><span class="n">lidar_hit</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;1 micron optical depth&#39;</span><span class="p">,</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;optical depth&#39;</span><span class="p">,</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;distance (km)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week11"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

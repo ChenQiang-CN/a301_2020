@@ -19,7 +19,7 @@ kernelspec:
 This notebook runs the code that is discussed in this tutorial:
 https://www.earthdatascience.org/tutorials/convert-landsat-path-row-to-lat-lon/
 
-```{code-cell}
+```{code-cell} ipython3
 import io
 import ogr
 import shapely.wkt
@@ -50,7 +50,7 @@ mode = 'D'  # look for descending (daytime) image
 * this functions checks to see whether a lat/lon point falls within
   a particular WRS sector (feature)
 
-```{code-cell}
+```{code-cell} ipython3
 def checkPoint(feature, point, mode):
     geom = feature.GetGeometryRef() #Get geometry from feature
     shape = shapely.wkt.loads(geom.ExportToWkt()) #Import geometry into shapely to easily work with our point
@@ -63,7 +63,7 @@ def checkPoint(feature, point, mode):
 * loop over all features until you find the one that
   contains the point, then print the path/row
 
-```{code-cell}
+```{code-cell} ipython3
 i=0
 while not checkPoint(layer.GetFeature(i), point, mode):
     i += 1

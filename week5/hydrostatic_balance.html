@@ -190,18 +190,28 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../assignments.html">
-   10. Assignments
+  <a class="reference internal" href="../week10/week10_topics.html">
+   10. Week 10
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../review.html">
-   11. Review/logistics
+  <a class="reference internal" href="../week11/week11_topics.html">
+   11. Week 11
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week12/week12_topics.html">
+   12. Week 12
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   13. Assignments
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../notebooks.html">
-   12. List of notebooks
+   14. List of notebooks
   </a>
  </li>
 </ul>
@@ -385,7 +395,7 @@
 <p>There are five different average profiles for the tropics, subarctic summer, subarctic winter, midlatitude summer, midlatitude winter.  These are called the US Standard Atmospheres.  This notebook shows how to read and plot the soundings, and calculate the pressure and density scale heights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">matplotlib.ticker</span> <span class="k">as</span> <span class="nn">ticks</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">a301_lib</span>
@@ -395,17 +405,10 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>******************************
-context imported. Front of path:
-/home/phil/work
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soundings_folder</span><span class="o">=</span> <span class="n">a301_lib</span><span class="o">.</span><span class="n">data_share</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;soundings&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">soundings_folder</span><span class="o">=</span> <span class="n">a301_lib</span><span class="o">.</span><span class="n">data_share</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;soundings&#39;</span><span class="p">)</span>
 <span class="n">sounding_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">soundings_folder</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*csv&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -420,7 +423,7 @@ m, pa, K, kg/kg, kg/m^3, kg/m^3</p>
 <p>I will read the 6 column soundings into a <a class="reference external" href="http://pandas.pydata.org/pandas-docs/stable/dsintro.html">pandas (panel data) DataFrame</a>, which is like a matrix except the columns can be accessed by column name in addition to column number.  The main advantage for us is that it’s easier to keep track of which variables we’re plotting</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">name_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">()</span>
 <span class="n">sound_dict</span><span class="o">=</span><span class="nb">dict</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sounding_files</span><span class="p">:</span>
     <span class="n">name_dict</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">stem</span><span class="p">]</span><span class="o">=</span><span class="n">item</span>
@@ -428,15 +431,6 @@ m, pa, K, kg/kg, kg/m^3, kg/m^3</p>
 
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sounding_files</span><span class="p">:</span>
     <span class="n">sound_dict</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">stem</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;midsummer&#39;: PosixPath(&#39;/home/phil/work/data_share/soundings/midsummer.csv&#39;),
- &#39;midwinter&#39;: PosixPath(&#39;/home/phil/work/data_share/soundings/midwinter.csv&#39;),
- &#39;subsummer&#39;: PosixPath(&#39;/home/phil/work/data_share/soundings/subsummer.csv&#39;),
- &#39;subwinter&#39;: PosixPath(&#39;/home/phil/work/data_share/soundings/subwinter.csv&#39;),
- &#39;tropics&#39;: PosixPath(&#39;/home/phil/work/data_share/soundings/tropics.csv&#39;)}
 </pre></div>
 </div>
 </div>
@@ -448,47 +442,8 @@ m, pa, K, kg/kg, kg/m^3, kg/m^3</p>
 <h1><span class="section-number">5.7. </span>Use pd.DataFrame.head to see first 5 lines<a class="headerlink" href="#use-pd-dataframe-head-to-see-first-5-lines" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">sound_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="n">sound_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sounding: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">sound_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sounding: subsummer
-   Unnamed: 0       z     press   temp     rmix     den         o3den
-0           0     0.0  101000.0  287.0  0.00910  1.2200  4.900000e-08
-1           1  1000.0   89600.0  282.0  0.00600  1.1100  5.400000e-08
-2           2  2000.0   79290.0  276.0  0.00420  0.9971  5.600000e-08
-3           3  3000.0   70000.0  271.0  0.00269  0.8985  5.800001e-08
-4           4  4000.0   61600.0  266.0  0.00165  0.8077  6.000000e-08
-sounding: tropics
-   Unnamed: 0       z     press   temp     rmix     den         o3den
-0           0     0.0  101300.0  300.0  0.01900  1.1670  5.600000e-08
-1           1  1000.0   90400.0  294.0  0.01300  1.0640  5.600000e-08
-2           2  2000.0   80500.0  288.0  0.00929  0.9689  5.400000e-08
-3           3  3000.0   71500.0  284.0  0.00470  0.8756  5.100000e-08
-4           4  4000.0   63300.0  277.0  0.00266  0.7951  4.700000e-08
-sounding: midsummer
-   Unnamed: 0       z     press   temp     rmix     den         o3den
-0           0     0.0  101300.0  294.0  0.01400  1.1910  6.000000e-08
-1           1  1000.0   90200.0  290.0  0.00930  1.0800  6.000000e-08
-2           2  2000.0   80200.0  285.0  0.00585  0.9757  6.000000e-08
-3           3  3000.0   71000.0  279.0  0.00343  0.8846  6.200001e-08
-4           4  4000.0   62800.0  273.0  0.00189  0.7998  6.400000e-08
-sounding: midwinter
-   Unnamed: 0       z       press   temp     rmix     den         o3den
-0           0     0.0  101800.000  272.2  0.00350  1.3010  6.000000e-08
-1           1  1000.0   89730.000  268.7  0.00250  1.1620  5.400000e-08
-2           2  2000.0   78970.000  265.2  0.00180  1.0370  4.900000e-08
-3           3  3000.0   69380.000  261.7  0.00116  0.9230  4.900000e-08
-4           4  4000.0   60809.996  255.7  0.00069  0.8282  4.900000e-08
-sounding: subwinter
-   Unnamed: 0       z     press   temp      rmix     den         o3den
-0           0     0.0  101300.0  257.1  0.001200  1.3720  4.100000e-08
-1           1  1000.0   88780.0  259.1  0.001200  1.1930  4.100000e-08
-2           2  2000.0   77750.0  255.9  0.001030  1.0580  4.100000e-08
-3           3  3000.0   67980.0  252.7  0.000747  0.9366  4.300000e-08
-4           4  4000.0   59320.0  247.7  0.000459  0.8339  4.500000e-08
 </pre></div>
 </div>
 </div>
@@ -496,22 +451,9 @@ sounding: subwinter
 <p>We use these keys to get a dataframe with 6 columns, and 33 levels.  Here’s an example for the midsummer sounding</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">midsummer</span><span class="o">=</span><span class="n">sound_dict</span><span class="p">[</span><span class="s1">&#39;midsummer&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">midsummer</span><span class="o">=</span><span class="n">sound_dict</span><span class="p">[</span><span class="s1">&#39;midsummer&#39;</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">midsummer</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 <span class="nb">list</span><span class="p">(</span><span class="n">midsummer</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Unnamed: 0       z     press   temp     rmix     den         o3den
-0           0     0.0  101300.0  294.0  0.01400  1.1910  6.000000e-08
-1           1  1000.0   90200.0  290.0  0.00930  1.0800  6.000000e-08
-2           2  2000.0   80200.0  285.0  0.00585  0.9757  6.000000e-08
-3           3  3000.0   71000.0  279.0  0.00343  0.8846  6.200001e-08
-4           4  4000.0   62800.0  273.0  0.00189  0.7998  6.400000e-08
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Unnamed: 0&#39;, &#39;z&#39;, &#39;press&#39;, &#39;temp&#39;, &#39;rmix&#39;, &#39;den&#39;, &#39;o3den&#39;]
 </pre></div>
 </div>
 </div>
@@ -520,7 +462,7 @@ sounding: subwinter
 <h2><span class="section-number">5.7.1. </span>Plot  temp and vapor mixing ratio rmix (<span class="math notranslate nohighlight">\(\rho_{H2O}/\rho_{air}\)</span>)<a class="headerlink" href="#plot-temp-and-vapor-mixing-ratio-rmix-rho-h2o-rho-air" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;ggplot&#39;</span><span class="p">)</span>
 <span class="n">meters2km</span><span class="o">=</span><span class="mf">1.e-3</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
@@ -537,14 +479,11 @@ sounding: subwinter
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/hydrostatic_balance_11_0.png" src="../_images/hydrostatic_balance_11_0.png" />
-</div>
 </div>
 </div>
 <div class="section" id="calculating-scale-heights-for-temperature-and-air-density">
 <h2><span class="section-number">5.7.2. </span>Calculating scale heights for temperature and air density<a class="headerlink" href="#calculating-scale-heights-for-temperature-and-air-density" title="Permalink to this headline">¶</a></h2>
-<p>Here is equation 1 of the <a class="reference external" href="http://clouds.eos.ubc.ca/~phil/courses/atsc301/hydrostat.html#equation-hydro">hydrostatic balance notes</a></p>
+<p>Here is equation 1 of the <a class="reference internal" href="hydrostat.html#hydro"><span class="std std-ref">Hydrostatic balance</span></a> notebook:</p>
 <div class="math notranslate nohighlight">
 \[\frac{ 1}{\overline{H_p}} =  \overline{ \left ( \frac{1 }{H} \right )} = \frac{\int_{0 }^{z}\!\frac{1}{H} dz^\prime  }{z-0} \]</div>
 <p>where</p>
@@ -553,7 +492,7 @@ sounding: subwinter
 <p>and here is the Python code to do that integral:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">=</span><span class="mf">9.8</span>  <span class="c1">#don&#39;t worry about g(z) for this exercise</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">g</span><span class="o">=</span><span class="mf">9.8</span>  <span class="c1">#don&#39;t worry about g(z) for this exercise</span>
 <span class="n">Rd</span><span class="o">=</span><span class="mf">287.</span>  <span class="c1">#kg/m^3</span>
 <span class="k">def</span> <span class="nf">calcScaleHeight</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -600,7 +539,7 @@ is:</p>
 <p>and the following python function:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calcDensHeight</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calcDensHeight</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the density scale height H_rho</span>
 <span class="sd">    </span>
@@ -638,7 +577,7 @@ is:</p>
 <h3><span class="section-number">5.7.2.1. </span>How do <span class="math notranslate nohighlight">\(\overline{H_p}\)</span> and <span class="math notranslate nohighlight">\(\overline{H_\rho}\)</span> compare for the tropical sounding?<a class="headerlink" href="#how-do-overline-h-p-and-overline-h-rho-compare-for-the-tropical-sounding" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sounding</span><span class="o">=</span><span class="s1">&#39;tropics&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sounding</span><span class="o">=</span><span class="s1">&#39;tropics&#39;</span>
 <span class="c1">#</span>
 <span class="c1"># grab the dataframe and get the sounding columns</span>
 <span class="c1">#</span>
@@ -652,7 +591,7 @@ is:</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># limit calculation to bottom 10 km</span>
 <span class="c1">#</span>
 <span class="n">hit</span><span class="o">=</span><span class="n">z</span><span class="o">&lt;</span><span class="mf">10000.</span>
@@ -665,19 +604,13 @@ is:</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pressure scale height for the tropics sounding is  7.96 km
-density scale height for the tropics is  9.74 km
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="how-well-do-these-average-values-represent-the-pressure-and-density-profiles">
 <h3><span class="section-number">5.7.2.2. </span>How well do these average values represent the pressure and density profiles?<a class="headerlink" href="#how-well-do-these-average-values-represent-the-pressure-and-density-profiles" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">theFig</span><span class="p">,</span><span class="n">theAx</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">theFig</span><span class="p">,</span><span class="n">theAx</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">theAx</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">Temp</span><span class="p">,</span><span class="n">press</span><span class="o">/</span><span class="mf">100.</span><span class="p">)</span>
 <span class="c1">#</span>
 <span class="c1"># need to flip the y axis since pressure decreases with height</span>
@@ -695,9 +628,6 @@ density scale height for the tropics is  9.74 km
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/hydrostatic_balance_23_0.png" src="../_images/hydrostatic_balance_23_0.png" />
-</div>
 </div>
 <p>Now check the hydrostatic approximation by plotting the pressure column against</p>
 <div class="math notranslate nohighlight">
@@ -705,8 +635,8 @@ density scale height for the tropics is  9.74 km
 <p>vs. the actual sounding p(T):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">theAx</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">hydroPress</span><span class="o">=</span><span class="n">pressL</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zL</span><span class="o">/</span><span class="n">Hbar</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">theAx</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">[</span><span class="n">hydroPress</span><span class="o">=</span><span class="n">pressL</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zL</span><span class="o">/</span><span class="n">Hbar</span><span class="p">)</span>
 <span class="n">theAx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pressL</span><span class="o">/</span><span class="mf">100.</span><span class="p">,</span><span class="n">zL</span><span class="o">/</span><span class="mf">1000.</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;sounding&#39;</span><span class="p">)</span>
 <span class="n">theAx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hydroPress</span><span class="o">/</span><span class="mf">100.</span><span class="p">,</span><span class="n">zL</span><span class="o">/</span><span class="mf">1000.</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;hydrostat approx&#39;</span><span class="p">)</span>
 <span class="n">theAx</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;height vs. pressure for tropics&#39;</span><span class="p">)</span>
@@ -721,9 +651,6 @@ density scale height for the tropics is  9.74 km
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/hydrostatic_balance_25_0.png" src="../_images/hydrostatic_balance_25_0.png" />
-</div>
 </div>
 <p>Again plot the hydrostatic approximation</p>
 <div class="math notranslate nohighlight">
@@ -731,7 +658,7 @@ density scale height for the tropics is  9.74 km
 <p>vs. the actual sounding <span class="math notranslate nohighlight">\(\rho(z)\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">theAx</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">theAx</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">hydroDens</span><span class="o">=</span><span class="n">rhoL</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">zL</span><span class="o">/</span><span class="n">Hrho</span><span class="p">)</span>
 <span class="n">theAx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rhoL</span><span class="p">,</span><span class="n">zL</span><span class="o">/</span><span class="mf">1000.</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;sounding&#39;</span><span class="p">)</span>
 <span class="n">theAx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hydroDens</span><span class="p">,</span><span class="n">zL</span><span class="o">/</span><span class="mf">1000.</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;hydrostat approx&#39;</span><span class="p">)</span>
@@ -742,9 +669,6 @@ density scale height for the tropics is  9.74 km
 <span class="n">theAx</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/hydrostatic_balance_27_0.png" src="../_images/hydrostatic_balance_27_0.png" />
 </div>
 </div>
 <p><a name="oct7assign"></a></p>

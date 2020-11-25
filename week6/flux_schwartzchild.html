@@ -69,7 +69,7 @@
 <meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week6/flux_schwartzchild.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="The Schwartzchild equation for flux" />
-<meta property="og:description" content="The Schwartzchild equation for flux  From the heating notes we have the heating rate equation temprate used by cloudsat:  \frac{dT}{dt} = \frac{1}{\rho c_p} \fr" />
+<meta property="og:description" content="The Schwartzchild equation for flux  How do we get E_{net} if the satellites only measure radiance L?  Graphically, this is the situation we know how to solve, " />
 
 
 <meta name="twitter:card" content="summary" />
@@ -185,18 +185,28 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../assignments.html">
-   10. Assignments
+  <a class="reference internal" href="../week10/week10_topics.html">
+   10. Week 10
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../review.html">
-   11. Review/logistics
+  <a class="reference internal" href="../week11/week11_topics.html">
+   11. Week 11
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week12/week12_topics.html">
+   12. Week 12
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   13. Assignments
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../notebooks.html">
-   12. List of notebooks
+   14. List of notebooks
   </a>
  </li>
 </ul>
@@ -294,13 +304,10 @@
                 
   <div class="section" id="the-schwartzchild-equation-for-flux">
 <span id="flux-schwartzchild"></span><h1><span class="section-number">6.6. </span>The Schwartzchild equation for flux<a class="headerlink" href="#the-schwartzchild-equation-for-flux" title="Permalink to this headline">¶</a></h1>
-<p>From the <span class="xref std std-ref">heating</span> notes we have the heating rate equation <code class="xref eq docutils literal notranslate"><span class="pre">temprate</span></code> used by cloudsat:</p>
-<div class="math notranslate nohighlight">
-\[\frac{dT}{dt} = \frac{1}{\rho c_p} \frac{dE_{net}}{dz}\]</div>
-<p>But how do we get <span class="math notranslate nohighlight">\(E_{net}\)</span> if the satellites only measure radiance <span class="math notranslate nohighlight">\(L\)</span>?  Graphically, this is the
+<p>How do we get <span class="math notranslate nohighlight">\(E_{net}\)</span> if the satellites only measure radiance <span class="math notranslate nohighlight">\(L\)</span>?  Graphically, this is the
 situation we know how to solve, from <a class="reference internal" href="../week4/schwartz.html#schwartz"><span class="std std-ref">The Schwartzchild Equation</span></a> notes:</p>
 <div class="figure align-default" id="schwartzchild2">
-<a class="reference internal image-reference" href="../_images/schwartzchild1.png"><img alt="../_images/schwartzchild1.png" src="../_images/schwartzchild1.png" style="width: 495.95px; height: 333.2px;" /></a>
+<a class="reference internal image-reference" href="../_images/schwartzchild2.png"><img alt="../_images/schwartzchild2.png" src="../_images/schwartzchild2.png" style="width: 495.95px; height: 333.2px;" /></a>
 </div>
 <p>But this only works for photons that are going straight up or straight down.
 For the flux, we need to count
@@ -345,12 +352,12 @@ approximation is quite good:</p>
 <div class="math notranslate nohighlight">
 \[E_{\lambda \uparrow} = \pi L_{\lambda 0} \exp( -1.66 \tau_{\lambda T}  ) + \pi B_\lambda (T_{layer})(1- \exp( -1.66\tau_{\lambda T} ))\]</div>
 <p>And if we then integrate this over all wavelengths we get the <strong>broadband flux equation</strong>:</p>
-<div class="math notranslate nohighlight">
-\[E_{\uparrow} = \sigma T_0^4 \exp( -1.66 \overline{\tau}_{\lambda T}  ) + \sigma T_{layer}^4(1- \exp( -1.66 \overline{\tau}_{\lambda T} ))\]</div>
+<div class="math notranslate nohighlight" id="equation-layer-flux">
+<span class="eqno">(6.14)<a class="headerlink" href="#equation-layer-flux" title="Permalink to this equation">¶</a></span>\[E_{\uparrow} = \sigma T_0^4 \exp( -1.66 \overline{\tau}_{\lambda T}  ) + \sigma T_{layer}^4(1- \exp( -1.66 \overline{\tau}_{\lambda T} ))\]</div>
 <p>where the overbar indicates that we’ve average <span class="math notranslate nohighlight">\(\tau_\lambda\)</span> over all thermal wavelengths.</p>
 </div>
 <div class="section" id="the-two-stream-approximation">
-<h2><span class="section-number">6.6.2. </span>The two stream approximation<a class="headerlink" href="#the-two-stream-approximation" title="Permalink to this headline">¶</a></h2>
+<span id="two-stream-approx"></span><h2><span class="section-number">6.6.2. </span>The two stream approximation<a class="headerlink" href="#the-two-stream-approximation" title="Permalink to this headline">¶</a></h2>
 <p>When we repeat this for the downward facing hemisphere (<span class="math notranslate nohighlight">\(\pi/2 \leq \theta \leq \pi\)</span>) and get
 the downward flux <span class="math notranslate nohighlight">\(E_\downarrow\)</span>,
 we’ve got the <strong>two stream approximation</strong>.  We’ll use this to get heating rates in the atmosphere

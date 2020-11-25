@@ -58,7 +58,7 @@
     <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week9/calc_ndvi.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="10. Assignments" href="../assignments.html" />
+    <link rel="next" title="10. Week 10" href="../week10/week10_topics.html" />
     <link rel="prev" title="9.2. Landsat image processing 1" href="landsat_image.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -167,56 +167,31 @@
      9.3. Landast part 2: rasterio
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#get-the-vancouver-image">
-     9.4. Get the vancouver image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#read-in-the-bands-4-red-and-5-near-infrared">
-     9.5. Read in the bands  4 (red) and 5 (near infrared)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#find-the-toa-reflectance-for-each-channel">
-     9.6. Find the toa reflectance for each channel
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#silence-annoying-warnings-from-numpy">
-     9.7. Silence annoying warnings from numpy
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#nir-is-much-more-reflective-than-red">
-     9.8. NIR is much more reflective than red
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#calculate-the-ndvi">
-     9.9. Calculate the ndvi
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="#does-the-reflectance-step-matter">
-     9.10. Does the reflectance step matter?
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../assignments.html">
-   10. Assignments
+  <a class="reference internal" href="../week10/week10_topics.html">
+   10. Week 10
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../review.html">
-   11. Review/logistics
+  <a class="reference internal" href="../week11/week11_topics.html">
+   11. Week 11
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week12/week12_topics.html">
+   12. Week 12
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   13. Assignments
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../notebooks.html">
-   12. List of notebooks
+   14. List of notebooks
   </a>
  </li>
 </ul>
@@ -289,14 +264,14 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week9/calc_ndvi.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week9/calc_ndvi.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
-        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week9/calc_ndvi.ipynb&branch=master"><button type="button"
+        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week9/calc_ndvi.md&branch=master"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
                 data-placement="left"><img class="jupyterhub-button-logo"
                     src="../_static/images/logo_jupyterhub.svg"
@@ -317,44 +292,9 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   9.3. Landast part 2: rasterio
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#get-the-vancouver-image">
-   9.4. Get the vancouver image
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#read-in-the-bands-4-red-and-5-near-infrared">
-   9.5. Read in the bands  4 (red) and 5 (near infrared)
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#find-the-toa-reflectance-for-each-channel">
-   9.6. Find the toa reflectance for each channel
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#silence-annoying-warnings-from-numpy">
-   9.7. Silence annoying warnings from numpy
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nir-is-much-more-reflective-than-red">
-   9.8. NIR is much more reflective than red
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#calculate-the-ndvi">
-   9.9. Calculate the ndvi
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#does-the-reflectance-step-matter">
-   9.10. Does the reflectance step matter?
+   9.3.1. Get the vancouver image
   </a>
  </li>
 </ul>
@@ -376,6 +316,7 @@ and calculates the <a class="reference external" href="https://en.wikipedia.org/
 \[ndvi = (nir - red)/(nir + red)\]</div>
 <p>where nir and red are the
 respective spectral directional reflectances.</p>
+<p>To get the landsat data, you’ll need to first run <a class="reference internal" href="landsat_image.html#landsat1"><span class="std std-ref">Landsat image processing 1</span></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
@@ -397,9 +338,8 @@ context imported. Front of path:
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="get-the-vancouver-image">
-<h1><span class="section-number">9.4. </span>Get the vancouver image<a class="headerlink" href="#get-the-vancouver-image" title="Permalink to this headline">¶</a></h1>
+<h2><span class="section-number">9.3.1. </span>Get the vancouver image<a class="headerlink" href="#get-the-vancouver-image" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">landsat_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;landsat_scenes&quot;</span>
@@ -416,9 +356,9 @@ context imported. Front of path:
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="read-in-the-bands-4-red-and-5-near-infrared">
-<h1><span class="section-number">9.5. </span>Read in the bands  4 (red) and 5 (near infrared)<a class="headerlink" href="#read-in-the-bands-4-red-and-5-near-infrared" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Read in the bands  4 (red) and 5 (near infrared)</p></li>
+</ul>
 <p>Note that rasterio is a pretty complicated object with a lot of functionality.</p>
 <p>The full documentation is at https://rasterio.readthedocs.io/en/latest/</p>
 <div class="cell docutils container">
@@ -445,9 +385,9 @@ context imported. Front of path:
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="find-the-toa-reflectance-for-each-channel">
-<h1><span class="section-number">9.6. </span>Find the toa reflectance for each channel<a class="headerlink" href="#find-the-toa-reflectance-for-each-channel" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Find the toa reflectance for each channel</p></li>
+</ul>
 <p>Use <a class="reference external" href="https://github.com/phaustin/a301_2020/blob/c2070ca26090dc4a7e612c1e9c4ed2d9e865ae5e/a301/landsat/toa_reflectance.py#L19">toa_reflectance_8</a> to turn band counts into reflectance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -464,14 +404,14 @@ Scene LC80470262015165LGN02 center time is 2015-06-14 19:00:43
 Scene LC80470262015165LGN02 center time is 2015-06-14 19:00:43
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;sat_lib.landsat.landsat_metadata.landsat_metadata object at 0x7fdf058bed00&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;sat_lib.landsat.landsat_metadata.landsat_metadata object at 0x7f6d505b9b80&gt;
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="silence-annoying-warnings-from-numpy">
-<h1><span class="section-number">9.7. </span>Silence annoying warnings from numpy<a class="headerlink" href="#silence-annoying-warnings-from-numpy" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Silence annoying warnings from numpy</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -484,9 +424,9 @@ Scene LC80470262015165LGN02 center time is 2015-06-14 19:00:43
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="nir-is-much-more-reflective-than-red">
-<h1><span class="section-number">9.8. </span>NIR is much more reflective than red<a class="headerlink" href="#nir-is-much-more-reflective-than-red" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>NIR is much more reflective than red</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
@@ -532,9 +472,9 @@ Scene LC80470262015165LGN02 center time is 2015-06-14 19:00:43
 <img alt="../_images/calc_ndvi_13_0.png" src="../_images/calc_ndvi_13_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="calculate-the-ndvi">
-<h1><span class="section-number">9.9. </span>Calculate the ndvi<a class="headerlink" href="#calculate-the-ndvi" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Calculate the ndvi</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ndvi</span> <span class="o">=</span> <span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">-</span> <span class="n">out</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">out</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
@@ -558,11 +498,12 @@ Scene LC80470262015165LGN02 center time is 2015-06-14 19:00:43
 <img alt="../_images/calc_ndvi_16_1.png" src="../_images/calc_ndvi_16_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="does-the-reflectance-step-matter">
-<h1><span class="section-number">9.10. </span>Does the reflectance step matter?<a class="headerlink" href="#does-the-reflectance-step-matter" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>Does the reflectance step matter?</p></li>
+</ul>
 <p>Check to see if you histograms look different when you do the ndvi with raw counts
 instead of reflectance.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -594,7 +535,7 @@ instead of reflectance.</p>
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="landsat_image.html" title="previous page"><span class="section-number">9.2. </span>Landsat image processing 1</a>
-    <a class='right-next' id="next-link" href="../assignments.html" title="next page"><span class="section-number">10. </span>Assignments</a>
+    <a class='right-next' id="next-link" href="../week10/week10_topics.html" title="next page"><span class="section-number">10. </span>Week 10</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

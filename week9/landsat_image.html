@@ -69,7 +69,7 @@
 <meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week9/landsat_image.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Landsat image processing 1" />
-<meta property="og:description" content="Landsat image processing 1  https://medium.com/@mommermiscience/dealing-with-geospatial-raster-data-in-python-with-rasterio-775e5ba0c9f5  https://www.perrygeo.c" />
+<meta property="og:description" content="Landsat image processing 1  My source for the AWS download workflow I outline here is  geology and python  Rasterio examples  geospatial raster data  A good exp" />
 
 
 <meta name="twitter:card" content="summary" />
@@ -167,56 +167,31 @@
      9.3. Landast part 2: rasterio
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="calc_ndvi.html#get-the-vancouver-image">
-     9.4. Get the vancouver image
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="calc_ndvi.html#read-in-the-bands-4-red-and-5-near-infrared">
-     9.5. Read in the bands  4 (red) and 5 (near infrared)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="calc_ndvi.html#find-the-toa-reflectance-for-each-channel">
-     9.6. Find the toa reflectance for each channel
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="calc_ndvi.html#silence-annoying-warnings-from-numpy">
-     9.7. Silence annoying warnings from numpy
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="calc_ndvi.html#nir-is-much-more-reflective-than-red">
-     9.8. NIR is much more reflective than red
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="calc_ndvi.html#calculate-the-ndvi">
-     9.9. Calculate the ndvi
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="calc_ndvi.html#does-the-reflectance-step-matter">
-     9.10. Does the reflectance step matter?
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../assignments.html">
-   10. Assignments
+  <a class="reference internal" href="../week10/week10_topics.html">
+   10. Week 10
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../review.html">
-   11. Review/logistics
+  <a class="reference internal" href="../week11/week11_topics.html">
+   11. Week 11
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week12/week12_topics.html">
+   12. Week 12
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   13. Assignments
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../notebooks.html">
-   12. List of notebooks
+   14. List of notebooks
   </a>
  </li>
 </ul>
@@ -338,11 +313,31 @@
         
               <div>
                 
-  <div class="section" id="landsat-image-processing-1">
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+<span class="n">pacific</span> <span class="o">=</span> <span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;US/Pacific&#39;</span><span class="p">)</span>
+<span class="n">date</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">pacific</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;written on </span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="landsat-image-processing-1">
 <span id="landsat1"></span><h1><span class="section-number">9.2. </span>Landsat image processing 1<a class="headerlink" href="#landsat-image-processing-1" title="Permalink to this headline">¶</a></h1>
-<p>https://medium.com/&#64;mommermiscience/dealing-with-geospatial-raster-data-in-python-with-rasterio-775e5ba0c9f5</p>
-<p>https://www.perrygeo.com/python-affine-transforms.html</p>
-<p>http://geologyandpython.com/get-landsat-8.html</p>
+<ul class="simple">
+<li><p>My source for the AWS download workflow I outline here is</p></li>
+</ul>
+<p><a class="reference external" href="http://geologyandpython.com/get-landsat-8.html">geology and python</a></p>
+<ul class="simple">
+<li><p>Rasterio examples</p></li>
+</ul>
+<p><a class="reference external" href="https://medium.com/&#64;mommermiscience/dealing-with-geospatial-raster-data-in-python-with-rasterio-775e5ba0c9f5">geospatial raster data</a></p>
+<ul class="simple">
+<li><p>A good explanation of the python affine package</p></li>
+</ul>
+<p><a class="reference external" href="https://www.perrygeo.com/python-affine-transforms.html">affine transform</a></p>
 <div class="section" id="bulk-image-download-from-aws">
 <h2><span class="section-number">9.2.1. </span>Bulk image download from AWS<a class="headerlink" href="#bulk-image-download-from-aws" title="Permalink to this headline">¶</a></h2>
 <p>Notes drawing on http://geologyandpython.com/get-landsat-8.html</p>
@@ -387,8 +382,8 @@
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Path:&#39;</span><span class="p">,</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;Row:&#39;</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
 
 <span class="c1"># Filter the Landsat Amazon S3 table for images matching path, row, cloudcover and processing state.</span>
-<span class="n">scenes</span> <span class="o">=</span> <span class="n">s3_scenes</span><span class="p">[(</span><span class="n">s3_scenes</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="n">path</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">s3_scenes</span><span class="o">.</span><span class="n">row</span> <span class="o">==</span> <span class="n">row</span><span class="p">)</span> <span class="o">&amp;</span> 
-                   <span class="p">(</span><span class="n">s3_scenes</span><span class="o">.</span><span class="n">cloudCover</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> 
+<span class="n">scenes</span> <span class="o">=</span> <span class="n">s3_scenes</span><span class="p">[(</span><span class="n">s3_scenes</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="n">path</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">s3_scenes</span><span class="o">.</span><span class="n">row</span> <span class="o">==</span> <span class="n">row</span><span class="p">)</span> <span class="o">&amp;</span>
+                   <span class="p">(</span><span class="n">s3_scenes</span><span class="o">.</span><span class="n">cloudCover</span> <span class="o">&lt;=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span>
                    <span class="p">(</span><span class="o">~</span><span class="n">s3_scenes</span><span class="o">.</span><span class="n">productId</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;_T2&#39;</span><span class="p">))</span> <span class="o">&amp;</span>
                    <span class="p">(</span><span class="o">~</span><span class="n">s3_scenes</span><span class="o">.</span><span class="n">productId</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;_RT&#39;</span><span class="p">))]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Found </span><span class="si">{}</span><span class="s1"> images</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scenes</span><span class="p">)))</span>
@@ -397,6 +392,10 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>In order to change parts of this dataframe, we make another copy using
+the dataframe constructor.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scenes_van</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">scenes</span><span class="p">)</span>
@@ -404,6 +403,9 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Here are the columns in for the first row of the dataframe</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="n">scenes_van</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
@@ -420,6 +422,10 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>the aquistion date is a text string.  We need to turn it into a datetime
+object in order to use it for filtering.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">the_date</span> <span class="o">=</span> <span class="n">dateutil</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
@@ -428,6 +434,10 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>this cell runs the convert_times function on every row of the dataframe
+returning a new column</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">convert_times</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
@@ -439,6 +449,10 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>save the datetime column, and elete the acquistionDate column which is now
+redundant</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scenes_van</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">the_times</span>
@@ -455,6 +469,12 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Now apply the new make_date function to chop off the hours, minutes and seconds.
+We will use this to get exact matches on the year, month, day.  With landsat there
+are never two passes over the same wrs row column in a single day, so date-only
+is good enough for a unique identifier.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_date</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
@@ -484,6 +504,10 @@
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>Now use the requests module to download the index.html file for the image
+and retrieve the individual bands, plus the metadata mtl file.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
@@ -492,7 +516,7 @@
 <span class="kn">import</span> <span class="nn">shutil</span>
 
 
-<span class="c1"># Request the html text of the download_url from the amazon server. </span>
+<span class="c1"># Request the html text of the download_url from the amazon server.</span>
 <span class="c1"># download_url example: https://landsat-pds.s3.amazonaws.com/c1/L8/139/045/LC08_L1TP_139045_20170304_20170316_01_T1/index.html</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">scene_url</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -509,7 +533,7 @@
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">entity_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Second loop: for each band of this image that we find using the html &lt;li&gt; tag</span>
-    <span class="n">good_bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B4.TIF&#39;</span><span class="p">,</span> <span class="s1">&#39;B5.TIF&#39;</span><span class="p">]</span>
+    <span class="n">good_bands</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B3.TIF&#39;</span><span class="p">,</span><span class="s1">&#39;B4.TIF&#39;</span><span class="p">,</span><span class="s1">&#39;B5.TIF&#39;</span><span class="p">]</span>
     <span class="n">good_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">li</span> <span class="ow">in</span> <span class="n">html</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">):</span>
 
@@ -521,8 +545,7 @@
         <span class="k">if</span> <span class="n">the_file</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;MTL.txt&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">good_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">the_file</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;here is goodlist: </span><span class="si">{</span><span class="n">good_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;here is mtl_file </span><span class="si">{</span><span class="n">mtl_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        
+
 <span class="n">download</span><span class="o">=</span><span class="kc">True</span>
 <span class="k">if</span> <span class="n">download</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">the_file</span> <span class="ow">in</span> <span class="n">good_list</span><span class="p">:</span>
@@ -537,7 +560,6 @@
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">landsat_path</span> <span class="o">/</span> <span class="n">the_file</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output</span><span class="p">:</span>
             <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
         <span class="k">del</span> <span class="n">response</span>
-    
 </pre></div>
 </div>
 </div>

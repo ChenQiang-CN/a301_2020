@@ -151,18 +151,28 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../assignments.html">
-   10. Assignments
+  <a class="reference internal" href="../week10/week10_topics.html">
+   10. Week 10
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../review.html">
-   11. Review/logistics
+  <a class="reference internal" href="../week11/week11_topics.html">
+   11. Week 11
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week12/week12_topics.html">
+   12. Week 12
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   13. Assignments
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../notebooks.html">
-   12. List of notebooks
+   14. List of notebooks
   </a>
  </li>
 </ul>
@@ -235,14 +245,14 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week8/level2_cartopy_resample.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week8/level2_cartopy_resample.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
-        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week8/level2_cartopy_resample.ipynb&branch=master"><button type="button"
+        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week8/level2_cartopy_resample.md&branch=master"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
                 data-placement="left"><img class="jupyterhub-button-logo"
                     src="../_static/images/logo_jupyterhub.svg"
@@ -494,7 +504,7 @@ in cm</p></li>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">m5_file</span><span class="o">=</span> <span class="p">(</span><span class="n">a301_lib</span><span class="o">.</span><span class="n">sat_data</span> <span class="o">/</span> <span class="s1">&#39;hdf4_files&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/MYD05*2105*hdf&quot;</span><span class="p">)</span>
-<span class="n">m3_file</span> <span class="o">=</span> <span class="p">(</span><span class="n">a301_lib</span><span class="o">.</span><span class="n">sat_data</span> <span class="o">/</span> <span class="s1">&#39;hdf4_files&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;MYD03*2105*.hdf&quot;</span><span class="p">)</span>
+<span class="n">m3_file</span> <span class="o">=</span> <span class="p">(</span><span class="n">a301_lib</span><span class="o">.</span><span class="n">sat_data</span> <span class="o">/</span> <span class="s1">&#39;hdf4_files/myd03&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;MYD03*2105*.hdf&quot;</span><span class="p">)</span>
 <span class="n">m5_file_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">m5_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">m3_file_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">m3_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">m5_file_str</span><span class="p">)</span>

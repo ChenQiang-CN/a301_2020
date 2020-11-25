@@ -17,60 +17,35 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from pyresample import SwathDefinition, kd_tree, geometry
+m5_file= (a301_lib.sat_data / 'hdf4_files').glob("**/MYD05*2105*hdf")
+m3_file = (a301_lib.sat_data / 'hdf4_files/myd03').glob("MYD03*2105*.hdf")
+m5_file_str = str(list(m5_file)[0])
+m3_file_str = str(list(m3_file)[0])
+print(m5_file_str)
+print(m3_file_str)
 
-proj_params_5km = get_proj_params(m5_file_str)
-proj_params_1km = get_proj_params(m3_file_str)
-swath_def = SwathDefinition(lons_5km, lats_5km)
-area_def_lr = swath_def.compute_optimal_bb_area(proj_dict=proj_params_5km)
-#area_def_lr.name = "ir wv retrieval modis 5 km resolution (lr=low resolution)"
-#area_def_lr.area_id = "modis_ir_wv"
-#area_def_lr.job_id = area_def_lr.area_id
-fill_value = -9999.0
-image_wv_ir = kd_tree.resample_nearest(
-    swath_def,
-    wv_ir_scaled.ravel(),
-    area_def_lr,
-    radius_of_influence=5000,
-    nprocs=2,
-    fill_value=fill_value,
-)
-image_wv_ir[image_wv_ir < -9000] = np.nan
-print(f"\ndump area definition:\n{area_def_lr}\n")
-print(
-    (
-        f"\nx and y pixel dimensions in meters:"
-        f"\n{area_def_lr.pixel_size_x}\n{area_def_lr.pixel_size_y}\n"
-    )
-)
+the_file = SD(m3_file_str, SDC.READ)
+lats_1km = the_file.select("Latitude").get()
+lons_1km = the_file.select("Longitude").get()
+the_file.end()
+print(lats_1km.shape)
+
+the_file = SD(m5_file_str, SDC.READ)
+lats_5km = the_file.select("Latitude").get()
+lons_5km = the_file.select("Longitude").get()
+the_file.end()
+print(lats_5km.shape)
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m~/work/sat_lib/geometry.py[0m in [0;36mget_proj_params[0;34m(input_swath)[0m
-[1;32m     32[0m     [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 33[0;31m         [0mmodis_dict[0m[0;34m=[0m[0mparseMeta[0m[0;34m([0m[0mmodis_file[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     34[0m         [0mlat_0[0m [0;34m=[0m [0mmodis_dict[0m[0;34m[[0m[0;34m'lat_0'[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0;31mIndexError[0m                                Traceback (most recent call last)
+[0;32m<ipython-input-3-4355884dfdf5>[0m in [0;36m<module>[0;34m[0m
+[1;32m      2[0m [0mm3_file[0m [0;34m=[0m [0;34m([0m[0ma301_lib[0m[0;34m.[0m[0msat_data[0m [0;34m/[0m [0;34m'hdf4_files/myd03'[0m[0;34m)[0m[0;34m.[0m[0mglob[0m[0;34m([0m[0;34m"MYD03*2105*.hdf"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0mm5_file_str[0m [0;34m=[0m [0mstr[0m[0;34m([0m[0mlist[0m[0;34m([0m[0mm5_file[0m[0;34m)[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 4[0;31m [0mm3_file_str[0m [0;34m=[0m [0mstr[0m[0;34m([0m[0mlist[0m[0;34m([0m[0mm3_file[0m[0;34m)[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      5[0m [0mprint[0m[0;34m([0m[0mm5_file_str[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      6[0m [0mprint[0m[0;34m([0m[0mm3_file_str[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mNameError[0m: name 'modis_file' is not defined
-
-During handling of the above exception, another exception occurred:
-
-[0;31mTypeError[0m                                 Traceback (most recent call last)
-[0;32m<ipython-input-11-b54068950008>[0m in [0;36m<module>[0;34m[0m
-[1;32m      1[0m [0;32mfrom[0m [0mpyresample[0m [0;32mimport[0m [0mSwathDefinition[0m[0;34m,[0m [0mkd_tree[0m[0;34m,[0m [0mgeometry[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      2[0m [0;34m[0m[0m
-[0;32m----> 3[0;31m [0mproj_params_5km[0m [0;34m=[0m [0mget_proj_params[0m[0;34m([0m[0mm5_file_str[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      4[0m [0mproj_params_1km[0m [0;34m=[0m [0mget_proj_params[0m[0;34m([0m[0mm3_file_str[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      5[0m [0mswath_def[0m [0;34m=[0m [0mSwathDefinition[0m[0;34m([0m[0mlons_5km[0m[0;34m,[0m [0mlats_5km[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/work/sat_lib/geometry.py[0m in [0;36mget_proj_params[0;34m(input_swath)[0m
-[1;32m     35[0m         [0mlon_0[0m [0;34m=[0m [0mmodis_dict[0m[0;34m[[0m[0;34m'lon_0'[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
-[1;32m     36[0m     [0;32mexcept[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 37[0;31m         [0mlat_0[0m [0;34m=[0m [0minput_swath[0m[0;34m[[0m[0;34m'lat_0'[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     38[0m         [0mlon_0[0m [0;34m=[0m [0minput_swath[0m[0;34m[[0m[0;34m'lon_0'[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
-[1;32m     39[0m     [0;32mimport[0m [0mcartopy[0m[0;34m.[0m[0mcrs[0m [0;32mas[0m [0mccrs[0m[0;34m[0m[0;34m[0m[0m
-
-[0;31mTypeError[0m: string indices must be integers
-TypeError: string indices must be integers
+[0;31mIndexError[0m: list index out of range
+IndexError: list index out of range
 

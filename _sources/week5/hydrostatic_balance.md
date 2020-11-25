@@ -93,10 +93,9 @@ ax1.legend();
 ```
 
 ## Calculating scale heights for temperature and air density
-
 +++
 
-Here is equation 1 of the [hydrostatic balance notes](http://clouds.eos.ubc.ca/~phil/courses/atsc301/hydrostat.html#equation-hydro)
+Here is equation 1 of the {ref}`hydro` notebook:
 
 +++
 
@@ -244,7 +243,7 @@ vs. the actual sounding p(T):
 
 ```{code-cell}
 fig,theAx=plt.subplots(1,1)
-hydroPress=pressL[0]*np.exp(-zL/Hbar)
+[hydroPress=pressL[0]*np.exp(-zL/Hbar)
 theAx.plot(pressL/100.,zL/1000.,label='sounding')
 theAx.plot(hydroPress/100.,zL/1000.,label='hydrostat approx')
 theAx.set_title('height vs. pressure for tropics')

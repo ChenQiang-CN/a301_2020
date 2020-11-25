@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10.4. Zooming an image &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week10/image_zoom.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="10.6. Rasterio: reading bands 3,4 and 5" href="ndvi_rasterio.html" />
+    <link rel="prev" title="10.3. Setting up the cartopy plot" href="demo_cartopy_extent.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week10/image_zoom.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Zooming an image" />
+<meta property="og:description" content="Zooming an image  We need to be able to select a small region of a landsat image to work with.  This notebook  zooms in on a 400 pixel wide x 600 pixel high sub" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week2/week2_topics.html">
+   2. Week 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week5/week5_topics.html">
+   5. Week 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week6/week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week7/week7_topics.html">
+   7. Week 7
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week8/week8_topics.html">
+   8. Week 8
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week9/week9_topics.html">
+   9. Week 9
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="week10_topics.html">
+   10. Week 10
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="assign5b_multilayer_sol.html">
+     10.1. Assignment 5b solution
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="assign6a_diffuse_flux.html">
+     10.2. Assignment 6a – diffuse flux
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="demo_cartopy_extent.html">
+     10.3. Setting up the cartopy plot
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     10.4. Zooming an image
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="#plot-the-raw-band-5-image-clipped-to-reflectivities-below-0-6">
+     10.5. Plot the raw band 5 image, clipped to reflectivities below 0.6
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="ndvi_rasterio.html">
+     10.6. Rasterio: reading bands 3,4 and 5
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="scene_image.html">
+     10.7. Making a png image
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week11/week11_topics.html">
+   11. Week 11
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week12/week12_topics.html">
+   12. Week 12
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   13. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks.html">
+   14. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/week10/image_zoom.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/week10/image_zoom.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week10/image_zoom.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week10/image_zoom.md&branch=master"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="../_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   10.4. Zooming an image
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#save-the-crs-and-the-full-affine">
+     10.4.1. Save the crs and the full_affine
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#locate-ubc-on-the-map">
+     10.4.2. Locate UBC on the map
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#locate-ubc-on-the-image">
+     10.4.3. Locate UBC on the image
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-our-subscene-400-pixels-wide-and-600-pixels-tall-using-ubc-as-a-reference-point">
+     10.4.4. make our subscene 400 pixels wide and 600 pixels tall, using UBC as a reference point
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#plot-the-raw-band-5-image-clipped-to-reflectivities-below-0-6">
+   10.5. Plot the raw band 5 image, clipped to reflectivities below 0.6
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#put-this-on-a-map">
+     10.5.1. put this on a map
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-rasterio-to-write-a-new-tiff-file">
+     10.5.2. Use  rasterio  to write a new tiff file
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="zooming-an-image">
+<span id="image-zoom"></span><h1><span class="section-number">10.4. </span>Zooming an image<a class="headerlink" href="#zooming-an-image" title="Permalink to this headline">¶</a></h1>
+<p>We need to be able to select a small region of a landsat image to work with.  This notebook</p>
+<ol class="simple">
+<li><p>zooms in on a 400 pixel wide x 600 pixel high subscene centered on  Vancouver,  using pyproj and the affine transform to map from lat,lon to x,y in UTM zone 10N to row, column in the landsat image</p></li>
+<li><p>Puts on crude coastlines in the UTM-10N crs</p></li>
+<li><p>Calculates the new affine transform for the subcene, and writes the image out to a 1 Mbyte tiff file</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">cartopy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.random</span>
+<span class="kn">import</span> <span class="nn">rasterio</span>
+<span class="kn">from</span> <span class="nn">affine</span> <span class="kn">import</span> <span class="n">Affine</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">Normalize</span>
+<span class="kn">from</span> <span class="nn">pyproj</span> <span class="kn">import</span> <span class="n">CRS</span><span class="p">,</span> <span class="n">Transformer</span>
+
+<span class="kn">import</span> <span class="nn">a301_lib</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">sat_lib.landsat.toa_reflectance</span> <span class="kn">import</span> <span class="n">toa_reflectance_8</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>******************************
+context imported. Front of path:
+/home/phil/work
+
+in sat_lib init
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Get the tiff files and calculate band 5 reflectance</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">week10_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+<span class="n">band4</span> <span class="o">=</span> <span class="p">(</span><span class="n">week10_dir</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;week9/landsat_scenes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/*B4.TIF&quot;</span><span class="p">)</span>
+<span class="n">band4</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">band4</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">band5</span> <span class="o">=</span> <span class="p">(</span><span class="n">week10_dir</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;week9/landsat_scenes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/*B5.TIF&quot;</span><span class="p">)</span>
+<span class="n">band5</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">band5</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">mtl_file</span> <span class="o">=</span> <span class="p">(</span><span class="n">week10_dir</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;week9/landsat_scenes&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;**/*MTL.txt&quot;</span><span class="p">)</span>
+<span class="n">mtl_file</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mtl_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="save-the-crs-and-the-full-affine">
+<h2><span class="section-number">10.4.1. </span>Save the crs and the full_affine<a class="headerlink" href="#save-the-crs-and-the-full-affine" title="Permalink to this headline">¶</a></h2>
+<p>We need to keep both full_affine (the affine transform for the full scene, and the coordinate reference system for pyproj (called crs below)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">band5</span><span class="p">)</span> <span class="k">as</span> <span class="n">b5_raster</span><span class="p">:</span>
+    <span class="n">full_affine</span> <span class="o">=</span> <span class="n">b5_raster</span><span class="o">.</span><span class="n">transform</span>
+    <span class="n">crs</span> <span class="o">=</span> <span class="n">b5_raster</span><span class="o">.</span><span class="n">crs</span>
+    <span class="n">full_profile</span> <span class="o">=</span> <span class="n">b5_raster</span><span class="o">.</span><span class="n">profile</span>
+    <span class="n">refl</span> <span class="o">=</span> <span class="n">toa_reflectance_8</span><span class="p">([</span><span class="mi">5</span><span class="p">],</span> <span class="n">mtl_file</span><span class="p">)</span>
+    <span class="n">b5_refl</span> <span class="o">=</span> <span class="n">refl</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scene LC80470262015165LGN02 center time is 2015-06-14 19:00:43
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">b5_refl</span><span class="o">.</span><span class="n">flat</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;l&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">b5_refl</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="n">subset</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;band 5 reflectance whole scene&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;band 5 reflectance whole scene&#39;)
+</pre></div>
+</div>
+<img alt="../_images/image_zoom_6_1.png" src="../_images/image_zoom_6_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;profile: </span><span class="se">\n</span><span class="si">{</span><span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">full_profile</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>profile: 
+{&#39;blockxsize&#39;: 512,
+ &#39;blockysize&#39;: 512,
+ &#39;compress&#39;: &#39;deflate&#39;,
+ &#39;count&#39;: 1,
+ &#39;crs&#39;: CRS.from_epsg(32610),
+ &#39;driver&#39;: &#39;GTiff&#39;,
+ &#39;dtype&#39;: &#39;uint16&#39;,
+ &#39;height&#39;: 7961,
+ &#39;interleave&#39;: &#39;band&#39;,
+ &#39;nodata&#39;: None,
+ &#39;tiled&#39;: True,
+ &#39;transform&#39;: Affine(30.0, 0.0, 397185.0,
+       0.0, -30.0, 5531415.0),
+ &#39;width&#39;: 7851}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="locate-ubc-on-the-map">
+<h2><span class="section-number">10.4.2. </span>Locate UBC on the map<a class="headerlink" href="#locate-ubc-on-the-map" title="Permalink to this headline">¶</a></h2>
+<p>We need to project the center of campus from lon/lat to UTM 10N x,y using pyproj.Transformer and our crs (which in this case is UTM).  We can transform from lon,lat (p_lonlat) to x,y (p_utm) to anchor us to a known point in the map coordinates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_utm</span> <span class="o">=</span> <span class="n">crs</span>
+<span class="n">p_latlon</span> <span class="o">=</span> <span class="n">CRS</span><span class="o">.</span><span class="n">from_proj4</span><span class="p">(</span><span class="s2">&quot;+proj=latlon&quot;</span><span class="p">)</span>
+<span class="n">transform</span> <span class="o">=</span> <span class="n">Transformer</span><span class="o">.</span><span class="n">from_crs</span><span class="p">(</span><span class="n">p_latlon</span><span class="p">,</span> <span class="n">p_utm</span><span class="p">)</span>
+<span class="n">ubc_lon</span> <span class="o">=</span> <span class="o">-</span><span class="mf">123.2460</span>
+<span class="n">ubc_lat</span> <span class="o">=</span> <span class="mf">49.2606</span>
+<span class="n">ubc_x</span><span class="p">,</span> <span class="n">ubc_y</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">ubc_lon</span><span class="p">,</span> <span class="n">ubc_lat</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="locate-ubc-on-the-image">
+<h2><span class="section-number">10.4.3. </span>Locate UBC on the image<a class="headerlink" href="#locate-ubc-on-the-image" title="Permalink to this headline">¶</a></h2>
+<p>Now we need to use the affine transform to go between x,y and
+col, row on the image.  The next cell creates two slice objects that extend  on either side of the center point.  The tilde (~) in front of the transform indicates that we’re going from x,y to col,row, instead of col,row to x,y.  (See <a class="reference external" href="http://www.perrygeo.com/python-affine-transforms.html">this blog entry</a> for reference.)  Remember that row 0 is the top row, with rows decreasing downward to the south.  To demonstrate, the cell below uses the tranform to calculate the x,y coordinates of the (0,0) corner.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">full_ul_xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">full_affine</span> <span class="o">*</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;orig ul corner x,y (km)=</span><span class="si">{</span><span class="n">full_ul_xy</span><span class="o">*</span><span class="mf">1.e-3</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>orig ul corner x,y (km)=[ 397.185 5531.415]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="make-our-subscene-400-pixels-wide-and-600-pixels-tall-using-ubc-as-a-reference-point">
+<h2><span class="section-number">10.4.4. </span>make our subscene 400 pixels wide and 600 pixels tall, using UBC as a reference point<a class="headerlink" href="#make-our-subscene-400-pixels-wide-and-600-pixels-tall-using-ubc-as-a-reference-point" title="Permalink to this headline">¶</a></h2>
+<p>We need to find the right rows and columns on the image to save for the subscene.  Do this by working outward from UBC by a certain number of pixels in each direction, using the inverse of the full_affine transform to go from x,y to col,row</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ubc_col</span><span class="p">,</span> <span class="n">ubc_row</span> <span class="o">=</span> <span class="o">~</span><span class="n">full_affine</span> <span class="o">*</span> <span class="p">(</span><span class="n">ubc_x</span><span class="p">,</span> <span class="n">ubc_y</span><span class="p">)</span>
+<span class="n">ubc_col</span><span class="p">,</span> <span class="n">ubc_row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ubc_col</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">ubc_row</span><span class="p">)</span>
+<span class="n">l_col_offset</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100</span>
+<span class="n">r_col_offset</span> <span class="o">=</span> <span class="o">+</span><span class="mi">300</span>
+<span class="n">b_row_offset</span> <span class="o">=</span> <span class="o">+</span><span class="mi">100</span>
+<span class="n">t_row_offset</span> <span class="o">=</span> <span class="o">-</span><span class="mi">500</span>
+<span class="n">col_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">ubc_col</span> <span class="o">+</span> <span class="n">l_col_offset</span><span class="p">,</span> <span class="n">ubc_col</span> <span class="o">+</span> <span class="n">r_col_offset</span><span class="p">)</span>
+<span class="n">row_slice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">ubc_row</span> <span class="o">+</span> <span class="n">t_row_offset</span><span class="p">,</span> <span class="n">ubc_row</span> <span class="o">+</span> <span class="n">b_row_offset</span><span class="p">)</span>
+<span class="n">section</span> <span class="o">=</span> <span class="n">b5_refl</span><span class="p">[</span><span class="n">row_slice</span><span class="p">,</span> <span class="n">col_slice</span><span class="p">]</span>
+<span class="n">ubc_ul_xy</span> <span class="o">=</span> <span class="n">full_affine</span> <span class="o">*</span> <span class="p">(</span><span class="n">col_slice</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">row_slice</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">ubc_lr_xy</span> <span class="o">=</span> <span class="n">full_affine</span> <span class="o">*</span> <span class="p">(</span><span class="n">col_slice</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">row_slice</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+<span class="n">ubc_ul_xy</span><span class="p">,</span> <span class="n">ubc_lr_xy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>((479085.0, 5471475.0), (491085.0, 5453475.0))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">upper_left_col</span> <span class="o">=</span> <span class="n">ubc_col</span> <span class="o">+</span> <span class="n">l_col_offset</span>
+<span class="n">upper_left_row</span> <span class="o">=</span> <span class="n">ubc_row</span> <span class="o">+</span> <span class="n">t_row_offset</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">upper_left_row</span><span class="p">,</span> <span class="n">upper_left_col</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1998 2730
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="plot-the-raw-band-5-image-clipped-to-reflectivities-below-0-6">
+<h1><span class="section-number">10.5. </span>Plot the raw band 5 image, clipped to reflectivities below 0.6<a class="headerlink" href="#plot-the-raw-band-5-image-clipped-to-reflectivities-below-0-6" title="Permalink to this headline">¶</a></h1>
+<p>This is a simple check that we got the right section.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">vmin</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">vmax</span> <span class="o">=</span> <span class="mf">0.6</span>
+<span class="n">the_norm</span> <span class="o">=</span> <span class="n">Normalize</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">palette</span> <span class="o">=</span> <span class="s2">&quot;viridis&quot;</span>
+<span class="n">pal</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">palette</span><span class="p">))</span>
+<span class="n">pal</span><span class="o">.</span><span class="n">set_bad</span><span class="p">(</span><span class="s2">&quot;0.75&quot;</span><span class="p">)</span>  <span class="c1"># 75% grey for out-of-map cells</span>
+<span class="n">pal</span><span class="o">.</span><span class="n">set_over</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>  <span class="c1"># color cells &gt; vmax red</span>
+<span class="n">pal</span><span class="o">.</span><span class="n">set_under</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">)</span>  <span class="c1"># color cells &lt; vmin black</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">pal</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">the_norm</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;upper&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.image.AxesImage at 0x7f4f8c255520&gt;
+</pre></div>
+</div>
+<img alt="../_images/image_zoom_16_1.png" src="../_images/image_zoom_16_1.png" />
+</div>
+</div>
+<div class="section" id="put-this-on-a-map">
+<h2><span class="section-number">10.5.1. </span>put this on a map<a class="headerlink" href="#put-this-on-a-map" title="Permalink to this headline">¶</a></h2>
+<p>Note that the origin is switched to “lower” in the x,y coordinate system below,
+since y increases upwards.  The coastline is very crude, but at least indicates we’ve got the coords roughly correct.  See the “high_res_map” notebook for a better coastline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cartopy_crs</span> <span class="o">=</span> <span class="n">cartopy</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">epsg</span><span class="p">(</span><span class="n">crs</span><span class="o">.</span><span class="n">to_epsg</span><span class="p">())</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span> <span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="n">cartopy_crs</span><span class="p">})</span>
+<span class="n">image_extent</span> <span class="o">=</span> <span class="p">[</span><span class="n">ubc_ul_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ubc_lr_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ubc_lr_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ubc_ul_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+    <span class="n">section</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="n">pal</span><span class="p">,</span>
+    <span class="n">norm</span><span class="o">=</span><span class="n">the_norm</span><span class="p">,</span>
+    <span class="n">origin</span><span class="o">=</span><span class="s2">&quot;upper&quot;</span><span class="p">,</span>
+    <span class="n">extent</span><span class="o">=</span><span class="n">image_extent</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">cartopy_crs</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">coastlines</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s2">&quot;10m&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ubc_x</span><span class="p">,</span> <span class="n">ubc_y</span><span class="p">,</span> <span class="s2">&quot;ro&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">(</span><span class="n">image_extent</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">cartopy_crs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/image_zoom_18_0.png" src="../_images/image_zoom_18_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="use-rasterio-to-write-a-new-tiff-file">
+<h2><span class="section-number">10.5.2. </span>Use  rasterio  to write a new tiff file<a class="headerlink" href="#use-rasterio-to-write-a-new-tiff-file" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Set the affine transform for the scene</p></li>
+</ul>
+<p>We can write this clipped image back out to a much smaller tiff file if we can come up with the new affine transform for the smaller scene.  Referring again <a class="reference external" href="http://www.perrygeo.com/python-affine-transforms.html">to the writeup</a> we need:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a = width of a pixel
+b = row rotation (typically zero)
+c = x-coordinate of the upper-left corner of the upper-left pixel
+d = column rotation (typically zero)
+e = height of a pixel (typically negative)
+f = y-coordinate of the of the upper-left corner of the upper-left pixel
+</pre></div>
+</div>
+<p>which will gives:</p>
+<p>new_affine=Affine(a,b,c,d,e,f)</p>
+<p>In addition, need to add a third dimension to the section array, because
+rasterio expects [band,x,y] for its writer.  Do this with np.newaxis in the next cell</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">image_height</span><span class="p">,</span> <span class="n">image_width</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">ul_x</span><span class="p">,</span> <span class="n">ul_y</span> <span class="o">=</span> <span class="n">ubc_ul_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ubc_ul_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">new_affine</span> <span class="o">=</span> <span class="n">Affine</span><span class="p">(</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">ul_x</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">ul_y</span><span class="p">)</span>
+<span class="n">out_section</span> <span class="o">=</span> <span class="n">section</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out_section</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1, 600, 400)
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Now write this out to small_file.tiff</p></li>
+</ul>
+<p>See the hires_map notebook for how to read this in and plot it</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tif_filename</span> <span class="o">=</span> <span class="n">week10_dir</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;small_file.tiff&quot;</span><span class="p">)</span>
+<span class="n">num_chans</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">with</span> <span class="n">rasterio</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+    <span class="n">tif_filename</span><span class="p">,</span>
+    <span class="s2">&quot;w&quot;</span><span class="p">,</span>
+    <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GTiff&quot;</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="n">image_height</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">image_width</span><span class="p">,</span>
+    <span class="n">count</span><span class="o">=</span><span class="n">num_chans</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">out_section</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+    <span class="n">crs</span><span class="o">=</span><span class="n">crs</span><span class="p">,</span>
+    <span class="n">transform</span><span class="o">=</span><span class="n">new_affine</span><span class="p">,</span>
+    <span class="n">nodata</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="k">as</span> <span class="n">dst</span><span class="p">:</span>
+    <span class="n">dst</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">out_section</span><span class="p">)</span>
+    <span class="n">section_profile</span> <span class="o">=</span> <span class="n">dst</span><span class="o">.</span><span class="n">profile</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;section profile: </span><span class="si">{</span><span class="n">pprint</span><span class="o">.</span><span class="n">pformat</span><span class="p">(</span><span class="n">section_profile</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>section profile: {&#39;count&#39;: 1,
+ &#39;crs&#39;: CRS.from_epsg(32610),
+ &#39;driver&#39;: &#39;GTiff&#39;,
+ &#39;dtype&#39;: &#39;float32&#39;,
+ &#39;height&#39;: 600,
+ &#39;interleave&#39;: &#39;band&#39;,
+ &#39;nodata&#39;: 0.0,
+ &#39;tiled&#39;: False,
+ &#39;transform&#39;: Affine(30.0, 0.0, 479085.0,
+       0.0, -30.0, 5471475.0),
+ &#39;width&#39;: 400}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week10"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="demo_cartopy_extent.html" title="previous page"><span class="section-number">10.3. </span>Setting up the cartopy plot</a>
+    <a class='right-next' id="next-link" href="ndvi_rasterio.html" title="next page"><span class="section-number">10.6. </span>Rasterio: reading bands 3,4 and 5</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

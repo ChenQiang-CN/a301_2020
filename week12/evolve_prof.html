@@ -1,0 +1,4794 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heating rate profiles &#8212; ATSC 301</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://a301_web.eoas.ubc.ca/week12/evolve_prof.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://a301_web.eoas.ubc.ca/week12/evolve_prof.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Heating rate profiles" />
+<meta property="og:description" content="Heating rate profiles  In Finding the heating rate of the atmosphere we showed that the heating rate Q_r (K/s) for a particular height in the atmosphere was def" />
+
+
+<meta name="twitter:card" content="summary" />
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">ATSC 301</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   ATSC 301: Fall 2020
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week1/week1_topics.html">
+   1. Week 1
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week2/week2_topics.html">
+   2. Week 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week3/week3_topics.html">
+   3. Week 3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week4/week4_topics.html">
+   4. Week 4
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week5/week5_topics.html">
+   5. Week 5
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week6/week6_topics.html">
+   6. Week 6
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week7/week7_topics.html">
+   7. Week 7
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week8/week8_topics.html">
+   8. Week 8
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week9/week9_topics.html">
+   9. Week 9
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week10/week10_topics.html">
+   10. Week 10
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../week11/week11_topics.html">
+   11. Week 11
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="week12_topics.html">
+   12. Week 12
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignments.html">
+   13. Assignments
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks.html">
+   14. List of notebooks
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/week12/evolve_prof.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/week12/evolve_prof.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/phaustin/a301_2020/master?urlpath=tree/notebooks/week12/evolve_prof.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://a301_hub.eoas.ubc.ca/hub/user-redirect/git-pull?repo=https://github.com/phaustin/a301_2020&urlpath=tree/a301_2020/notebooks/week12/evolve_prof.ipynb&branch=master"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="../_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#integrate-the-atmospheric-pressure-temperature-and-density">
+   Integrate the atmospheric pressure, temperature and density
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#next-we-can-find-the-optical-depth">
+   Next we can find the optical depth
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#flux-with-height">
+   Flux with height
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="heating-rate-profiles">
+<span id="heating-rate-profile"></span><h1>Heating rate profiles<a class="headerlink" href="#heating-rate-profiles" title="Permalink to this headline">¶</a></h1>
+<p>In <a class="reference internal" href="../week11/heating_rate.html#heating-rate"><span class="std std-ref">Finding the heating rate of the atmosphere</span></a> we showed that the heating rate <span class="math notranslate nohighlight">\(Q_r\)</span> (K/s) for a particular height in
+the atmosphere was defined by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\rho c_p \Delta z \frac{dT}{dt} &amp;= \Delta E_n\\
+Q_r = \frac{dT}{dt} &amp;= \frac{1}{\rho c_p} \frac{\Delta E_n}{\Delta z} = \frac{1}{\rho c_p} \frac{dE_n}{dz}
+\end{aligned}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(E_n\)</span> was the net flux integrated over all wavelengths (positive downwards), and <span class="math notranslate nohighlight">\(\Delta E_n\)</span> is
+the net downward flux <span class="math notranslate nohighlight">\((E_{ntop} - E_{nbot})\)</span> across a layer of thickness <span class="math notranslate nohighlight">\(\Delta z\)</span>.</p>
+<p>In this notebook we use the hydrostatic equation  from <a class="reference internal" href="../week5/hydrostat.html#hydro"><span class="std std-ref">Hydrostatic balance</span></a> and the flux equation
+from <a class="reference internal" href="../week6/flux_schwartzchild.html#flux-schwartzchild"><span class="std std-ref">The Schwartzchild equation for flux</span></a> to find dT/dz as a function of height for an atmosphere with
+containing an absorbing gas with a mixing ratio of <span class="math notranslate nohighlight">\(r_gas=0.01\)</span> kg/kg and a mass absorption coefficient
+averaged across all longwave wavelengths of <span class="math notranslate nohighlight">\(k=0.01\)</span>   <span class="math notranslate nohighlight">\(m^2/kg\)</span>.</p>
+<div class="section" id="integrate-the-atmospheric-pressure-temperature-and-density">
+<h2>Integrate the atmospheric pressure, temperature and density<a class="headerlink" href="#integrate-the-atmospheric-pressure-temperature-and-density" title="Permalink to this headline">¶</a></h2>
+<p>Recall equation <a class="reference internal" href="../week5/hydrostat.html#hydro"><span class="std std-numref">Section 5.3</span></a>:</p>
+<div class="math notranslate nohighlight">
+\[
+dp = -\rho g dz
+\]</div>
+<p>for a hydrostatic atmosphere, if we assume that dT/dz is constant with height, we can
+build up an atmosphere one level at a time, but starting with know <span class="math notranslate nohighlight">\(p\)</span>, <span class="math notranslate nohighlight">\(\rho\)</span> and <span class="math notranslate nohighlight">\(T\)</span> at the
+surface and using the values of <span class="math notranslate nohighlight">\(dT/dz\)</span>, <span class="math notranslate nohighlight">\(dp/dz\)</span>  to find <span class="math notranslate nohighlight">\(T\)</span> and <span class="math notranslate nohighlight">\(p\)</span> at the next level.  Once
+we have those, we can use the ideal gas law to find the density <span class="math notranslate nohighlight">\(\rho\)</span> and move up.</p>
+<p>This is done in the cell below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hydrostat</span><span class="p">(</span><span class="n">T_surf</span><span class="p">,</span><span class="n">p_surf</span><span class="p">,</span><span class="n">dT_dz</span><span class="p">,</span><span class="n">delta_z</span><span class="p">,</span><span class="n">num_levels</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       build a hydrostatic atmosphere by integrating the hydrostatic equation from the surface,</span>
+<span class="sd">       using num_levels of constant thickness delta_z</span>
+
+<span class="sd">       Parameters</span>
+<span class="sd">       ----------</span>
+
+<span class="sd">       T_surf: float</span>
+<span class="sd">            surface temperature in K</span>
+<span class="sd">       p_surf: float</span>
+<span class="sd">            surface pressure in Pa</span>
+<span class="sd">       dT_dz: ndarray</span>
+<span class="sd">             rate of temperature change with height in K/m</span>
+<span class="sd">       delta_z: float</span>
+<span class="sd">             layer thickness in m</span>
+<span class="sd">       num_levels: float</span>
+<span class="sd">             number of levels in the atmosphere</span>
+
+<span class="sd">       Returns</span>
+<span class="sd">       -------</span>
+
+<span class="sd">       Temp, press, rho, height: tuple of ndarrays of length num_levels</span>
+<span class="sd">          where the surface is level 0, and each index i larger than 0</span>
+<span class="sd">          is located at the height corresponding to the top of a particular layer,</span>
+<span class="sd">          so that values at the top of the atmosphere are given by index</span>
+<span class="sd">          numlevels - 1</span>
+
+<span class="sd">          Temp (K) , press (Pa), rho (kg/m^3), height (m) for each layer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Rd</span><span class="o">=</span><span class="mf">287.</span> <span class="c1">#J/kg/K  -- gas constant for dry air</span>
+    <span class="n">g</span><span class="o">=</span><span class="mf">9.8</span>  <span class="c1">#m/s^2</span>
+    <span class="n">Temp</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">num_levels</span><span class="p">])</span>
+    <span class="n">press</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">Temp</span><span class="p">)</span>
+    <span class="n">rho</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">Temp</span><span class="p">)</span>
+    <span class="n">height</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">Temp</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># level 0 sits directly above the surface, so start</span>
+    <span class="c1"># with pressure, temp of air equal to ground temp, press</span>
+    <span class="c1"># and get density from equaiton of state</span>
+    <span class="c1">#</span>
+    <span class="n">press</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">p_surf</span>
+    <span class="n">Temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">T_surf</span>
+    <span class="n">rho</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">p_surf</span><span class="o">/</span><span class="p">(</span><span class="n">Rd</span><span class="o">*</span><span class="n">T_surf</span><span class="p">)</span>
+    <span class="n">height</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">num_layers</span><span class="o">=</span><span class="n">num_levels</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="c1">#now march up the atmosphere a level at a time</span>
+    <span class="c1"># finding the values at the top of each layer</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+        <span class="n">delP</span><span class="o">=</span> <span class="o">-</span><span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">g</span><span class="o">*</span><span class="n">delta_z</span>
+        <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">delta_z</span>
+        <span class="n">Temp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">dT_dz</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">delta_z</span>
+        <span class="n">press</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="n">press</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">delP</span>
+        <span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">press</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">Rd</span><span class="o">*</span><span class="n">Temp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">Temp</span><span class="p">,</span><span class="n">press</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="next-we-can-find-the-optical-depth">
+<h2>Next we can find the optical depth<a class="headerlink" href="#next-we-can-find-the-optical-depth" title="Permalink to this headline">¶</a></h2>
+<p>If we have the air density <span class="math notranslate nohighlight">\(\rho\)</span>, the mixing ratio <span class="math notranslate nohighlight">\(r_{mix}\)</span> asnd  the absorption coefficient <span class="math notranslate nohighlight">\(k\)</span> from Stull Chapter 2
+section 2.3.6 we can find the optical depth in the layer:</p>
+<div class="math notranslate nohighlight">
+\[
+\tau = \rho r_{mix} k \Delta z
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\Delta z\)</span> is the layer thickness.  That’s done in the next cell.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_tau</span><span class="p">(</span><span class="n">r_gas</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">height</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Parameters</span>
+<span class="sd">       ----------</span>
+
+<span class="sd">       r_gas: float</span>
+<span class="sd">           gas mixing ratio in kg/kg</span>
+<span class="sd">       k: float</span>
+<span class="sd">           mass absorption coefficient in kg/m^2</span>
+<span class="sd">       rho: ndarray</span>
+<span class="sd">           vector of air densities in kg/m^3 for each layer</span>
+<span class="sd">       height: ndarray</span>
+<span class="sd">        corresponding level heights in m</span>
+
+<span class="sd">       Returns</span>
+<span class="sd">       -------</span>
+
+<span class="sd">          tau: ndarray</span>
+<span class="sd">             vertical optical depths of each level, starting from 0 at the surface</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tau</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
+    <span class="n">tau</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">num_levels</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
+    <span class="n">num_layers</span><span class="o">=</span><span class="n">num_levels</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+        <span class="n">delta_z</span><span class="o">=</span><span class="n">height</span><span class="p">[</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">height</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">delta_tau</span><span class="o">=</span><span class="n">r_gas</span><span class="o">*</span><span class="n">rho</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="n">delta_z</span>
+        <span class="n">tau</span><span class="p">[</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">tau</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="n">delta_tau</span>
+    <span class="k">return</span> <span class="n">tau</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="flux-with-height">
+<h2>Flux with height<a class="headerlink" href="#flux-with-height" title="Permalink to this headline">¶</a></h2>
+<p>Note the factor of 1.666 below that multiplies the optical depth in
+the transmission – this is the flux diffusivity approximation.  The function below
+solves for the upward and downward fluxes one layer at at time by calculating
+the transmitted flux arriving from the bottom or the top of each layer, and the
+emitted flux that the layer is sending to the next layer above or below using the equation given in
+<a class="reference internal" href="../week6/flux_schwartzchild.html#equation-layer-flux">(6.14)</a>. This is the
+“two stream approximation” mentioned in <a class="reference internal" href="../week6/flux_schwartzchild.html#two-stream-approx"><span class="std std-ref">The two stream approximation</span></a></p>
+<p>Assumption:  layers are thin enough so that it is safe to assume constant values
+within each layer</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fluxes</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span><span class="n">Temp</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">T_surf</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    given properties at each level return the upward and downward</span>
+<span class="sd">    total flux at each level assuming no downward longwave flux at the top</span>
+<span class="sd">    of the atmosphere, and a surface flux of sigma*T_surf**4.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+
+<span class="sd">    tau, Temp, height:  ndarray of length tot_levels</span>
+<span class="sd">        total optical depth (from surface), temperature (K) and height (m)</span>
+<span class="sd">        at each level</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    up_flux, down_flux: ndarrays</span>
+<span class="sd">       upward and downward flux of each level (W/m^2), all positive</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sigma</span><span class="o">=</span><span class="mf">5.67e-8</span> <span class="c1">#W/m^2/K^4</span>
+    <span class="n">Esolar</span><span class="o">=</span><span class="mf">240.</span>  <span class="c1">#solar flux in W/m^2</span>
+    <span class="n">up_flux</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+    <span class="n">down_flux</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+    <span class="n">sfc_flux</span><span class="o">=</span><span class="n">sigma</span><span class="o">*</span><span class="n">T_surf</span><span class="o">**</span><span class="mf">4.</span>
+    <span class="n">up_flux</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">sfc_flux</span>
+    <span class="c1">#print(f&quot;{sfc_flux=}&quot;)</span>
+    <span class="n">tot_levs</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">tau</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">tot_levs</span><span class="p">):</span>
+        <span class="n">upper_lev</span><span class="o">=</span><span class="n">index</span>
+        <span class="n">lower_lev</span><span class="o">=</span><span class="n">index</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">del_tau</span><span class="o">=</span><span class="n">tau</span><span class="p">[</span><span class="n">upper_lev</span><span class="p">]</span> <span class="o">-</span> <span class="n">tau</span><span class="p">[</span><span class="n">lower_lev</span><span class="p">]</span>
+        <span class="n">trans</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">del_tau</span><span class="p">)</span>
+        <span class="n">emiss</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="n">trans</span>
+        <span class="n">layer_flux</span><span class="o">=</span><span class="n">sigma</span><span class="o">*</span><span class="n">Temp</span><span class="p">[</span><span class="n">lower_lev</span><span class="p">]</span><span class="o">**</span><span class="mf">4.</span><span class="o">*</span><span class="n">emiss</span>
+        <span class="c1">#</span>
+        <span class="c1"># find the flux at the next level</span>
+        <span class="c1">#</span>
+        <span class="n">up_flux</span><span class="p">[</span><span class="n">upper_lev</span><span class="p">]</span><span class="o">=</span><span class="n">trans</span><span class="o">*</span><span class="n">up_flux</span><span class="p">[</span><span class="n">lower_lev</span><span class="p">]</span> <span class="o">+</span> <span class="n">layer_flux</span>
+    <span class="c1">#</span>
+    <span class="c1"># start at the top of the atmosphere</span>
+    <span class="c1"># with zero downwelling flux</span>
+    <span class="c1">#</span>
+    <span class="n">down_flux</span><span class="p">[</span><span class="n">tot_levs</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="c1">#</span>
+    <span class="c1"># go down a level at a time, adding up the fluxes</span>
+    <span class="c1">#</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">tot_levs</span><span class="p">):</span>
+        <span class="n">upper_lev</span><span class="o">=</span><span class="n">tot_levs</span> <span class="o">-</span> <span class="n">index</span>
+        <span class="n">lower_lev</span><span class="o">=</span><span class="n">tot_levs</span> <span class="o">-</span> <span class="n">index</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">del_tau</span><span class="o">=</span><span class="n">tau</span><span class="p">[</span><span class="n">upper_lev</span><span class="p">]</span> <span class="o">-</span> <span class="n">tau</span><span class="p">[</span><span class="n">lower_lev</span><span class="p">]</span>
+        <span class="n">trans</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">1.666</span><span class="o">*</span><span class="n">del_tau</span><span class="p">)</span>
+        <span class="n">emiss</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="n">trans</span>
+        <span class="n">layer_flux</span><span class="o">=</span><span class="n">sigma</span><span class="o">*</span><span class="n">Temp</span><span class="p">[</span><span class="n">upper_lev</span><span class="p">]</span><span class="o">**</span><span class="mf">4.</span><span class="o">*</span><span class="n">emiss</span>
+        <span class="n">down_flux</span><span class="p">[</span><span class="n">lower_lev</span><span class="p">]</span><span class="o">=</span><span class="n">down_flux</span><span class="p">[</span><span class="n">upper_lev</span><span class="p">]</span><span class="o">*</span><span class="n">trans</span> <span class="o">+</span> <span class="n">layer_flux</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">up_flux</span><span class="p">,</span><span class="n">down_flux</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">heating_rate</span><span class="p">(</span><span class="n">net_down</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">rho</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    given the net flux at each level (downward positive) and the</span>
+<span class="sd">    height, and density of the atmosphere at each level, return</span>
+<span class="sd">    the rate of change of temperature in each layer between two levels</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    net_down: ndarray</span>
+<span class="sd">       positive downward net flux (W/m^2) at each level</span>
+
+<span class="sd">    height: ndarray</span>
+<span class="sd">       vertical location of each level (m)</span>
+
+<span class="sd">    rho: ndarray</span>
+<span class="sd">       density (kg/m^3) at each level</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    dT_dz: ndarray  -- length nlevels -1</span>
+<span class="sd">       vector of temperature gradients across each layer (K/m)</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cpd</span><span class="o">=</span><span class="mf">1004.</span>
+    <span class="c1">#</span>
+    <span class="c1"># find the flux divergence across the layer</span>
+    <span class="c1"># by differencing the levels.  Assume the layer density is constant</span>
+    <span class="c1"># and equal to the average of the densities at the top and bottom levels</span>
+    <span class="c1">#</span>
+    <span class="n">rho_mid</span><span class="o">=</span><span class="p">(</span><span class="n">rho</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">rho</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="n">dEn_dz</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">net_down</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+    <span class="n">dT_dz</span><span class="o">=</span><span class="n">dEn_dz</span><span class="o">/</span><span class="p">(</span><span class="n">rho_mid</span><span class="o">*</span><span class="n">cpd</span><span class="p">)</span>
+    <span class="c1">#print(f&quot;{dT_dz*3600=}&quot;)</span>
+    <span class="k">return</span> <span class="n">dT_dz</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    find the heating rate (K/km) for a hydrostatic</span>
+<span class="sd">    atmosphere with a constant decrease of temperature with heigt</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># use 1500 1 m thick layers from 0 to 15 km</span>
+    <span class="c1">#</span>
+    <span class="n">r_gas</span><span class="o">=</span><span class="mf">0.01</span>  <span class="c1">#kg/kg</span>
+    <span class="n">k</span><span class="o">=</span><span class="mf">0.002</span>  <span class="c1">#m^2/kg</span>
+    <span class="n">T_surf</span><span class="o">=</span><span class="mi">300</span> <span class="c1">#K</span>
+    <span class="n">p_surf</span><span class="o">=</span><span class="mf">100.e3</span> <span class="c1">#Pa</span>
+    <span class="n">delta_z</span><span class="o">=</span><span class="mi">100</span>  <span class="c1">#m</span>
+    <span class="n">num_levels</span><span class="o">=</span><span class="mi">150</span>
+    <span class="n">dT_dz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">num_levels</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mf">7.e-3</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="n">Temp</span><span class="p">,</span><span class="n">press</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="n">hydrostat</span><span class="p">(</span><span class="n">T_surf</span><span class="p">,</span><span class="n">p_surf</span><span class="p">,</span><span class="n">dT_dz</span><span class="p">,</span><span class="n">delta_z</span><span class="p">,</span><span class="n">num_levels</span><span class="p">)</span>
+    <span class="n">tau</span><span class="o">=</span><span class="n">find_tau</span><span class="p">(</span><span class="n">r_gas</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+    <span class="n">up</span><span class="p">,</span><span class="n">down</span><span class="o">=</span><span class="n">fluxes</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span><span class="n">Temp</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">T_surf</span><span class="p">)</span>
+    <span class="n">net_down</span> <span class="o">=</span> <span class="n">down</span> <span class="o">-</span> <span class="n">up</span>
+    <span class="n">dT_dt</span><span class="o">=</span><span class="n">heating_rate</span><span class="p">(</span><span class="n">down</span> <span class="o">-</span> <span class="n">up</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">rho</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="p">,(</span><span class="n">axis1</span><span class="p">,</span><span class="n">axis2</span><span class="p">,</span><span class="n">axis3</span><span class="p">)</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">axis1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">up</span><span class="p">,</span><span class="n">height</span><span class="o">*</span><span class="mf">0.001</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;upward flux&#39;</span><span class="p">)</span>
+    <span class="n">axis1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">down</span><span class="p">,</span><span class="n">height</span><span class="o">*</span><span class="mf">0.001</span><span class="p">,</span><span class="s1">&#39;g-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;downward flux&#39;</span><span class="p">)</span>
+    <span class="n">axis1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;upward and downward fluxes&#39;</span><span class="p">)</span>
+    <span class="n">axis1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;flux $(W\,m^{-2}$&#39;</span><span class="p">)</span>
+    <span class="n">axis1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;height (km)&#39;</span><span class="p">)</span>
+    <span class="n">axis1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">numpoints</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+    <span class="n">axis1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+
+    <span class="n">axis2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">net_down</span><span class="p">,</span><span class="n">height</span><span class="o">*</span><span class="mf">0.001</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">axis2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;net downward flux&#39;</span><span class="p">)</span>
+    <span class="n">axis2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;net downward flux $(W\,m^{-2})$&#39;</span><span class="p">)</span>
+    <span class="n">axis2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;height (km)&#39;</span><span class="p">)</span>
+    <span class="n">axis2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+
+    <span class="n">dT_dt</span><span class="o">=</span><span class="n">dT_dt</span><span class="o">*</span><span class="mf">3600.</span>
+    <span class="n">mid_height</span><span class="o">=</span><span class="p">(</span><span class="n">height</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">height</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="n">axis3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dT_dt</span><span class="p">,</span><span class="n">mid_height</span><span class="o">*</span><span class="mf">0.001</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">axis3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;heating rate&#39;</span><span class="p">)</span>
+    <span class="n">axis3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;heating rate in K/hr&#39;</span><span class="p">)</span>
+    <span class="n">axis3</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;height (km)&#39;</span><span class="p">)</span>
+    <span class="n">axis3</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/evolve_prof_10_0.png" src="../_images/evolve_prof_10_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evolve</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    find the heating rate (K/km) for a hydrostatic</span>
+<span class="sd">    atmosphere with a constant decrease of temperature with heigt</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#</span>
+    <span class="c1"># use 1500 1 m thick layers from 0 to 15 km</span>
+    <span class="c1">#</span>
+    <span class="n">r_gas</span><span class="o">=</span><span class="mf">0.01</span>  <span class="c1">#kg/kg</span>
+    <span class="n">sigma</span><span class="o">=</span><span class="mf">5.67e-8</span>
+    <span class="n">k</span><span class="o">=</span><span class="mf">0.003</span>  <span class="c1">#m^2/kg</span>
+    <span class="n">T_surf</span><span class="o">=</span><span class="mi">300</span> <span class="c1">#K</span>
+    <span class="n">p_surf</span><span class="o">=</span><span class="mf">100.e3</span> <span class="c1">#Pa</span>
+    <span class="n">delta_z</span><span class="o">=</span><span class="mi">100</span>  <span class="c1">#m</span>
+    <span class="n">delta_t</span> <span class="o">=</span> <span class="mf">3600.</span>
+    <span class="n">num_levels</span><span class="o">=</span><span class="mi">150</span>
+    <span class="n">num_timesteps</span><span class="o">=</span><span class="mi">4000</span>
+    <span class="n">E_solar</span> <span class="o">=</span> <span class="mf">240.</span>
+    <span class="n">dT_dz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">num_levels</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mf">7.e-3</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="n">Temp</span><span class="p">,</span><span class="n">press</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="n">hydrostat</span><span class="p">(</span><span class="n">T_surf</span><span class="p">,</span><span class="n">p_surf</span><span class="p">,</span><span class="n">dT_dz</span><span class="p">,</span><span class="n">delta_z</span><span class="p">,</span><span class="n">num_levels</span><span class="p">)</span>
+    <span class="n">keep_prof</span><span class="o">=</span><span class="p">[</span><span class="n">Temp</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">time_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_timesteps</span><span class="p">):</span>
+        <span class="n">tau</span><span class="o">=</span><span class="n">find_tau</span><span class="p">(</span><span class="n">r_gas</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">up</span><span class="p">,</span><span class="n">down</span><span class="o">=</span><span class="n">fluxes</span><span class="p">(</span><span class="n">tau</span><span class="p">,</span><span class="n">Temp</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">T_surf</span><span class="p">)</span>
+        <span class="n">net_down</span> <span class="o">=</span> <span class="n">down</span> <span class="o">-</span> <span class="n">up</span>
+        <span class="n">dT_dt</span><span class="o">=</span><span class="n">heating_rate</span><span class="p">(</span><span class="n">net_down</span><span class="p">,</span><span class="n">height</span><span class="p">,</span><span class="n">rho</span><span class="p">)</span>
+        <span class="n">Temp</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Temp</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dT_dt</span><span class="o">*</span><span class="n">delta_t</span>
+        <span class="n">Temp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">Temp</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">dT_dz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">Temp</span><span class="p">)</span><span class="o">/</span><span class="n">delta_z</span>
+        <span class="n">keep_prof</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">Temp</span><span class="p">,</span><span class="n">up</span><span class="p">,</span><span class="n">down</span><span class="p">))</span>
+        <span class="n">sfc_flux</span> <span class="o">=</span> <span class="n">down</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">E_solar</span>
+        <span class="n">T_surf</span> <span class="o">=</span> <span class="p">(</span><span class="n">sfc_flux</span><span class="o">/</span><span class="n">sigma</span><span class="p">)</span><span class="o">**</span><span class="mf">0.25</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">T_surf</span><span class="p">)</span>
+        <span class="n">Temp</span><span class="p">,</span><span class="n">press</span><span class="p">,</span><span class="n">rho</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="n">hydrostat</span><span class="p">(</span><span class="n">T_surf</span><span class="p">,</span><span class="n">p_surf</span><span class="p">,</span><span class="n">dT_dz</span><span class="p">,</span><span class="n">delta_z</span><span class="p">,</span><span class="n">num_levels</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">keep_prof</span><span class="p">,</span><span class="n">height</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keep_prof</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="n">evolve</span><span class="p">()</span>
+<span class="n">Temp</span><span class="p">,</span><span class="n">up</span><span class="p">,</span><span class="n">down</span> <span class="o">=</span> <span class="n">keep_prof</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Temp</span><span class="p">,</span><span class="n">height</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>279.5146676053605
+274.16999700002407
+272.9058602604911
+272.6179916197014
+272.55633938506935
+272.5467142888929
+272.54903552723425
+272.5540984837488
+272.55978984209554
+272.5656243327612
+272.571490499432
+272.5773627350938
+272.5832351535168
+272.58910639973567
+272.594976160199
+272.6008443607628
+272.6067109823347
+272.6125760184855
+272.61843946570104
+272.62430132113934
+272.6301615821145
+272.63602024597833
+272.64187731009264
+272.6477327718232
+272.65358662853816
+272.65943887760784
+272.66528951640447
+272.6711385423023
+272.6769859526777
+272.682831744909
+272.68867591637644
+272.6945184644625
+272.7003593865515
+272.7061986800299
+272.71203634228624
+272.71787237071095
+272.7237067626967
+272.72953951563807
+272.73537062693174
+272.7412000939766
+272.7470279141734
+272.75285408492505
+272.7586786036367
+272.7645014677154
+272.7703226745703
+272.77614222161276
+272.7819601062562
+272.78777632591607
+272.79359087801015
+272.7994037599582
+272.80521496918203
+272.8110245031057
+272.8168323591555
+272.8226385347596
+272.82844302734856
+272.834245834355
+272.8400469532137
+272.84584638136164
+272.85164411623794
+272.8574401552839
+272.86323449594295
+272.86902713566093
+272.8748180718855
+272.8806073020669
+272.8863948236574
+272.89218063411136
+272.8979647308856
+272.9037471114389
+272.9095277732325
+272.9153067137299
+272.9210839303964
+272.9268594207001
+272.932633182111
+272.93840521210143
+272.94417550814603
+272.9499440677216
+272.95571088830735
+272.9614759673847
+272.96723930243724
+272.973000890951
+272.9787607304142
+272.9845188183174
+272.99027515215334
+272.9960297294173
+273.0017825476067
+273.00753360422124
+273.01328289676303
+273.01903042273653
+273.0247761796485
+273.0305201650079
+273.0362623763262
+273.0420028111171
+273.04774146689675
+273.0534783411837
+273.0592134314986
+273.06494673536474
+273.07067825030765
+273.0764079738553
+273.08213590353785
+273.0878620368881
+273.0935863714412
+273.09930890473447
+273.105029634308
+273.11074855770386
+273.11646567246686
+273.122180976144
+273.127894466285
+273.1336061404417
+273.1393159961685
+273.14502403102216
+273.1507302425621
+273.1564346283498
+273.1621371859497
+273.1678379129282
+273.17353680685443
+273.1792338653
+273.1849290858388
+273.1906224660474
+273.19631400350477
+273.2020036957923
+273.20769154049407
+273.2133775351964
+273.21906167748824
+273.2247439649611
+273.23042439520884
+273.236102965828
+273.24177967441756
+273.247454518579
+273.2531274959163
+273.2587986040362
+273.26446784054775
+273.2701352030626
+273.2758006891949
+273.2814642965615
+273.28712602278165
+273.2927858654773
+273.2984438222729
+273.30409989079544
+273.3097540686746
+273.31540635354247
+273.3210567430339
+273.32670523478623
+273.33235182643944
+273.337996515636
+273.3436393000212
+273.34928017724286
+273.3549191449513
+273.3605562007995
+273.36619134244324
+273.3718245675407
+273.37745587375287
+273.3830852587432
+273.388712720178
+273.394338255726
+273.3999618630588
+273.40558353985057
+273.41120328377804
+273.4168210925208
+273.42243696376096
+273.42805089518333
+273.43366288447555
+273.4392729293277
+273.44488102743276
+273.4504871764863
+273.4560913741867
+273.46169361823485
+273.46729390633453
+273.47289223619214
+273.4784886055168
+273.4840830120204
+273.4896754534176
+273.49526592742563
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>273.50085443176465
+273.50644096415743
+273.5120255223295
+273.51760810400924
+273.5231887069276
+273.52876732881856
+273.5343439674185
+273.53991862046695
+273.5454912857059
+273.5510619608803
+273.55663064373795
+273.5621973320292
+273.5677620235073
+273.57332471592844
+273.5788854070513
+273.5844440946377
+273.59000077645203
+273.5955554502616
+273.6011081138365
+273.6066587649497
+273.6122074013769
+273.6177540208967
+273.62329862129053
+273.6288412003426
+273.6343817558401
+273.6399202855729
+273.6454567873338
+273.6509912589185
+273.65652369812545
+273.6620541027561
+273.6675824706147
+273.6731087995084
+273.67863308724714
+273.6841553316438
+273.68967553051425
+273.69519368167704
+273.70070978295377
+273.706223832169
+273.71173582714994
+273.71724576572694
+273.72275364573323
+273.72825946500484
+273.73376322138074
+273.73926491270305
+273.7447645368165
+273.75026209156886
+273.75575757481096
+273.7612509843965
+273.7667423181821
+273.7722315740273
+273.77771874979464
+273.78320384334967
+273.7886868525607
+273.79416777529934
+273.79964660943983
+273.8051233528596
+273.81059800343894
+273.81607055906125
+273.82154101761273
+273.8270093769828
+273.8324756350637
+273.83793978975075
+273.8434018389422
+273.8488617805393
+273.8543196124465
+273.859775332571
+273.86522893882324
+273.8706804291165
+273.8761298013672
+273.88157705349477
+273.8870221834216
+273.89246518907333
+273.8979060683783
+273.9033448192682
+273.90878143967774
+273.9142159275445
+273.91964828080916
+273.9250784974156
+273.9305065753107
+273.9359325124443
+273.94135630676953
+273.9467779562424
+273.95219745882207
+273.9576148124708
+273.96303001515395
+273.9684430648399
+273.97385395950016
+273.9792626971094
+273.98466927564533
+273.99007369308873
+273.99547594742364
+274.000876036637
+274.006273958719
+274.01166971166305
+274.0170632934654
+274.0224547021257
+274.02784393564656
+274.03323099203385
+274.03861586929656
+274.04399856544666
+274.0493790784995
+274.0547574064734
+274.06013354739
+274.06550749927396
+274.0708792601531
+274.07624882805845
+274.0816162010243
+274.08698137708797
+274.09234435429005
+274.09770513067417
+274.10306370428725
+274.10842007317945
+274.1137742354041
+274.11912618901755
+274.1244759320796
+274.129823462653
+274.1351687788039
+274.14051187860156
+274.1458527601185
+274.15119142143044
+274.1565278606162
+274.1618620757581
+274.1671940649413
+274.17252382625463
+274.17785135778973
+274.18317665764175
+274.188499723909
+274.193820554693
+274.1991391480985
+274.20445550223354
+274.2097696152094
+274.2150814851407
+274.22039111014504
+274.2256984883437
+274.2310036178609
+274.2363064968242
+274.24160712336453
+274.2469054956159
+274.25220161171586
+274.25749546980495
+274.26278706802725
+274.26807640452995
+274.27336347746365
+274.2786482849821
+274.2839308252426
+274.2892110964053
+274.2944890966342
+274.2997648240962
+274.30503827696174
+274.31030945340444
+274.31557835160123
+274.32084496973243
+274.3261093059817
+274.3313713585358
+274.3366311255852
+274.34188860532345
+274.34714379594743
+274.3523966956574
+274.35764730265697
+274.36289561515304
+274.36814163135597
+274.37338534947935
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>274.37862676774023
+274.38386588435884
+274.38910269755894
+274.3943372055676
+274.39956940661517
+274.4047992989355
+274.41002688076566
+274.41525215034625
+274.4204751059211
+274.4256957457376
+274.4309140680463
+274.4361300711013
+274.44134375315986
+274.446555112483
+274.45176414733476
+274.45697085598283
+274.4621752366981
+274.467377287755
+274.4725770074315
+274.47777439400846
+274.4829694457707
+274.48816216100624
+274.49335253800643
+274.49854057506604
+274.50372627048347
+274.5089096225604
+274.5140906296018
+274.51926928991634
+274.5244456018159
+274.5296195636158
+274.534791173635
+274.5399604301957
+274.54512733162363
+274.55029187624785
+274.55545406240094
+274.5606138884191
+274.56577135264166
+274.5709264534116
+274.57607918907524
+274.5812295579825
+274.5863775584867
+274.59152318894456
+274.59666644771636
+274.60180733316565
+274.6069458436598
+274.61208197756923
+274.6172157332682
+274.62234710913435
+274.6274761035486
+274.6326027148956
+274.63772694156336
+274.64284878194337
+274.6479682344306
+274.6530852974236
+274.65819996932447
+274.6633122485385
+274.66842213347473
+274.67352962254574
+274.6786347141674
+274.6837374067593
+274.68883769874435
+274.6939355885491
+274.69903107460357
+274.7041241553413
+274.7092148291993
+274.7143030946181
+274.7193889500419
+274.72447239391823
+274.7295534246983
+274.7346320408366
+274.73970824079146
+274.7447820230246
+274.7498533860012
+274.75492232819005
+274.7599888480635
+274.7650529440974
+274.7701146147712
+274.77517385856777
+274.7802306739737
+274.78528505947895
+274.79033701357713
+274.7953865347653
+274.80043362154436
+274.8054782724183
+274.81052048589515
+274.81556026048617
+274.8205975947062
+274.8256324870739
+274.83066493611125
+274.83569494034384
+274.84072249830086
+274.8457476085152
+274.85077026952297
+274.85579047986425
+274.8608082380825
+274.86582354272474
+274.87083639234163
+274.8758467854874
+274.8808547207198
+274.88586019660033
+274.89086321169384
+274.89586376456896
+274.9008618537979
+274.9058574779564
+274.91085063562366
+274.91584132538287
+274.9208295458203
+274.92581529552626
+274.9307985730944
+274.9357793771222
+274.94075770621043
+274.94573355896375
+274.95070693399026
+274.9556778299018
+274.9606462453136
+274.9656121788449
+274.97057562911806
+274.9755365947594
+274.9804950743987
+274.98545106666944
+274.9904045702088
+274.99535558365733
+275.0003041056594
+275.00525013486293
+275.01019366991954
+275.0151347094843
+275.0200732522162
+275.0250092967776
+275.02994284183467
+275.03487388605697
+275.0398024281179
+275.0447284666946
+275.0496520004676
+275.05457302812107
+275.059491548343
+275.0644075598249
+275.06932106126203
+275.0742320513531
+275.0791405288007
+275.08404649231085
+275.0889499405934
+275.09385087236177
+275.09874928633303
+275.1036451812279
+275.1085385557706
+275.1134294086894
+275.11831773871575
+275.1232035445851
+275.1280868250366
+275.13296757881267
+275.13784580465966
+275.1427215013276
+275.14759466757016
+275.15246530214455
+275.1573334038118
+275.16219897133647
+275.16706200348693
+275.1719224990351
+275.1767804567566
+275.1816358754308
+275.18648875384054
+275.1913390907726
+275.1961868850172
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>275.2010321353684
+275.20587484062384
+275.21071499958487
+275.21555261105635
+275.22038767384714
+275.2252201867696
+275.23005014863975
+275.23487755827733
+275.2397024145057
+275.24452471615206
+275.249344462047
+275.2541616510252
+275.2589762819246
+275.26378835358713
+275.2685978648583
+275.2734048145873
+275.2782092016271
+275.2830110248341
+275.2878102830686
+275.2926069751947
+275.2974011000799
+275.30219265659565
+275.30698164361684
+275.3117680600223
+275.31655190469445
+275.3213331765193
+275.3261118743867
+275.3308879971902
+275.3356615438269
+275.34043251319775
+275.3452009042074
+275.349966715764
+275.35472994677957
+275.35949059616985
+275.3642486628542
+275.36900414575575
+275.37375704380116
+275.378507355921
+275.3832550810494
+275.38800021812426
+275.3927427660872
+275.39748272388357
+275.40222009046227
+275.406954864776
+275.4116870457812
+275.41641663243803
+275.4211436237102
+275.4258680185653
+275.43058981597454
+275.43530901491283
+275.44002561435883
+275.44473961329487
+275.44945101070704
+275.45415980558505
+275.45886599692244
+275.4635695837163
+275.4682705649676
+275.47296893968087
+275.4776647068645
+275.4823578655304
+275.48704841469436
+275.49173635337576
+275.4964216805978
+275.50110439538736
+275.5057844967749
+275.51046198379476
+275.51513685548497
+275.51980911088714
+275.5244787490467
+275.52914576901276
+275.5338101698382
+275.53847195057955
+275.54313111029705
+275.5477876480546
+275.55244156291997
+275.55709285396455
+275.56174152026335
+275.56638756089524
+275.57103097494274
+275.5756717614921
+275.58030991963324
+275.58494544845985
+275.5895783470693
+275.59420861456255
+275.59883625004454
+275.60346125262373
+275.60808362141233
+275.61270335552626
+275.6173204540852
+275.6219349162124
+275.626546741035
+275.6311559276838
+275.63576247529323
+275.64036638300144
+275.6449676499504
+275.64956627528574
+275.65416225815665
+275.6587555977163
+275.66334629312144
+275.66793434353247
+275.6725197481135
+275.67710250603244
+275.6816826164608
+275.68626007857404
+275.69083489155094
+275.6954070545744
+275.6999765668307
+275.70454342751
+275.70910763580605
+275.7136691909164
+275.71822809204235
+275.72278433838875
+275.7273379291643
+275.73188886358133
+275.7364371408559
+275.74098276020766
+275.7455257208602
+275.75006602204064
+275.75460366297983
+275.7591386429123
+275.7636709610764
+275.76820061671395
+275.7727276090707
+275.7772519373961
+275.78177360094304
+275.7862925989684
+275.79080893073257
+275.7953225954997
+275.79983359253777
+275.8043419211182
+275.8088475805162
+275.81335057001087
+275.8178508888847
+275.8223485364241
+275.826843511919
+275.8313358146632
+275.8358254439541
+275.8403123990927
+275.8447966793838
+275.849278284136
+275.8537572126614
+275.85823346427577
+275.8627070382987
+275.8671779340534
+275.8716461508668
+275.8761116880695
+275.88057454499574
+275.88503472098347
+275.88949221537445
+275.89394702751383
+275.89839915675066
+275.90284860243776
+275.9072953639314
+275.9117394405915
+275.9161808317819
+275.92061953687
+275.9250555552269
+275.9294888862272
+275.93391952924947
+275.93834748367567
+275.9427727488916
+275.9471953242867
+275.95161520925416
+275.9560324031906
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>275.9604469054965
+275.964858715576
+275.9692678328368
+275.9736742566904
+275.97807798655185
+275.9824790218399
+275.98687736197695
+275.99127300638906
+275.995665954506
+276.0000562057612
+276.00444375959165
+276.00882861543806
+276.01321077274486
+276.01759023095997
+276.02196698953503
+276.02634104792537
+276.03071240559007
+276.03508106199155
+276.0394470165962
+276.04381026887387
+276.0481708182981
+276.0525286643461
+276.05688380649866
+276.0612362442403
+276.06558597705913
+276.06993300444685
+276.07427732589883
+276.0786189409142
+276.08295784899553
+276.08729404964913
+276.0916275423849
+276.09595832671636
+276.10028640216086
+276.10461176823895
+276.10893442447514
+276.11325437039756
+276.1175716055378
+276.1218861294312
+276.1261979416166
+276.13050704163675
+276.1348134290376
+276.13911710336896
+276.1434180641843
+276.1477163110404
+276.1520118434981
+276.15630466112145
+276.1605947634784
+276.16488215014033
+276.1691668206822
+276.17344877468275
+276.1777280117242
+276.18200453139224
+276.18627833327645
+276.1905494169699
+276.1948177820691
+276.19908342817433
+276.2033463548894
+276.2076065618217
+276.21186404858224
+276.2161188147856
+276.2203708600499
+276.22462018399693
+276.228866786252
+276.2331106664441
+276.2373518242055
+276.2415902591725
+276.2458259709846
+276.250058959285
+276.2542892237206
+276.25851676394166
+276.2627415796021
+276.2669636703595
+276.27118303587474
+276.27539967581254
+276.27961358984106
+276.283824777632
+276.2880332388607
+276.29223897320594
+276.29644198035015
+276.30064225997927
+276.30483981178276
+276.30903463545366
+276.3132267306886
+276.3174160971877
+276.3216027346546
+276.3257866427965
+276.3299678213242
+276.33414626995193
+276.3383219883975
+276.34249497638234
+276.3466652336312
+276.3508327598725
+276.35499755483823
+276.35915961826385
+276.3633189498883
+276.36747554945407
+276.37162941670715
+276.37578055139716
+276.37992895327693
+276.3840746221032
+276.38821755763587
+276.3923577596387
+276.3964952278785
+276.4006299621261
+276.4047619621554
+276.40889122774405
+276.41301775867305
+276.417141554727
+276.4212626156939
+276.4253809413653
+276.4294965315362
+276.4336093860052
+276.4377195045742
+276.44182688704865
+276.44593153323757
+276.4500334429534
+276.454132616012
+276.4582290522327
+276.46232275143836
+276.4664137134553
+276.4705019381133
+276.4745874252456
+276.4786701746889
+276.4827501862832
+276.48682745987225
+276.4909019953031
+276.49497379242615
+276.49904285109545
+276.50310917116843
+276.5071727525058
+276.51123359497194
+276.51529169843457
+276.51934706276484
+276.52339968783724
+276.5274495735299
+276.5314967197242
+276.53554112630513
+276.53958279316083
+276.5436217201831
+276.5476579072671
+276.55169135431134
+276.5557220612178
+276.5597500278919
+276.56377525424233
+276.5677977401814
+276.5718174856246
+276.575834490491
+276.57984875470294
+276.5838602781863
+276.58786906087016
+276.5918751026872
+276.59587840357324
+276.59987896346775
+276.60387678231336
+276.60787186005626
+276.61186419664597
+276.61585379203524
+276.61984064618036
+276.623824759041
+276.62780613058
+276.63178476076376
+276.63576064956203
+276.6397337969477
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>276.6437042028974
+276.64767186739084
+276.651636790411
+276.65559897194447
+276.659558411981
+276.66351511051374
+276.66746906753923
+276.6714202830572
+276.67536875707094
+276.6793144895869
+276.6832574806148
+276.6871977301679
+276.69113523826263
+276.69507000491876
+276.6990020301594
+276.7029313140111
+276.7068578565033
+276.7107816576693
+276.7147027175454
+276.71862103617116
+276.72253661358957
+276.72644944984694
+276.7303595449927
+276.7342668990797
+276.73817151216423
+276.74207338430546
+276.74597251556617
+276.74986890601235
+276.75376255571325
+276.75765346474134
+276.76154163317244
+276.7654270610856
+276.76930974856316
+276.77318969569063
+276.77706690255695
+276.78094136925415
+276.78481309587755
+276.78868208252584
+276.79254832930087
+276.7964118363076
+276.8002726036545
+276.80413063145306
+276.80798591981807
+276.8118384688676
+276.815688278723
+276.81953534950856
+276.8233796813521
+276.82722127438456
+276.83106012874003
+276.8348962445559
+276.83872962197285
+276.8425602611344
+276.84638816218774
+276.85021332528294
+276.8540357505734
+276.8578554382157
+276.8616723883696
+276.86548660119803
+276.8692980768671
+276.8731068155462
+276.87691281740774
+276.88071608262743
+276.884516611384
+276.8883144038596
+276.89210946023934
+276.89590178071154
+276.8996913654678
+276.9034782147026
+276.9072623286138
+276.9110437074023
+276.91482235127233
+276.91859826043094
+276.9223714350887
+276.92614187545894
+276.9299095817584
+276.93367455420685
+276.9374367930272
+276.94119629844533
+276.94495307069053
+276.948707109995
+276.95245841659414
+276.95620699072634
+276.95995283263323
+276.9636959425596
+276.96743632075305
+276.97117396746455
+276.974908882948
+276.9786410674606
+276.9823705212624
+276.98609724461664
+276.98982123778956
+276.9935425010506
+276.99726103467225
+277.00097683893
+277.00468991410236
+277.0084002604711
+277.01210787832076
+277.0158127679393
+277.01951492961746
+277.02321436364895
+277.0269110703308
+277.030605049963
+277.0342963028484
+277.0379848292931
+277.04167062960613
+277.0453537040995
+277.0490340530884
+277.05271167689085
+277.05638657582807
+277.06005875022413
+277.0637282004061
+277.06739492670425
+277.07105892945174
+277.0747202089846
+277.0783787656422
+277.0820345997664
+277.0856877117025
+277.08933810179866
+277.0929857704058
+277.0966307178781
+277.10027294457257
+277.1039124508492
+277.107549237071
+277.11118330360387
+277.11481465081675
+277.1184432790815
+277.12206918877274
+277.12569238026845
+277.1293128539493
+277.13293061019874
+277.1365456494035
+277.14015797195304
+277.1437675782398
+277.1473744686591
+277.1509786436092
+277.1545801034914
+277.1581788487098
+277.16177487967127
+277.16536819678583
+277.1689588004664
+277.17254669112856
+277.176131869191
+277.1797143350753
+277.1832940892058
+277.1868711320098
+277.1904454639174
+277.1940170853618
+277.1975859967788
+277.2011521986073
+277.20471569128887
+277.20827647526806
+277.2118345509923
+277.21538991891174
+277.2189425794794
+277.22249253315135
+277.2260397803863
+277.2295843216459
+277.2331261573946
+277.23666528809963
+277.2402017142311
+277.24373543626194
+277.2472664546679
+277.2507947699276
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>277.2543203825224
+277.2578432929364
+277.26136350165666
+277.264881009173
+277.26839581597795
+277.2719079225669
+277.2754173294381
+277.27892403709234
+277.28242804603354
+277.28592935676807
+277.28942796980533
+277.29292388565733
+277.29641710483884
+277.2999076278675
+277.3033954552637
+277.30688058755044
+277.3103630252536
+277.3138427689018
+277.31731981902635
+277.32079417616126
+277.3242658408435
+277.3277348136125
+277.3312010950105
+277.33466468558254
+277.33812558587624
+277.3415837964421
+277.34503931783325
+277.34849215060547
+277.3519422953174
+277.35538975253013
+277.3588345228076
+277.36227660671665
+277.3657160048263
+277.3691527177088
+277.37258674593863
+277.3760180900932
+277.3794467507525
+277.3828727284992
+277.3862960239187
+277.38971663759895
+277.3931345701306
+277.39654982210703
+277.39996239412415
+277.4033722867805
+277.4067795006773
+277.4101840364185
+277.4135858946106
+277.4169850758626
+277.4203815807864
+277.4237754099962
+277.42716656410914
+277.4305550437447
+277.4339408495251
+277.4373239820751
+277.4407044420221
+277.44408222999607
+277.4474573466296
+277.4508297925579
+277.45419956841863
+277.4575666748521
+277.46093111250127
+277.46429288201153
+277.4676519840309
+277.47100841921
+277.474362188202
+277.4777132916625
+277.4810617302498
+277.4844075046246
+277.4877506154503
+277.49109106339273
+277.4944288491203
+277.49776397330385
+277.50109643661693
+277.5044262397354
+277.5077533833378
+277.511077868105
+277.5143996947206
+277.51771886387064
+277.5210353762435
+277.5243492325302
+277.52766043342416
+277.53096897962143
+277.5342748718204
+277.537578110722
+277.5408786970296
+277.5441766314491
+277.54747191468874
+277.55076454745944
+277.5540545304743
+277.5573418644491
+277.5606265501019
+277.5639085881534
+277.5671879793266
+277.5704647243469
+277.5737388239422
+277.57701027884286
+277.5802790897816
+277.5835452574935
+277.5868087827163
+277.5900696661898
+277.5933279086564
+277.5965835108611
+277.5998364735509
+277.6030867974754
+277.6063344833866
+277.6095795320389
+277.6128219441889
+277.6160617205958
+277.619298862021
+277.62253336922845
+277.62576524298436
+277.6289944840572
+277.632221093218
+277.63544507123993
+277.63866641889865
+277.6418851369722
+277.6451012262407
+277.6483146874869
+277.6515255214958
+277.6547337290546
+277.65793931095294
+277.6611422679827
+277.66434260093826
+277.667540310616
+277.6707353978148
+277.6739278633358
+277.67711770798246
+277.6803049325605
+277.683489537878
+277.6866715247452
+277.68985089397455
+277.69302764638104
+277.6962017827818
+277.69937330399614
+277.7025422108458
+277.7057085041545
+277.7088721847485
+277.7120332534562
+277.71519171110816
+277.7183475585373
+277.72150079657877
+277.72465142606984
+277.7277994478501
+277.73094486276136
+277.7340876716476
+277.737227875355
+277.7403654747321
+277.7435004706294
+277.7466328638997
+277.74976265539823
+277.75288984598194
+277.75601443651044
+277.75913642784514
+277.76225582084993
+277.7653726163907
+277.76848681533556
+277.77159841855473
+277.7747074269207
+277.777813841308
+277.78091766259337
+277.7840188916557
+277.787117529376
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>277.7902135766375
+277.7933070343254
+277.79639790332726
+277.7994861845325
+277.80257187883285
+277.805654987122
+277.80873551029606
+277.8118134492529
+277.81488880489263
+277.81796157811755
+277.8210317698319
+277.8240993809421
+277.82716441235664
+277.8302268649861
+277.8332867397431
+277.8363440375423
+277.83939875930065
+277.8424509059368
+277.84550047837183
+277.84854747752865
+277.8515919043323
+277.8546337597097
+277.8576730445902
+277.86070975990475
+277.86374390658665
+277.866775485571
+277.8698044977952
+277.87283094419837
+277.8758548257218
+277.8788761433088
+277.8818948979046
+277.88491109045657
+277.887924721914
+277.8909357932281
+277.8939443053522
+277.8969502592416
+277.89995365585344
+277.902954496147
+277.9059527810835
+277.9089485116261
+277.91194168873983
+277.9149323133919
+277.9179203865512
+277.9209059091889
+277.92388888227777
+277.9268693067928
+277.9298471837107
+277.9328225140103
+277.93579529867225
+277.9387655386791
+277.9417332350154
+277.94469838866763
+277.94766100062407
+277.950621071875
+277.95357860341255
+277.95653359623077
+277.95948605132565
+277.962435969695
+277.9653833523385
+277.9683282002578
+277.9712705144563
+277.97421029593943
+277.97714754571433
+277.9800822647901
+277.9830144541777
+277.9859441148899
+277.98887124794123
+277.9917958543483
+277.9947179351294
+277.99763749130466
+278.0005545238961
+278.0034690339275
+278.0063810224245
+278.00929049041457
+278.012197438927
+278.0151018689928
+278.018003781645
+278.0209031779181
+278.02380005884874
+278.0266944254751
+278.0295862788373
+278.03247561997716
+278.0353624499383
+278.03824676976615
+278.04112858050786
+278.0440078832124
+278.0468846789303
+278.0497589687143
+278.05263075361836
+278.0555000346986
+278.05836681301264
+278.0612310896199
+278.06409286558164
+278.06695214196077
+278.06980891982187
+278.07266320023126
+278.0755149842571
+278.0783642729691
+278.0812110674388
+278.08405536873937
+278.08689717794573
+278.08973649613444
+278.092573324384
+278.095407663774
+278.09823951538635
+278.1010688803044
+278.1038957596131
+278.1067201543991
+278.1095420657508
+278.11236149475815
+278.11517844251284
+278.11799291010817
+278.12080489863916
+278.12361440920245
+278.1264214428961
+278.12922600082015
+278.13202808407607
+278.1348276937669
+278.13762483099754
+278.1404194968743
+278.1432116925052
+278.14600141899984
+278.14878867746927
+278.1515734690265
+278.1543557947858
+278.15713565586316
+278.1599130533762
+278.162687988444
+278.16546046218747
+278.16823047572876
+278.17099803019175
+278.173763126702
+278.17652576638636
+278.17928595037347
+278.1820436797934
+278.1847989557779
+278.1875517794601
+278.1903021519747
+278.1930500744581
+278.195795548048
+278.19853857388375
+278.20127915310627
+278.20401728685783
+278.2067529762825
+278.2094862225254
+278.2122170267336
+278.21494539005545
+278.21767131364095
+278.2203947986414
+278.22311584620957
+278.22583445749996
+278.22855063366836
+278.23126437587206
+278.23397568526985
+278.236684563022
+278.23939101029015
+278.2420950282376
+278.2447966180288
+278.24749578082987
+278.2501925178084
+278.2528868301332
+278.25557871897473
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>278.2582681855048
+278.2609552308967
+278.26363985632497
+278.26632206296574
+278.26900185199656
+278.2716792245963
+278.2743541819453
+278.2770267252252
+278.2796968556192
+278.2823645743117
+278.28502988248863
+278.28769278133734
+278.29035327204645
+278.29301135580596
+278.2956670338072
+278.29832030724305
+278.30097117730764
+278.3036196451964
+278.30626571210627
+278.30890937923533
+278.3115506477831
+278.3141895189506
+278.3168259939401
+278.319460073955
+278.32209176020007
+278.3247210538817
+278.3273479562074
+278.329972468386
+278.3325945916277
+278.3352143271439
+278.33783167614735
+278.3404466398522
+278.3430592194737
+278.34566941622853
+278.3482772313347
+278.3508826660114
+278.35348572147905
+278.35608639895946
+278.3586846996758
+278.3612806248522
+278.36387417571433
+278.366465353489
+278.3690541594043
+278.37164059468944
+278.3742246605752
+278.3768063582932
+278.37938568907657
+278.3819626541596
+278.38453725477785
+278.38710949216795
+278.3896793675679
+278.39224688221685
+278.39481203735517
+278.39737483422454
+278.3999352740677
+278.4024933581286
+278.4050490876524
+278.40760246388544
+278.41015348807537
+278.412702161471
+278.4152484853221
+278.4177924608798
+278.4203340893964
+278.42287337212525
+278.42541031032107
+278.4279449052395
+278.4304771581375
+278.433007070273
+278.43553464290534
+278.43805987729473
+278.4405827747027
+278.4431033363919
+278.44562156362605
+278.4481374576698
+278.45065101978946
+278.4531622512519
+278.4556711533253
+278.4581777272791
+278.4606819743836
+278.4631838959104
+278.4656834931321
+278.4681807673224
+278.470675719756
+278.47316835170886
+278.4756586644579
+278.4781466592811
+278.4806323374576
+278.48311570026766
+278.48559674899235
+278.4880754849141
+278.4905519093161
+278.4930260234828
+278.4954978286997
+278.49796732625316
+278.5004345174308
+278.50289940352116
+278.50536198581375
+278.50782226559926
+278.5102802441693
+278.51273592281655
+278.51518930283464
+278.5176403855182
+278.52008917216295
+278.5225356640657
+278.5249798625239
+278.52742176883635
+278.52986138430276
+278.5322987102237
+278.5347337479008
+278.5371664986368
+278.53959696373516
+278.54202514450054
+278.5444510422383
+278.5468746582551
+278.5492959938583
+278.5517150503564
+278.55413182905863
+278.5565463312753
+278.55895855831767
+278.561368511498
+278.5637761921293
+278.5661816015256
+278.568584741002
+278.5709856118743
+278.57338421545927
+278.5757805530747
+278.5781746260392
+278.5805664356723
+278.5829559832946
+278.58534327022727
+278.5877282977926
+278.5901110673138
+278.5924915801147
+278.59486983752043
+278.5972458408566
+278.59961959144994
+278.601991090628
+278.6043603397193
+278.60672734005277
+278.6090920929588
+278.6114545997683
+278.6138148618131
+278.61617288042595
+278.61852865694027
+278.6208821926905
+278.6232334890117
+278.62558254724007
+278.62792936871244
+278.6302739547665
+278.6326163067407
+278.6349564259744
+278.6372943138078
+278.63962997158177
+278.64196340063813
+278.6442946023194
+278.6466235779689
+278.648950328931
+278.6512748565504
+278.6535971621729
+278.65591724714506
+278.65823511281417
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>278.6605507605283
+278.6628641916362
+278.6651754074876
+278.6674844094328
+278.66979119882296
+278.67209577701
+278.6743981453466
+278.676698305186
+278.67899625788243
+278.68129200479086
+278.6835855472667
+278.6858768866665
+278.68816602434725
+278.6904529616667
+278.6927376999835
+278.6950202406569
+278.6973005850468
+278.69957873451386
+278.7018546904195
+278.7041284541259
+278.7064000269957
+278.7086694103925
+278.71093660568033
+278.71320161422415
+278.7154644373896
+278.71772507654276
+278.71998353305065
+278.72223980828085
+278.72449390360157
+278.7267458203817
+278.728995559991
+278.7312431237995
+278.7334885131783
+278.73573172949887
+278.7379727741334
+278.74021164845476
+278.7424483538364
+278.74468289165253
+278.74691526327786
+278.74914547008785
+278.7513735134585
+278.75359939476635
+278.75582311538875
+278.7580446767036
+278.76026408008937
+278.7624813269252
+278.7646964185907
+278.7669093564662
+278.7691201419327
+278.77132877637166
+278.7735352611651
+278.77573959769575
+278.7779417873469
+278.78014183150236
+278.7823397315466
+278.7845354888645
+278.7867291048417
+278.7889205808643
+278.791109918319
+278.7932971185931
+278.79548218307434
+278.797665113151
+278.7998459102121
+278.8020245756471
+278.8042011108459
+278.806375517199
+278.80854779609757
+278.81071794893313
+278.8128859770978
+278.8150518819843
+278.81721566498567
+278.8193773274956
+278.82153687090823
+278.82369429661844
+278.8258496060213
+278.8280028005125
+278.8301538814883
+278.83230285034534
+278.8344497084809
+278.83659445729256
+278.83873709817857
+278.8408776325375
+278.8430160617685
+278.8451523872712
+278.8472866104456
+278.8494187326923
+278.8515487554123
+278.85367668000697
+278.8558025078784
+278.8579262404288
+278.86004787906114
+278.86216742517854
+278.86428488018475
+278.8664002454841
+278.86851352248095
+278.8706247125804
+278.87273381718796
+278.87484083770954
+278.8769457755513
+278.8790486321201
+278.881149408823
+278.8832481070676
+278.8853447282619
+278.8874392738142
+278.88953174513335
+278.89162214362847
+278.89371047070915
+278.8957967277854
+278.89788091626747
+278.8999630375663
+278.9020430930928
+278.90412108425863
+278.9061970124756
+278.90827087915596
+278.91034268571235
+278.9124124335578
+278.91448012410564
+278.91654575876964
+278.9186093389638
+278.92067086610257
+278.9227303416007
+278.9247877668734
+278.92684314333616
+278.92889647240463
+278.93094775549514
+278.932996994024
+278.9350441894082
+278.9370893430647
+278.93913245641113
+278.9411735308652
+278.9432125678451
+278.9452495687691
+278.9472845350559
+278.94931746812483
+278.95134836939496
+278.9533772402861
+278.9554040822181
+278.95742889661125
+278.959451684886
+278.96147244846327
+278.9634911887641
+278.96550790721
+278.9675226052225
+278.96953528422364
+278.97154594563557
+278.9735545908808
+278.9755612213821
+278.9775658385626
+278.97956844384544
+278.9815690386542
+278.9835676244127
+278.98556420254494
+278.98755877447525
+278.98955134162816
+278.99154190542845
+278.9935304673012
+278.99551702867154
+278.9975015909651
+278.99948415560755
+279.0014647240248
+279.003443297643
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>279.00541987788864
+279.00739446618826
+279.00936706396874
+279.0113376726571
+279.01330629368044
+279.0152729284664
+279.0172375784425
+279.01920024503664
+279.0211609296769
+279.02311963379145
+279.0250763588088
+279.0270311061575
+279.02898387726634
+279.03093467356433
+279.03288349648057
+279.0348303474445
+279.0367752278855
+279.0387181392334
+279.04065908291795
+279.04259806036913
+279.0445350730171
+279.0464701222922
+279.04840320962495
+279.0503343364458
+279.0522635041858
+279.0541907142757
+279.0561159681466
+279.05803926722973
+279.0599606129563
+279.0618800067579
+279.0637974500661
+279.06571294431257
+279.06762649092923
+279.0695380913481
+279.0714477470012
+279.0733554593207
+279.07526122973906
+279.0771650596885
+279.0790669506018
+279.08096690391153
+279.0828649210504
+279.0847610034512
+279.08665515254705
+279.08854736977077
+279.09043765655565
+279.0923260143348
+279.0942124445416
+279.09609694860933
+279.0979795279715
+279.0998601840617
+279.10173891831346
+279.10361573216045
+279.1054906270365
+279.10736360437534
+279.1092346656109
+279.1111038121771
+279.11297104550783
+279.11483636703724
+279.11669977819935
+279.11856128042837
+279.1204208751584
+279.1222785638238
+279.12413434785867
+279.12598822869745
+279.12784020777445
+279.129690286524
+279.1315384663805
+279.1333847487784
+279.1352291351521
+279.1370716269361
+279.138912225565
+279.14075093247305
+279.142587749095
+279.1444226768652
+279.14625571721825
+279.1480868715887
+279.1499161414111
+279.15174352811994
+279.1535690331497
+279.155392657935
+279.1572144039104
+279.1590342725103
+279.16085226516924
+279.1626683833216
+279.16448262840197
+279.1662950018447
+279.1681055050841
+279.16991413955475
+279.17172090669084
+279.17352580792675
+279.17532884469676
+279.1771300184351
+279.1789293305759
+279.1807267825534
+279.1825223758017
+279.1843161117548
+279.1861079918468
+279.1878980175116
+279.1896861901831
+279.1914725112951
+279.19325698228147
+279.19503960457587
+279.19682037961195
+279.19859930882325
+279.20037639364335
+279.2021516355057
+279.2039250358435
+279.2056965960902
+279.20746631767895
+279.2092342020428
+279.2110002506148
+279.21276446482784
+279.2145268461148
+279.21628739590847
+279.21804611564147
+279.21980300674636
+279.22155807065553
+279.2233113088014
+279.2250627226161
+279.22681231353187
+279.22856008298066
+279.2303060323944
+279.23205016320486
+279.2337924768437
+279.2355329747425
+279.2372716583326
+279.23900852904535
+279.2407435883119
+279.2424768375633
+279.2442082782305
+279.245937911744
+279.2476657395348
+279.2493917630331
+279.2511159836693
+279.2528384028737
+279.2545590220762
+279.25627784270677
+279.25799486619513
+279.25971009397085
+279.2614235274634
+279.26313516810205
+279.2648450173158
+279.2665530765337
+279.26825934718454
+279.2699638306968
+279.2716665284989
+279.2733674420192
+279.2750665726858
+279.2767639219265
+279.2784594911691
+279.280153281841
+279.28184529536975
+279.2835355331823
+279.2852239967058
+279.2869106873668
+279.28859560659214
+279.29027875580806
+279.29196013644076
+279.2936397499162
+279.29531759766024
+279.29699368109834
+279.2986680016559
+279.3003405607581
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>279.30201135983
+279.303680400296
+279.30534768358086
+279.30701321110877
+279.3086769843038
+279.3103390045898
+279.31199927339037
+279.3136577921289
+279.3153145622286
+279.3169695851122
+279.3186228622026
+279.3202743949221
+279.32192418469293
+279.32357223293707
+279.32521854107625
+279.32686311053186
+279.32850594272514
+279.3301470390772
+279.33178640100857
+279.3334240299398
+279.3350599272911
+279.3366940944824
+279.3383265329334
+279.33995724406344
+279.34158622929175
+279.3432134900372
+279.3448390277183
+279.3464628437536
+279.34808493956103
+279.3497053165584
+279.3513239761632
+279.3529409197927
+279.35455614886376
+279.35616966479313
+279.3577814689972
+279.35939156289203
+279.36099994789333
+279.36260662541673
+279.36421159687734
+279.36581486369016
+279.36741642726975
+279.3690162890303
+279.3706144503861
+279.3722109127506
+279.37380567753723
+279.37539874615914
+279.37699012002906
+279.37857980055946
+279.38016778916244
+279.3817540872499
+279.38333869623324
+279.3849216175236
+279.38650285253203
+279.388082402669
+279.38966026934463
+279.3912364539688
+279.3928109579511
+279.3943837827007
+279.39595492962644
+279.397524400137
+279.39909219564043
+279.4006583175446
+279.40222276725706
+279.40378554618496
+279.4053466557351
+279.406906097314
+279.4084638723277
+279.41001998218195
+279.4115744282822
+279.41312721203354
+279.41467833484063
+279.4162277981078
+279.41777560323897
+279.41932175163777
+279.42086624470744
+279.4224090838508
+279.42395027047047
+279.4254898059684
+279.42702769174656
+279.4285639292062
+279.43009851974824
+279.4316314647734
+279.4331627656818
+279.4346924238734
+279.43622044074766
+279.43774681770367
+279.4392715561401
+279.4407946574552
+279.44231612304696
+279.4438359543128
+279.4453541526499
+279.4468707194549
+279.44838565612423
+279.4498989640538
+279.451410644639
+279.45292069927507
+279.4544291293566
+279.45593593627797
+279.457441121433
+279.4589446862152
+279.4604466320177
+279.46194696023286
+279.4634456722532
+279.4649427694704
+279.4664382532758
+279.46793212506043
+279.4694243862148
+279.470915038129
+279.4724040821928
+279.4738915197953
+279.4753773523254
+279.4768615811714
+279.4783442077214
+279.47982523336276
+279.48130465948265
+279.4827824874677
+279.48425871870404
+279.48573335457746
+279.4872063964732
+279.4886778457762
+279.49014770387083
+279.49161597214106
+279.4930826519704
+279.49454774474185
+279.496011251838
+279.4974731746411
+279.49893351453267
+279.5003922728941
+279.50184945110595
+279.5033050505487
+279.5047590726021
+279.5062115186455
+279.5076623900578
+279.5091116882175
+279.5105594145025
+279.51200557029017
+279.5134501569577
+279.5148931758814
+279.51633462843756
+279.51777451600157
+279.51921283994864
+279.5206496016533
+279.52208480248976
+279.5235184438315
+279.5249505270519
+279.5263810535233
+279.52781002461813
+279.529237441708
+279.5306633061641
+279.53208761935707
+279.53351038265714
+279.53493159743397
+279.5363512650568
+279.5377693868943
+279.5391859643146
+279.54060099868553
+279.5420144913741
+279.54342644374714
+279.5448368571707
+279.54624573301044
+279.5476530726315
+279.5490588773986
+279.5504631486757
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>279.5518658878266
+279.55326709621414
+279.554666775201
+279.55606492614925
+279.5574615504204
+279.5588566493753
+279.56025022437456
+279.56164227677806
+279.5630328079452
+279.564421819235
+279.5658093120056
+279.56719528761494
+279.56857974742024
+279.56996269277835
+279.5713441250454
+279.5727240455771
+279.57410245572856
+279.5754793568544
+279.5768547503086
+279.57822863744474
+279.5796010196157
+279.580971898174
+279.5823412744715
+279.5837091498595
+279.58507552568875
+279.58644040330944
+279.58780378407124
+279.5891656693233
+279.5905260604141
+279.5918849586917
+279.5932423655035
+279.5945982821964
+279.5959527101167
+279.5973056506101
+279.59865710502186
+279.6000070746966
+279.60135556097833
+279.6027025652105
+279.6040480887362
+279.6053921328976
+279.60673469903645
+279.6080757884941
+279.6094154026111
+279.61075354272754
+279.61209021018277
+279.61342540631574
+279.6147591324648
+279.61609138996766
+279.6174221801615
+279.61875150438283
+279.62007936396765
+279.62140576025143
+279.6227306945688
+279.62405416825413
+279.625376182641
+279.6266967390625
+279.6280158388509
+279.62933348333826
+279.6306496738557
+279.6319644117339
+279.633277698303
+279.6345895348923
+279.6358999228309
+279.63720886344686
+279.6385163580679
+279.639822408021
+279.6411270146328
+279.642430179229
+279.6437319031348
+279.64503218767493
+279.6463310341734
+279.6476284439536
+279.64892441833825
+279.6502189586497
+279.6515120662094
+279.6528037423383
+279.6540939883567
+279.6553828055845
+279.65667019534067
+279.6579561589437
+279.6592406977114
+279.6605238129612
+279.66180550600944
+279.6630857781723
+279.664364630765
+279.66564206510253
+279.66691808249874
+279.6681926842672
+279.6694658717208
+279.6707376461717
+279.67200800893147
+279.6732769613111
+279.674544504621
+279.6758106401707
+279.67707536926935
+279.6783386932253
+279.67960061334634
+279.6808611309396
+279.68212024731156
+279.68337796376807
+279.6846342816143
+279.68588920215484
+279.6871427266936
+279.6883948565339
+279.6896455929783
+279.6908949373287
+279.69214289088654
+279.6933894549525
+279.6946346308265
+279.69587841980797
+279.6971208231956
+279.6983618422874
+279.6996014783809
+279.7008397327727
+279.70207660675896
+279.70331210163516
+279.704546218696
+279.7057789592356
+279.7070103245474
+279.7082403159243
+279.7094689346583
+279.71069618204075
+279.71192205936256
+279.71314656791395
+279.71436970898424
+279.7155914838623
+279.7168118938361
+279.7180309401933
+279.71924862422054
+279.72046494720394
+279.721679910429
+279.7228935151803
+279.7241057627421
+279.7253166543977
+279.7265261914299
+279.7277343751208
+279.72894120675164
+279.73014668760317
+279.7313508189554
+279.73255360208753
+279.7337550382784
+279.73495512880584
+279.7361538749472
+279.7373512779791
+279.73854733917733
+279.73974205981716
+279.7409354411732
+279.7421274845191
+279.74331819112814
+279.7445075622729
+279.74569559922486
+279.74688230325535
+279.7480676756346
+279.7492517176324
+279.7504344305176
+279.7516158155587
+279.7527958740231
+279.75397460717784
+279.7551520162891
+279.7563281026224
+279.7575028674424
+279.7586763120134
+279.75984843759863
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>279.7610192454609
+279.76218873686224
+279.76335691306383
+279.7645237753263
+279.76568932490954
+279.76685356307274
+279.7680164910743
+279.76917811017205
+279.770338421623
+279.7714974266836
+279.77265512660927
+279.7738115226551
+279.7749666160751
+279.776120408123
+279.7772729000514
+279.7784240931124
+279.77957398855744
+279.78072258763706
+279.7818698916012
+279.783015901699
+279.78416061917903
+279.785304045289
+279.7864461812759
+279.78758702838616
+279.7887265878653
+279.7898648609582
+279.79100184890893
+279.79213755296104
+279.79327197435725
+279.79440511433944
+279.7955369741489
+279.79666755502615
+279.79779685821103
+279.7989248849425
+279.800051636459
+279.80117711399805
+279.80230131879654
+279.8034242520908
+279.804545915116
+279.805666309107
+279.8067854352977
+279.80790329492123
+279.80901988921016
+279.8101352193963
+279.8112492867105
+279.8123620923831
+279.8134736376437
+279.8145839237211
+279.81569295184323
+279.8168007232376
+279.81790723913065
+279.81901250074833
+279.8201165093157
+279.821219266057
+279.82232077219606
+279.82342102895564
+279.8245200375579
+279.8256177992242
+279.82671431517514
+279.82780958663074
+279.82890361481003
+279.8299964009315
+279.83108794621285
+279.83217825187086
+279.8332673191217
+279.8343551491809
+279.835441743263
+279.83652710258195
+279.83761122835097
+279.8386941217824
+279.8397757840879
+279.8408562164784
+279.841935420164
+279.8430133963542
+279.8440901462575
+279.8451656710819
+279.8462399720345
+279.84731305032165
+279.848384907149
+279.8494555437213
+279.85052496124285
+279.8515931609169
+279.8526601439459
+279.85372591153185
+279.85479046487575
+279.8558538051779
+279.8569159336379
+279.85797685145445
+279.8590365598256
+279.8600950599486
+279.86115235302
+279.86220844023535
+279.8632633227898
+279.86431700187745
+279.86536947869183
+279.86642075442546
+279.86747083027035
+279.8685197074176
+279.8695673870576
+279.87061387037994
+279.8716591585734
+279.87270325282606
+279.87374615432526
+279.8747878642575
+279.8758283838084
+279.8768677141631
+279.8779058565057
+279.8789428120198
+279.8799785818878
+279.8810131672919
+279.8820465694129
+279.8830787894314
+279.8841098285268
+279.88513968787794
+279.8861683686629
+279.8871958720588
+279.8882221992422
+279.88924735138875
+279.89027132967334
+279.89129413527013
+279.89231576935254
+279.893336233093
+279.89435552766344
+279.8953736542348
+279.8963906139773
+279.8974064080605
+279.898421037653
+279.89943450392275
+279.9004468080368
+279.90145795116155
+279.9024679344625
+279.9034767591044
+279.9044844262513
+279.90549093706636
+279.906496292712
+279.90750049434985
+279.9085035431408
+279.9095054402449
+279.9105061868214
+279.9115057840288
+279.91250423302483
+279.9135015349664
+279.9144976910096
+279.9154927023098
+279.91648657002156
+279.9174792952987
+279.9184708792941
+279.91946132315996
+279.92045062804783
+279.92143879510814
+279.9224258254908
+279.92341172034486
+279.9243964808186
+279.9253801080593
+279.92636260321376
+279.92734396742776
+279.92832420184646
+279.9293033076142
+279.93028128587423
+279.9312581377695
+279.9322338644417
+279.9332084670321
+279.93418194668095
+279.9351543045278
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>279.93612554171136
+279.93709565936956
+279.9380646586395
+279.9390325406576
+279.93999930655934
+279.94096495747954
+279.941929494552
+279.94289291891005
+279.943855231686
+279.9448164340113
+279.94577652701685
+279.9467355118325
+279.94769338958747
+279.9486501614101
+279.9496058284281
+279.95056039176814
+279.95151385255605
+279.9524662119171
+279.9534174709758
+279.95436763085553
+279.95531669267916
+279.9562646575687
+279.9572115266451
+279.9581573010289
+279.95910198183964
+279.96004557019614
+279.96098806721625
+279.9619294740171
+279.96286979171515
+279.96380902142596
+279.96474716426417
+279.9656842213438
+279.966620193778
+279.9675550826791
+279.96848888915855
+279.96942161432713
+279.97035325929477
+279.97128382517064
+279.97221331306304
+279.9731417240794
+279.9740690593265
+279.9749953199102
+279.9759205069356
+279.976844621507
+279.97776766472776
+279.97868963770077
+279.97961054152773
+279.9805303773098
+279.98144914614716
+279.9823668491392
+279.9832834873847
+279.9841990619814
+279.98511357402646
+279.9860270246159
+279.98693941484515
+279.9878507458089
+279.9887610186009
+279.9896702343141
+279.9905783940407
+279.99148549887207
+279.99239154989874
+279.9932965482105
+279.9942004948962
+279.995103391044
+279.99600523774114
+279.9969060360743
+279.997805787129
+279.9987044919902
+279.999602151742
+280.00049876746755
+280.0013943402494
+280.0022888711691
+280.0031823613076
+280.00407481174483
+280.00496622356
+280.0058565978315
+280.0067459356369
+280.007634238053
+280.0085215061557
+280.00940774102025
+280.01029294372086
+280.0111771153311
+280.0120602569237
+280.0129423695705
+280.0138234543426
+280.0147035123103
+280.015582544543
+280.01646055210944
+280.0173375360773
+280.0182134975137
+280.01908843748487
+280.0199623570561
+280.02083525729194
+280.0217071392563
+280.022578004012
+280.02344785262125
+280.02431668614526
+280.02518450564463
+280.02605131217905
+280.02691710680733
+280.02778189058756
+280.028645664577
+280.0295084298321
+280.03037018740844
+280.0312309383608
+280.0320906837432
+280.0329494246089
+280.0338071620101
+280.0346638969984
+280.0355196306245
+280.0363743639384
+280.03722809798916
+280.038080833825
+280.0389325724935
+280.0397833150411
+280.0406330625139
+280.04148181595673
+280.0423295764139
+280.0431763449287
+280.0440221225439
+280.044866910301
+280.04571070924106
+280.04655352040425
+280.0473953448298
+280.0482361835562
+280.0490760376212
+280.0499149080616
+280.0507527959135
+280.0515897022121
+280.0524256279918
+280.05326057428624
+280.0540945421282
+280.0549275325496
+280.05575954658167
+280.05659058525464
+280.05742064959804
+280.05824974064063
+280.05907785941025
+280.059905006934
+280.06073118423814
+280.0615563923481
+280.06238063228847
+280.06320390508307
+280.06402621175494
+280.0648475533262
+280.0656679308182
+280.0664873452515
+280.0673057976458
+280.0681232890201
+280.06893982039236
+280.0697553927799
+280.0705700071992
+280.071383664666
+280.07219636619493
+280.0730081128001
+280.0738189054947
+280.0746287452912
+280.075437633201
+280.0762455702349
+280.0770525574029
+280.0778585957141
+280.0786636861767
+280.0794678297984
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.08027102758564
+280.0810732805444
+280.0818745896796
+280.08267495599557
+280.0834743804958
+280.08427286418265
+280.0850704080581
+280.08586701312294
+280.0866626803775
+280.08745741082095
+280.08825120545185
+280.08904406526796
+280.08983599126617
+280.09062698444245
+280.09141704579207
+280.09220617630956
+280.09299437698843
+280.0937816488216
+280.09456799280105
+280.09535340991783
+280.0961379011624
+280.09692146752445
+280.0977041099925
+280.09848582955453
+280.0992666271977
+280.1000465039083
+280.1008254606718
+280.10160349847274
+280.1023806182951
+280.10315682112196
+280.10393210793546
+280.10470647971704
+280.1054799374473
+280.106252482106
+280.10702411467213
+280.10779483612384
+280.1085646474385
+280.10933354959263
+280.110101543562
+280.11086863032136
+280.1116348108449
+280.11240008610594
+280.1131644570769
+280.1139279247294
+280.1146904900344
+280.11545215396177
+280.1162129174809
+280.1169727815601
+280.1177317471669
+280.1184898152682
+280.1192469868299
+280.1200032628173
+280.1207586441945
+280.1215131319252
+280.12226672697216
+280.12301943029723
+280.12377124286155
+280.1245221656253
+280.1252721995481
+280.1260213455885
+280.1267696047045
+280.12751697785313
+280.1282634659905
+280.12900907007224
+280.12975379105285
+280.1304976298861
+280.13124058752516
+280.1319826649221
+280.1327238630282
+280.1334641827942
+280.1342036251699
+280.1349421911042
+280.1356798815452
+280.13641669744027
+280.13715263973603
+280.13788770937805
+280.1386219073114
+280.1393552344801
+280.1400876918275
+280.140819280296
+280.14155000082746
+280.14227985436264
+280.1430088418416
+280.1437369642037
+280.14446422238734
+280.14519061733023
+280.14591614996914
+280.1466408212401
+280.14736463207845
+280.14808758341854
+280.1488096761941
+280.14953091133776
+280.15025128978175
+280.15097081245716
+280.15168948029446
+280.15240729422317
+280.15312425517214
+280.15384036406937
+280.154555621842
+280.1552700294165
+280.1559835877184
+280.1566962976725
+280.1574081602028
+280.1581191762324
+280.15882934668366
+280.1595386724783
+280.1602471545369
+280.16095479377947
+280.16166159112527
+280.1623675474926
+280.163072663799
+280.16377694096127
+280.1644803798953
+280.1651829815163
+280.1658847467386
+280.1665856764758
+280.1672857716406
+280.16798503314493
+280.16868346190006
+280.1693810588162
+280.17007782480306
+280.1707737607693
+280.1714688676229
+280.172163146271
+280.1728565976199
+280.17354922257533
+280.1742410220419
+280.17493199692365
+280.1756221481237
+280.1763114765445
+280.17699998308757
+280.1776876686537
+280.1783745341429
+280.1790605804543
+280.1797458084863
+280.18043021913655
+280.18111381330175
+280.181796591878
+280.18247855576044
+280.18315970584354
+280.1838400430209
+280.1845195681853
+280.1851982822288
+280.1858761860426
+280.1865532805172
+280.1872295665422
+280.18790504500646
+280.18857971679813
+280.1892535828043
+280.1899266439117
+280.1905989010058
+280.1912703549715
+280.191941006693
+280.1926108570537
+280.1932799069359
+280.1939481572214
+280.1946156087912
+280.1952822625255
+280.19594811930347
+280.19661318000374
+280.1972774455042
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.1979409166818
+280.19860359441265
+280.1992654795722
+280.19992657303516
+280.2005868756753
+280.2012463883656
+280.20190511197836
+280.2025630473852
+280.20322019545665
+280.20387655706264
+280.2045321330723
+280.20518692435394
+280.20584093177507
+280.2064941562025
+280.2071465985022
+280.2077982595394
+280.20844914017835
+280.20909924128284
+280.2097485637156
+280.21039710833867
+280.21104487601343
+280.2116918676002
+280.21233808395874
+280.212983525948
+280.2136281944262
+280.2142720902505
+280.21491521427754
+280.21555756736313
+280.2161991503623
+280.2168399641293
+280.2174800095175
+280.2181192873795
+280.21875779856737
+280.21939554393214
+280.2200325243241
+280.2206687405928
+280.22130419358706
+280.22193888415484
+280.22257281314336
+280.2232059813991
+280.2238383897676
+280.22447003909383
+280.22510093022186
+280.22573106399506
+280.22636044125596
+280.2269890628463
+280.22761692960717
+280.2282440423787
+280.2288704020004
+280.2294960093109
+280.23012086514814
+280.23074497034924
+280.23136832575045
+280.23199093218756
+280.2326127904952
+280.2332339015075
+280.2338542660576
+280.2344738849781
+280.2350927591008
+280.23571088925644
+280.23632827627534
+280.2369449209869
+280.23756082421966
+280.23817598680154
+280.23879040955967
+280.23940409332033
+280.2400170389091
+280.2406292471508
+280.2412407188694
+280.2418514548881
+280.2424614560295
+280.2430707231153
+280.24367925696635
+280.24428705840296
+280.24489412824454
+280.24550046730957
+280.2461060764162
+280.2467109563813
+280.2473151080214
+280.24791853215197
+280.24852122958794
+280.24912320114333
+280.2497244476314
+280.2503249698648
+280.2509247686552
+280.2515238448136
+280.25212219915034
+280.2527198324749
+280.2533167455959
+280.25391293932137
+280.25450841445854
+280.25510317181386
+280.25569721219296
+280.25629053640085
+280.25688314524155
+280.2574750395186
+280.25806622003466
+280.25865668759155
+280.25924644299045
+280.25983548703164
+280.26042382051486
+280.26101144423893
+280.26159835900194
+280.2621845656013
+280.26277006483343
+280.26335485749433
+280.26393894437905
+280.2645223262819
+280.26510500399655
+280.26568697831567
+280.26626825003143
+280.2668488199351
+280.26742868881723
+280.26800785746775
+280.2685863266756
+280.2691640972291
+280.2697411699158
+280.2703175455226
+280.27089322483545
+280.2714682086397
+280.2720424977199
+280.27261609285983
+280.2731889948426
+280.2737612044506
+280.27433272246515
+280.2749035496672
+280.27547368683685
+280.2760431347534
+280.2766118941954
+280.2771799659407
+280.27774735076645
+280.2783140494488
+280.27888006276345
+280.2794453914853
+280.2800100363884
+280.28057399824604
+280.2811372778309
+280.28169987591497
+280.2822617932692
+280.282823030664
+280.2833835888691
+280.28394346865343
+280.284502670785
+280.2850611960314
+280.2856190451592
+280.2861762189343
+280.2867327181221
+280.2872885434869
+280.2878436957925
+280.28839817580183
+280.28895198427716
+280.28950512198
+280.29005758967116
+280.2906093881106
+280.2911605180577
+280.2917109802711
+280.29226077550845
+280.29280990452696
+280.2933583680829
+280.293906166932
+280.2944533018291
+280.2949997735284
+280.29554558278323
+280.29609073034646
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.2966352169699
+280.2971790434048
+280.2977222104017
+280.2982647187103
+280.2988065690797
+280.2993477622583
+280.29988829899355
+280.30042818003227
+280.3009674061206
+280.301505978004
+280.3020438964271
+280.3025811621339
+280.3031177758675
+280.30365373837043
+280.3041890503844
+280.3047237126505
+280.30525772590903
+280.30579109089956
+280.30632380836084
+280.30685587903116
+280.30738730364783
+280.3079180829476
+280.30844821766635
+280.3089777085393
+280.3095065563011
+280.3100347616854
+280.3105623254254
+280.3110892482533
+280.31161553090084
+280.31214117409894
+280.3126661785777
+280.3131905450666
+280.3137142742945
+280.3142373669893
+280.3147598238783
+280.31528164568834
+280.3158028331451
+280.31632338697375
+280.31684330789875
+280.3173625966439
+280.3178812539321
+280.3183992804857
+280.3189166770264
+280.3194334442749
+280.3199495829515
+280.3204650937755
+280.32097997746575
+280.32149423474016
+280.3220078663162
+280.3225208729104
+280.3230332552386
+280.32354501401596
+280.324056149957
+280.3245666637755
+280.32507655618446
+280.3255858278962
+280.3260944796223
+280.32660251207386
+280.32710992596105
+280.32761672199314
+280.3281229008792
+280.3286284633272
+280.32913341004456
+280.32963774173794
+280.3301414591134
+280.3306445628761
+280.33114705373066
+280.3316489323809
+280.3321501995301
+280.33265085588056
+280.3331509021342
+280.33365033899196
+280.3341491671542
+280.3346473873206
+280.33514500019015
+280.335642006461
+280.3361384068308
+280.33663420199633
+280.3371293926538
+280.3376239794987
+280.33811796322567
+280.33861134452883
+280.3391041241016
+280.33959630263655
+280.34008788082576
+280.3405788593604
+280.3410692389311
+280.3415590202278
+280.34204820393956
+280.34253679075493
+280.3430247813618
+280.34351217644723
+280.34399897669755
+280.3444851827986
+280.3449707954354
+280.34545581529227
+280.34594024305284
+280.3464240794001
+280.3469073250164
+280.34738998058316
+280.34787204678145
+280.34835352429127
+280.3488344137923
+280.34931471596343
+280.3497944314827
+280.3502735610275
+280.35075210527475
+280.35123006490045
+280.35170744058
+280.3521842329882
+280.35266044279894
+280.3531360706857
+280.35361111732107
+280.35408558337707
+280.35455946952504
+280.3550327764355
+280.3555055047785
+280.3559776552231
+280.3564492284382
+280.35692022509136
+280.35739064585
+280.3578604913805
+280.3583297623489
+280.35879845942026
+280.35926658325917
+280.35973413452933
+280.360201113894
+280.36066752201555
+280.3611333595559
+280.361598627176
+280.3620633255365
+280.3625274552971
+280.36299101711677
+280.363454011654
+280.36391643956665
+280.36437830151164
+280.36483959814547
+280.3653003301238
+280.36576049810174
+280.36622010273373
+280.3666791446734
+280.36713762457384
+280.3675955430875
+280.3680529008659
+280.3685096985603
+280.3689659368208
+280.3694216162975
+280.3698767376391
+280.3703313014941
+280.3707853085102
+280.37123875933446
+280.37169165461324
+280.3721439949922
+280.3725957811165
+280.3730470136304
+280.3734976931777
+280.3739478204015
+280.3743973959441
+280.3748464204472
+280.375294894552
+280.3757428188988
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.37619019412745
+280.37663702087696
+280.37708329978574
+280.37752903149163
+280.37797421663174
+280.3784188558425
+280.3788629497597
+280.37930649901847
+280.3797495042533
+280.38019196609804
+280.3806338851859
+280.3810752621492
+280.38151609761996
+280.3819563922294
+280.3823961466081
+280.3828353613859
+280.38327403719194
+280.383712174655
+280.38414977440294
+280.38458683706295
+280.3850233632618
+280.38545935362544
+280.3858948087792
+280.3863297293478
+280.3867641159552
+280.38719796922487
+280.3876312897795
+280.3880640782412
+280.3884963352315
+280.388928061371
+280.3893592572801
+280.3897899235781
+280.390220060884
+280.39064966981596
+280.39107875099154
+280.39150730502763
+280.39193533254064
+280.3923628341461
+280.39278981045913
+280.393216262094
+280.3936421896644
+280.3940675937834
+280.39449247506354
+280.39491683411654
+280.3953406715535
+280.39576398798516
+280.39618678402115
+280.39660906027075
+280.3970308173427
+280.39745205584484
+280.3978727763846
+280.39829297956857
+280.39871266600284
+280.3991318362928
+280.39955049104327
+280.39996863085844
+280.40038625634173
+280.40080336809615
+280.4012199667239
+280.4016360528265
+280.40205162700505
+280.40246668985986
+280.4028812419907
+280.40329528399656
+280.40370881647607
+280.4041218400269
+280.4045343552464
+280.40494636273104
+280.40535786307674
+280.4057688568789
+280.40617934473227
+280.4065893272308
+280.40699880496794
+280.4074077785366
+280.4078162485289
+280.40822421553634
+280.40863168015
+280.4090386429601
+280.4094451045564
+280.4098510655279
+280.41025652646306
+280.41066148794977
+280.4110659505753
+280.41146991492604
+280.41187338158807
+280.4122763511467
+280.4126788241867
+280.4130808012921
+280.4134822830465
+280.41388327003267
+280.4142837628329
+280.4146837620288
+280.41508326820144
+280.4154822819312
+280.41588080379785
+280.4162788343806
+280.416676374258
+280.417073424008
+280.4174699842078
+280.4178660554344
+280.41826163826363
+280.4186567332711
+280.41905134103166
+280.4194454621196
+280.4198390971086
+280.4202322465717
+280.42062491108135
+280.4210170912093
+280.42140878752684
+280.4218000006046
+280.4221907310125
+280.42258097932006
+280.422970746096
+280.4233600319085
+280.42374883732515
+280.42413716291287
+280.42452500923815
+280.42491237686664
+280.4252992663636
+280.4256856782935
+280.4260716132204
+280.4264570717075
+280.4268420543176
+280.427226561613
+280.42761059415506
+280.4279941525048
+280.4283772372226
+280.42875984886814
+280.42914198800065
+280.42952365517857
+280.42990485095993
+280.4302855759021
+280.43066583056174
+280.43104561549507
+280.4314249312577
+280.43180377840457
+280.43218215749
+280.4325600690678
+280.4329375136912
+280.43331449191277
+280.4336910042844
+280.4340670513577
+280.4344426336834
+280.4348177518116
+280.43519240629206
+280.43556659767376
+280.43594032650515
+280.43631359333415
+280.43668639870793
+280.43705874317334
+280.4374306272763
+280.43780205156236
+280.4381730165765
+280.438543522863
+280.4389135709656
+280.4392831614274
+280.43965229479113
+280.4400209715987
+280.4403891923915
+280.4407569577103
+280.4411242680954
+280.44149112408644
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.44185752622246
+280.442223475042
+280.44258897108296
+280.4429540148826
+280.44331860697775
+280.4436827479046
+280.4440464381986
+280.44440967839483
+280.4447724690278
+280.4451348106312
+280.44549670373834
+280.445858148882
+280.4462191465942
+280.4465796974066
+280.4469398018501
+280.44729946045504
+280.4476586737512
+280.44801744226805
+280.448375766534
+280.44873364707735
+280.4490910844255
+280.44944807910537
+280.4498046316434
+280.45016074256546
+280.4505164123966
+280.45087164166165
+280.4512264308847
+280.45158078058915
+280.45193469129805
+280.4522881635338
+280.4526411978182
+280.4529937946724
+280.4533459546172
+280.45369767817266
+280.4540489658585
+280.45439981819345
+280.4547502356961
+280.4551002188843
+280.45544976827523
+280.45579888438573
+280.4561475677319
+280.45649581882935
+280.45684363819316
+280.4571910263378
+280.45753798377723
+280.4578845110247
+280.458230608593
+280.4585762769945
+280.4589215167408
+280.45926632834306
+280.4596107123118
+280.459954669157
+280.46029819938815
+280.4606413035141
+280.4609839820433
+280.4613262354833
+280.46166806434155
+280.4620094691246
+280.4623504503386
+280.46269100848906
+280.463031144081
+280.4633708576189
+280.46371014960664
+280.4640490205475
+280.4643874709445
+280.4647255012996
+280.46506311211465
+280.4654003038908
+280.4657370771286
+280.4660734323281
+280.46640936998875
+280.46674489060956
+280.4670799946889
+280.4674146827246
+280.46774895521406
+280.46808281265396
+280.46841625554055
+280.46874928436944
+280.4690818996358
+280.46941410183416
+280.4697458914587
+280.47007726900273
+280.4704082349593
+280.4707387898207
+280.4710689340789
+280.4713986682253
+280.47172799275046
+280.4720569081448
+280.472385414898
+280.4727135134991
+280.47304120443687
+280.47336848819936
+280.473695365274
+280.47402183614787
+280.47434790130745
+280.4746735612387
+280.47499881642705
+280.4753236673572
+280.47564811451366
+280.4759721583801
+280.47629579943975
+280.47661903817544
+280.4769418750693
+280.47726431060306
+280.47758634525775
+280.47790797951393
+280.47822921385176
+280.4785500487507
+280.4788704846898
+280.4791905221476
+280.4795101616019
+280.4798294035302
+280.48014824840925
+280.48046669671555
+280.48078474892486
+280.48110240551244
+280.4814196669532
+280.48173653372123
+280.48205300629036
+280.4823690851337
+280.48268477072395
+280.4830000635333
+280.4833149640333
+280.4836294726951
+280.4839435899892
+280.48425731638577
+280.48457065235425
+280.4848835983637
+280.48519615488254
+280.4855083223788
+280.4858201013199
+280.48613149217283
+280.48644249540394
+280.48675311147906
+280.4870633408636
+280.48737318402243
+280.48768264141995
+280.4879917135199
+280.4883004007856
+280.4886087036798
+280.4889166226649
+280.4892241582025
+280.48953131075393
+280.48983808077986
+280.4901444687406
+280.4904504750957
+280.4907561003045
+280.49106134482565
+280.49136620911725
+280.491670693637
+280.49197479884197
+280.4922785251889
+280.49258187313393
+280.4928848431326
+280.4931874356399
+280.4934896511107
+280.4937914899989
+280.4940929527581
+280.49439403984144
+280.49469475170145
+280.4949950887901
+280.4952950515591
+280.49559464045944
+280.4958938559417
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.4961926984558
+280.4964911684514
+280.4967892663775
+280.4970869926826
+280.4973843478149
+280.4976813322217
+280.49797794635015
+280.4982741906467
+280.4985700655575
+280.498865571528
+280.4991607090031
+280.49945547842754
+280.4997498802453
+280.50004391489983
+280.5003375828342
+280.50063088449104
+280.50092382031227
+280.50121639073944
+280.5015085962136
+280.5018004371754
+280.50209191406486
+280.50238302732146
+280.50267377738436
+280.50296416469206
+280.5032541896827
+280.5035438527938
+280.5038331544626
+280.5041220951256
+280.5044106752189
+280.5046988951781
+280.50498675543844
+280.5052742564345
+280.5055613986005
+280.50584818237
+280.50613460817624
+280.5064206764519
+280.5067063876292
+280.50699174213986
+280.5072767404151
+280.5075613828856
+280.5078456699818
+280.50812960213324
+280.5084131797693
+280.5086964033189
+280.5089792732102
+280.50926178987106
+280.5095439537289
+280.50982576521056
+280.51010722474246
+280.51038833275044
+280.51066908966
+280.51094949589594
+280.51122955188293
+280.51150925804484
+280.5117886148052
+280.51206762258704
+280.51234628181294
+280.5126245929049
+280.51290255628453
+280.513180172373
+280.51345744159084
+280.51373436435836
+280.51401094109525
+280.5142871722206
+280.5145630581532
+280.51483859931136
+280.5151137961128
+280.51538864897486
+280.5156631583145
+280.5159373245479
+280.5162111480911
+280.5164846293595
+280.51675776876806
+280.5170305667312
+280.51730302366303
+280.517575139977
+280.51784691608634
+280.51811835240346
+280.5183894493407
+280.5186602073096
+280.51893062672144
+280.51920070798695
+280.5194704515164
+280.5197398577195
+280.52000892700573
+280.5202776597839
+280.5205460564624
+280.52081411744933
+280.52108184315193
+280.5213492339774
+280.5216162903322
+280.5218830126224
+280.52214940125384
+280.5224154566315
+280.52268117916014
+280.522946569244
+280.52321162728686
+280.5234763536921
+280.5237407488625
+280.5240048132006
+280.52426854710825
+280.524531950987
+280.5247950252378
+280.5250577702613
+280.5253201864577
+280.5255822742265
+280.5258440339671
+280.526105466078
+280.5263665709577
+280.52662734900395
+280.52688780061425
+280.5271479261855
+280.52740772611406
+280.52766720079615
+280.52792635062724
+280.52818517600247
+280.52844367731655
+280.5287018549637
+280.52895970933764
+280.52921724083177
+280.5294744498389
+280.52973133675147
+280.52998790196153
+280.5302441458606
+280.53050006883973
+280.53075567128946
+280.53101095360006
+280.5312659161613
+280.5315205593625
+280.5317748835924
+280.5320288892395
+280.5322825766918
+280.5325359463367
+280.5327889985612
+280.53304173375216
+280.5332941522956
+280.5335462545773
+280.53379804098256
+280.53404951189634
+280.5343006677029
+280.5345515087863
+280.5348020355301
+280.5350522483173
+280.5353021475306
+280.53555173355227
+280.535801006764
+280.5360499675472
+280.5362986162828
+280.5365469533512
+280.5367949791325
+280.5370426940062
+280.53729009835143
+280.537537192547
+280.53778397697124
+280.53803045200186
+280.5382766180164
+280.53852247539174
+280.5387680245045
+280.53901326573083
+280.5392581994464
+280.5395028260263
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.5397471458456
+280.5399911592785
+280.54023486669894
+280.54047826848057
+280.5407213649965
+280.54096415661934
+280.5412066437213
+280.54144882667424
+280.5416907058495
+280.541932281618
+280.54217355435037
+280.5424145244167
+280.54265519218654
+280.54289555802933
+280.5431356223137
+280.54337538540807
+280.54361484768054
+280.54385400949855
+280.5440928712293
+280.5443314332394
+280.5445696958952
+280.5448076595625
+280.54504532460675
+280.54528269139297
+280.54551976028574
+280.5457565316492
+280.5459930058471
+280.54622918324276
+280.5464650641991
+280.5467006490787
+280.5469359382435
+280.54717093205517
+280.54740563087495
+280.5476400350637
+280.54787414498173
+280.54810796098906
+280.54834148344526
+280.5485747127095
+280.54880764914054
+280.54904029309654
+280.5492726449355
+280.549504705015
+280.54973647369195
+280.5499679513231
+280.55019913826465
+280.5504300348725
+280.55066064150196
+280.5508909585082
+280.5511209862457
+280.55135072506863
+280.55158017533086
+280.5518093373857
+280.55203821158614
+280.5522667982847
+280.5524950978335
+280.5527231105844
+280.5529508368885
+280.55317827709683
+280.55340543155995
+280.5536323006279
+280.5538588846504
+280.5540851839767
+280.55431119895576
+280.554536929936
+280.55476237726543
+280.55498754129184
+280.5552124223624
+280.55543702082406
+280.55566133702325
+280.55588537130603
+280.55610912401806
+280.5563325955045
+280.5565557861103
+280.5567786961799
+280.5570013260572
+280.55722367608615
+280.55744574660974
+280.55766753797093
+280.55788905051213
+280.55811028457543
+280.5583312405024
+280.55855191863446
+280.55877231931237
+280.55899244287656
+280.55921228966713
+280.5594318600237
+280.5596511542857
+280.5598701727918
+280.5600889158806
+280.56030738389023
+280.56052557715833
+280.56074349602216
+280.5609611408187
+280.5611785118844
+280.56139560955546
+280.56161243416756
+280.56182898605607
+280.5620452655559
+280.56226127300164
+280.56247700872746
+280.56269247306716
+280.562907666354
+280.56312258892115
+280.5633372411011
+280.56355162322615
+280.56376573562807
+280.56397957863834
+280.56419315258796
+280.5644064578077
+280.56461949462783
+280.5648322633782
+280.5650447643883
+280.56525699798726
+280.565468964504
+280.56568066426667
+280.56589209760335
+280.56610326484156
+280.5663141663086
+280.5665248023312
+280.5667351732359
+280.56694527934866
+280.56715512099527
+280.5673646985009
+280.56757401219056
+280.56778306238886
+280.5679918494198
+280.5682003736072
+280.5684086352746
+280.56861663474484
+280.5688243723406
+280.5690318483842
+280.56923906319753
+280.569446017102
+280.56965271041884
+280.5698591434688
+280.57006531657225
+280.5702712300492
+280.5704768842192
+280.5706822794015
+280.57088741591514
+280.5710922940785
+280.5712969142097
+280.57150127662663
+280.57170538164655
+280.5719092295865
+280.5721128207631
+280.57231615549273
+280.57251923409115
+280.57272205687394
+280.5729246241562
+280.5731269362529
+280.5733289934782
+280.5735307961464
+280.57373234457094
+280.57393363906533
+280.5741346799424
+280.5743354675148
+280.5745360020946
+280.57473628399373
+280.5749363135237
+280.57513609099556
+280.57533561672005
+280.5755348910076
+280.57573391416815
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.57593268651135
+280.5761312083465
+280.5763294799826
+280.576527501728
+280.576725273891
+280.57692279677946
+280.5771200707009
+280.5773170959623
+280.57751387287044
+280.5777104017317
+280.577906682852
+280.5781027165372
+280.57829850309247
+280.57849404282274
+280.5786893360327
+280.5788843830264
+280.5790791841078
+280.57927373958046
+280.5794680497474
+280.5796621149114
+280.579855935375
+280.5800495114403
+280.5802428434088
+280.5804359315821
+280.5806287762611
+280.5808213777464
+280.5810137363384
+280.58120585233695
+280.5813977260417
+280.58158935775185
+280.5817807477663
+280.5819718963835
+280.5821628039017
+280.5823534706188
+280.58254389683214
+280.5827340828389
+280.58292402893574
+280.5831137354192
+280.5833032025853
+280.58349243072985
+280.5836814201481
+280.583870171135
+280.5840586839854
+280.5842469589935
+280.58443499645335
+280.5846227966585
+280.5848103599023
+280.5849976864776
+280.585184776677
+280.5853716307928
+280.58555824911684
+280.58574463194066
+280.5859307795555
+280.58611669225223
+280.5863023703213
+280.5864878140529
+280.5866730237368
+280.5868579996625
+280.58704274211925
+280.5872272513958
+280.5874115277805
+280.58759557156156
+280.58777938302677
+280.58796296246345
+280.5881463101588
+280.58832942639947
+280.5885123114719
+280.58869496566217
+280.588877389256
+280.5890595825389
+280.5892415457957
+280.58942327931123
+280.58960478336985
+280.58978605825564
+280.58996710425225
+280.59014792164305
+280.5903285107111
+280.5905088717391
+280.59068900500927
+280.5908689108038
+280.5910485894043
+280.5912280410921
+280.59140726614834
+280.59158626485356
+280.59176503748813
+280.5919435843321
+280.5921219056651
+280.5923000017666
+280.59247787291565
+280.59265551939075
+280.59283294147025
+280.5930101394324
+280.59318711355473
+280.5933638641147
+280.5935403913892
+280.593716695655
+280.5938927771886
+280.5940686362659
+280.5942442731626
+280.5944196881543
+280.59459488151583
+280.59476985352205
+280.5949446044473
+280.59511913456566
+280.59529344415097
+280.59546753347666
+280.5956414028158
+280.5958150524411
+280.59598848262505
+280.5961616936399
+280.5963346857573
+280.59650745924876
+280.59668001438547
+280.59685235143826
+280.5970244706777
+280.5971963723739
+280.5973680567967
+280.5975395242158
+280.59771077490024
+280.59788180911903
+280.59805262714076
+280.5982232292336
+280.5983936156656
+280.59856378670435
+280.5987337426171
+280.5989034836709
+280.5990730101324
+280.5992423222679
+280.59941142034353
+280.5995803046249
+280.59974897537745
+280.59991743286633
+280.6000856773561
+280.6002537091114
+280.60042152839634
+280.6005891354747
+280.60075653060994
+280.60092371406523
+280.60109068610353
+280.60125744698735
+280.6014239969789
+280.6015903363401
+280.6017564653327
+280.6019223842179
+280.60208809325667
+280.60225359270976
+280.6024188828375
+280.6025839639
+280.6027488361569
+280.6029134998676
+280.60307795529144
+280.60324220268694
+280.60340624231293
+280.60357007442735
+280.60373369928817
+280.60389711715305
+280.60406032827916
+280.6042233329235
+280.6043861313426
+280.604548723793
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.6047111105307
+280.6048732918113
+280.60503526789034
+280.605197039023
+280.60535860546395
+280.6055199674677
+280.6056811252885
+280.6058420791804
+280.60600282939674
+280.606163376191
+280.6063237198161
+280.60648386052475
+280.6066437985693
+280.6068035342018
+280.60696306767403
+280.6071223992376
+280.60728152914356
+280.6074404576428
+280.6075991849859
+280.6077577114231
+280.60791603720446
+280.60807416257956
+280.60823208779783
+280.6083898131083
+280.6085473387599
+280.6087046650008
+280.6088617920794
+280.60901872024345
+280.6091754497407
+280.60933198081835
+280.6094883137233
+280.60964444870245
+280.609800386002
+280.6099561258681
+280.61011166854655
+280.6102670142829
+280.6104221633223
+280.6105771159098
+280.6107318722898
+280.6108864327069
+280.6110407974049
+280.61119496662764
+280.6113489406186
+280.61150271962083
+280.61165630387734
+280.6118096936306
+280.61196288912294
+280.61211589059633
+280.61226869829244
+280.6124213124527
+280.61257373331824
+280.6127259611299
+280.6128779961282
+280.61302983855336
+280.6131814886454
+280.613332946644
+280.61348421278836
+280.6136352873178
+280.61378617047103
+280.6139368624866
+280.61408736360266
+280.6142376740572
+280.614387794088
+280.6145377239322
+280.614687463827
+280.6148370140093
+280.6149863747155
+280.61513554618176
+280.61528452864417
+280.6154333223384
+280.61558192749965
+280.61573034436316
+280.61587857316374
+280.6160266141358
+280.61617446751376
+280.6163221335314
+280.6164696124226
+280.61661690442054
+280.61676400975847
+280.6169109286692
+280.6170576613852
+280.6172042081389
+280.6173505691623
+280.61749674468683
+280.6176427349442
+280.6177885401655
+280.61793416058157
+280.61807959642306
+280.61822484792026
+280.61836991530316
+280.6185147988016
+280.61865949864506
+280.6188040150627
+280.6189483482835
+280.6190924985361
+280.61923646604873
+280.6193802510498
+280.6195238537669
+280.6196672744276
+280.6198105132593
+280.619953570489
+280.62009644634315
+280.62023914104856
+280.62038165483125
+280.6205239879172
+280.6206661405319
+280.6208081129009
+280.62094990524906
+280.62109151780135
+280.62123295078237
+280.62137420441627
+280.6215152789271
+280.62165617453854
+280.62179689147416
+280.6219374299571
+280.6220777902102
+280.6222179724562
+280.6223579769175
+280.62249780381615
+280.622637453374
+280.6227769258127
+280.6229162213534
+280.6230553402173
+280.62319428262515
+280.62333304879735
+280.6234716389542
+280.6236100533157
+280.6237482921015
+280.62388635553106
+280.62402424382356
+280.62416195719794
+280.6242994958728
+280.6244368600664
+280.6245740499971
+280.62471106588254
+280.6248479079404
+280.624984576388
+280.6251210714424
+280.62525739332034
+280.6253935422383
+280.62552951841275
+280.62566532205955
+280.6258009533944
+280.62593641263294
+280.62607169999035
+280.6262068156814
+280.62634175992105
+280.62647653292356
+280.62661113490316
+280.6267455660738
+280.62687982664914
+280.62701391684254
+280.62714783686715
+280.6272815869359
+280.62741516726135
+280.62754857805595
+280.6276818195317
+280.6278148919005
+280.6279477953739
+280.62808053016334
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>280.6282130964799
+280.6283454945343
+280.6284777245371
+280.62860978669875
+280.62874168122926
+280.6288734083384
+280.6290049682356
+280.62913636113035
+280.62926758723154
+280.629398646748
+280.6295295398884
+280.62966026686087
+280.6297908278734
+280.62992122313386
+280.63005145284967
+280.6301815172282
+280.63031141647645
+280.6304411508011
+280.63057072040874
+280.63070012550554
+280.63082936629763
+280.63095844299073
+280.6310873557903
+280.6312161049016
+280.6313446905298
+280.6314731128794
+280.631601372155
+280.63172946856093
+280.6318574023012
+280.63198517357955
+280.63211278259945
+280.6322402295642
+280.63236751467684
+280.63249463814014
+280.63262160015665
+280.6327484009286
+280.632875040658
+280.6330015195468
+280.63312783779634
+280.633253995608
+280.63337999318287
+280.6335058307217
+280.6336315084251
+280.63375702649336
+280.6338823851265
+280.63400758452445
+280.6341326248868
+280.6342575064128
+280.63438222930165
+280.6345067937521
+280.6346311999628
+280.63475544813224
+280.63487953845845
+280.63500347113927
+280.63512724637246
+280.6352508643554
+280.63537432528517
+280.6354976293588
+280.6356207767729
+280.635743767724
+280.63586660240827
+280.6359892810217
+280.63611180375995
+280.63623417081857
+280.63635638239276
+280.6364784386776
+280.63660033986787
+280.636722086158
+280.6368436777423
+280.63696511481504
+280.6370863975699
+280.6372075262004
+280.6373285009
+280.63744932186177
+280.63756998927863
+280.63769050334315
+280.6378108642478
+280.63793107218476
+280.63805112734593
+280.63817102992306
+280.63829078010764
+280.6384103780909
+280.63852982406377
+280.6386491182171
+280.63876826074136
+280.63888725182693
+280.6390060916639
+280.63912478044193
+280.63924331835085
+280.6393617055799
+280.63947994231836
+280.639598028755
+280.6397159650786
+280.63983375147757
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f68ff28df70&gt;]
+</pre></div>
+</div>
+<img alt="../_images/evolve_prof_12_26.png" src="../_images/evolve_prof_12_26.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./week12"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Philip Austin<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

@@ -19,7 +19,7 @@ force necessary to balance gravity, so the atmosphere is not rising or sinking:
 In symbols, the balance shown by :numref:`hydrofig` implies that:
 
 .. math::
-   :label: hydro
+   :label: hydro_eq
            
      dp = - \rho g dz
 
@@ -43,7 +43,7 @@ and on page
 
 In words -- :math:`H_p` gives the height at which gravity wins out over the kinetic energy of the air molecules -- warmer atmospheres take longer to decrease their pressure by a factor of :math:`\exp(-H_p/H_p) = \exp(-1)` (the e-folding height) because the air molecules have more energy to travel higher.          
 
-#. Do pressure first: Rewrite :eq:`hydro` using the ideal gas law:
+#. Do pressure first: Rewrite :eq:`hydro_eq` using the ideal gas law:
 
    .. math::
      :label: hydro1

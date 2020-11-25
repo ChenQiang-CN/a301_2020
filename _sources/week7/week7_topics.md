@@ -1,3 +1,4 @@
+
 # Week 7
 
 * Week 7 topics for Monday
@@ -8,9 +9,11 @@
 
   * {ref}`mid_review1_sol`
 
++++
 
 * Week 7 topics for Wednesday
 
++++
 
   * {ref}`mid_review2`
 
@@ -21,6 +24,3 @@
 [equation sheet](https://drive.google.com/file/d/1vzFhERy1thQ80gpiInWQJFs2ipFKYvoZ/view?)  Note! You won't need all these equations.  In particular, use the planck figure if you need blackbody radiation values.
 
 ![figure](figures/a301_planck.png)
-
-
-
