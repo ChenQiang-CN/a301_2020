@@ -63,10 +63,10 @@ def hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels):
     """
        build a hydrostatic atmosphere by integrating the hydrostatic equation from the surface,
        using num_levels of constant thickness delta_z
-       
+
        Parameters
        ----------
-       
+
        T_surf: float
             surface temperature in K
        p_surf: float
@@ -77,16 +77,16 @@ def hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels):
              layer thickness in m
        num_levels: float
              number of levels in the atmosphere
-       
+
        Returns
        -------
-       
+
        Temp, press, rho, height: tuple of ndarrays of length num_levels
           where the surface is level 0, and each index i larger than 0
           is located at the height corresponding to the top of a particular layer,
           so that values at the top of the atmosphere are given by index
           numlevels - 1
-       
+
           Temp (K) , press (Pa), rho (kg/m^3), height (m) for each layer
     """
     Rd=287. #J/kg/K  -- gas constant for dry air
@@ -116,7 +116,7 @@ def hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels):
     return (Temp,press,rho,height)
 ```
 
-## Next we can find the optical depth 
+## Next we can find the optical depth
 
 If we have the air density $\rho$, the mixing ratio $r_{mix}$ asnd  the absorption coefficient $k$ from Stull Chapter 2
 section 2.3.6 we can find the optical depth in the layer:
@@ -132,7 +132,7 @@ def find_tau(r_gas,k,rho,height):
     """
        Parameters
        ----------
-       
+
        r_gas: float
            gas mixing ratio in kg/kg
        k: float
@@ -141,11 +141,11 @@ def find_tau(r_gas,k,rho,height):
            vector of air densities in kg/m^3 for each layer
        height: ndarray
         corresponding level heights in m
-        
+
        Returns
        -------
-       
-          tau: ndarray 
+
+          tau: ndarray
              vertical optical depths of each level, starting from 0 at the surface
     """
     tau=np.empty_like(rho)
@@ -178,26 +178,28 @@ def fluxes(tau,Temp,height,T_surf):
     given properties at each level return the upward and downward
     total flux at each level assuming no downward longwave flux at the top
     of the atmosphere, and a surface flux of sigma*T_surf**4.
-    
+
     Parameters
     -----------
-    
+
     tau, Temp, height:  ndarray of length tot_levels
         total optical depth (from surface), temperature (K) and height (m)
         at each level
-        
+
     Returns
     -------
-    
+
     up_flux, down_flux: ndarrays
        upward and downward flux of each level (W/m^2), all positive
-    
+
     """
     sigma=5.67e-8 #W/m^2/K^4
+    Esolar=240.  #solar flux in W/m^2
     up_flux=np.empty_like(height)
     down_flux=np.empty_like(height)
     sfc_flux=sigma*T_surf**4.
     up_flux[0]=sfc_flux
+    #print(f"{sfc_flux=}")
     tot_levs=len(tau)
     for index in np.arange(1,tot_levs):
         upper_lev=index
@@ -235,28 +237,28 @@ def heating_rate(net_down,height,rho):
     given the net flux at each level (downward positive) and the
     height, and density of the atmosphere at each level, return
     the rate of change of temperature in each layer between two levels
-    
+
     Parameters
     ----------
-    
+
     net_down: ndarray
        positive downward net flux (W/m^2) at each level
-       
+
     height: ndarray
        vertical location of each level (m)
-       
+
     rho: ndarray
        density (kg/m^3) at each level
-    
+
     Returns
     -------
-    
+
     dT_dz: ndarray  -- length nlevels -1
        vector of temperature gradients across each layer (K/m)
-       
-    
+
+
     """
-    
+
     cpd=1004.
     #
     # find the flux divergence across the layer
@@ -266,6 +268,7 @@ def heating_rate(net_down,height,rho):
     rho_mid=(rho[1:] + rho[:-1])/2.
     dEn_dz= np.diff(net_down)/np.diff(height)
     dT_dz=dEn_dz/(rho_mid*cpd)
+    #print(f"{dT_dz*3600=}")
     return dT_dz
 ```
 
@@ -275,16 +278,16 @@ def main():
     find the heating rate (K/km) for a hydrostatic
     atmosphere with a constant decrease of temperature with heigt
     """
-    
+
     #
-    # use 15000 1 m thick layers from 0 to 15 km
+    # use 1500 1 m thick layers from 0 to 15 km
     #
     r_gas=0.01  #kg/kg
-    k=0.01  #m^2/kg
+    k=0.002  #m^2/kg
     T_surf=300 #K
     p_surf=100.e3 #Pa
-    delta_z=1  #m
-    num_levels=15000
+    delta_z=100  #m
+    num_levels=150
     dT_dz = np.ones([num_levels])*(-7.e-3)
     #
     #
@@ -304,7 +307,7 @@ def main():
     axis1.legend(numpoints=1,loc='best')
     axis1.grid(True)
 
-   
+
     axis2.plot(net_down,height*0.001,'b-',lw=5)
     axis2.set_title('net downward flux')
     axis2.set_xlabel('net downward flux $(W\,m^{-2})$')
@@ -323,4 +326,54 @@ def main():
 
 ```{code-cell} ipython3
 main()
+```
+
+```{code-cell} ipython3
+def evolve():
+    """
+    find the heating rate (K/km) for a hydrostatic
+    atmosphere with a constant decrease of temperature with heigt
+    """
+
+    #
+    # use 1500 1 m thick layers from 0 to 15 km
+    #
+    r_gas=0.01  #kg/kg
+    sigma=5.67e-8
+    k=0.003  #m^2/kg
+    T_surf=300 #K
+    p_surf=100.e3 #Pa
+    delta_z=100  #m
+    delta_t = 3600.
+    num_levels=150
+    num_timesteps=4000
+    E_solar = 240.
+    dT_dz = np.ones([num_levels])*(-7.e-3)
+    #
+    #
+    #
+    Temp,press,rho,height=hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels)
+    keep_prof=[Temp]
+    for time_index in range(num_timesteps):
+        tau=find_tau(r_gas,k,rho,height)
+        up,down=fluxes(tau,Temp,height,T_surf)
+        net_down = down - up
+        dT_dt=heating_rate(net_down,height,rho)
+        Temp[:-1] = Temp[:-1] + dT_dt*delta_t
+        Temp[-1]=Temp[-2]
+        dT_dz = np.diff(Temp)/delta_z
+        keep_prof.append((Temp,up,down))
+        sfc_flux = down[0] + E_solar
+        T_surf = (sfc_flux/sigma)**0.25
+        print(T_surf)
+        Temp,press,rho,height=hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels)
+    return keep_prof,height
+
+
+```
+
+```{code-cell} ipython3
+keep_prof,height=evolve()
+Temp,up,down = keep_prof[-1]
+plt.plot(Temp,height)
 ```
