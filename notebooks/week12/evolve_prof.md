@@ -60,61 +60,54 @@ we have those, we can use the ideal gas law to find the density $\rho$ and move 
 This is done in the cell below.
 
 ```{code-cell} ipython3
-def hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels):
+def hydrostat(Temp,height,p_surf):
     """
        build a hydrostatic atmosphere by integrating the hydrostatic equation from the surface,
-       using num_levels of constant thickness delta_z
-
+       given a temperature vs. height profile
+       
        Parameters
        ----------
 
-       T_surf: float
-            surface temperature in K
+       Temp: ndarray
+            vector of air temps (K)
        p_surf: float
             surface pressure in Pa
-       dT_dz: ndarray
-             rate of temperature change with height in K/m
+       height: ndarray
+            vector of heights (m)
        delta_z: float
-             layer thickness in m
-       num_levels: float
-             number of levels in the atmosphere
-
+      
        Returns
        -------
 
-       Temp, press, rho, height: tuple of ndarrays of length num_levels
+       press, rho: tuple of ndarrays the same shape as height and Temp
           where the surface is level 0, and each index i larger than 0
           is located at the height corresponding to the top of a particular layer,
           so that values at the top of the atmosphere are given by index
           numlevels - 1
 
-          Temp (K) , press (Pa), rho (kg/m^3), height (m) for each layer
+          press (Pa), rho (kg/m^3) for each layer
     """
     Rd=287. #J/kg/K  -- gas constant for dry air
     g=9.8  #m/s^2
-    Temp=np.empty([num_levels])
     press=np.empty_like(Temp)
     rho=np.empty_like(Temp)
-    height=np.empty_like(Temp)
     #
     # level 0 sits directly above the surface, so start
     # with pressure, temp of air equal to ground temp, press
     # and get density from equaiton of state
     #
     press[0]=p_surf
-    Temp[0]=T_surf
-    rho[0]=p_surf/(Rd*T_surf)
-    height[0]=0
+    rho[0]=p_surf/(Rd*Temp[0])
+    num_levels = len(height)
     num_layers=num_levels - 1
+    delta_z = np.diff(height)
     #now march up the atmosphere a level at a time
     # finding the values at the top of each layer
     for i in range(num_layers):
-        delP= -rho[i]*g*delta_z
-        height[i+1] = height[i] + delta_z
-        Temp[i+1] = Temp[i] + dT_dz[i]*delta_z
+        delP= -rho[i]*g*delta_z[i]
         press[i+1]= press[i] + delP
         rho[i+1]=press[i+1]/(Rd*Temp[i+1])
-    return (Temp,press,rho,height)
+    return (press,rho)
 ```
 
 ## Next we can find the optical depth
@@ -153,9 +146,12 @@ def find_tau(r_gas,k,rho,height):
     tau[0]=0
     num_levels=len(rho)
     num_layers=num_levels - 1
+    #
+    #  left side minus right side
+    #
+    delta_z=height[1:] - height[:-1]
     for index in range(num_layers):
-        delta_z=height[index+1] - height[index]
-        delta_tau=r_gas*rho[index]*k*delta_z
+        delta_tau=r_gas*rho[index]*k*delta_z[index]
         tau[index+1]=tau[index] + delta_tau
     return tau
 ```
@@ -195,7 +191,7 @@ def fluxes(tau,Temp,height,E_solar):
 
     """
     sigma=5.67e-8 #W/m^2/K^4
-    Esolar=240.  #solar flux in W/m^2
+    E_solar=240.  #solar flux in W/m^2
     up_flux=np.empty_like(height)
     down_flux=np.empty_like(height)
     tot_levs = len(height)
@@ -221,7 +217,7 @@ def fluxes(tau,Temp,height,E_solar):
     #
     # now start at the surface and go up one level at a time
     #
-    up_flux[0]=sfc_flux 
+    up_flux[0]=sfc_flux
     for index in np.arange(1,tot_levs):
         upper_lev=index
         lower_lev=index - 1
@@ -233,7 +229,7 @@ def fluxes(tau,Temp,height,E_solar):
         # find the flux at the next level
         #
         up_flux[upper_lev]=trans*up_flux[lower_lev] + layer_flux
-    
+
     return (up_flux,down_flux, T_surf)
 ```
 
@@ -278,106 +274,7 @@ def heating_rate(net_down,height,rho):
 ```
 
 ```{code-cell} ipython3
-def main():
-    """
-    find the heating rate (K/km) for a hydrostatic
-    atmosphere with a constant decrease of temperature with heigt
-    """
-
-    #
-    # use 1500 1 m thick layers from 0 to 15 km
-    #
-    r_gas=0.01  #kg/kg
-    k=0.02  #m^2/kg
-    T_surf=300 #K
-    p_surf=100.e3 #Pa
-    delta_z=100  #m
-    num_levels=150
-    E_solar = 240.
-    dT_dz = np.ones([num_levels])*(-7.e-3)
-    #
-    #
-    #
-    Temp,press,rho,height=hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels)
-    tau=find_tau(r_gas,k,rho,height)
-    #breakpoint()
-    up,down,T_surf=fluxes(tau,Temp,height,E_solar)
-    net_down = down - up
-    dT_dt=heating_rate(down - up,height,rho)
-
-    fig,(axis1,axis2,axis3)=plt.subplots(1,3,figsize=(15,10))
-    axis1.plot(up,height*0.001,'b-',lw=5,label='upward flux')
-    axis1.plot(down,height*0.001,'g-',lw=5,label='downward flux')
-    axis1.set_title('upward and downward fluxes')
-    axis1.set_xlabel('flux $(W\,m^{-2}$')
-    axis1.set_ylabel('height (km)')
-    axis1.legend(numpoints=1,loc='best')
-    axis1.grid(True)
-
-
-    axis2.plot(net_down,height*0.001,'b-',lw=5)
-    axis2.set_title('net downward flux')
-    axis2.set_xlabel('net downward flux $(W\,m^{-2})$')
-    axis2.set_ylabel('height (km)')
-    axis2.grid(True)
-
-
-    dT_dt=dT_dt*3600.
-    mid_height=(height[1:] + height[:-1])/2.
-    axis3.plot(dT_dt,mid_height*0.001,'b-',lw=5)
-    axis3.set_title('heating rate')
-    axis3.set_xlabel('heating rate in K/hr')
-    axis3.set_ylabel('height (km)')
-    axis3.grid(True)
-```
-
-```{code-cell} ipython3
-main()
-```
-
-```{code-cell} ipython3
-
-def evolve(r_gas=None, k=None,p_surf=None,delta_t=None,delta_z=None,
-          num_timesteps=None,num_levels=None,E_solar=None,
-          T_surf=None):
-    """
-    find the heating rate (K/km) for a hydrostatic
-    atmosphere with a constant decrease of temperature with heigt
-    """
-    sigma=5.67e-8
-    
-    dT_dz = np.ones([num_levels])*(-7.e-3)
-    #
-    # 1-D
-    #
-    keep_sfc = np.empty([num_timesteps])
-    #
-    # vars,height,timesteps
-    #
-    nvars=5
-    keep_vals=np.empty([nvars,num_levels,num_timesteps])
-    Temp,press,rho,height=hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels)
-    #breakpoint()
-    for time_index in range(num_timesteps):
-        tau=find_tau(r_gas,k,rho,height)
-        up,down,T_surf=fluxes(tau,Temp,height,E_solar)
-        keep_sfc[time_index] =T_surf       
-        net_down = down - up
-        dT_dt=heating_rate(net_down,height,rho)
-        Temp[:-1] = Temp[:-1] + dT_dt*delta_t
-        Temp[-1]=Temp[-2]
-        dT_dz = np.diff(Temp)/delta_z
-        dT_dt_p1=np.append(dT_dt,dT_dt[-1])
-        for i,the_vec in enumerate([Temp,tau,up,down,dT_dt_p1]):
-            keep_vals[i,:,time_index]=the_vec
-        Temp,press,rho,height=hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels)
-        #breakpoint()
-    return keep_vals,keep_sfc,height
-
-```
-
-```{code-cell} ipython3
-inputs=dict( 
+inputs=dict(
     r_gas=0.01,  #kg/kg
     k=0.006,  #m^2/kg
     E_solar = 240,
@@ -389,17 +286,138 @@ inputs=dict(
     T_surf=300.
 )
 
-keep_vals,keep_sfc,height=evolve(**inputs)
+def init_profs(inputs,lapse_rate):
+    Tstart=inputs['T_surf']
+    lapse_rate = -7.e-3
+    Tstop= Tstart + inputs['num_levels']*inputs['delta_z']*lapse_rate
+    Temp=np.linspace(Tstart,Tstop,inputs['num_levels'])
+    hbot = 0
+    htop = inputs['num_levels']*inputs['delta_z']
+    height = np.linspace(hbot,htop,inputs['num_levels'])
+    return Temp, height
+
+
+
+def main(Temp,height,r_gas=None, k=None,p_surf=None,delta_t=None,delta_z=None,
+          num_timesteps=None,num_levels=None,E_solar=None,
+          T_surf=None):
+    """
+    find the heating rate (K/km) for a hydrostatic
+    atmosphere with a constant decrease of temperature with heigt
+    """
+    #
+    #
+    #
+    press,rho=hydrostat(Temp,height,p_surf)
+    tau=find_tau(r_gas,k,rho,height)
+    #breakpoint()
+    up,down,T_surf=fluxes(tau,Temp,height,E_solar)
+    net_down = down - up
+    dT_dt=heating_rate(down - up,height,rho)
+    
+    df=pd.DataFrame(height,columns=['height'])
+    df['height_km'] = height*1.e-3
+    df['up'] = up
+    df['down'] = down
+    df['net_down'] = net_down
+    
+
+    fig,(axis1,axis2,axis3)=plt.subplots(1,3,figsize=(15,10))
+    axis1.plot('up','height_km','b-',lw=5,label='upward flux',data=df)
+    axis1.plot(down,'height_km','g-',lw=5,label='downward flux',data=df)
+    axis1.set_title('upward and downward fluxes')
+    axis1.set_xlabel('flux $(W\,m^{-2}$')
+    axis1.set_ylabel('height (km)')
+    axis1.legend(numpoints=1,loc='best')
+    axis1.grid(True)
+
+
+    axis2.plot('net_down','height_km','b-',lw=5,data=df)
+    axis2.set_title('net downward flux')
+    axis2.set_xlabel('net downward flux $(W\,m^{-2})$')
+    axis2.set_ylabel('height (km)')
+    axis2.grid(True)
+
+
+    dT_dt=dT_dt*3600.*24.
+    mid_height=(height[1:] + height[:-1])/2.
+    axis3.plot(dT_dt,mid_height*0.001,'b-',lw=5)
+    axis3.set_title('heating rate')
+    axis3.set_xlabel('heating rate in K/day')
+    axis3.set_ylabel('height (km)')
+    axis3.grid(True)
 ```
 
 ```{code-cell} ipython3
-def to_df(the_array,the_cols=['Temp','tau','up','down','dT_dt']):
-    return pd.DataFrame(the_array.T,columns=the_cols)
-  
-frame0 = keep_vals[:,:,10]
+lapse_rate = -7.e-3
+Tinit,height = init_profs(inputs,lapse_rate)
+main(Tinit,height,**inputs)
+```
 
+```{code-cell} ipython3
+def evolve(Temp,height,r_gas=None, k=None,p_surf=None,delta_t=None,delta_z=None,
+          num_timesteps=None,num_levels=None,E_solar=None,
+          T_surf=None):
+    """
+    find the heating rate (K/km) for a hydrostatic
+    atmosphere with a constant decrease of temperature with heigt
+    """
+    sigma=5.67e-8
 
-df = to_df(frame0)
+    dT_dz = np.ones([num_levels])*(-7.e-3)
+    #
+    # 1-D
+    #
+    nvars=2
+    keep_sfc = np.empty([nvars,num_timesteps])
+    #
+    # vars,height,timesteps
+    #
+    nvars=5
+    keep_vals=np.empty([nvars,num_levels,num_timesteps])
+    press,rho=hydrostat(Temp,height,p_surf)
+    #breakpoint()
+    for time_index in range(num_timesteps):
+        tau=find_tau(r_gas,k,rho,height)
+        up,down,T_surf=fluxes(tau,Temp,height,E_solar)
+        keep_sfc[0,time_index] =T_surf
+        keep_sfc[1,time_index]=time_index*delta_t
+        net_down = down - up
+        dT_dt=heating_rate(net_down,height,rho)
+        Temp[:-1] = Temp[:-1] + dT_dt*delta_t
+        Temp[-1]=Temp[-2]  
+        dT_dt_p1=np.append(dT_dt,dT_dt[-1])
+        for i,the_vec in enumerate([Temp,tau,up,down,dT_dt_p1]):
+            keep_vals[i,:,time_index]=the_vec
+        press,rho=hydrostat(Temp,height,p_surf)
+        #breakpoint()
+    return keep_vals,keep_sfc
+```
+
+```{code-cell} ipython3
+inputs=dict(
+    r_gas=0.01,  #kg/kg
+    k=0.02,  #m^2/kg
+    E_solar = 240,
+    p_surf=100.e3, #Pa
+    delta_z=100,  #m
+    delta_t = 1800.,
+    num_timesteps=7000,
+    num_levels=200,
+    T_surf=310.
+)
+
+lapse_rate = -7.e-3
+
+Tinit,height = init_profs(inputs,lapse_rate)
+
+keep_vals,keep_sfc=evolve(Tinit,height,**inputs)
+```
+
+```{code-cell} ipython3
+frame0 = keep_vals[:,:,-1]
+
+df=pd.DataFrame(frame0.T,columns=['Temp','tau','up','down','dT_dt'])
 print(df.head())
 print(len(height))
 
@@ -420,29 +438,42 @@ def make_plot(df):
     axis2.set_xlabel('net downward flux $(W\,m^{-2})$')
     axis2.grid(True)
 
-    df['dT_dt_hr']=df['dT_dt']*3600.
-    axis3.plot('dT_dt_hr',height*0.001,'b-',data=df,lw=5)
+    df['dT_dt_day']=df['dT_dt']*3600.*24.
+    axis3.plot('dT_dt_day',height*0.001,'b-',data=df,lw=5)
     axis3.set_title('heating rate')
-    axis3.set_xlabel('heating rate in K/hr')
+    axis3.set_xlabel('heating rate in K/day')
     axis3.grid(True)
-    
-    
+
+
     varname='Temp'
     axis4.plot(varname,height*0.001,'b-',data=df,lw=5)
     axis4.set_title(varname)
     axis4.set_xlabel(varname)
     axis4.grid(True)
-    
+
 make_plot(df)
 ```
 
 ```{code-cell} ipython3
-time=np.arange(0,inputs['num_timesteps'])*inputs['delta_t']/3600.
-keep_sfc=np.array(keep_sfc)
-plt.plot(time,keep_sfc);
-```
-
-```{code-cell} ipython3
-deriv=np.diff(keep_sfc)/np.diff(time)
-plt.plot(deriv[-200:])
+air_temp = keep_vals[0,0,:]
+df = pd.DataFrame(keep_sfc.T,columns=['sfc_temp','time_seconds'])
+df['time_days']=df['time_seconds']/3600./24.
+df['air_temp']=air_temp
+fig,(ax1,ax2) = plt.subplots(2,1,figsize=(10,10))
+varnames=['sfc_temp','air_temp']
+for a_name in varnames:
+    ax1.plot('time_days',a_name,data=df,label=a_name,lw=5);
+ax1.grid(True)
+ax1.legend()
+ax1.set_xlabel("Time (days)")
+ax1.set_ylabel("Temperature (K)")
+ax1.set_title('surface temp and lowest level temp')
+dT = keep_vals[0,1,:] - keep_vals[0,0,:]
+dz = np.diff(height)[0]
+lapse_rate = dT/dz*1.e3
+ax2.plot(df['time_days'],lapse_rate,'b',lw=5)
+ax2.set_xlabel('time (days)')
+ax2.set_ylabel('lapse rate near surface (K/km)')
+ax2.set_title('surface lapse rate')
+ax2.grid(True)
 ```

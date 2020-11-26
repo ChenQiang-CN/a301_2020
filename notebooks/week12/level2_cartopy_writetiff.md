@@ -1,6 +1,7 @@
 ---
 jupytext:
   formats: ipynb,md:myst,py:percent
+  notebook_metadata_filter: all,-language_info,-toc,-latex_envs
   text_representation:
     extension: .md
     format_name: myst
@@ -13,72 +14,9 @@ kernelspec:
 ---
 
 (assign5asol)=
-# Assign 5a: Water vapor retrieval solution
+# Assign 7:
 
 **New material is in Section: Assignment 5a: Answers**
-
-+++
-
-## Near IR vs. IR datasets
-
-Modis provides two separate measurements on the column integrated water vapor.
-The high level overview is given in the [modis water vapor products](https://atmosphere-imager.gsfc.nasa.gov/products/water-vapor).  Basically the reason for two separate retrievals is that they have different strengths and weaknesses.
-
-* Near Infrared Retrieval
-
-  * Uses reflected photons in two separate water vapor absorption bands
-
-  * Strengths
-
-    * 1 km spatial resolution at nadir
-
-    * retrieval doesn't depend on temperature difference between vapor and surface
-
-    * more accurate than longwave
-
-  * Weaknesses
-
-    * Doesn't work at night
-
-    * Doesn't work over dark surfaces (can work over ocean
-      as long as the pixel is reflecting direct sunlight ("sunglint")
-
-    * Needs separate MYD03 file for lats/lons
-
-* Infrared Retrieval
-
-  * Uses the water absorption bands near 11 microns
-
-  * Strengths
-
-    * Works day/night, over dark surfaces
-
-    * 5 km lat/lons included in file
-
-  * Weaknesses
-
-    * 5 km pixels at nadir
-
-    * Doesn't work when most of the vapor is in the boundary layer and has about the same temperature
-      as the surface
-
-+++
-
-* What this notebook does
-
-1. Reads an MYD05 file named `MYD05*.hdf` located
-   in `a301_lib.sat_data/hdf4_files` and grabs latitudes, longitudes and two arrays: `Water_Vapor_Near_Infrared` and
-   `Water_Vapor_Infrared`
-
-1. Scales the water vapar arrays by scale_factor and offset to produce the retrieved column water vapor
-   in cm
-
-1. Maps the two arrays onto the same 5km array for direct comparison
-
-1. Maps the `near_ir` array onto a 1 km grid to show the full resolution.
-
-1. Writes the three images with their area_def map information and metadata out to new folders in
-   `./map_data/wv_maps` as npz files (for the images) and json files (for the metadata)
 
 +++
 
@@ -104,15 +42,15 @@ from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
 from pyhdf.SD import SD
 from pyhdf.SD import SDC
+from pyproj import CRS, Transformer
+from pyresample import SwathDefinition, kd_tree, geometry
 
 import a301_lib
 from sat_lib.geometry import get_proj_params
 from sat_lib.modismeta_read import parseMeta
 ## Image('figures/MYBRGB.A2016224.2100.006.2016237025650.jpg',width=600)
-import h5py
-from sat_lib.radiation import planck_invert
-from sat_lib.modis_chans import chan_dict
 import cartopy
+
 ```
 
 ```{code-cell} ipython3
@@ -138,12 +76,6 @@ lats_1km = the_file.select("Latitude").get()
 lons_1km = the_file.select("Longitude").get()
 the_file.end()
 print(lats_1km.shape)
-
-the_file = SD(m5_file_str, SDC.READ)
-lats_5km = the_file.select("Latitude").get()
-lons_5km = the_file.select("Longitude").get()
-the_file.end()
-print(lats_5km.shape)
 ```
 
 * Get the IR vapor plus 5 of its attributes
@@ -151,53 +83,6 @@ print(lats_5km.shape)
 Store the data in a numpy array, and the attributes in a dictionary,
 using a [dictionary comprehension](https://jakevdp.github.io/WhirlwindTourOfPython/11-list-comprehensions.html)
 at line 4
-
-```{code-cell} ipython3
-the_file = SD(m5_file_str, SDC.READ)
-wv_ir = the_file.select("Water_Vapor_Infrared")
-attributes = ["units", "scale_factor", "add_offset", "valid_range", "_FillValue"]
-attr_dict = wv_ir.attributes()
-wv_ir_attrs = {k: attr_dict[k] for k in attributes}
-print(f"wv_ir attributes: {pprint.pformat(wv_ir_attrs)}")
-wv_ir_data = wv_ir.get()
-the_file.end()
-```
-
-* Replace -9999 with np.nan
-
-Note that this has to a happen before we scale the data by the scale_factor so the -9999 can be recognized
-
-```{code-cell} ipython3
-bad_data = wv_ir_data == wv_ir_attrs["_FillValue"]
-#
-# next line converts to floating point so we can use np.nan
-#
-wv_ir_data = wv_ir_data.astype(np.float32)
-wv_ir_data[bad_data] = np.nan
-```
-
-* now scale the data and histogram it
-
-```{code-cell} ipython3
-wv_ir_scaled = wv_ir_data * attr_dict["scale_factor"] + attr_dict["add_offset"]
-```
-
-Note that we need to get rid of all nan values by taking ~ (not) np.isnan
-
-```
-plt.hist(wv_ir_scaled)
-```
-won't work
-
-```{code-cell} ipython3
-plt.hist(wv_ir_scaled[~np.isnan(wv_ir_scaled)])
-ax = plt.gca()
-ax.set_title("5 km wv data (cm)");
-```
-
-* Repeat for the 1 km near-ir data
-
-Use a dictionary comprehension again to move the attributes in attrib_list into a dict at line 4
 
 ```{code-cell} ipython3
 the_file = SD(m5_file_str, SDC.READ)
@@ -241,30 +126,7 @@ The cell below produces:
 * `image_wv_ir`  -- resampled 5 km infrared water vapor
 * `area_def_lr`  -- area_def used for the resample
 
-```{code-cell} ipython3
-from pyresample import SwathDefinition, kd_tree, geometry
-
-proj_params = get_proj_params(m5_file_str)
-swath_def = SwathDefinition(lons_5km, lats_5km)
-area_def_lr = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
-fill_value = -9999.0
-image_wv_ir = kd_tree.resample_nearest(
-    swath_def,
-    wv_ir_scaled.ravel(),
-    area_def_lr,
-    radius_of_influence=5000,
-    nprocs=2,
-    fill_value=fill_value,
-)
-image_wv_ir[image_wv_ir < -9000] = np.nan
-print(f"\ndump area definition:\n{area_def_lr}\n")
-print(
-    (
-        f"\nx and y pixel dimensions in meters:"
-        f"\n{area_def_lr.pixel_size_x}\n{area_def_lr.pixel_size_y}\n"
-    )
-)
-```
++++
 
 * Resample the 1km near-ir water vapor on the same grid
 
@@ -274,28 +136,7 @@ The cell below produces:
 
 * `image_wv_nearir_lr`  -- resampled using `area_def_lr`
 
-```{code-cell} ipython3
-swath_def = SwathDefinition(lons_1km, lats_1km)
-fill_value = -9999.0
-image_wv_nearir_lr = kd_tree.resample_nearest(
-    swath_def,
-    wv_nearir_scaled.ravel(),
-    area_def_lr,
-    radius_of_influence=5000,
-    nprocs=2,
-    fill_value=fill_value,
-)
-#
-# pyresampled pixels outside of image are set to -9999
-#
-image_wv_nearir_lr[image_wv_nearir_lr < -9000] = np.nan
-```
-
-```{code-cell} ipython3
-plt.hist(image_wv_nearir_lr[~np.isnan(image_wv_nearir_lr)])
-ax = plt.gca()
-ax.set_title("1 km water vapor (cm), low resolution nearir scaled to 5km (lr)");
-```
++++
 
 * now use the 1 km MYD03 lons and lats to get a full resolution xy grid
 
@@ -311,21 +152,45 @@ The cell below produces:
 
 ```{code-cell} ipython3
 proj_params = get_proj_params(m3_file_str)
+print(f"{proj_params=}")
 swath_def = SwathDefinition(lons_1km, lats_1km)
 area_def_hr = swath_def.compute_optimal_bb_area(proj_dict=proj_params)
-# area_def_hr.name = "near ir wv retrieval modis 1 km resolution (hr=high resolution)"
-# area_def_hr.area_id = "wv_nearir_hr"
-# area_def_hr.job_id = area_def_hr.area_id
 fill_value = -9999.0
 image_wv_nearir_hr = kd_tree.resample_nearest(
     swath_def,
     wv_nearir_scaled.ravel(),
     area_def_hr,
     radius_of_influence=5000,
-    nprocs=2,
-    fill_value=fill_value,
+     nprocs=2,
+    fill_value=fill_value
 )
 image_wv_nearir_hr[image_wv_nearir_hr < -9000] = np.nan
+print(area_def_hr.to_cartopy_crs())
+proj4_str = area_def_hr.proj_str
+```
+
+```{code-cell} ipython3
+#https://a301_web.eoas.ubc.ca/week10/image_zoom.html
+#https://pyresample.readthedocs.io/en/latest/geo_def.html
+#https://pyproj4.github.io/pyproj/stable/api/transformer.html
+#area_extent: (lower_left_x, lower_left_y, upper_right_x, upper_right_y)
+ll_x,ll_y,ur_x,ur_y =area_def_hr.area_extent
+print(f"{(ll_x,ll_y,ur_x,ur_y)=}")
+```
+
+```{code-cell} ipython3
+p_latlon = CRS.from_proj4("+proj=latlon")
+p_crs = CRS.from_proj4(proj4_str)
+transform = Transformer.from_crs(p_crs, p_latlon)
+ll_lon,ll_lat = transform.transform(ll_x,ll_y)
+ur_lon, ur_lat =transform.transform(ur_x,ur_y)
+print(f"{(ll_lon,ll_lat,ur_lon,ur_lat)=}")
+```
+
+```{code-cell} ipython3
+ll_x, ll_y = transform.transform(ll_lon,ll_lat,direction='INVERSE')
+print(f"{(ll_x,ll_y)=}")
+#help(transform.transform)
 ```
 
 ### Save the mapped images
@@ -735,6 +600,7 @@ sns.jointplot(
     color="#4CB391",
 );
 ```
+
 ## Appendix -- try resampling the BTD to 5 km
 
 ```{code-cell} ipython3
@@ -756,8 +622,6 @@ print(
     )
 )
 ```
-
-
 
 We'll also remove all pixels that are set to NaN in the IR water vapor image.  Once the
 ocean pixels are taken out, the comparison looks a little better
