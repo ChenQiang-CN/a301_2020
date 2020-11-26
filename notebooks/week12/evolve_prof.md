@@ -17,6 +17,7 @@ kernelspec:
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
+import pandas as pd
 ```
 
 (heating-rate-profile)=
@@ -173,7 +174,7 @@ Assumption:  layers are thin enough so that it is safe to assume constant values
 within each layer
 
 ```{code-cell} ipython3
-def fluxes(tau,Temp,height,T_surf):
+def fluxes(tau,Temp,height,E_solar):
     """
     given properties at each level return the upward and downward
     total flux at each level assuming no downward longwave flux at the top
@@ -197,26 +198,12 @@ def fluxes(tau,Temp,height,T_surf):
     Esolar=240.  #solar flux in W/m^2
     up_flux=np.empty_like(height)
     down_flux=np.empty_like(height)
-    sfc_flux=sigma*T_surf**4.
-    up_flux[0]=sfc_flux
-    #print(f"{sfc_flux=}")
-    tot_levs=len(tau)
-    for index in np.arange(1,tot_levs):
-        upper_lev=index
-        lower_lev=index - 1
-        del_tau=tau[upper_lev] - tau[lower_lev]
-        trans=np.exp(-del_tau)
-        emiss=1 - trans
-        layer_flux=sigma*Temp[lower_lev]**4.*emiss
-        #
-        # find the flux at the next level
-        #
-        up_flux[upper_lev]=trans*up_flux[lower_lev] + layer_flux
+    tot_levs = len(height)
     #
     # start at the top of the atmosphere
     # with zero downwelling flux
     #
-    down_flux[tot_levs-1]=0
+    down_flux[-1]=0
     #
     # go down a level at a time, adding up the fluxes
     #
@@ -228,7 +215,26 @@ def fluxes(tau,Temp,height,T_surf):
         emiss=1 - trans
         layer_flux=sigma*Temp[upper_lev]**4.*emiss
         down_flux[lower_lev]=down_flux[upper_lev]*trans + layer_flux
-    return (up_flux,down_flux)
+    sfc_flux = down_flux[0] + E_solar
+    T_surf = (sfc_flux/sigma)**0.25
+    #breakpoint()
+    #
+    # now start at the surface and go up one level at a time
+    #
+    up_flux[0]=sfc_flux 
+    for index in np.arange(1,tot_levs):
+        upper_lev=index
+        lower_lev=index - 1
+        del_tau=tau[upper_lev] - tau[lower_lev]
+        trans=np.exp(-del_tau)
+        emiss=1 - trans
+        layer_flux=sigma*Temp[lower_lev]**4.*emiss
+        #
+        # find the flux at the next level
+        #
+        up_flux[upper_lev]=trans*up_flux[lower_lev] + layer_flux
+    
+    return (up_flux,down_flux, T_surf)
 ```
 
 ```{code-cell} ipython3
@@ -253,8 +259,8 @@ def heating_rate(net_down,height,rho):
     Returns
     -------
 
-    dT_dz: ndarray  -- length nlevels -1
-       vector of temperature gradients across each layer (K/m)
+    dT_dt: ndarray  -- length nlevels -1
+       time rate of change of temperature (K/s)
 
 
     """
@@ -267,9 +273,8 @@ def heating_rate(net_down,height,rho):
     #
     rho_mid=(rho[1:] + rho[:-1])/2.
     dEn_dz= np.diff(net_down)/np.diff(height)
-    dT_dz=dEn_dz/(rho_mid*cpd)
-    #print(f"{dT_dz*3600=}")
-    return dT_dz
+    dT_dt=dEn_dz/(rho_mid*cpd)
+    return dT_dt
 ```
 
 ```{code-cell} ipython3
@@ -283,18 +288,20 @@ def main():
     # use 1500 1 m thick layers from 0 to 15 km
     #
     r_gas=0.01  #kg/kg
-    k=0.002  #m^2/kg
+    k=0.02  #m^2/kg
     T_surf=300 #K
     p_surf=100.e3 #Pa
     delta_z=100  #m
     num_levels=150
+    E_solar = 240.
     dT_dz = np.ones([num_levels])*(-7.e-3)
     #
     #
     #
     Temp,press,rho,height=hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels)
     tau=find_tau(r_gas,k,rho,height)
-    up,down=fluxes(tau,Temp,height,T_surf)
+    #breakpoint()
+    up,down,T_surf=fluxes(tau,Temp,height,E_solar)
     net_down = down - up
     dT_dt=heating_rate(down - up,height,rho)
 
@@ -329,51 +336,113 @@ main()
 ```
 
 ```{code-cell} ipython3
-def evolve():
+
+def evolve(r_gas=None, k=None,p_surf=None,delta_t=None,delta_z=None,
+          num_timesteps=None,num_levels=None,E_solar=None,
+          T_surf=None):
     """
     find the heating rate (K/km) for a hydrostatic
     atmosphere with a constant decrease of temperature with heigt
     """
-
-    #
-    # use 1500 1 m thick layers from 0 to 15 km
-    #
-    r_gas=0.01  #kg/kg
     sigma=5.67e-8
-    k=0.003  #m^2/kg
-    T_surf=300 #K
-    p_surf=100.e3 #Pa
-    delta_z=100  #m
-    delta_t = 3600.
-    num_levels=150
-    num_timesteps=4000
-    E_solar = 240.
+    
     dT_dz = np.ones([num_levels])*(-7.e-3)
     #
+    # 1-D
     #
+    keep_sfc = np.empty([num_timesteps])
     #
+    # vars,height,timesteps
+    #
+    nvars=5
+    keep_vals=np.empty([nvars,num_levels,num_timesteps])
     Temp,press,rho,height=hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels)
-    keep_prof=[Temp]
+    #breakpoint()
     for time_index in range(num_timesteps):
         tau=find_tau(r_gas,k,rho,height)
-        up,down=fluxes(tau,Temp,height,T_surf)
+        up,down,T_surf=fluxes(tau,Temp,height,E_solar)
+        keep_sfc[time_index] =T_surf       
         net_down = down - up
         dT_dt=heating_rate(net_down,height,rho)
         Temp[:-1] = Temp[:-1] + dT_dt*delta_t
         Temp[-1]=Temp[-2]
         dT_dz = np.diff(Temp)/delta_z
-        keep_prof.append((Temp,up,down))
-        sfc_flux = down[0] + E_solar
-        T_surf = (sfc_flux/sigma)**0.25
-        print(T_surf)
+        dT_dt_p1=np.append(dT_dt,dT_dt[-1])
+        for i,the_vec in enumerate([Temp,tau,up,down,dT_dt_p1]):
+            keep_vals[i,:,time_index]=the_vec
         Temp,press,rho,height=hydrostat(T_surf,p_surf,dT_dz,delta_z,num_levels)
-    return keep_prof,height
-
+        #breakpoint()
+    return keep_vals,keep_sfc,height
 
 ```
 
 ```{code-cell} ipython3
-keep_prof,height=evolve()
-Temp,up,down = keep_prof[-1]
-plt.plot(Temp,height)
+inputs=dict( 
+    r_gas=0.01,  #kg/kg
+    k=0.006,  #m^2/kg
+    E_solar = 240,
+    p_surf=100.e3, #Pa
+    delta_z=100,  #m
+    delta_t = 1800.,
+    num_timesteps=7000,
+    num_levels=200,
+    T_surf=300.
+)
+
+keep_vals,keep_sfc,height=evolve(**inputs)
+```
+
+```{code-cell} ipython3
+def to_df(the_array,the_cols=['Temp','tau','up','down','dT_dt']):
+    return pd.DataFrame(the_array.T,columns=the_cols)
+  
+frame0 = keep_vals[:,:,10]
+
+
+df = to_df(frame0)
+print(df.head())
+print(len(height))
+
+def make_plot(df):
+
+    fig,(axis1,axis2,axis3,axis4)=plt.subplots(1,4,figsize=(16,10))
+    axis1.plot('up',height*0.001,'b',data=df,lw=5,label='upward flux')
+    axis1.plot('down',height*0.001,'g',data=df,lw=5,label='downward flux')
+    axis1.set_title('upward and downward fluxes')
+    axis1.set_xlabel('flux $(W\,m^{-2}$')
+    axis1.set_ylabel('height (km)')
+    axis1.legend(numpoints=1,loc='best')
+    axis1.grid(True)
+
+    net_down = df['down'] - df['up']
+    axis2.plot(net_down,height*0.001,'b-',lw=5)
+    axis2.set_title('net downward flux')
+    axis2.set_xlabel('net downward flux $(W\,m^{-2})$')
+    axis2.grid(True)
+
+    df['dT_dt_hr']=df['dT_dt']*3600.
+    axis3.plot('dT_dt_hr',height*0.001,'b-',data=df,lw=5)
+    axis3.set_title('heating rate')
+    axis3.set_xlabel('heating rate in K/hr')
+    axis3.grid(True)
+    
+    
+    varname='Temp'
+    axis4.plot(varname,height*0.001,'b-',data=df,lw=5)
+    axis4.set_title(varname)
+    axis4.set_xlabel(varname)
+    axis4.grid(True)
+    
+make_plot(df)
+```
+
+```{code-cell} ipython3
+time=np.arange(0,inputs['num_timesteps'])*inputs['delta_t']/3600.
+keep_sfc=np.array(keep_sfc)
+plt.plot(time,keep_sfc);
+```
+
+```{code-cell} ipython3
+deriv=np.diff(keep_sfc)/np.diff(time)
+plt.plot(deriv[-200:])
 ```
