@@ -43,7 +43,7 @@ where $E_n$ was the net flux integrated over all wavelengths (positive downwards
 the net downward flux $(E_{ntop} - E_{nbot})$ across a layer of thickness $\Delta z$.
 
 In this notebook we use the hydrostatic equation  from {ref}`hydro` and the flux equation
-from {ref}`flux_schwartzchild` to find dT/dz as a function of height for an atmosphere with
+from {ref}`flux_schwartzchild` to find dT/dz as a function of height for an atmosphere
 containing an absorbing gas with a mixing ratio of $r_gas=0.01$ kg/kg and a mass absorption coefficient
 averaged across all longwave wavelengths of $k=0.01$   $m^2/kg$.
 

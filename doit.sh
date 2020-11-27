@@ -7,3 +7,5 @@ cp -a notebooks/week9/figures notebooks/_build/html/week9/.
 cp -a notebooks/week10/figures notebooks/_build/html/week10/.
 mkdir -p notebooks/_build/html/week11/figures
 cp -a notebooks/week11/figures/* notebooks/_build/html/week11/figures/.
+mkdir -p notebooks/_build/html/week12/figures
+cp -a notebooks/week12/figures/* notebooks/_build/html/week12/figures/.
