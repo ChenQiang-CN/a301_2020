@@ -4,20 +4,22 @@
 #     cell_metadata_filter: -all
 #     text_representation:
 #       extension: .py
-#       format_name: light
-#       format_version: '1.5'
-#       jupytext_version: 1.7.0
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.6.1-dev
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
 #     name: python3
 # ---
 
+# %%
 import numpy as np
 from numpy import log10
 from numpy.testing import assert_almost_equal
 
 
+# %%
 def findPr(Z,K2,La,R,R1=None,Pt=None,b=None,Z1=None):
    """
     solve stull eqn 8.23
@@ -28,6 +30,8 @@ def findPr(Z,K2,La,R,R1=None,Pt=None,b=None,Z1=None):
    Pr=Pt*b*K2/La**2.*(R1/R)**2.*Z
    return Pr
 
+
+# %%
 if __name__=="__main__":
     #stull p. 246 sample appliation
     # given
@@ -53,8 +57,4 @@ if __name__=="__main__":
     values={'Prval':power_watts,'dBm':10*log10(power_watts*1.e3)}
     print   the_text.format(**values)
 
-    # %%
-    main()
-    
-
-
+# %%
