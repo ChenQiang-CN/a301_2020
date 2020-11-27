@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-(assign7a)=
+(assign7a_draft)=
 # Assign 7a:
 
 Skip to the bottom to see the assignment.  Below, I've shown how to regrid the Vancouver 1 km nearir watervapor onto a reasonable grid that could be used, for example, to remap many different swaths for comparison.
