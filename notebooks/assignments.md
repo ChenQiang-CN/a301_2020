@@ -18,3 +18,5 @@
      following the {ref}`feature_demo` notebook
    * Draw a rectangle somewhere on your image that covers a  50 row by 100 column region
 * Assignment 6c: {ref}`assign6c`: Monday, Nov. 23
+* {ref}`assign7a`: Due Wednesday, Dec. 2, 10am
+* {ref}`assign7b`: Due Wednesday, Dec. 2, 10am

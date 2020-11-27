@@ -22,7 +22,7 @@
        are also assuming that we are using the same antenna to receive and to transmit
 
     3) Transmitted power is 750,000 Watts, Received power can be as low as $10^{-15}$ Watts
-  
+
     4) Suppose you are given $Z_1$ in $mm^6\,m^{-3}$, c in m/s,
        $\Delta t$ in s and $\lambda$ in cm.  How do you convert
        $Z_1 c  \Delta t/\lambda^2$ to $km^2$?
@@ -37,7 +37,7 @@
 
     * {ref}`stull-radar-app`
 
-  - Introduce 
+  - Introduce
 
     * {ref}`heating-rate-profile`
 
@@ -46,7 +46,7 @@
     - For Wednesday: Read this [mission description](https://cloudsat.atmos.colostate.edu/mission/)
       and [instrument description](https://cloudsat.atmos.colostate.edu/instrument)
 
-    - For next Monday:
+    - For next Wednesday 10am:
 
       - Modify {ref}`heating-rate-profile` so that you calculate and store the
             temperature profile as a function of time by computing
@@ -89,3 +89,9 @@
         to corner latitudes and longitudes that need to be specified to at most 3 decimal places.
         (although the transformed corner x,y values in laea coords will still require 11 digits
         to specify)
+
+    - Friday
+
+      * Regridding assignment notebook: {ref}`assign7a`
+
+      * Radiative equilibrium assignment notebook: {ref}`assign7b`

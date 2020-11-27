@@ -21,7 +21,7 @@ import pandas as pd
 from pathlib import Path
 ```
 
-(heating-rate-profile)=
+(assign7b)=
 
 # Assignment 7b: Heating rate profiles
 
@@ -395,47 +395,49 @@ Tinit,height = init_profs(inputs,lapse_rate)
 main(Tinit,height,**inputs)
 ```
 
-```{code-cell} ipython3
-def evolve(Temp,height,r_gas=None, k=None,p_surf=None,delta_t=None,delta_z=None,
-          num_timesteps=None,num_levels=None,E_solar=None,
-          T_surf=None):
-    """
-    find the heating rate (K/km) for a hydrostatic
-    atmosphere with a constant decrease of temperature with heigt
-    """
-    sigma=5.67e-8
+## Fix this function
 
-    dT_dz = np.ones([num_levels])*(-7.e-3)
-    #
-    # 2-D array to store the T_surf and time in seconds for
-    # each timestep
-    #
-    nvars=2
-    keep_sfc = np.empty([nvars,num_timesteps])
-    #
-    # 3-d array to store
-    # Temp,tau,up,down,and dT_dt every timestep
-    # Note that you'll need to append an extra point to the top
-    # of dT_dt to make it the same length as the other variables
-    # just use dT_dt[-1]
-    #
-    nvars=5
-    keep_vals=np.empty([nvars,num_levels,num_timesteps])
-    press,rho=hydrostat(Temp,height,p_surf)
-    for time_index in range(num_timesteps):
-        tau=find_tau(r_gas,k,rho,height)
-        up,down,T_surf=fluxes(tau,Temp,height,E_solar)
-        keep_sfc[0,time_index] =T_surf
-        keep_sfc[1,time_index]=time_index*delta_t
-        net_down = down - up
-        dT_dt=heating_rate(net_down,height,rho)
-        dT_dt_p1 = np.append(dT_dt,dT_dt[-1])
-        Temp = Temp + dT_dt_p1*delta_t
-        for i,the_vec in enumerate([Temp,tau,up,down,dT_dt_p1]):
-            keep_vals[i,:,time_index]=the_vec
-        press,rho=hydrostat(Temp,height,p_surf)
-        #breakpoint()
-    return keep_vals,keep_sfc
+I've deleted six lines of code -- uncomment the following cell
+and add them (or something similar) back in so that you can get
+my figures below
+
+```{code-cell} ipython3
+# def evolve(Temp,height,r_gas=None, k=None,p_surf=None,delta_t=None,delta_z=None,
+#           num_timesteps=None,num_levels=None,E_solar=None,
+#           T_surf=None):
+#     """
+#     find the heating rate (K/km) for a hydrostatic
+#     atmosphere with a constant decrease of temperature with heigt
+#     """
+#     sigma=5.67e-8
+
+#     dT_dz = np.ones([num_levels])*(-7.e-3)
+#     #
+#     # 2-D array to store the T_surf and time in seconds for
+#     # each timestep
+#     #
+#     nvars=2
+#     keep_sfc = np.empty([nvars,num_timesteps])
+#     #
+#     # 3-d array to store
+#     # Temp,tau,up,down,and dT_dt every timestep
+#     # Note that you'll need to append an extra point to the top
+#     # of dT_dt to make it the same length as the other variables
+#     # just use dT_dt[-1]
+#     #
+#     nvars=5
+#     keep_vals=np.empty([nvars,num_levels,num_timesteps])
+#     press,rho=hydrostat(Temp,height,p_surf)
+#     for time_index in range(num_timesteps):
+#         keep_sfc[0,time_index] =T_surf
+#         keep_sfc[1,time_index]=time_index*delta_t
+#         #
+#         #  I've deleted 6 lines here
+#         #
+#         for i,the_vec in enumerate([Temp,tau,up,down,dT_dt_p1]):
+#             keep_vals[i,:,time_index]=the_vec
+#         press,rho=hydrostat(Temp,height,p_surf)
+#     return keep_vals,keep_sfc
 ```
 
 ```{code-cell} ipython3
@@ -455,17 +457,20 @@ lapse_rate = -7.e-3
 
 Tinit,height = init_profs(inputs,lapse_rate)
 
-keep_vals,keep_sfc=evolve(Tinit,height,**inputs)
+#
+# uncomment this to run
+#
+#keep_vals,keep_sfc=evolve(Tinit,height,**inputs)
 ```
 
 ```{code-cell} ipython3
 #
-#  Take a look at the last timestep
+#  Take a look at the last timestep -- uncomment this code to make
+#  the dataframe for plotting
 #
 
-frame0 = keep_vals[:,:,-1]
-
-df=pd.DataFrame(frame0.T,columns=['Temp','tau','up','down','dT_dt'])
+# frame0 = keep_vals[:,:,-1]
+# df=pd.DataFrame(frame0.T,columns=['Temp','tau','up','down','dT_dt'])
 fig_dir = Path() / 'figures'
 fig_dir.mkdir(exist_ok=True, parents=True)
 
@@ -502,30 +507,42 @@ def make_plot(df):
     axis4.grid(True)
     fig.savefig(fig_dir / 'assign7b_fig1.png')
 
-make_plot(df)
+#
+# uncomment this to plot
+#
+
+# make_plot(df)
 ```
 
+![fig1](figures/assign7b_fig1.png)
+
 ```{code-cell} ipython3
-air_temp = keep_vals[0,0,:]
-df = pd.DataFrame(keep_sfc.T,columns=['sfc_temp','time_seconds'])
-df['time_days']=df['time_seconds']/3600./24.
-df['air_temp']=air_temp
-fig,(ax1,ax2) = plt.subplots(2,1,figsize=(10,10))
-varnames=['sfc_temp','air_temp']
-for a_name in varnames:
-    ax1.plot('time_days',a_name,data=df,label=a_name,lw=5);
-ax1.grid(True)
-ax1.legend()
-ax1.set_xlabel("Time (days)")
-ax1.set_ylabel("Temperature (K)")
-ax1.set_title('surface temp and lowest level temp')
-dT = keep_vals[0,1,:] - keep_vals[0,0,:]
-dz = np.diff(height)[0]
-lapse_rate = dT/dz*1.e3
-ax2.plot(df['time_days'],lapse_rate,'b',lw=5)
-ax2.set_xlabel('time (days)')
-ax2.set_ylabel('lapse rate near surface (K/km)')
-ax2.set_title('surface lapse rate')
-ax2.grid(True)
-fig.savefig(fig_dir / 'Assign_7b_fig2.png')
+#
+# uncooment to make figure 2
+#
+
+# air_temp = keep_vals[0,0,:]
+# df = pd.DataFrame(keep_sfc.T,columns=['sfc_temp','time_seconds'])
+# df['time_days']=df['time_seconds']/3600./24.
+# df['air_temp']=air_temp
+# fig,(ax1,ax2) = plt.subplots(2,1,figsize=(10,10))
+# varnames=['sfc_temp','air_temp']
+# for a_name in varnames:
+#     ax1.plot('time_days',a_name,data=df,label=a_name,lw=5);
+# ax1.grid(True)
+# ax1.legend()
+# ax1.set_xlabel("Time (days)")
+# ax1.set_ylabel("Temperature (K)")
+# ax1.set_title('surface temp and lowest level temp')
+# dT = keep_vals[0,1,:] - keep_vals[0,0,:]
+# dz = np.diff(height)[0]
+# lapse_rate = dT/dz*1.e3
+# ax2.plot(df['time_days'],lapse_rate,'b',lw=5)
+# ax2.set_xlabel('time (days)')
+# ax2.set_ylabel('lapse rate near surface (K/km)')
+# ax2.set_title('surface lapse rate')
+# ax2.grid(True)
+# fig.savefig(fig_dir / 'assign7b_fig2.png')
 ```
+
+![fig2](figures/assign7b_fig2.png)
