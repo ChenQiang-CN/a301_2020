@@ -514,6 +514,10 @@ def make_plot(df):
 # make_plot(df)
 ```
 
+```{code-cell} ipython3
+!ls ../..
+```
+
 ![fig1](figures/assign7b_fig1.png)
 
 ```{code-cell} ipython3
