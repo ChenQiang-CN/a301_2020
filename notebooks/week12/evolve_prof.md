@@ -211,6 +211,10 @@ def fluxes(tau,Temp,height,E_solar):
         emiss=1 - trans
         layer_flux=sigma*Temp[upper_lev]**4.*emiss
         down_flux[lower_lev]=down_flux[upper_lev]*trans + layer_flux
+    #
+    # Assume the surface is black, and that its temperature increases
+    # quickly to emit just enough flux to balance the sun plus atmosphere
+    #
     sfc_flux = down_flux[0] + E_solar
     T_surf = (sfc_flux/sigma)**0.25
     #breakpoint()
@@ -277,13 +281,13 @@ def heating_rate(net_down,height,rho):
 inputs=dict(
     r_gas=0.01,  #kg/kg
     k=0.006,  #m^2/kg
-    E_solar = 240,
+    E_solar = 240,  #W/m^2
     p_surf=100.e3, #Pa
     delta_z=100,  #m
-    delta_t = 1800.,
+    delta_t = 1800., #s
     num_timesteps=7000,
     num_levels=200,
-    T_surf=300.
+    T_surf=300.  #K
 )
 
 def init_profs(inputs,lapse_rate):
