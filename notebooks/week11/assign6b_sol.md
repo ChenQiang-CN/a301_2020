@@ -63,9 +63,9 @@ First read in band 5 from the `vancouver_345_refl.tiff` image that was produced 
 {ref}`rasterio_3bands`:
 
 ```{code-cell} ipython3
-notebook_dir = Path().resolve().parent
+notebook_dir = a301_lib.data_share.resolve()
 print(notebook_dir)
-week10_scene = notebook_dir / "week10/vancouver_345_refl.tiff"
+week10_scene = notebook_dir / "vancouver_345_refl.tiff"
 ```
 
 ```{code-cell} ipython3

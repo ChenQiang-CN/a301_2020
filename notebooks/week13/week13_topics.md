@@ -5,4 +5,4 @@
 
   - Review {ref}`assign6b_sol`
 
-  - Review {ref}`assign6c_marshall`
+  - Review {ref}`assign6c_marshall_sol`
