@@ -23,8 +23,7 @@
 # of a stack of layers given the optical thickness, layer temperature and
 # surface temperature.  I borrowed code from the weighting_functions notebook, my
 # answer is 9 lines of code including the return statement
-#
-#
+
 # %%
 import numpy as np
 from numpy.testing import assert_almost_equal
@@ -110,8 +109,7 @@ def multi_layer_radiance(Tsfc, Temps, tau, the_wavel):
 
 # %% [markdown]
 # * test 1
-#
-#
+
 # %%
 Temps = np.asarray([300.0, 280.0, 270.0, 260.0])
 taus = np.asarray([0.0, 0.2, 0.35, 0.5, 0.6])

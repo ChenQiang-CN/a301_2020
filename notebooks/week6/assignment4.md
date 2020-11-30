@@ -1,3 +1,4 @@
+
 (assign4)=
 # Assignment 4: water vapor path
 
@@ -15,9 +16,11 @@ Do a change of units to convert $kg\,m^{-2}$ to $cm\,m^{-2}$ using the density o
 
 3\.  Use your function to print out W for all five soundings
 
++++
 
 ## Pencil and paper problems
 
++++
 
 4\. A satellite orbits 800 km above the earth and has a telescope with a field of view
    that covers 1 $km^2$ directly below (i.e. at nadir).  If that 1 $km^2$ is ocean with
@@ -25,7 +28,7 @@ Do a change of units to convert $kg\,m^{-2}$ to $cm\,m^{-2}$ using the density o
    of 280 K, calculate the flux in $W\,m^2$ reaching the satellite from all wavelengths
    from that pixel.
 
-
++++
 
 5\. Suppose that a satellite's orbit changes from a height of 800 km to a height of 600 km
    above the surface.  If the telescope field of view stays the same, prove that

@@ -175,7 +175,7 @@ execution:
 def make_map(extent, figsize=(15, 15)):
     """
     given an extent vector in the PlateCarre (lon/lat) projection,
-    make a map
+  xrg  make a map
 
     Parameters:
         extent:  list with [xbot, xtop, ybot, ytop]

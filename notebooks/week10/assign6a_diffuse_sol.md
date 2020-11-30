@@ -12,16 +12,13 @@ kernelspec:
   name: python3
 ---
 
-```{code-cell} ipython3
-#
-import matplotlib
-import matplotlib.pyplot as plt
-```
++++ {"toc": true}
+
+<h1>Table of Contents<span class="tocSkip"></span></h1>
+<div class="toc"><ul class="toc-item"><li><span><a href="#Introduction" data-toc-modified-id="Introduction-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Introduction</a></span></li><li><span><a href="#15B-Flux-transmission-problem" data-toc-modified-id="15B-Flux-transmission-problem-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>15B Flux transmission problem</a></span></li></ul></div>
 
 ```{code-cell} ipython3
 import numpy as np
-from scipy.special import expn
-
 np.log(0.2)
 ```
 
@@ -47,6 +44,8 @@ In the [flux_schwartzchild](https://clouds.eos.ubc.ca/~phil/courses/atsc301/flux
 
      scipy.special.expn(3,the_tau))
 
+
+
 ```{code-cell} ipython3
 """
    plot 2*scipy.special.expn(3,the_tau))
@@ -54,15 +53,18 @@ In the [flux_schwartzchild](https://clouds.eos.ubc.ca/~phil/courses/atsc301/flux
    defined above
 """
 %matplotlib inline
-
-matplotlib.style.use("ggplot")
-tau = np.arange(0.1, 5, 0.1)
-flux_trans = 2 * expn(3.0, tau)
-fig, ax = plt.subplots(1, 1)
-ax.plot(tau, flux_trans, label="exact")
-ax.plot(tau, np.exp(-1.66 * tau), label="approx")
+from scipy.special import expn
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.style.use('ggplot')
+tau = np.arange(0.1,5,0.1)
+flux_trans = 2*expn(3.,tau)
+fig, ax =plt.subplots(1,1)
+ax.plot(tau,flux_trans,label='exact')
+ax.plot(tau,np.exp(-1.66*tau),label='approx')
 ax.legend()
-ax.set(ylabel="flux_trans", xlabel=r"vertical optical depth $\tau$")
+ax.set(ylabel='flux_trans',xlabel=r'vertical optical depth $\tau$');
 ```
 
 # 15B Flux transmission problem
@@ -104,5 +106,6 @@ nbgrader:
   solution: true
 ---
 # YOUR CODE HERE
-# raise NotImplementedError()
+#raise NotImplementedError()
+
 ```

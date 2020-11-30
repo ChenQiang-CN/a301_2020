@@ -48,6 +48,7 @@
     - file: week4/assign3_solution.md
     - file: week6/answers/sols_mid_revI.rst
     - file: week6/answers/sols_mid_revII.rst
+    - file: week
 - file: week8/week8_topics.md
   chapters:
     - file: week8/answers/mid_2020.md
@@ -84,6 +85,10 @@
     - file: week12/heating_rate_profile.md
     - file: week12/assign7a.md
     - file: week12/assign7b.md
+- file: week13/week13_topics.md
+  chapters:
+    - file: week11/assign6b_sol.md
+    - file: week13/assign6c_marshall_sol.md
 
 - file: assignments.md
 - file: review.md

@@ -31,11 +31,18 @@
   - repeats the cropping of {ref}`rasterio_3bands` using a fiona/geopandas box shape and
     rasterio.mask
 * {ref}`feature_demo`
-* {ref}`heating_rate`
-* {ref}`assign5asol`
 * {ref}`subset_map`
    - produces geojson files on /home/jovyan with feature subsets
 * {ref}`stull-radar-app`
 * {ref}`heating-rate-profile`
 
+## Assignment solutions
 
+* {ref}`assign1_sol`
+* {ref}`assign2_sol`
+* {ref}`assign3_solution`
+* {ref}`assign4_hydro_sol`
+* {ref}`assign5asol`
+* {ref}`assign5b_sol`
+* {ref}`assign6b_sol`
+* {ref}`assign6c_marshall_sol`
