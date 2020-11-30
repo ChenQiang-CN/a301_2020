@@ -48,6 +48,7 @@ Here's a demo of adding features to an image.  The notebook does the following:
 4) add the features to the big map
 5) create a new crs that is laea centered on lat=50 deg N, lon= -120 deg E
 6) use rasterio.reproject to reproject the utm10 image onto the laea crs
+7) draw a 50 row by 100 column box on the image
 
 +++
 
@@ -209,6 +210,8 @@ else:
     subset_dict=gpd_dict
 ```
 
+* now put the features on -- they are defined in geodetic (lat/lon) crs
+
 ```{code-cell} ipython3
 cartopy_latlon = cartopy.crs.PlateCarree()
 for key, df in subset_dict.items():
@@ -232,7 +235,7 @@ UTM zone 11 (-120 to - 114 deg E).  To show both images on the same map, you
 need to reproject them onto a common crs. As a compromise, let's use a laea
 projection centered on `lon_0`= -120 deg E, `lat_0`=50 deg N
 
-Here's the rasterio repojection module docs: [rasterio](https://rasterio.readthedocs.io/en/latest/topics/reproject.html)
+Here are the rasterio reprojection module docs: [rasterio](https://rasterio.readthedocs.io/en/latest/topics/reproject.html)
 
 ### Step 1 is to create [the new pyproj crs](https://pyproj4.github.io/pyproj/dev/api/crs/crs.html).
 
@@ -251,7 +254,7 @@ p_laea.to_wkt()
 
 Remember that extent order is:  [xleft, xright, ybot, ytop].  We need to get these values in the new laea crs.
 
-We need to find the extent in the two coordinate systems.
+Here are the two extents for the image"
 
 ```{code-cell} ipython3
 crs_transform = Transformer.from_crs(p_utm10, p_laea)
@@ -267,7 +270,9 @@ print(f"{extent_laea=}")
 
 We need the pixel size, then we can use the Affine constructor as we did in {ref}`image_zoom`
 (don't forget to make the pixel height negative). Notice that the pixel size has
-changed slightly in the laea crs.
+changed slightly in the laea crs.  Also notice that the correct denominator is (#pixels - 1), not #pixels.  That's
+because the extents go from the left side of the first pixel to the right side of the last pixel.  Dividing
+byy #pixels would put the right boundary 1 pixel less than it needs to be.
 
 ```{code-cell} ipython3
 pixel_x_size = (lr_x_laea - ul_x_laea)/(profile['width'] -1)
@@ -282,7 +287,7 @@ laea_affine = Affine(pixel_x_size,0,ul_x_laea,0,-pixel_y_size,ul_y_laea)
 
 ### step 4: do the reprojection from p_utm10 to p_laea
 
-Keep the rows and columns the same as the original utm10 image, and make
+Keep the number of rows and columns the same as the original utm10 image, and make
 a numpy array to hold the transformed image
 
 ```{code-cell} ipython3
@@ -355,5 +360,24 @@ for key, df in subset_dict.items():
         ax.add_geometries(
             df["geometry"], cartopy_latlon, facecolor="none", edgecolor="blue",lw=3,
         )
+display(fig)
+```
+
+## draw a red box in the middle of the scene
+
+We want a box that's 50 rows by 100 columns. I'll center it arount row 300, column 200
+
+```{code-cell} ipython3
+ul_x, ul_y = laea_affine*(150,275)
+lr_x, lr_y = laea_affine*(250,325)
+delta_x = lr_x - ul_x
+delta_y = ul_y - lr_y
+print(f"{(ul_x,ul_y,lr_x,lr_y)=}")
+#
+# circle clockwise from upper left corner
+#
+box_x = [ul_x, ul_x + delta_x, ul_x + delta_x, ul_x,          ul_x]
+box_y = [ul_y, ul_y          , ul_y - delta_y, ul_y - delta_y,ul_y]
+ax.plot(box_x,box_y,'r-',lw=4)
 display(fig)
 ```
