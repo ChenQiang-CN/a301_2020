@@ -350,18 +350,18 @@ import json
 def area_def_to_dict(area_def):
     """
     given an area_def, save it as a dictionary`
-    
+
     Parameters
     ----------
-    
+
     area_def: pyresample area_def object
-         
+
     Returns
     -------
-    
+
     out_dict: dict containing
        area_def dictionary
-         
+
     """
     keys = [
         "area_id",
@@ -392,20 +392,20 @@ We'll need to use area_def_to_dict when we create the metadata_dict
 def dump_image(image_array, metadata_dict, foldername, image_array_name="image"):
     """
     write an image plus mmetadata to a folder
-    
+
     Parameters
     ----------
-    
+
     image_array: ndarray
         the 2-d image to be saved
-    
+
     foldername:  Path object or string
         the path to the folder that holds the image files
-        
+
     image_array_name:  str
         the root name for the npz and json files
         i.e. image.npz and image.json
-        
+
     Returns: None
        side effect -- an npz and a json file are written
     """
@@ -420,7 +420,7 @@ def dump_image(image_array, metadata_dict, foldername, image_array_name="image")
 
 ### Write out images, putting useful metadeta in metadata_dict
 
-We have three images:  
+We have three images:
 
 * `wv_ir` -- 5km ir retrieval
 * `wv_nearir_hr`  -- 1 km nearir retrieval
@@ -615,6 +615,8 @@ cs = ax.imshow(
 )
 fig.colorbar(cs, extend="both");
 ax.set_title("Ch 31 - Ch 32 BTD (K) at 1 km resolution")
+print(cartopy_crs.globe.to_proj4_params())
+cartopy.crs.Globe(datum='WGS84',ellipse='WGS84')
 ```
 
 * **Question 3) Scatterplot of near-ir vs. ir water vapor at 5 km resolution**
@@ -735,6 +737,7 @@ sns.jointplot(
     color="#4CB391",
 );
 ```
+
 ## Appendix -- try resampling the BTD to 5 km
 
 ```{code-cell} ipython3
@@ -756,8 +759,6 @@ print(
     )
 )
 ```
-
-
 
 We'll also remove all pixels that are set to NaN in the IR water vapor image.  Once the
 ocean pixels are taken out, the comparison looks a little better

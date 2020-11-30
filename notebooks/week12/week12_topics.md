@@ -52,7 +52,7 @@
             temperature profile as a function of time by computing
 
           $$
-          T(t + \Delta t) = T(t) + \frac{dT}{dz} \Delta t
+          T(t + \Delta t) = T(t) + \frac{dT}{dt} \Delta t
           $$
 
         for each level, integrating forward in 1 hour timesteps $\Delta t$ until the atmosphere's
