@@ -13,25 +13,28 @@ kernelspec:
   name: python3
 ---
 
-```{code-cell} ipython3
-import a301_lib
-from pathlib import Path
-from matplotlib import pyplot as plt
-from matplotlib.colors import Normalize
-import pprint
-import geopandas as gpd
-import cartopy.crs
-import matplotlib.pyplot as plt
-import cartopy
-from pathlib import Path
-import pprint
-import numpy as np
-from pyproj import CRS, Transformer
-import datetime
-import pytz
+```{code-cell}
 import copy
+import datetime
+import pprint
+from pathlib import Path
+
+import cartopy
+import cartopy.crs
+import geopandas as gpd
+import matplotlib.pyplot as plt
+import numpy as np
+import pytz
 import rasterio
 from IPython.display import display
+from matplotlib import pyplot as plt
+from matplotlib.colors import Normalize
+from pyproj import CRS, Transformer
+```
+
+```{code-cell}
+import a301_lib
+
 pacific = pytz.timezone("US/Pacific")
 date = datetime.datetime.today().astimezone(pacific)
 print(f"written on {date}")
@@ -57,13 +60,13 @@ Here's a demo of adding features to an image.  The notebook does the following:
 First read in band 5 from the `vancouver_345_refl.tiff` image that was produced by
 {ref}`rasterio_3bands`:
 
-```{code-cell} ipython3
+```{code-cell}
 notebook_dir = Path().resolve().parent
 print(notebook_dir)
 week10_scene = notebook_dir / "week10/vancouver_345_refl.tiff"
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 with rasterio.open(week10_scene) as van_raster:
     b5_refl = van_raster.read(3)
     chan3_tags = van_raster.tags(3)
@@ -79,7 +82,7 @@ with rasterio.open(week10_scene) as van_raster:
 I'll want to transform back and forth between UTM and lat/lon (since I think in lat/lon), so create
 a transformer object for this.  Copy code from {ref}`image_zoom`
 
-```{code-cell} ipython3
+```{code-cell}
 from pyproj import CRS, Transformer
 
 p_utm10 = crs_10
@@ -94,14 +97,14 @@ I need the upper left and lower right corners to set the image extent for imshow
 what the affine transform provides.  I'll use my crs_transform to also get the image_extent
 in lon/lat coords to make sure I'm in the right place
 
-```{code-cell} ipython3
+```{code-cell}
 ul_x_utm10, ul_y_utm10 = affine_transform*(0,0)
 lr_x_utm10, lr_y_utm10 = affine_transform*(profile['width'],profile['height'])
 print(f"{(ul_x_utm10,ul_y_utm10,lr_x_utm10,lr_y_utm10)=}")
 image_extent_utm10 = (ul_x_utm10,lr_x_utm10, lr_y_utm10, ul_y_utm10)
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 [[ul_lon,lr_lon],[lr_lat,ul_lat]] = crs_transform.transform([ul_x_utm10,lr_x_utm10],[lr_y_utm10,ul_y_utm10],direction='INVERSE')
 print(f"{(ul_lon,lr_lon,lr_lat,ul_lat)=}")
 ```
@@ -110,7 +113,7 @@ print(f"{(ul_lon,lr_lon,lr_lat,ul_lat)=}")
 
 In order show more context, I'll enlarge the map extent by 5 km on each sizde
 
-```{code-cell} ipython3
+```{code-cell}
 map_ul_x = ul_x_utm10 - 5.e3
 map_lr_x = lr_x_utm10 + 5.e3
 map_ul_y = ul_y_utm10 + 5.e3
@@ -121,7 +124,7 @@ print(f"{map_extent_utm10=}")
 
 * Repeat the imshow code from {ref}`rasterio_3bands`:
 
-```{code-cell} ipython3
+```{code-cell}
 cartopy_utm10 = cartopy.crs.epsg(crs_10.to_epsg())
 fig, ax = plt.subplots(
         1, 1, figsize=(15,15), subplot_kw={"projection": cartopy_utm10}
@@ -147,7 +150,7 @@ cbar.set_label("band 5 reflectance")
 From the {ref}`demo_cartopy_extent` notebook we can repeat the ax.set_extent call to make the map
 larger than the image
 
-```{code-cell} ipython3
+```{code-cell}
 ax.set_extent(map_extent_utm10,crs=cartopy_utm10)
 display(fig)
 ```
@@ -157,7 +160,7 @@ display(fig)
 Use the {ref}`subset_map` code to put features on this axis.  I need the cartopy_latlon
 crs to do this (since p_latlon, the pyproj crs, doesn't work with cartopy)
 
-```{code-cell} ipython3
+```{code-cell}
 gpd_dict = {}
 read_files=True
 if read_files:
@@ -182,7 +185,7 @@ else:
                f"{len(gpd_dict[key])} rows"))
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 def find_features(extent, df):
     """
     given an extent and a dataframe, return a new dataframe
@@ -212,7 +215,7 @@ else:
 
 * now put the features on -- they are defined in geodetic (lat/lon) crs
 
-```{code-cell} ipython3
+```{code-cell}
 cartopy_latlon = cartopy.crs.PlateCarree()
 for key, df in subset_dict.items():
     print(f"adding {key} with {len(df)} features")
@@ -241,7 +244,7 @@ Here are the rasterio reprojection module docs: [rasterio](https://rasterio.read
 
 I'll just borrow the pyproj parameters from our earlier notebooks.
 
-```{code-cell} ipython3
+```{code-cell}
 lat_0=50
 lon_0 = -120
 laea_proj = {'datum': 'WGS84', 'lat_0': '50', 'lon_0': '-120', 'no_defs': 'None',
@@ -256,7 +259,7 @@ Remember that extent order is:  [xleft, xright, ybot, ytop].  We need to get the
 
 Here are the two extents for the image"
 
-```{code-cell} ipython3
+```{code-cell}
 crs_transform = Transformer.from_crs(p_utm10, p_laea)
 extent_utm10 = [ul_x_utm10,lr_x_utm10,lr_y_utm10,ul_y_utm10]
 ul_x_laea,ul_y_laea = crs_transform.transform(ul_x_utm10,ul_y_utm10)
@@ -274,14 +277,15 @@ changed slightly in the laea crs.  Also notice that the correct denominator is (
 because the extents go from the left side of the first pixel to the right side of the last pixel.  Dividing
 byy #pixels would put the right boundary 1 pixel less than it needs to be.
 
-```{code-cell} ipython3
+```{code-cell}
 pixel_x_size = (lr_x_laea - ul_x_laea)/(profile['width'] -1)
 pixel_y_size = (ul_y_laea - lr_y_laea)/(profile['height'] - 1)
 print(f"{pixel_x_size=},{pixel_y_size=}")
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 from affine import Affine
+
 laea_affine = Affine(pixel_x_size,0,ul_x_laea,0,-pixel_y_size,ul_y_laea)
 ```
 
@@ -290,7 +294,7 @@ laea_affine = Affine(pixel_x_size,0,ul_x_laea,0,-pixel_y_size,ul_y_laea)
 Keep the number of rows and columns the same as the original utm10 image, and make
 a numpy array to hold the transformed image
 
-```{code-cell} ipython3
+```{code-cell}
 width=profile['width']
 height=profile['height']
 b5_refl_laea = np.ones([height,width],dtype=np.float32)
@@ -298,8 +302,9 @@ b5_refl_laea = np.ones([height,width],dtype=np.float32)
 
 ### Now reproject from utm10 to laea
 
-```{code-cell} ipython3
-from rasterio.warp import reproject, Resampling
+```{code-cell}
+from rasterio.warp import Resampling, reproject
+
 reproject(
         b5_refl,
         b5_refl_laea,
@@ -316,7 +321,7 @@ plt.imshow(b5_refl_laea);
 The annoying thing her is that we need to create a cartopy version of the laea crs,
 since it can't just use the pyproj version.
 
-```{code-cell} ipython3
+```{code-cell}
 dir(cartopy.crs.CRS)
 globe = cartopy.crs.Globe(datum='WGS84',ellipse='WGS84')
 laea_cartopy_crs = cartopy.crs.LambertAzimuthalEqualArea(central_longitude=lon_0,
@@ -329,7 +334,7 @@ laea_cartopy_crs.proj4_init
 
 Note the boundaries are slightly skewed in the reprojection.
 
-```{code-cell} ipython3
+```{code-cell}
 fig, ax = plt.subplots(
         1, 1, figsize=(10,15), subplot_kw={"projection": laea_cartopy_crs}
     )
@@ -349,7 +354,7 @@ cbar = ax.figure.colorbar(col, extend="both", cax=cbar_ax, orientation="vertical
 cbar.set_label("band 5 reflectance")
 ```
 
-```{code-cell} ipython3
+```{code-cell}
 for key, df in subset_dict.items():
     print(f"adding {key} with {len(df)} features")
     if key.find("river") > -1:
@@ -367,7 +372,7 @@ display(fig)
 
 We want a box that's 50 rows by 100 columns. I'll center it arount row 300, column 200
 
-```{code-cell} ipython3
+```{code-cell}
 ul_x, ul_y = laea_affine*(150,275)
 lr_x, lr_y = laea_affine*(250,325)
 delta_x = lr_x - ul_x
