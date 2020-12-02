@@ -7,7 +7,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.6.0
+#       jupytext_version: 1.6.1-dev
 #   kernelspec:
 #     display_name: Python 3
 #     language: python
@@ -62,9 +62,9 @@ print(f"written on {date}")
 # {ref}`rasterio_3bands`:
 
 # %%
-notebook_dir = Path().resolve().parent
+notebook_dir = a301_lib.data_share.resolve()
 print(notebook_dir)
-week10_scene = notebook_dir / "week10/vancouver_345_refl.tiff"
+week10_scene = notebook_dir / "vancouver_345_refl.tiff"
 
 # %%
 with rasterio.open(week10_scene) as van_raster:
