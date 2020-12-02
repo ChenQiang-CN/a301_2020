@@ -64,6 +64,7 @@
   chapters:
     - file: week10/assign5b_multilayer_sol.md
     - file: week10/assign6a_diffuse_flux.md
+    - file: week10/assign6a_diffuse_flux_sol.md
     - file: week10/demo_cartopy_extent.md
     - file: week10/image_zoom.md
     - file: week10/ndvi_rasterio.md

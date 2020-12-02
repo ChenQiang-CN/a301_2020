@@ -35,6 +35,7 @@
    - produces geojson files on /home/jovyan with feature subsets
 * {ref}`stull-radar-app`
 * {ref}`heating-rate-profile`
+* {ref}`cloudsat-reflec`
 
 ## Assignment solutions
 
@@ -44,5 +45,8 @@
 * {ref}`assign4_hydro_sol`
 * {ref}`assign5asol`
 * {ref}`assign5b_sol`
+* {ref}`assign6a-solution`
 * {ref}`assign6b_sol`
 * {ref}`assign6c_marshall_sol`
+* {ref}`assign7a-solution`
+* {ref}`assign7b-solution`

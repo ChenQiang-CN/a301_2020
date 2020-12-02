@@ -15,7 +15,11 @@
 
   - {ref}`final_guide`
 
-  - Capstone project using cloudsat
+  - Capstone projects using cloudsat and GOES
 
-    - {ref}`cloudsat_reflec`
+    - {ref}`cloudsat-reflec`
 
+    - [GOES intro](https://www.goes-r.gov/)
+
+    - [GOES 16 and 17 on AWS](https://registry.opendata.aws/noaa-goes/)
+    

@@ -14,6 +14,7 @@
 * {ref}`assign5b`
   * {ref}`assign5b_sol`
 * {ref}`assign6a`
+  * {ref}`assign6a-solution`
 * Assignment 6b: Friday, Nov. 20
   * Use the [natural earth features shapefiles](https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-rivers-lake-centerlines/)
      to add those features to your 600 x 400 pixel landsat image,
@@ -23,4 +24,6 @@
 * Assignment 6c: {ref}`assign6c`: Monday, Nov. 23
   * {ref}`assign6c_marshall_sol`
 * {ref}`assign7a`: Due Wednesday, Dec. 2, 10am
+  * {ref}`assign7a-solution`
 * {ref}`assign7b`: Due Wednesday, Dec. 2, 10am
+  * {ref}`assign7b-solution`

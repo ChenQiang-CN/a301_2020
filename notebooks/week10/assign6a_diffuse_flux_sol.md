@@ -12,8 +12,8 @@ kernelspec:
   name: python3
 ---
 
-(assign6a)=
-# Assignment 6a -- diffuse flux
+(assign6a-solution)=
+# Assignment 6a Solution -- diffuse flux
 
 ```{code-cell} ipython3
 import matplotlib

@@ -58,7 +58,7 @@ the_file.end()
 print(lats_1km.shape)
 ```
 
-## Scale the data
+### Scale the data
 
 ```{code-cell} ipython3
 the_file = SD(m5_file_str, SDC.READ)
@@ -84,7 +84,7 @@ ax = plt.gca()
 ax.set_title("1 km water vapor (cm)");
 ```
 
-## Get the optimum bounding box
+## Resample to an optimum bounding box
 
 +++
 
@@ -114,7 +114,7 @@ proj4_str = area_def_hr.proj_str
 print(f"\nhere is the same crs as a proj4 string\n{proj4_str=}")
 ```
 
-## Find our extent in lat/lon coords
+### Find our extent in lat/lon coords
 
 To get a feeling for the lat/lon corners, use pyproj to transform
 as we did in the week 10 {ref}`image_zoom` notebook.  Also see
@@ -147,7 +147,7 @@ print(f"check the round-trip back to laea\n{(ll_x,ll_y)=}")
 #help(transform.transform)
 ```
 
-## Writing a new area_def
+## Writing a new area_def with integer lon/lat extents
 
 Now write a new area_def following the [pyresample example](https://pyresample.readthedocs.io/en/latest/geo_def.html).  Round the
 central lon/lat to (-121,40), and the round the extent to nice round integer lon/lat values.
@@ -173,7 +173,7 @@ area_def_lr = AreaDefinition(area_id, description, proj_id, proj_params,
 print(f"the area_def: \n{area_def_lr=}")
 ```
 
-## Now reproject the swath onto this new area_def_lr
+### Now reproject the swath onto this new area_def_lr
 
 ```{code-cell} ipython3
 fill_value = -9999.0
@@ -209,7 +209,7 @@ Add date and contact tags with the date you wrote the geotiff, and your name
 
 +++
 
-## Solution
+## Assign 7a Solution
 
 Copy some code over from the [ndvi_rasterio](https://a301_web.eoas.ubc.ca/week10/ndvi_rasterio.html#write-out-the-bands-3-4-5-as-a-new-geotiff) notebook
 
@@ -250,9 +250,9 @@ Copy some code over from the [ndvi_rasterio](https://a301_web.eoas.ubc.ca/week10
 
 +++
 
-## Redo the steps above from scratch
+### Redo the steps above from scratch
 
-### Make the new crs with nice central lat lon
+*  Make the new crs with nice central lat lon
 
 ```{code-cell} ipython3
 proj4_str='+datum=WGS84 +lat_0=40. +lon_0=-121. +no_defs +proj=laea +type=crs +units=m +x_0=0 +y_0=0'
@@ -263,14 +263,14 @@ p_crs = CRS.from_proj4(proj4_str)
 print(p_crs.to_wkt())
 ```
 
-## Make a transformer from latlon to the crs
+* Make a transformer from latlon to the crs
 
 ```{code-cell} ipython3
 p_latlon = CRS.from_proj4("+proj=latlon")
 transform = Transformer.from_crs(p_latlon,p_crs)
 ```
 
-## Make the new extent for this crs with nice latlons
+* Make the new extent for this crs with nice latlons
 
 I'll push the eastern boundary a little further east (from -100 to -98 deg E) this time.  Note that
 the area extent makes sense in this CRS:  we have a square image, with the (x,y) origin in near
@@ -285,7 +285,7 @@ area_extent = (ll_x, ll_y, ur_x, ur_y)
 print(f"{area_extent=}")
 ```
 
-## Make the new affine transform for this extent
+* Make the new affine transform for this extent
 
 Recall [the image zoom notebook](https://a301_web.eoas.ubc.ca/week10/image_zoom.html?highlight=affine#use-rasterio-to-write-a-new-tiff-file).   Remember that the previous pixels were:
 
@@ -306,7 +306,7 @@ print(f"{(pixel_size_x, pixel_size_y)=}")
 new_affine = Affine(pixel_size_x, 0.0, ul_x, 0.0, -pixel_size_y, ul_y)
 ```
 
-### Make the area def
+* Make the area def
 
 ```{code-cell} ipython3
 area_id = 'pnw'
@@ -316,7 +316,7 @@ area_def_lr = AreaDefinition(area_id, description, proj_id, proj_params,
                             width, height, area_extent)
 ```
 
-### Resample -- note the extra room on the east edge in the image
+* Resample -- note the extra room on the east edge in the image
 
 ```{code-cell} ipython3
 fill_value = -9999.0
@@ -335,7 +335,7 @@ image_wv_nearir_lr[image_wv_nearir_lr < -9000] = np.nan
 plt.imshow(image_wv_nearir_lr);
 ```
 
-### Write out the geotiff
+* Write out the geotiff
 
 ```{code-cell} ipython3
 height, width = image_wv_nearir_lr.shape
@@ -368,7 +368,7 @@ with rasterio.open(
         dst.update_tags(index + 1, name=chan_name)
 ```
 
-### Read in the geotiff to check
+* Read in the geotiff to check
 
 
 ```{code-cell} ipython3
@@ -384,7 +384,7 @@ print(f"{crs=}\n")
 print(f"{transform=}\n")
 ```
 
-### Write out the png
+* Write out the png
 
 Borrow code from the [scene_image](https://a301_web.eoas.ubc.ca/week10/scene_image.html#note-the-low-reflectivity-for-band-3) notebook.  We need to convert the image to bytes using `img_as_ubyte`, and we
 need to handle the nan values that pyresample has written into the pixels outside the image
