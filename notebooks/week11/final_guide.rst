@@ -11,7 +11,7 @@ Format
 
 * Take home, timed for about 90 minutes on written component, 4-6 hours on notebook
 
-* 7 day window, starting December 4, ending December 10
+* 7 day window, starting December 4, ending December 11
 
 * 15-20 minute oral runthrough -- December 14/15.
 

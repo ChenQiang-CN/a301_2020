@@ -90,5 +90,35 @@ nbgrader:
   schema_version: 2
   solution: true
 ---
-# YOUR CODE HERE
+def trans_fun(tau,mu):
+    output = 2*mu*np.exp(-tau/mu)
+    return output
+
+def do_int(tau,mu_vec):
+    
+    trans_vec=np.empty_like(mu_vec)
+    
+    for index, the_mu in enumerate(mu_vec):
+        trans_vec[index]=trans_fun(tau,the_mu)
+    dmu=np.diff(mu_vec)
+    mid_trans = (trans_vec[1:] + trans_vec[:-1])/2.
+    return np.sum(mid_trans*dmu)       
+    
+
+mu_vec = np.linspace(0.01,1,150)
+tau_vec=np.arange(0.1,5,0.1)
+flux_trans = np.empty_like(tau_vec)
+for index,tau in enumerate(tau_vec):
+    flux_trans[index] = do_int(tau,mu_vec)
+    
+fig, ax = plt.subplots(1,1,figsize=(10,10))
+ax.plot(tau_vec,flux_trans,'r+',markersize=15,label="numeric integration: flux");
+ax.set_xlabel('optical depth (unitless)')
+ax.set_ylabel('transmission (unitless)')
+ax.plot(tau_vec,np.exp(-tau_vec),label='beam transmission')
+ax.plot(tau_vec,np.exp(-1.666*tau_vec),label='diffusivity approx',lw=3)
+flux_trans = 2 * expn(3.0, tau_vec)
+ax.plot(tau_vec,flux_trans,label='flux transmission: exact',lw=3)
+
+ax.legend();
 ```

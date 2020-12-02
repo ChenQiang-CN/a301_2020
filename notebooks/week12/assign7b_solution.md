@@ -19,11 +19,11 @@ import matplotlib.pyplot as plt
 import matplotlib
 import pandas as pd
 from pathlib import Path
+from skimage import exposure, img_as_ubyte
 ```
 
-(heating-rate-profile)=
-
-# Assignment 7b: Heating rate profiles
+(assign7b-solution)=
+# Assignment 7b solution: Heating rate profiles
 
 This notebook shows how to calculate the net heating rate given a hydrostatic atmosphere with an absorbing
 gas with constant mixing ratio $r_{gas}$ with height.   At the bottom, I ask you to add a function that
@@ -402,12 +402,9 @@ def evolve(Temp,height,r_gas=None, k=None,p_surf=None,delta_t=None,delta_z=None,
           num_timesteps=None,num_levels=None,E_solar=None,
           T_surf=None):
     """
-    find the heating rate (K/km) for a hydrostatic
-    atmosphere with a constant decrease of temperature with heigt
+    March a temperature profile forward in time as it undergoes radiative heating/coolling
     """
-    sigma=5.67e-8
-
-    dT_dz = np.ones([num_levels])*(-7.e-3)
+    sigma=5.67e-8    
     #
     # 2-D array to store the T_surf and time in seconds for
     # each timestep
@@ -438,6 +435,9 @@ def evolve(Temp,height,r_gas=None, k=None,p_surf=None,delta_t=None,delta_z=None,
         # find the heating rate and advance one timestep
         #
         dT_dt=heating_rate(net_down,height,rho)
+        #
+        # add an extra level to the top
+        #
         dT_dt_p1 = np.append(dT_dt,dT_dt[-1])
         Temp = Temp + dT_dt_p1*delta_t
         #
@@ -453,6 +453,10 @@ def evolve(Temp,height,r_gas=None, k=None,p_surf=None,delta_t=None,delta_z=None,
     return keep_vals,keep_sfc
 ```
 
+## Run the model
+
+Start from a constant lapse rate
+
 ```{code-cell} ipython3
 inputs=dict(
     r_gas=0.01,  #kg/kg
@@ -466,7 +470,7 @@ inputs=dict(
     T_surf=310.
 )
 
-lapse_rate = -7.e-3
+lapse_rate = -7.e-3  #K/m
 
 Tinit,height = init_profs(inputs,lapse_rate)
 

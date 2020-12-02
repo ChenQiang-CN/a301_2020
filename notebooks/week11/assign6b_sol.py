@@ -27,18 +27,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pytz
 import rasterio
-
-# %%
-from affine import Affine
 from IPython.display import display
 from matplotlib import pyplot as plt
 from matplotlib.colors import Normalize
-
-# %%
 from pyproj import CRS, Transformer
-
-# %%
-from rasterio.warp import Resampling, reproject
 
 # %%
 import a301_lib
@@ -55,12 +47,12 @@ print(f"written on {date}")
 # illustrate how to make a map that is bigger than the image, and how to reproject from
 # one raster crs to another using rasterio.
 #
-# 1) read in the `vancouver_345_refl.tiff` band 5 image
-# 2) find the image corners in utm10 and geodetic lat/lon (for the features)
-# 3) put the image on a map that extends 5 km beyond the image
-# 4) add the features to the big map
-# 5) create a new crs that is laea centered on lat=50 deg N, lon= -120 deg E
-# 6) use rasterio.reproject to reproject the utm10 image onto the laea crs
+# 1) read in the `vancouver_345_refl.tiff` band 5 image  
+# 2) find the image corners in utm10 and geodetic lat/lon (for the features)  
+# 3) put the image on a map that extends 5 km beyond the image  
+# 4) add the features to the big map  
+# 5) create a new crs that is laea centered on lat=50 deg N, lon= -120 deg E  
+# 6) use rasterio.reproject to reproject the utm10 image onto the laea crs  
 # 7) draw a 50 row by 100 column box on the image
 
 # %% [markdown]
@@ -79,7 +71,7 @@ with rasterio.open(week10_scene) as van_raster:
     b5_refl = van_raster.read(3)
     chan3_tags = van_raster.tags(3)
     crs_10 = van_raster.profile["crs"]
-    profile = van_raster.profile
+    profile=van_raster.profile
     affine_transform = profile["transform"]
     tags = van_raster.tags()
     print(f"\n\n{tags=}, \n\n{chan3_tags=},\n\n {profile=},\n\n {affine_transform=}\n")
@@ -90,6 +82,8 @@ with rasterio.open(week10_scene) as van_raster:
 # I'll want to transform back and forth between UTM and lat/lon (since I think in lat/lon), so create
 # a transformer object for this.  Copy code from {ref}`image_zoom`
 
+# %%
+from pyproj import CRS, Transformer
 
 p_utm10 = crs_10
 p_latlon = CRS.from_epsg(4326)
@@ -104,14 +98,14 @@ print(p_latlon.to_wkt())
 # in lon/lat coords to make sure I'm in the right place
 
 # %%
-ul_x_utm10, ul_y_utm10 = affine_transform * (0, 0)
-lr_x_utm10, lr_y_utm10 = affine_transform * (profile["width"], profile["height"])
+ul_x_utm10, ul_y_utm10 = affine_transform*(0,0)
+lr_x_utm10, lr_y_utm10 = affine_transform*(profile['width'],profile['height'])
 print(f"{(ul_x_utm10,ul_y_utm10,lr_x_utm10,lr_y_utm10)=}")
-image_extent_utm10 = (ul_x_utm10, lr_x_utm10, lr_y_utm10, ul_y_utm10)
+image_extent_utm10 = (ul_x_utm10,lr_x_utm10, lr_y_utm10, ul_y_utm10)
 
 # %%
-ul_lon, ul_lat = crs_transform.transform(ul_x_utm10, ul_y_utm10, direction="INVERSE")
-lr_lon, lr_lat = crs_transform.transform(lr_x_utm10, lr_y_utm10, direction="INVERSE")
+ul_lon,ul_lat = crs_transform.transform(ul_x_utm10,ul_y_utm10,direction='INVERSE')
+lr_lon,lr_lat = crs_transform.transform(lr_x_utm10,lr_y_utm10,direction='INVERSE')
 print(f"{(ul_lon,ul_lat,lr_lon,lr_lat)=}")
 
 # %% [markdown]
@@ -120,11 +114,11 @@ print(f"{(ul_lon,ul_lat,lr_lon,lr_lat)=}")
 # In order show more context, I'll enlarge the map extent by 5 km on each size
 
 # %%
-map_ul_x = ul_x_utm10 - 5.0e3
-map_lr_x = lr_x_utm10 + 5.0e3
-map_ul_y = ul_y_utm10 + 5.0e3
-map_lr_y = lr_y_utm10 - 5.0e3
-map_extent_utm10 = (map_ul_x, map_lr_x, map_lr_y, map_ul_y)
+map_ul_x = ul_x_utm10 - 5.e3
+map_lr_x = lr_x_utm10 + 5.e3
+map_ul_y = ul_y_utm10 + 5.e3
+map_lr_y = lr_y_utm10 - 5.e3
+map_extent_utm10 = (map_ul_x,map_lr_x,map_lr_y,map_ul_y)
 print(f"{map_extent_utm10=}")
 
 # %% [markdown]
@@ -132,7 +126,9 @@ print(f"{map_extent_utm10=}")
 
 # %%
 cartopy_utm10 = cartopy.crs.epsg(crs_10.to_epsg())
-fig, ax = plt.subplots(1, 1, figsize=(15, 15), subplot_kw={"projection": cartopy_utm10})
+fig, ax = plt.subplots(
+        1, 1, figsize=(15,15), subplot_kw={"projection": cartopy_utm10}
+    )
 
 vmin = 0.0
 vmax = 0.4
@@ -142,14 +138,8 @@ pal = copy.copy(plt.get_cmap(palette))
 pal.set_bad("0.75")  # 75% grey for out-of-map cells
 pal.set_over("w")  # color cells > vmax red
 pal.set_under("k")  # color cells < vmin black
-col = ax.imshow(
-    b5_refl,
-    cmap=pal,
-    norm=the_norm,
-    origin="upper",
-    extent=image_extent_utm10,
-    transform=cartopy_utm10,
-)
+col=ax.imshow(b5_refl, cmap=pal, norm=the_norm, origin="upper",
+          extent=image_extent_utm10,transform=cartopy_utm10);
 cbar_ax = fig.add_axes([0.85, 0.2, 0.05, 0.6])
 cbar = ax.figure.colorbar(col, extend="both", cax=cbar_ax, orientation="vertical")
 cbar.set_label("band 5 reflectance")
@@ -161,7 +151,7 @@ cbar.set_label("band 5 reflectance")
 # larger than the image
 
 # %%
-ax.set_extent(map_extent_utm10, crs=cartopy_utm10)
+ax.set_extent(map_extent_utm10,crs=cartopy_utm10)
 display(fig)
 
 # %% [markdown]
@@ -172,7 +162,7 @@ display(fig)
 
 # %%
 gpd_dict = {}
-read_files = True
+read_files=True
 if read_files:
     all_cia = a301_lib.data_share / "openstreetmap/WDBII_shp/f"
     all_cia = list(all_cia.glob("*"))
@@ -191,7 +181,8 @@ else:
     for item in shape_files:
         key = item.stem
         gpd_dict[key] = gpd.read_file(item)
-        print((f"reading saved shapefile {item} with\n" f"{len(gpd_dict[key])} rows"))
+        print((f"reading saved shapefile {item} with\n"
+               f"{len(gpd_dict[key])} rows"))
 
 
 # %%
@@ -210,7 +201,6 @@ def find_features(extent, df):
     hit_rows = df.cx[xleft:xright, ybot:ytop]
     return hit_rows
 
-
 extent = [-124, -122, 48, 50]
 if read_files:
     subset_dict = {}
@@ -220,7 +210,7 @@ if read_files:
             subset_dict[key] = df_subset
             print(f"clipping {key}")
 else:
-    subset_dict = gpd_dict
+    subset_dict=gpd_dict
 
 # %% [markdown]
 # * now put the features on -- they are defined in geodetic (lat/lon) crs
@@ -231,19 +221,11 @@ for key, df in subset_dict.items():
     print(f"adding {key} with {len(df)} features")
     if key.find("river") > -1:
         ax.add_geometries(
-            df["geometry"],
-            cartopy_latlon,
-            facecolor="none",
-            edgecolor="green",
-            lw=3,
+            df["geometry"], cartopy_latlon, facecolor="none", edgecolor="green",lw=3,
         )
     else:
         ax.add_geometries(
-            df["geometry"],
-            cartopy_latlon,
-            facecolor="none",
-            edgecolor="blue",
-            lw=3,
+            df["geometry"], cartopy_latlon, facecolor="none", edgecolor="blue",lw=3,
         )
 display(fig)
 
@@ -265,19 +247,10 @@ display(fig)
 # I'll just borrow the pyproj parameters from our earlier notebooks.
 
 # %%
-lat_0 = 50
+lat_0=50
 lon_0 = -120
-laea_proj = {
-    "datum": "WGS84",
-    "lat_0": "50",
-    "lon_0": "-120",
-    "no_defs": "None",
-    "proj": "laea",
-    "type": "crs",
-    "units": "m",
-    "x_0": "0",
-    "y_0": "0",
-}
+laea_proj = {'datum': 'WGS84', 'lat_0': '50', 'lon_0': '-120', 'no_defs': 'None',
+             'proj': 'laea', 'type': 'crs', 'units': 'm', 'x_0': '0', 'y_0': '0'}
 p_laea = CRS(laea_proj)
 p_laea.to_wkt()
 
@@ -290,10 +263,10 @@ p_laea.to_wkt()
 
 # %%
 crs_transform = Transformer.from_crs(p_utm10, p_laea)
-extent_utm10 = [ul_x_utm10, lr_x_utm10, lr_y_utm10, ul_y_utm10]
-ul_x_laea, ul_y_laea = crs_transform.transform(ul_x_utm10, ul_y_utm10)
-lr_x_laea, lr_y_laea = crs_transform.transform(lr_x_utm10, lr_y_utm10)
-extent_laea = [ul_x_laea, lr_x_laea, lr_y_laea, ul_y_laea]
+extent_utm10 = [ul_x_utm10,lr_x_utm10,lr_y_utm10,ul_y_utm10]
+ul_x_laea,ul_y_laea = crs_transform.transform(ul_x_utm10,ul_y_utm10)
+lr_x_laea,lr_y_laea = crs_transform.transform(lr_x_utm10,lr_y_utm10)
+extent_laea=[ul_x_laea,lr_x_laea,lr_y_laea,ul_y_laea]
 print(f"{extent_utm10=}")
 print(f"{extent_laea=}")
 
@@ -307,12 +280,14 @@ print(f"{extent_laea=}")
 # by #pixels would put the right boundary 1 pixel less than it needs to be.
 
 # %%
-pixel_x_size = (lr_x_laea - ul_x_laea) / (profile["width"] - 1)
-pixel_y_size = (ul_y_laea - lr_y_laea) / (profile["height"] - 1)
+pixel_x_size = (lr_x_laea - ul_x_laea)/(profile['width'] -1)
+pixel_y_size = (ul_y_laea - lr_y_laea)/(profile['height'] - 1)
 print(f"{pixel_x_size=},{pixel_y_size=}")
 
+# %%
+from affine import Affine
 
-laea_affine = Affine(pixel_x_size, 0, ul_x_laea, 0, -pixel_y_size, ul_y_laea)
+laea_affine = Affine(pixel_x_size,0,ul_x_laea,0,-pixel_y_size,ul_y_laea)
 
 # %% [markdown]
 # ### step 4: do the reprojection from p_utm10 to p_laea
@@ -320,24 +295,25 @@ laea_affine = Affine(pixel_x_size, 0, ul_x_laea, 0, -pixel_y_size, ul_y_laea)
 # First make a numpy array to hold the reprojected image.  We're keeping the row and column numbers the same as i the original tiff.
 
 # %%
-width = profile["width"]
-height = profile["height"]
-b5_refl_laea = np.ones([height, width], dtype=np.float32)
+width=profile['width']
+height=profile['height']
+b5_refl_laea = np.ones([height,width],dtype=np.float32)
 
 # %% [markdown]
 # ### Now reproject from utm10 to laea
 
+# %%
+from rasterio.warp import Resampling, reproject
 
 reproject(
-    b5_refl,
-    b5_refl_laea,
-    src_transform=affine_transform,
-    src_crs=p_utm10,
-    dst_transform=laea_affine,
-    dst_crs=p_laea,
-    resampling=Resampling.nearest,
-)
-plt.imshow(b5_refl_laea)
+        b5_refl,
+        b5_refl_laea,
+        src_transform=affine_transform,
+        src_crs=p_utm10,
+        dst_transform=laea_affine,
+        dst_crs=p_laea,
+        resampling=Resampling.nearest);
+plt.imshow(b5_refl_laea);
 
 # %% [markdown]
 # ### step 5: Make a cartopy map
@@ -346,14 +322,13 @@ plt.imshow(b5_refl_laea)
 # since it doesn't accept the pyproj version.   See [cartopy projections](https://scitools.org.uk/cartopy/docs/latest/crs/projections.html#cartopy-projections).  One difference is
 # that cartopy requires that the datum be specified separately from the projection, using a `globe` object.
 # You can track progress on making cartopy more compatible with pyproj [here](https://github.com/SciTools/cartopy/pull/1023#discussion_r168395702) [and here](https://github.com/SciTools/cartopy/issues/1477)
-#
 
 # %%
 dir(cartopy.crs.CRS)
-globe = cartopy.crs.Globe(datum="WGS84", ellipse="WGS84")
-laea_cartopy_crs = cartopy.crs.LambertAzimuthalEqualArea(
-    central_longitude=lon_0, central_latitude=lat_0, globe=globe
-)
+globe = cartopy.crs.Globe(datum='WGS84',ellipse='WGS84')
+laea_cartopy_crs = cartopy.crs.LambertAzimuthalEqualArea(central_longitude=lon_0,
+                                                    central_latitude=lat_0,
+                                                    globe=globe)
 print(f"proj4 string: {laea_cartopy_crs.proj4_init=}")
 
 # %% [markdown]
@@ -363,8 +338,8 @@ print(f"proj4 string: {laea_cartopy_crs.proj4_init=}")
 
 # %%
 fig, ax = plt.subplots(
-    1, 1, figsize=(10, 15), subplot_kw={"projection": laea_cartopy_crs}
-)
+        1, 1, figsize=(10,15), subplot_kw={"projection": laea_cartopy_crs}
+    )
 
 vmin = 0.0
 vmax = 0.4
@@ -374,40 +349,25 @@ pal = copy.copy(plt.get_cmap(palette))
 pal.set_bad("0.75")  # 75% grey for out-of-map cells
 pal.set_over("w")  # color cells > vmax red
 pal.set_under("k")  # color cells < vmin black
-col = ax.imshow(
-    b5_refl_laea,
-    cmap=pal,
-    norm=the_norm,
-    origin="upper",
-    extent=extent_laea,
-    transform=laea_cartopy_crs,
-)
+col=ax.imshow(b5_refl_laea, cmap=pal, norm=the_norm, origin="upper",
+          extent=extent_laea,transform=laea_cartopy_crs)
 cbar_ax = fig.add_axes([0.90, 0.2, 0.05, 0.6])
 cbar = ax.figure.colorbar(col, extend="both", cax=cbar_ax, orientation="vertical")
 cbar.set_label("band 5 reflectance")
 
 # %% [markdown]
 # ### Add a coastline/rivers
-#
 
 # %%
 for key, df in subset_dict.items():
     print(f"adding {key} with {len(df)} features")
     if key.find("river") > -1:
         ax.add_geometries(
-            df["geometry"],
-            cartopy_latlon,
-            facecolor="none",
-            edgecolor="red",
-            lw=5,
+            df["geometry"], cartopy_latlon, facecolor="none", edgecolor="red",lw=5,
         )
     else:
         ax.add_geometries(
-            df["geometry"],
-            cartopy_latlon,
-            facecolor="none",
-            edgecolor="blue",
-            lw=3,
+            df["geometry"], cartopy_latlon, facecolor="none", edgecolor="blue",lw=3,
         )
 display(fig)
 
@@ -418,17 +378,17 @@ display(fig)
 # down 50 rows to find the corners.
 
 # %%
-ul_x, ul_y = laea_affine * (150, 275)
-lr_x, lr_y = laea_affine * (250, 325)
+ul_x, ul_y = laea_affine*(150,275)
+lr_x, lr_y = laea_affine*(250,325)
 delta_x = lr_x - ul_x
 delta_y = ul_y - lr_y
 print(f"{(ul_x,ul_y,lr_x,lr_y)=}")
 #
 # circle clockwise from upper left corner
 #
-box_x = [ul_x, ul_x + delta_x, ul_x + delta_x, ul_x, ul_x]
-box_y = [ul_y, ul_y, ul_y - delta_y, ul_y - delta_y, ul_y]
-ax.plot(box_x, box_y, "r-", lw=4)
+box_x = [ul_x, ul_x + delta_x, ul_x + delta_x, ul_x,          ul_x]
+box_y = [ul_y, ul_y          , ul_y - delta_y, ul_y - delta_y,ul_y]
+ax.plot(box_x,box_y,'r-',lw=4)
 display(fig)
 
 # %% [markdown]

@@ -47,12 +47,12 @@ Here's a demo of adding features to an image.  The notebook does some extra work
 illustrate how to make a map that is bigger than the image, and how to reproject from
 one raster crs to another using rasterio.
 
-1) read in the `vancouver_345_refl.tiff` band 5 image
-2) find the image corners in utm10 and geodetic lat/lon (for the features)
-3) put the image on a map that extends 5 km beyond the image
-4) add the features to the big map
-5) create a new crs that is laea centered on lat=50 deg N, lon= -120 deg E
-6) use rasterio.reproject to reproject the utm10 image onto the laea crs
+1) read in the `vancouver_345_refl.tiff` band 5 image  
+2) find the image corners in utm10 and geodetic lat/lon (for the features)  
+3) put the image on a map that extends 5 km beyond the image  
+4) add the features to the big map  
+5) create a new crs that is laea centered on lat=50 deg N, lon= -120 deg E  
+6) use rasterio.reproject to reproject the utm10 image onto the laea crs  
 7) draw a 50 row by 100 column box on the image
 
 +++

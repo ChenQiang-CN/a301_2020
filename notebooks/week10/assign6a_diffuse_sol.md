@@ -44,8 +44,6 @@ In the [flux_schwartzchild](https://clouds.eos.ubc.ca/~phil/courses/atsc301/flux
 
      scipy.special.expn(3,the_tau))
 
-
-
 ```{code-cell} ipython3
 """
    plot 2*scipy.special.expn(3,the_tau))
@@ -105,7 +103,5 @@ nbgrader:
   schema_version: 2
   solution: true
 ---
-# YOUR CODE HERE
-#raise NotImplementedError()
-
+\
 ```
