@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-(a301_demo)=
+(rasterio_3bandsII)=
 # Rasterio II: clipping bands 3,4 and 5
 
 Learning objectives: be able to
@@ -35,9 +35,9 @@ What to look for:
 * Finding the upper-left hand corner of the 600, 400 subscene
 * Writing out the new 3-band geotiff with new tags
 
-* A301 takehome final part I
+## A301 takehome final part I
 
-  - {ref}`a301_final_part1`
+  - {ref}`a301_final_part1_demo`
 
 ```{code-cell} ipython3
 import copy
@@ -335,7 +335,7 @@ print(f"{profile=}")
 print(f"{transform=}")
 ```
 
-(a301_final_part1)=
+(a301_final_part1_demo)=
 ## Final exam part I
 
 
