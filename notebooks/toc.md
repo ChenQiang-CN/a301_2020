@@ -1,3 +1,4 @@
+
 * [week9/vancouver_visible](week9/vancouver_visible.md)  
 * [week9/landsat_image](week9/landsat_image.md)  
 * [week9/calc_ndvi](week9/calc_ndvi.md)  
@@ -11,4 +12,3 @@
 * [week11/hires_map](week11/hires_map.md)  
 * [week11/ndvi_fiona](week11/ndvi_fiona.md)  
 * [week11/features_demo](week11/features_demo.md)
-

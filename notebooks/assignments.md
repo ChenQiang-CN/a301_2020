@@ -28,4 +28,6 @@
 * {ref}`assign7b`: Due Wednesday, Dec. 2, 10am
   * {ref}`assign7b-solution`
 * {ref}`a301_final`: Due Friday, Dec. 11, midnight
+* {ref}`a301_demo`: A301 demo with final
+
 
