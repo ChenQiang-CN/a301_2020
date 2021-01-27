@@ -4,6 +4,7 @@ channels:
   - conda-forge
 dependencies:
   # specifies python, ipywidgets, jupyterhub-singleuser,jupyterlab
+  # see conda_base/conda_channel/recipe/meta.yaml
   - base-notebook=2021.01.23
   # NOTE: pip required for running tests in this repo
   - pip=20
