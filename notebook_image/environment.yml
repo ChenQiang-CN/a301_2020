@@ -1,0 +1,33 @@
+name: notebook
+channels:
+  - eoas_ubc
+  - conda-forge
+dependencies:
+  # specifies python, ipywidgets, jupyterhub-singleuser,jupyterlab
+  - base-notebook=2021.01.23
+  # NOTE: pip required for running tests in this repo
+  - pip=20
+  - numpy
+  - scipy
+  - a301_lib
+  - matplotlib
+  - netcdf4
+  - pyhdf
+  - hdf4
+  - h5py
+  - Pillow
+  - jupytext
+  - cartopy
+  - pyresample
+  - rasterio
+  - fiona
+  - pandas
+  - pytest
+  - pyepsg
+  - shapely
+  - scikit-image
+  - geopandas
+  - bs4
+  - requests
+  - conda-lock
+# conda-lock -f environment.yml -p linux-64

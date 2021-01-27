@@ -1,0 +1,34 @@
+{% set version = "2021.01.23" %}
+
+package:
+  name: base-notebook
+  version: {{ version }}
+
+build:
+  number: 1
+  noarch: generic
+
+requirements:
+  run:
+    - python ~=3.8
+    - ipywidgets ~=7.5
+    - jupyter-server-proxy ~=1.5
+    - jupyterhub-singleuser ~=1.3
+    - jupyterlab ~=3.0
+    - nbgitpuller ~=0.9
+    - nodejs ~=15.1
+
+test:
+  commands:
+    - jupyter -h
+
+about:
+  home: http://pangeo.io
+  license: MIT
+  license_file: LICENSE
+  summary: "a301 notebook dependencies"
+
+extra:
+  recipe-maintainers:
+    - phaustin
+

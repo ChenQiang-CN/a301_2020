@@ -6,8 +6,8 @@ version: '3.8'
 services:
     webserver:
       build: apache_image
-      image: phaustin/apache:oct10
-      container_name: apache_oct10
+      image: phaustin/apache:jan23
+      container_name: apache_jan23
       ports:
         - "${TEXT_PORT}:80"
       volumes:

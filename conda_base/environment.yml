@@ -1,0 +1,22 @@
+name: notebook
+channels:
+  - eoas_ubc
+  - conda-forge
+  - defaults
+dependencies:
+  - pip=20
+  - jupyterlab
+  - jupyterhub-singleuser
+  - nbgitpuller
+  - nodejs
+  - jupyter-server-proxy
+  - anaconda-client
+  - conda-verify
+  - conda-build
+  - jupyter-server-proxy >1.5,<1.6
+  - python ~=3.8
+# conda-lock -f environment.yml -p linux-64
+
+
+
+
